@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OberoniaAureaGene.Ratkin", "OberoniaAureaGene.Ratkin\OberoniaAureaGene.Ratkin.csproj", "{D3667693-C5DA-45FC-AA77-972C7D04B105}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C8107C0D-4859-44FE-BB15-ACAC9174C294} = {C8107C0D-4859-44FE-BB15-ACAC9174C294}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OberoniaAureaGene", "OberoniaAureaGene\OberoniaAureaGene.csproj", "{C8107C0D-4859-44FE-BB15-ACAC9174C294}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3667693-C5DA-45FC-AA77-972C7D04B105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3667693-C5DA-45FC-AA77-972C7D04B105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3667693-C5DA-45FC-AA77-972C7D04B105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3667693-C5DA-45FC-AA77-972C7D04B105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8107C0D-4859-44FE-BB15-ACAC9174C294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8107C0D-4859-44FE-BB15-ACAC9174C294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8107C0D-4859-44FE-BB15-ACAC9174C294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8107C0D-4859-44FE-BB15-ACAC9174C294}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17B84DC2-FC34-4FBC-9D9D-E0D2CA0F4C40}
+	EndGlobalSection
+EndGlobal

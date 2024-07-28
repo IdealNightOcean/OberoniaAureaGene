@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C8107C0D-4859-44FE-BB15-ACAC9174C294}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OberoniaAureaGene</RootNamespace>
+    <AssemblyName>OberoniaAureaGene</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>12.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\Game\SteamLibrary\steamapps\common\RimWorld\Mods\Ratkin Faction Gene Expand\1.5\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\RimWorld引用dll\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\RimWorld引用dll\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
+    <Compile Include="CompPawnGeneDamageModified.cs" />
+    <Compile Include="DefOf.cs" />
+    <Compile Include="ConditionalStatAffecter_MonarchyBased.cs" />
+    <Compile Include="Genes\Gene_BillInspiration.cs" />
+    <Compile Include="HarmonyPatch\IterationCompleted_Patch.cs" />
+    <Compile Include="HarmonyPatch\OpinionOffsetOfGroup_Patch.cs" />
+    <Compile Include="HediffComp_BloodLoss.cs" />
+    <Compile Include="Genes\Gene_BloodCellsAutophagy.cs" />
+    <Compile Include="Genes\Gene_IllnessFactor.cs" />
+    <Compile Include="Genes\Gene_PermanentChance.cs" />
+    <Compile Include="HarmonyPatch\CompBiosculpterPod_Patch.cs" />
+    <Compile Include="ConditionalStatAffecter_TemperatureRange.cs" />
+    <Compile Include="Buildings\Building_GeneExtractorBase.cs" />
+    <Compile Include="Dialog_CreateExtractGenes.cs" />
+    <Compile Include="Buildings\Building_RatkinReneDiscriminator.cs" />
+    <Compile Include="Buildings\Building_OARatkinGeneDiscriminator.cs" />
+    <Compile Include="Buildings\Building_RatkinDestructiveGeneExtractor.cs" />
+    <Compile Include="Buildings\Building_OAGeneFragmentInterceptor.cs" />
+    <Compile Include="Buildings\Building_EnterableBase.cs" />
+    <Compile Include="Genes\Gene_PartIncomingDamageFactor.cs" />
+    <Compile Include="Genes\Gene_SurivalInstic.cs" />
+    <Compile Include="HarmonyPatch\DiseaseContractChanceFactor_Patch.cs" />
+    <Compile Include="HarmonyPatch\PreFinalizeInjury_Patch.cs" />
+    <Compile Include="Thought\ThoughtWorker_MonarchyBased.cs" />
+    <Compile Include="Thought\ThoughtWorker_BloodLoss.cs" />
+    <Compile Include="Thought\ThoughtWorker_NaturalDiligence.cs" />
+    <Compile Include="Thought\ThoughtWorker_Drafted.cs" />
+    <Compile Include="Thought\ThoughtWorker_Gene_AgriculturalEnthusiasm.cs" />
+    <Compile Include="Genes\Gene_AgriculturalEnthusiasm.cs" />
+    <Compile Include="WorkGiver.cs" />
+    <Compile Include="ModExtension.cs" />
+    <Compile Include="Thought\Thought_SituationalGiveHediff.cs" />
+    <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
+    <Compile Include="Genes\Gene_FrailPhysique.cs" />
+    <Compile Include="Genes\Gene_GiveHediff.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
