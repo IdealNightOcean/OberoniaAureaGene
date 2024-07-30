@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -18,8 +19,9 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
         Pawn containedPawn = ContainedPawn;
         if (containedPawn != null)
         {
-            int num = new IntRange(2, 4).RandomInRange;
-            targetGenes.AddRange(containedPawn.genes.GenesListForReading.Select(g => g.def).InRandomOrder().Take(num));
+            List<GeneDef> tempGenes = containedPawn.genes.GenesListForReading.Select(g => g.def).ToList();
+            int num = new IntRange(2 + tempGenes.Count / 10, 5).RandomInRange;
+            targetGenes.AddRange(tempGenes.InRandomOrder().Take(num));
             foreach (GeneDef gene in targetGenes)
             {
                 Genepack genepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
