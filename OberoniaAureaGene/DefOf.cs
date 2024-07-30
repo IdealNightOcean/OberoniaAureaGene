@@ -6,15 +6,17 @@ namespace OberoniaAureaGene;
 [DefOf]
 public static class OberoniaAureaGeneDefOf
 {
+    public static HediffDef OAGene_BloodCellsAutophagy;
+    public static HediffDef OAGene_DeepSleep;
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
-    public static HediffDef OAGene_BloodCellsAutophagy;
 
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
     //public static GeneDef OAGene_SpecificHemogen;
     public static GeneDef OAGene_Suspicious;
     public static GeneDef OAGene_BillInspiration;
+
     static OberoniaAureaGeneDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OberoniaAureaGeneDefOf));
