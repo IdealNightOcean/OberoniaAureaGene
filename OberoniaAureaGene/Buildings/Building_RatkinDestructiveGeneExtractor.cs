@@ -10,7 +10,25 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
     protected override int TicksToExtract => 7500;
     public override void TryStartWork(Pawn pawn)
     {
-        StartWork(pawn);
+        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_ConfirmRipGenePawn".Translate(pawn.Named("PAWN")), delegate
+        {
+            StartWork(pawn);
+        }, destructive: true));
+    }
+    protected override void CancelWork()
+    {
+        if (ContainedPawn != null)
+        {
+            Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_ConfirmCancelRipGene".Translate(ContainedPawn.Named("PAWN")), delegate
+            {
+                KillContainedPawn(ContainedPawn);
+                base.CancelWork();
+            }, destructive: true));
+        }
+        else
+        {
+            base.CancelWork();
+        }
     }
 
     protected override void FinishWork()
@@ -28,13 +46,18 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
                 genepack.Initialize([gene]);
                 GenPlace.TryPlaceThing(genepack, placePos, map, ThingPlaceMode.Near);
             }
-            containedPawn.health.AddHediff(HediffDefOf.MissingBodyPart, containedPawn.health.hediffSet.GetBrain());
-            if (!containedPawn.Dead)
-            {
-                containedPawn.Kill(null);
-            }
-            Messages.Message("OAGene_PawnKilledDestructiveGeneExtract".Translate(containedPawn.Named("PAWN")), containedPawn, MessageTypeDefOf.NegativeHealthEvent);
+            KillContainedPawn(containedPawn);
         }
         base.FinishWork();
+    }
+
+    private static void KillContainedPawn(Pawn pawn)
+    {
+        pawn.health.AddHediff(HediffDefOf.MissingBodyPart, pawn.health.hediffSet.GetBrain());
+        if (!pawn.Dead)
+        {
+            pawn.Kill(null);
+        }
+        Messages.Message("OAGene_PawnKilledDestructiveGeneExtract".Translate(pawn.Named("PAWN")), pawn, MessageTypeDefOf.NegativeHealthEvent);
     }
 }
