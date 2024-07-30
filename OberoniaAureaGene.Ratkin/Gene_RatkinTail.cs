@@ -1,22 +1,14 @@
-﻿using Verse;
-
-namespace OberoniaAureaGene.Ratkin;
+﻿namespace OberoniaAureaGene.Ratkin;
 
 public class Gene_RatkinTail : Gene_GiveHediff
 {
     public override void PostAdd()
     {
+        if (pawn.def != OAGene_RatkinDefOf.Ratkin && pawn.def != OAGene_RatkinDefOf.Ratkin_Su)
+        {
+            pawn.genes.RemoveGene(this);
+            return;
+        }
         base.PostAdd();
-        RecachedGene(pawn);
-    }
-    public override void PostRemove()
-    {
-        base.PostRemove();
-        RecachedGene(pawn);
-    }
-    public static void RecachedGene(Pawn pawn)
-    {
-        Gene_RatkinEar gene_RatkinEar = pawn.genes.GetFirstGeneOfType<Gene_RatkinEar>();
-        gene_RatkinEar?.RecachedGene();
     }
 }

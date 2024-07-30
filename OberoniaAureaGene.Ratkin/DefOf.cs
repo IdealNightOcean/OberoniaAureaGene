@@ -9,9 +9,7 @@ public static class OAGene_RatkinDefOf
     public static ThingDef Ratkin;
     public static ThingDef Ratkin_Su;
 
-    //public static GeneDef OAGene_RatkinEar;
-    //public static GeneDef OAGene_RatkinTail;
-    //public static GeneDef OAGene_RatkinBody;
+    public static HediffDef OAGene_RatkinTail;
 
     static OAGene_RatkinDefOf()
     {
