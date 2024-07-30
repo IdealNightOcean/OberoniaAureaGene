@@ -5,13 +5,8 @@ using Verse;
 namespace OberoniaAureaGene;
 
 //王权本位
-public class ConditionalStatAffecter_MonarchyBased : ConditionalStatAffecter
+public class ConditionalStatAffecter_MonarchyBased : ConditionalStatAffecterBase
 {
-    [MustTranslate]
-    public string label;
-
-    public override string Label => label;
-
     public override bool Applies(StatRequest req)
     {
         if (!req.HasThing || req.Thing is not Pawn p)

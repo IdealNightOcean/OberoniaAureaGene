@@ -3,15 +3,10 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-public class ConditionalStatAffecter_TemperatureRange : ConditionalStatAffecter
+public class ConditionalStatAffecter_TemperatureRange : ConditionalStatAffecterBase
 {
-    [MustTranslate]
-    public string label;
-
     public float minTemperature = -99999f;
     public float maxTemperature = 99999f;
-
-    public override string Label => label;
 
     public override bool Applies(StatRequest req)
     {

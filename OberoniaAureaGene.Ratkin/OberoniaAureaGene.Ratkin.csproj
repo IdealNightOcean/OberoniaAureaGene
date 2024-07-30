@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="Gene_Ratkin.cs" />
+    <Compile Include="Gene_RatkinTail.cs" />
     <Compile Include="HarmonyPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
