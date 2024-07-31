@@ -9,7 +9,6 @@ namespace OberoniaAureaGene;
 public class JobDriver_GeneDiscriminat : JobDriver
 {
     //A：基因库   B：辨析仪   C：基因组
-    private Thing GeneBank => job.GetTarget(TargetIndex.A).Thing;
     private Building_GeneDiscriminatorBase GeneDiscriminat => job.GetTarget(TargetIndex.B).Thing as Building_GeneDiscriminatorBase;
     private CompGeneDiscriminat ContainerComp => GeneDiscriminat.TryGetComp<CompGeneDiscriminat>();
     private Genepack Genepack => (Genepack)job.GetTarget(TargetIndex.C).Thing;
@@ -55,7 +54,7 @@ public class JobDriver_GeneDiscriminat : JobDriver
             {
                 return true;
             }
-            return (!containerComp.autoLoad && (!containerComp.leftToLoad.Contains(Genepack) || Genepack.targetContainer != GeneDiscriminat)) ? true : false;
+            return !containerComp.autoLoad && (!containerComp.leftToLoad.Contains(Genepack) || Genepack.targetContainer != GeneDiscriminat);
         });
         yield return Toils_Goto.GotoThing(TargetIndex.C, PathEndMode.Touch).FailOnDespawnedNullOrForbidden(TargetIndex.C).FailOnSomeonePhysicallyInteracting(TargetIndex.C);
         yield return Toils_Haul.StartCarryThing(TargetIndex.C, putRemainderInQueue: false, subtractNumTakenFromJobCount: true);

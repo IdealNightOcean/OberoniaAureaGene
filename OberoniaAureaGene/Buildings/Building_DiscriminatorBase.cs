@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -34,7 +33,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
     protected Genepack ContainedGenepack => CompGeneDiscriminat.ContainedGenepacks.FirstOrFallback();
     public bool PowerOn => compPower.PowerOn;
     public bool Working => startTick >= 0;
-    public bool GenepackLoaded //材料是否装载完毕
+    public bool GenepackLoaded //基因组是否装载完毕
     {
         get
         {
@@ -163,7 +162,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                     Genepack containedGenepack = ContainedGenepack;
                     if (containedGenepack != null)
                     {
-                        Messages.Message("GeneExtractorNoPowerEjectedMessage".Translate(), containedGenepack, MessageTypeDefOf.NegativeEvent, historical: false);
+                        Messages.Message("OAGene_MessageGeneDiscriminatNoPowerEjected".Translate(), containedGenepack, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
                     CancelWork();
                     return;
@@ -204,7 +203,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         compGeneDiscriminat.EjectContents(base.Map);
         ticksRemaining = TicksToDiscriminat;
         targetGenepack = genepack;
-        targetGeneDef = geneDef; 
+        targetGeneDef = geneDef;
         if (targetGenepack != null)
         {
             targetGenepack.targetContainer = this;
@@ -222,7 +221,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         if (targetGenepack != null)
         {
             targetGenepack.targetContainer = null;
-        }     
+        }
         targetGenepack = null;
         targetGeneDef = null;
         compGeneDiscriminat.EjectContents(base.Map);
@@ -306,9 +305,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 };
                 yield return command_Action4;
             }
-
         }
-
     }
 
     public override string GetInspectString()

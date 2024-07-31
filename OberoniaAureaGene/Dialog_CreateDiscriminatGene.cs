@@ -8,28 +8,28 @@ using Verse.Sound;
 namespace OberoniaAureaGene;
 public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
 {
-    private Building_GeneDiscriminatorBase geneDiscriminator;
+    private readonly Building_GeneDiscriminatorBase geneDiscriminator;
 
-    private List<Genepack> libraryGenepacks = [];
+    private readonly List<Genepack> libraryGenepacks = [];
 
-    private List<Genepack> unpoweredGenepacks = [];
+    private readonly List<Genepack> unpoweredGenepacks = [];
 
     private Genepack selectedGenepack;
 
     private GeneDef selectedGene;
 
     protected override List<GeneDef> SelectedGenes => [selectedGene];
-    private HashSet<Genepack> matchingGenepacks = [];
+    private readonly HashSet<Genepack> matchingGenepacks = [];
 
     private readonly Color UnpoweredColor = new(0.5f, 0.5f, 0.5f, 0.5f);
 
-    private List<GeneDef> tmpGenes = [];
+    private readonly List<GeneDef> tmpGenes = [];
 
-    public override Vector2 InitialSize => new Vector2(1016f, UI.screenHeight);
+    public override Vector2 InitialSize => new(1016f, UI.screenHeight);
 
-    protected override string Header => "AssembleGenes".Translate();
+    protected override string Header => "OAGene_DiscriminatGenes".Translate();
 
-    protected override string AcceptButtonLabel => "StartCombining".Translate();
+    protected override string AcceptButtonLabel => "OAGene_StartDiscriminating".Translate();
 
 
     public Dialog_CreateDiscriminatGene(Building_GeneDiscriminatorBase geneDiscriminator)
@@ -82,15 +82,15 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
     protected override void DrawGenes(Rect rect)
     {
         GUI.BeginGroup(rect);
-        Rect rect2 = new Rect(0f, 0f, rect.width - 16f, scrollHeight);
+        Rect rect2 = new(0f, 0f, rect.width - 16f, scrollHeight);
         float curY = 0f;
         Widgets.BeginScrollView(rect.AtZero(), ref scrollPosition, rect2);
         Rect containingRect = rect2;
         containingRect.y = scrollPosition.y;
         containingRect.height = rect.height;
-        DrawSelectSection(rect, selectedGenepack, "SelectedGenepacks".Translate(), ref curY, ref selectedHeight, adding: false, containingRect);
+        DrawSelectSection(rect, selectedGenepack, "SelectedGenepacks".Translate(), ref curY, ref selectedHeight, containingRect);
         curY += 8f;
-        DrawLibrarySection(rect, libraryGenepacks, "GenepackLibrary".Translate(), ref curY, ref unselectedHeight, adding: true, containingRect);
+        DrawLibrarySection(rect, libraryGenepacks, "GenepackLibrary".Translate(), ref curY, ref unselectedHeight, containingRect);
         if (Event.current.type == EventType.Layout)
         {
             scrollHeight = curY;
@@ -98,7 +98,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         Widgets.EndScrollView();
         GUI.EndGroup();
     }
-    private void DrawSelectSection(Rect rect, Genepack genepack, string label, ref float curY, ref float sectionHeight, bool adding, Rect containingRect)
+    private void DrawSelectSection(Rect rect, Genepack genepack, string label, ref float curY, ref float sectionHeight, Rect containingRect)
     {
         float curX = 4f;
         Rect rect2 = new(10f, curY, rect.width - 16f - 10f, Text.LineHeight);
@@ -135,11 +135,16 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                     curX = 4f;
                     curY += GeneCreationDialogBase.GeneSize.y + 8f + 14f;
                 }
-                else if (DrawSelectedGene(gene, ref curX, curY, num2, containingRect))
+                if (selectedGene == gene)
+                {
+                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f), 2);
+                }
+                if (DrawSelectedGene(gene, ref curX, curY, num2, containingRect))
                 {
                     SoundDefOf.Tick_High.PlayOneShotOnCamera();
                     selectedGene = gene;
                 }
+
             }
         }
         curY += GeneCreationDialogBase.GeneSize.y + 12f;
@@ -149,7 +154,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         }
     }
 
-    private void DrawLibrarySection(Rect rect, List<Genepack> genepacks, string label, ref float curY, ref float sectionHeight, bool adding, Rect containingRect)
+    private void DrawLibrarySection(Rect rect, List<Genepack> genepacks, string label, ref float curY, ref float sectionHeight, Rect containingRect)
     {
         float curX = 4f;
         Rect rect2 = new(10f, curY, rect.width - 16f - 10f, Text.LineHeight);
@@ -173,6 +178,10 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             for (int i = 0; i < genepacks.Count; i++)
             {
                 Genepack genepack = genepacks[i];
+                if (genepack.GeneSet.GenesListForReading.Count < 2)
+                {
+                    continue;
+                }
                 if (quickSearchWidget.filter.Active && !matchingGenepacks.Contains(genepack))
                 {
                     continue;
@@ -185,8 +194,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 }
                 if (selectedGenepack == genepack)
                 {
-                    Widgets.DrawLightHighlight(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f));
-                    curX += num2 + 14f;
+                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f), 2);
                 }
                 if (DrawGenepack(genepack, ref curX, curY, num2, containingRect))
                 {
