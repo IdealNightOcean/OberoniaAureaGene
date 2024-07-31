@@ -44,7 +44,7 @@ public class WorkGiver_HaulToGeneDiscriminat : WorkGiver_Scanner
         Thing geneBank = building_GeneDiscriminator.GetTargetGeneBank();
         if (geneBank != null)
         {
-            Job job = JobMaker.MakeJob(JobDefOf.AbsorbXenogerm, geneBank, building_GeneDiscriminator, building_GeneDiscriminator.targetGenepack);
+            Job job = JobMaker.MakeJob(OberoniaAureaGeneDefOf.OAGene_HaluToDiscriminator, geneBank, building_GeneDiscriminator, building_GeneDiscriminator.targetGenepack);
             job.count = 1;
             return job;
         }

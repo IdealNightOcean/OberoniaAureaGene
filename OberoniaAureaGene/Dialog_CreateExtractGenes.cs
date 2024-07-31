@@ -33,10 +33,6 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
         pawnGenes.SortBy(g => 0f - g.displayCategory.displayPriorityInXenotype, g => g.displayCategory.label, g => g.displayOrderInCategory);
     }
 
-    public override void PostOpen()
-    {
-        base.PostOpen();
-    }
     protected override void Accept()
     {
         geneExtractor.StartWork(extractPawn, selectedGenes);

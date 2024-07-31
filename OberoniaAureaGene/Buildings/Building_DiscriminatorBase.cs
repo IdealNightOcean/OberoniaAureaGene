@@ -8,17 +8,19 @@ using Verse.Sound;
 
 namespace OberoniaAureaGene;
 
-public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
+public abstract class Building_GeneDiscriminatorBase : Building
 {
     public Genepack targetGenepack;
     protected GeneDef targetGeneDef;
-    public ThingOwner innerContainer;
     protected int startTick = -1;
     protected int ticksRemaining;
     protected int powerCutTicks;
     protected virtual int TicksToDiscriminat => 30000;
 
     protected CompPowerTrader compPower;
+    protected CompGeneDiscriminat compGeneDiscriminat;
+    public CompGeneDiscriminat CompGeneDiscriminat => compGeneDiscriminat;
+
     protected IntVec3 placePos;
 
     [Unsaved(false)]
@@ -29,7 +31,7 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
 
     protected static int NoPowerEjectCumulativeTicks = 60000;
     protected virtual int AllTicks => 0;
-    protected Genepack ContainedGenepack => innerContainer.FirstOrDefault() as Genepack;
+    protected Genepack ContainedGenepack => CompGeneDiscriminat.ContainedGenepacks.FirstOrFallback();
     public bool PowerOn => compPower.PowerOn;
     public bool Working => startTick >= 0;
     public bool GenepackLoaded //材料是否装载完毕
@@ -44,15 +46,7 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
             {
                 return false;
             }
-            if (ContainedGenepack == targetGenepack)
-            {
-                if (!Working)
-                {
-                    startTick = Find.TickManager.TicksGame;
-                }
-                return true;
-            };
-            return false;
+            return true;
         }
     }
 
@@ -129,23 +123,11 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
         return null;
     }
 
-    public Building_GeneDiscriminatorBase()
-    {
-        innerContainer = new ThingOwner<Thing>(this);
-    }
-    public void GetChildHolders(List<IThingHolder> outChildren)
-    {
-        ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, GetDirectlyHeldThings());
-    }
-    public ThingOwner GetDirectlyHeldThings()
-    {
-        return innerContainer;
-    }
-
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);
         compPower = this.TryGetComp<CompPowerTrader>();
+        compGeneDiscriminat = this.TryGetComp<CompGeneDiscriminat>();
         placePos = base.def.hasInteractionCell ? InteractionCell : base.Position;
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
@@ -213,12 +195,22 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
         progressBar?.Cleanup();
         progressBar = null;
     }
-
+    public virtual void Notify_GenepackLoaded()
+    {
+        startTick = Find.TickManager.TicksGame;
+    }
     public virtual void TryStartWork(Genepack genepack, GeneDef geneDef)
     {
+        compGeneDiscriminat.EjectContents(base.Map);
         ticksRemaining = TicksToDiscriminat;
         targetGenepack = genepack;
-        targetGeneDef = geneDef;
+        targetGeneDef = geneDef; 
+        if (targetGenepack != null)
+        {
+            targetGenepack.targetContainer = this;
+        }
+        compGeneDiscriminat.leftToLoad.Add(targetGenepack);
+        compGeneDiscriminat.autoLoad = true;
     }
 
     protected virtual void CancelWork()
@@ -227,14 +219,24 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
         sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
+        if (targetGenepack != null)
+        {
+            targetGenepack.targetContainer = null;
+        }     
         targetGenepack = null;
         targetGeneDef = null;
-        innerContainer.TryDropAll(def.hasInteractionCell ? InteractionCell : base.Position, base.Map, ThingPlaceMode.Near);
+        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.autoLoad = false;
     }
 
     protected virtual void FinishWork()
     {
-        innerContainer.TryDropAll(placePos, base.Map, ThingPlaceMode.Near);
+        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.autoLoad = false;
+        if (targetGenepack != null)
+        {
+            targetGenepack.targetContainer = null;
+        }
         targetGenepack = null;
         targetGeneDef = null;
         sustainerWorking = null;
@@ -282,7 +284,7 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
                 {
                     defaultLabel = "OAGene_CommandLoadDiscriminator".Translate(),
                     defaultDesc = "OAGene_CommandLoadDiscriminatorDesc".Translate(),
-                    icon = IconUtility.CancelIcon,
+                    icon = IconUtility.RecombineIcon,
                     activateSound = SoundDefOf.Designate_Cancel,
                     action = delegate
                     {
@@ -318,7 +320,7 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
     protected virtual string PostGetInspectString()
     {
         StringBuilder text = new();
-        if (targetGenepack != null && innerContainer.Count == 0)
+        if (targetGenepack != null && !compGeneDiscriminat.Full)
         {
             text.AppendInNewLine("OAGene_WaitingForGenePack".Translate().Resolve());
         }
@@ -340,7 +342,6 @@ public abstract class Building_GeneDiscriminatorBase : Building, IThingHolder
     {
         base.ExposeData();
         Scribe_Values.Look(ref startTick, "startTick", 0);
-        Scribe_Deep.Look(ref innerContainer, "innerContainer", this);
         Scribe_References.Look(ref targetGenepack, "targetGenepack");
         Scribe_Defs.Look(ref targetGeneDef, "targetGeneDef");
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);

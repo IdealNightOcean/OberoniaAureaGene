@@ -129,7 +129,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             for (int i = 0; i < tmpSelectedGenes.Count; i++)
             {
                 GeneDef gene = tmpSelectedGenes[i];
-                float num2 = 34f + GeneCreationDialogBase.GeneSize.x * (float)genepack.GeneSet.GenesListForReading.Count + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
+                float num2 = 34f + GeneCreationDialogBase.GeneSize.x + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;
@@ -173,7 +173,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             for (int i = 0; i < genepacks.Count; i++)
             {
                 Genepack genepack = genepacks[i];
-                if (quickSearchWidget.filter.Active && (!matchingGenepacks.Contains(genepack) || selectedGenepack == genepack))
+                if (quickSearchWidget.filter.Active && !matchingGenepacks.Contains(genepack))
                 {
                     continue;
                 }
@@ -191,11 +191,15 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 if (DrawGenepack(genepack, ref curX, curY, num2, containingRect))
                 {
                     SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                    if (selectedGenepack != genepack)
+                    if (selectedGenepack == genepack)
+                    {
+                        selectedGenepack = null;
+                    }
+                    else
                     {
                         selectedGenepack = genepack;
-                        selectedGene = null;
                     }
+                    selectedGene = null;
                     break;
                 }
             }
@@ -358,6 +362,17 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         return true;
     }
 
+    protected override void OnGenesChanged()
+    {
+        randomChosenGroups.Clear();
+        leftChosenGroups.Clear();
+        cachedOverriddenGenes.Clear();
+        cachedUnoverriddenGenes.Clear();
+        tmpGenesWithType.Clear();
+        gcx = 0;
+        met = 0;
+        arc = 0;
+    }
     protected override void UpdateSearchResults()
     {
         quickSearchWidget.noResultsMatched = false;
