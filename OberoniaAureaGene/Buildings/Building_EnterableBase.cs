@@ -37,6 +37,9 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
     public override Vector3 PawnDrawOffset => IntVec3.West.RotatedBy(base.Rotation).ToVector3() / def.size.x;
 
+    protected virtual string CommandInsertPersonStr => "OAGene_InsertPerson".Translate();
+    protected virtual string CommandInsertPersonDescStr => "OAGene_InsertPersonDesc".Translate();
+
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);

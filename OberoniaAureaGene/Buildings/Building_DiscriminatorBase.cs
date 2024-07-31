@@ -209,7 +209,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
             targetGenepack.targetContainer = this;
         }
         compGeneDiscriminat.leftToLoad.Add(targetGenepack);
-        compGeneDiscriminat.autoLoad = true;
+        compGeneDiscriminat.autoLoad = false;
     }
 
     protected virtual void CancelWork()
