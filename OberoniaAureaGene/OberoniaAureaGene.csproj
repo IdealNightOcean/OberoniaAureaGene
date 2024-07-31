@@ -63,10 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
+    <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
     <Compile Include="DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
+    <Compile Include="Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
     <Compile Include="HarmonyPatch\IterationCompleted_Patch.cs" />
@@ -79,7 +81,7 @@
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_TemperatureRange.cs" />
     <Compile Include="Buildings\Building_GeneExtractorBase.cs" />
     <Compile Include="Dialog_CreateExtractGenes.cs" />
-    <Compile Include="Buildings\Building_RatkinReneDiscriminator.cs" />
+    <Compile Include="Buildings\Building_RatkinGeneDiscriminator.cs" />
     <Compile Include="Buildings\Building_OARatkinGeneDiscriminator.cs" />
     <Compile Include="Buildings\Building_RatkinDestructiveGeneExtractor.cs" />
     <Compile Include="Buildings\Building_OAGeneFragmentInterceptor.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Genes\Gene_SurivalInstic.cs" />
     <Compile Include="HarmonyPatch\DiseaseContractChanceFactor_Patch.cs" />
     <Compile Include="HarmonyPatch\PreFinalizeInjury_Patch.cs" />
+    <Compile Include="JobDriver_GeneDiscriminat.cs" />
     <Compile Include="Thought\ThoughtWorker_MonarchyBased.cs" />
     <Compile Include="Thought\ThoughtWorker_BloodLoss.cs" />
     <Compile Include="Thought\ThoughtWorker_NaturalDiligence.cs" />
