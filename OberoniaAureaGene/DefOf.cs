@@ -15,7 +15,7 @@ public static class OberoniaAureaGeneDefOf
 
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
-    //public static GeneDef OAGene_SpecificHemogen;
+    public static GeneDef OAGene_SpecificHemogen;
     public static GeneDef OAGene_Suspicious;
     public static GeneDef OAGene_BillInspiration;
 
