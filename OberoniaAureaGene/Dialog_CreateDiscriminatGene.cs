@@ -129,6 +129,10 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             for (int i = 0; i < tmpSelectedGenes.Count; i++)
             {
                 GeneDef gene = tmpSelectedGenes[i];
+                if (gene.biostatArc > 0)
+                {
+                    continue;
+                }
                 float num2 = 34f + GeneCreationDialogBase.GeneSize.x + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
@@ -144,7 +148,6 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                     SoundDefOf.Tick_High.PlayOneShotOnCamera();
                     selectedGene = gene;
                 }
-
             }
         }
         curY += GeneCreationDialogBase.GeneSize.y + 12f;

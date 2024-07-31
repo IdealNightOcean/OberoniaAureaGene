@@ -38,6 +38,10 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
     public override Vector3 PawnDrawOffset => Vector3.zero;
 
+    protected virtual string CommandInsertPersonStr => "OAGene_InsertPerson".Translate();
+    protected virtual string CommandInsertPersonDescStr => "OAGene_InsertPersonDesc".Translate();
+
+
     public override void PostPostMake()
     {
         if (!ModLister.CheckBiotech("gene extractor"))
@@ -331,8 +335,8 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         }
         Command_Action command_Action4 = new()
         {
-            defaultLabel = "InsertPerson".Translate() + "...",
-            defaultDesc = "InsertPersonGeneExtractorDesc".Translate(),
+            defaultLabel = CommandInsertPersonStr,
+            defaultDesc = CommandInsertPersonDescStr,
             icon = IconUtility.InsertPawnIcon,
             action = FloatMenu_InsertPerson,
         };

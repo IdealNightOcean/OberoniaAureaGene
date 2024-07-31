@@ -7,8 +7,8 @@ namespace OberoniaAureaGene;
 
 public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBase
 {
-    protected virtual string CommandInsertPersonStr => "OAGene_DestructiveGeneExtractorInsert".Translate();
-    protected virtual string CommandInsertPersonDescStr => "OAGene_DestructiveGeneExtractorInsertDesc".Translate();
+    protected override string CommandInsertPersonStr => "OAGene_DestructiveGeneExtractorInsert".Translate();
+    protected override string CommandInsertPersonDescStr => "OAGene_DestructiveGeneExtractorInsertDesc".Translate();
     protected override int TicksToExtract => 7500;
     public override void TryStartWork(Pawn pawn)
     {
