@@ -69,7 +69,7 @@
     <Compile Include="DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Dialog_CreateDiscriminatGene.cs" />
-    <Compile Include="CompGeneDiscriminat.cs" />
+    <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
     <Compile Include="HarmonyPatch\BloodfeederBite_Patch.cs" />
