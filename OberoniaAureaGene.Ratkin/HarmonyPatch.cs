@@ -5,7 +5,6 @@ using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
-
 [UsedImplicitly]
 [StaticConstructorOnStartup]
 public static class ModHarmonyPatch

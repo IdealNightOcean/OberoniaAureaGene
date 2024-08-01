@@ -31,11 +31,11 @@ public class Building_RatkinGeneDiscriminator : Building_GeneDiscriminatorBase
         }
         if (success)
         {
-            Messages.Message("GeneExtractionComplete".Translate() + ": " + targetGeneDef.label.CapitalizeFirst(), targetGenepack, MessageTypeDefOf.PositiveEvent);
+            Messages.Message("OAGene_GeneDiscriminationComplete".Translate() + ": " + targetGeneDef.label.CapitalizeFirst(), targetGenepack, MessageTypeDefOf.PositiveEvent);
         }
         else
         {
-            Messages.Message("OAGene_GeneExtractionFail".Translate().CapitalizeFirst(), targetGenepack, MessageTypeDefOf.NegativeEvent);
+            Messages.Message("OAGene_GeneDiscriminationFail".Translate().CapitalizeFirst(), targetGenepack, MessageTypeDefOf.NegativeEvent);
         }
         base.FinishWork();
     }
