@@ -4,7 +4,7 @@ using Verse;
 using Verse.AI;
 using Verse.Sound;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 public class JobDriver_GeneDiscriminat : JobDriver
 {

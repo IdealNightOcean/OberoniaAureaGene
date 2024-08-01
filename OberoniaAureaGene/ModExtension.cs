@@ -3,12 +3,6 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-public class WorkGiverHaulToExtension : DefModExtension
-{
-    public ThingDef thingDef;
-
-}
-
 public class GeneExtension : DefModExtension
 {
     public HediffDef hediffToWholeBody;

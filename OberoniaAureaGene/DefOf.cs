@@ -11,8 +11,6 @@ public static class OberoniaAureaGeneDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
-    public static JobDef OAGene_HaluToDiscriminator;
-
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
     public static GeneDef OAGene_SpecificHemogen;

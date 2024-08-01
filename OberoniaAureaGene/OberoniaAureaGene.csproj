@@ -94,14 +94,12 @@
     <Compile Include="Genes\Gene_SurivalInstic.cs" />
     <Compile Include="HarmonyPatch\DiseaseContractChanceFactor_Patch.cs" />
     <Compile Include="HarmonyPatch\PreFinalizeInjury_Patch.cs" />
-    <Compile Include="JobDriver_GeneDiscriminat.cs" />
     <Compile Include="Thought\ThoughtWorker_MonarchyBased.cs" />
     <Compile Include="Thought\ThoughtWorker_BloodLoss.cs" />
     <Compile Include="Thought\ThoughtWorker_NaturalDiligence.cs" />
     <Compile Include="Thought\ThoughtWorker_Drafted.cs" />
     <Compile Include="Thought\ThoughtWorker_Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="Genes\Gene_AgriculturalEnthusiasm.cs" />
-    <Compile Include="WorkGiver.cs" />
     <Compile Include="ModExtension.cs" />
     <Compile Include="Thought\Thought_SituationalGiveHediff.cs" />
     <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
