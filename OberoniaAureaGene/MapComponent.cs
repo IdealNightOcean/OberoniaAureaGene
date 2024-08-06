@@ -1,10 +1,6 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -15,17 +11,17 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     public int cachedEnemiesCount;
     public int cachedHostileSitesCount;
 
-    public MapComponent_OberoniaAureaGene(Map map):base(map)
+    public MapComponent_OberoniaAureaGene(Map map) : base(map)
     { }
 
     public override void MapComponentTick()
     {
-        if(!ModsConfig.IdeologyActive)
+        if (!ModsConfig.IdeologyActive)
         {
             return;
         }
         ticksRemaining--;
-        if(ticksRemaining<0)
+        if (ticksRemaining < 0)
         {
             PeriodicCheck();
             ticksRemaining = 30000;
@@ -35,7 +31,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     private void PeriodicCheck()
     {
-        cachedEnemiesCount = EnemiesCountOfFactionOnMap(map,Faction.OfPlayer);
+        cachedEnemiesCount = EnemiesCountOfFactionOnMap(map, Faction.OfPlayer);
         cachedHostileSitesCount = HostileCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
     }
     public override void ExposeData()
@@ -46,7 +42,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);
     }
 
-    public static int HostileCountOfFactionOnWorld(int tile, Faction faction,float maxTileDistance) //map上是否有faction派系的敌人
+    public static int HostileCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance) //map上是否有faction派系的敌人
     {
         WorldGrid worldGrid = Find.WorldGrid;
         var potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Spawned && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);

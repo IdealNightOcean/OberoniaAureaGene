@@ -27,7 +27,7 @@ public class Gene_BillInspiration : Gene
 
     public void TryGetBillInspiration()
     {
-        if(Cooling)
+        if (Cooling)
         {
             return;
         }

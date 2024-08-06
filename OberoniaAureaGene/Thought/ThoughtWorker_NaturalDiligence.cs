@@ -7,7 +7,7 @@ public class ThoughtWorker_IfWorking : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
-        if(p.timetable == null)
+        if (p.timetable == null)
         {
             return ThoughtState.Inactive;
         }

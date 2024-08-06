@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using RimWorld;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -25,10 +24,6 @@ public static class IterationCompleted_Patch
             return;
         }
         Gene_BillInspiration gene = (Gene_BillInspiration)pawn.genes.GetGene(OberoniaAureaGeneDefOf.OAGene_BillInspiration);
-        if (gene == null)
-        {
-            return;
-        }
-        gene.TryGetBillInspiration();
+        gene?.TryGetBillInspiration();
     }
 }
