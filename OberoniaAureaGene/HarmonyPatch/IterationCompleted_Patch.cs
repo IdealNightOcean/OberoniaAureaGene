@@ -24,30 +24,10 @@ public static class IterationCompleted_Patch
             return;
         }
         Gene_BillInspiration gene = (Gene_BillInspiration)pawn.genes.GetGene(OberoniaAureaGeneDefOf.OAGene_BillInspiration);
-        if (gene == null || gene.Cooling)
+        if (gene == null)
         {
             return;
         }
-        if (!InspirationDefOf.Inspired_Creativity.Worker.InspirationCanOccur(pawn))
-        {
-            return;
-        }
-        if (pawn.mindState.inspirationHandler.Inspired)
-        {
-            return;
-        }
-        float chance = 0.01f;
-        Need_Mood pawnMood = pawn.needs.mood;
-        if (pawnMood != null)
-        {
-            float validPercentage = (pawnMood.CurInstantLevelPercentage - 0.5f) * 0.1f;
-            chance += validPercentage > 0f ? validPercentage : 0f;
-        }
-        if (Rand.Chance(chance))
-        {
-            pawn.mindState.inspirationHandler.TryStartInspiration(InspirationDefOf.Inspired_Creativity, "OAGene_LetterBillInspiration".Translate(pawn.Named("PAWN")));
-            gene.Notify_SuccessfullyInspired();
-        }
-
+        gene.TryGetBillInspiration();
     }
 }
