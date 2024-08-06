@@ -24,9 +24,13 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (ticksRemaining < 0)
         {
             PeriodicCheck();
-            ticksRemaining = 30000;
+            ticksRemaining = 15000;
         }
+    }
 
+    public void QuickCheck()
+    {
+        ticksRemaining = 600;
     }
 
     private void PeriodicCheck()
@@ -42,16 +46,15 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);
     }
 
-    public static int HostileCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance) //map上是否有faction派系的敌人
+    public static int HostileCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
     {
         WorldGrid worldGrid = Find.WorldGrid;
         var potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Spawned && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);
         return potentiallyDangerous.Count();
     }
-    public static int EnemiesCountOfFactionOnMap(Map map, Faction faction) //map上是否有faction派系的敌人
+    public static int EnemiesCountOfFactionOnMap(Map map, Faction faction)
     {
-        var potentiallyDangerous = map.mapPawns.AllPawnsSpawned.Where(p => !p.Dead && !p.IsPrisoner && !p.Downed && !p.InContainerEnclosed).ToArray();
-        var hostileFactions = potentiallyDangerous.Where(p => p.Faction != null).Select(p => p.Faction).Where(f => f.HostileTo(faction)).ToArray();
-        return hostileFactions.Count();
+        var potentiallyDangerous = map.mapPawns.AllPawnsSpawned.Where(p => !p.DeadOrDowned && !p.IsPrisoner && !p.InContainerEnclosed && p.Faction != faction && p.HostileTo(faction)).ToArray();
+        return potentiallyDangerous.Count();
     }
 }

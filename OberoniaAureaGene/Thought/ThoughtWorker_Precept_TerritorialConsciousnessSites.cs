@@ -11,7 +11,7 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessSites : ThoughtWorker
         {
             return ThoughtState.Inactive;
         }
-        if (!p.Spawned || p.Map == null)
+        if (!p.Spawned || p.Map == null || p.Faction != Faction.OfPlayer)
         {
             return ThoughtState.Inactive;
         }
