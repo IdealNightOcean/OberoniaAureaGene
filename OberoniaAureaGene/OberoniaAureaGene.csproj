@@ -70,6 +70,7 @@
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
+    <Compile Include="MapComponent.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
     <Compile Include="HarmonyPatch\BloodfeederBite_Patch.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="Genes\Gene_SurivalInstic.cs" />
     <Compile Include="HarmonyPatch\DiseaseContractChanceFactor_Patch.cs" />
     <Compile Include="HarmonyPatch\PreFinalizeInjury_Patch.cs" />
+    <Compile Include="Thought\ThoughtWorker_Precept_TerritorialConsciousnessSites.cs" />
+    <Compile Include="Thought\ThoughtWorker_Precept_TerritorialConsciousnessEnemies.cs" />
     <Compile Include="Thought\ThoughtWorker_MonarchyBased.cs" />
     <Compile Include="Thought\ThoughtWorker_BloodLoss.cs" />
     <Compile Include="Thought\ThoughtWorker_NaturalDiligence.cs" />
