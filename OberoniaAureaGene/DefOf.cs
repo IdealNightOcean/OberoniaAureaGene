@@ -11,6 +11,11 @@ public static class OberoniaAureaGeneDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
+    [MayRequireIdeology]
+    public static HistoryEventDef OAGene_ThreatBig;
+    [MayRequireIdeology]
+    public static HistoryEventDef OAGene_PlayerThreatBig;
+
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
     public static GeneDef OAGene_SpecificHemogen;
