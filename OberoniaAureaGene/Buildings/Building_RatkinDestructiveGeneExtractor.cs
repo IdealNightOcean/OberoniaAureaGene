@@ -40,7 +40,7 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
         if (containedPawn != null)
         {
             List<GeneDef> tempGenes = containedPawn.genes.GenesListForReading.Select(g => g.def).ToList();
-            int num = new IntRange(2 + tempGenes.Count / 10, 5).RandomInRange;
+            int num = new IntRange(2 + tempGenes.Count / 5, 6).RandomInRange;
             targetGenes.AddRange(tempGenes.InRandomOrder().Take(num));
             foreach (GeneDef gene in targetGenes)
             {

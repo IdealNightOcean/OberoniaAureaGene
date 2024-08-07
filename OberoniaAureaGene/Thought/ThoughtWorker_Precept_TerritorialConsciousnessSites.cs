@@ -11,11 +11,11 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessSites : ThoughtWorker
         {
             return ThoughtState.Inactive;
         }
-        if (!p.Spawned || p.Map == null || p.Faction != Faction.OfPlayer)
+        if (!p.Spawned || p.Faction != Faction.OfPlayer)
         {
             return ThoughtState.Inactive;
         }
-        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map.GetComponent<MapComponent_OberoniaAureaGene>();
+        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map?.GetComponent<MapComponent_OberoniaAureaGene>();
         if (oaGene_MCOAG == null)
         {
             return ThoughtState.Inactive;
