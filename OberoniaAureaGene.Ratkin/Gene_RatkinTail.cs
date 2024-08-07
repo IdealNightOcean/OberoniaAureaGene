@@ -4,7 +4,7 @@ public class Gene_RatkinTail : Gene_GiveHediff
 {
     public override void PostAdd()
     {
-        if (pawn.def != OAGene_RatkinDefOf.Ratkin && pawn.def != OAGene_RatkinDefOf.Ratkin_Su)
+        if (!pawn.IsRatkin())
         {
             pawn.genes.RemoveGene(this);
             return;

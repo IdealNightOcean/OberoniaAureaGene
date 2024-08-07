@@ -6,10 +6,11 @@ public class Gene_RatkinBase : Gene
 {
     public override void PostAdd()
     {
-        base.PostAdd();
-        if (pawn.def != OAGene_RatkinDefOf.Ratkin && pawn.def != OAGene_RatkinDefOf.Ratkin_Su)
+        if (!pawn.IsRatkin())
         {
             pawn.genes.RemoveGene(this);
+            return;
         }
+        base.PostAdd();
     }
 }
