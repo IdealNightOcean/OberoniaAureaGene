@@ -6,25 +6,27 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(StoryState), "Notify_IncidentFired")]
-public static class StoryState_Patch
-{
+[HarmonyPatch(typeof(IncidentWorker), "TryExecute")]
+
+public static class TryExecute_Patch
+{   
     [HarmonyPostfix]
-    public static void Postfix(FiringIncident fi)
+    public static void Postfix(ref IncidentWorker __instance,ref bool __result, IncidentParms parms)
     {
-        if (!ModsConfig.IdeologyActive)
+        if (!ModsConfig.IdeologyActive || !__result)
         {
             return;
         }
-        if (fi.def.category != IncidentCategoryDefOf.ThreatBig)
+        if(__instance.def.category != IncidentCategoryDefOf.ThreatBig)
         {
             return;
         }
-        if (fi.parms.target is Map map)
+        if(parms.target is Map map)
         {
             Notify_ThreatBigEvent(map);
         }
     }
+
     private static void Notify_ThreatBigEvent(Map map)
     {
         var aliveColonists = map.mapPawns.FreeColonists.Where(p => !p.Dead);

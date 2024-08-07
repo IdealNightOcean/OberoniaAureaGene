@@ -70,7 +70,7 @@
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
-    <Compile Include="HarmonyPatch\StoryState_Patch.cs" />
+    <Compile Include="HarmonyPatch\IncidentWorker_TryExecute_Patch.cs" />
     <Compile Include="MapComponent.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
