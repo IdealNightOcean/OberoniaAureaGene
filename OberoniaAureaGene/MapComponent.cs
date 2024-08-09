@@ -17,8 +17,8 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     protected int cachedHegemonicFlagCount;
     public int HegemonicFlagCount
     {
-        get { return cachedEnemiesCount; }
-        set { cachedEnemiesCount = value > 0 ? value : 0; }
+        get { return cachedHegemonicFlagCount; }
+        set { cachedHegemonicFlagCount = value > 0 ? value : 0; }
     }
     public bool HasHegemonicFlag => cachedHegemonicFlagCount > 0;
 
@@ -49,8 +49,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (raidCheckTicks <= 0)
         {
             TryExcuteRaid();
-            //raidCheckTicks = 300000;
-            raidCheckTicks = 2500;
+            raidCheckTicks = 300000;
         }
 
     }
@@ -76,15 +75,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         {
             return;
         }
-        Log.Message("raid2");
-        IncidentParms incidentParms0 = new()
-        {
-            target = map,
-            faction = Find.FactionManager.RandomRaidableEnemyFaction(allowNonHumanlike: false),
-            points = StorytellerUtility.DefaultThreatPointsNow(map),
-
-        };
-        IncidentDefOf.RaidEnemy.Worker.TryExecute(incidentParms0);
         if (Rand.Chance(0.4f))
         {
             IncidentParms incidentParms = new()
