@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
 using Verse;
 using Verse.AI;
@@ -24,11 +25,11 @@ public class Gene_SurivalInstic : Gene
         float minDistance = TryGetValidTarget(pawn);
         if (minDistance <= 10f)
         {
-            OAGeneUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_SurvivalInstinct, 2.0f, 500);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_SurvivalInstinct, 2.0f, 500);
         }
         else if (minDistance <= 20f)
         {
-            OAGeneUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_SurvivalInstinct, 1.0f, 500);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_SurvivalInstinct, 1.0f, 500);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using OberoniaAurea_Frame;
+using Verse;
 
 namespace OberoniaAureaGene;
 
@@ -19,7 +20,7 @@ public class Gene_DeepSleep : Gene
         }
         if (pawn.jobs.curDriver.asleep)
         {
-            OAGeneUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
         }
     }
 }

@@ -2,6 +2,7 @@
 using RimWorld.Planet;
 using System.Linq;
 using Verse;
+using OberoniaAurea_Frame;
 
 namespace OberoniaAureaGene;
 
@@ -35,7 +36,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     private void PeriodicCheck()
     {
-        cachedEnemiesCount = EnemiesCountOfFactionOnMap(map, Faction.OfPlayer);
+        cachedEnemiesCount = OberoniaAureaFrameUtility.EnemiesCountOfFactionOnMap(map, Faction.OfPlayer);
         cachedHostileSitesCount = HostileCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
     }
     public override void ExposeData()
@@ -50,11 +51,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     {
         WorldGrid worldGrid = Find.WorldGrid;
         var potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Spawned && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);
-        return potentiallyDangerous.Count();
-    }
-    public static int EnemiesCountOfFactionOnMap(Map map, Faction faction)
-    {
-        var potentiallyDangerous = map.mapPawns.AllPawnsSpawned.Where(p => !p.DeadOrDowned && !p.IsPrisoner && !p.InContainerEnclosed && p.Faction != faction && p.HostileTo(faction)).ToArray();
         return potentiallyDangerous.Count();
     }
 }

@@ -40,6 +40,9 @@
       <HintPath>..\..\..\RimWorld引用dll\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="OberoniaAurea_Frame">
+      <HintPath>..\..\OberoniaAurea_Frame\release\OberoniaAurea_Frame.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +73,7 @@
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
+    <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="HarmonyPatch\IncidentWorker_TryExecute_Patch.cs" />
     <Compile Include="MapComponent.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />

@@ -1,10 +1,5 @@
 ﻿using HarmonyLib;
 using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
@@ -17,7 +12,7 @@ public static class ImplantXenogermItem_Patch
     [HarmonyPrefix]
     public static bool Prefix(Pawn pawn, Xenogerm xenogerm)
     {
-        if(pawn.IsRatkin())
+        if (pawn.IsRatkin())
         {
             RatkinImplantXenogermItem(pawn, xenogerm);
             return false;

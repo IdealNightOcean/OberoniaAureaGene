@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using Verse;
+using OberoniaAurea_Frame;
 
 namespace OberoniaAureaGene;
 
@@ -17,7 +18,7 @@ public class Gene_BloodCellsAutophagy : Gene
         Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
         if (hediff != null && hediff.Severity > 0.05)
         {
-            OAGeneUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_BloodCellsAutophagy, overrideDisappearTicks: 30000);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_BloodCellsAutophagy, overrideDisappearTicks: 30000);
         }
     }
 }

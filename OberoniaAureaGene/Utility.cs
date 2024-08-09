@@ -5,28 +5,7 @@ namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
 public static class OAGeneUtility
-{
-    public static void AdjustOrAddHediff(Pawn pawn, HediffDef hediffDef, float severity = -1, int overrideDisappearTicks = -1, BodyPartRecord part = null, DamageInfo? dinfo = null, DamageWorker.DamageResult result = null)
-    {
-        Hediff hediff = pawn.health.GetOrAddHediff(hediffDef, part, dinfo, result);
-        if (hediff == null)
-        {
-            return;
-        }
-        if (severity > 0)
-        {
-            hediff.Severity = severity;
-        }
-        if (overrideDisappearTicks > 0)
-        {
-            HediffComp_Disappears comp = hediff.TryGetComp<HediffComp_Disappears>();
-            if (comp != null)
-            {
-                comp.ticksToDisappear = overrideDisappearTicks;
-            }
-        }
-    }
-}
+{ }
 
 [StaticConstructorOnStartup]
 public static class IconUtility
