@@ -16,7 +16,7 @@ public class Gene_IllnessFactor : Gene
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             illnessFactor = def.GetModExtension<GeneExtension>()?.illnessFactor ?? 1f;
-            Log.Message("illnessFactor:" + illnessFactor);
+            //Log.Message("illnessFactor:" + illnessFactor);
         }
     }
 }

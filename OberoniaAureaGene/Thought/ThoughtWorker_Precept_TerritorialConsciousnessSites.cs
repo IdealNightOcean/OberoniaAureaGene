@@ -7,10 +7,6 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessSites : ThoughtWorker
 {
     protected override ThoughtState ShouldHaveThought(Pawn p)
     {
-        if (!ModsConfig.IdeologyActive)
-        {
-            return ThoughtState.Inactive;
-        }
         if (!p.Spawned || p.Faction != Faction.OfPlayer)
         {
             return ThoughtState.Inactive;
@@ -20,7 +16,7 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessSites : ThoughtWorker
         {
             return ThoughtState.Inactive;
         }
-        if (oaGene_MCOAG.cachedHostileSitesCount > 0)
+        if (oaGene_MCOAG.HasHostileSites)
         {
             return ThoughtState.ActiveDefault;
         }

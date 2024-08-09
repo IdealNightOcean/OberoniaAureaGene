@@ -1,9 +1,14 @@
 ﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Verse;
 
 namespace OberoniaAureaGene;
 
-public class ThoughtWorker_Precept_TerritorialConsciousnessEnemies : ThoughtWorker_Precept
+public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
 {
     protected override ThoughtState ShouldHaveThought(Pawn p)
     {
@@ -16,19 +21,11 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessEnemies : ThoughtWork
         {
             return ThoughtState.Inactive;
         }
-        int enemiesCount = oaGene_MCOAG.cachedEnemiesCount;
-        if (enemiesCount > 30)
+        if (oaGene_MCOAG.HasHegemonicFlag)
         {
-            return ThoughtState.ActiveAtStage(2);
-        }
-        else if (enemiesCount > 5)
-        {
-            return ThoughtState.ActiveAtStage(1);
-        }
-        else if (enemiesCount > 0)
-        {
-            return ThoughtState.ActiveAtStage(0);
+            return ThoughtState.ActiveDefault;
         }
         return ThoughtState.Inactive;
     }
+
 }

@@ -9,19 +9,19 @@ namespace OberoniaAureaGene;
 [HarmonyPatch(typeof(IncidentWorker), "TryExecute")]
 
 public static class TryExecute_Patch
-{   
+{
     [HarmonyPostfix]
-    public static void Postfix(ref IncidentWorker __instance,ref bool __result, IncidentParms parms)
+    public static void Postfix(ref IncidentWorker __instance, ref bool __result, IncidentParms parms)
     {
         if (!ModsConfig.IdeologyActive || !__result)
         {
             return;
         }
-        if(__instance.def.category != IncidentCategoryDefOf.ThreatBig)
+        if (__instance.def.category != IncidentCategoryDefOf.ThreatBig)
         {
             return;
         }
-        if(parms.target is Map map)
+        if (parms.target is Map map)
         {
             Notify_ThreatBigEvent(map);
         }

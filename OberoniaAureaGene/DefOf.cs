@@ -22,6 +22,9 @@ public static class OberoniaAureaGeneDefOf
     public static GeneDef OAGene_Suspicious;
     public static GeneDef OAGene_BillInspiration;
 
+    [MayRequireIdeology]
+    public static ThingDef OAGene_HegemonicFlag;
+
     static OberoniaAureaGeneDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OberoniaAureaGeneDefOf));

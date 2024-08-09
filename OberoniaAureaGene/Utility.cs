@@ -5,7 +5,10 @@ namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
 public static class OAGeneUtility
-{ }
+{
+
+
+}
 
 [StaticConstructorOnStartup]
 public static class IconUtility

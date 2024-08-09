@@ -1,6 +1,6 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
-using OberoniaAurea_Frame;
 
 namespace OberoniaAureaGene;
 
