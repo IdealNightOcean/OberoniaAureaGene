@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -29,7 +30,8 @@ public static class TryExecute_Patch
 
     private static void Notify_ThreatBigEvent(Map map)
     {
-        var aliveColonists = map.mapPawns.FreeColonists.Where(p => !p.Dead);
+        map.GetOAGeneMapComp()?.QuickEnemyCheck(25);
+        IEnumerable<Pawn> aliveColonists = map.mapPawns.FreeColonists.Where(p => !p.Dead);
         foreach (Pawn pawn in aliveColonists)
         {
             HistoryEvent historyEvent = new(OberoniaAureaGeneDefOf.OAGene_ThreatBig, pawn.Named(HistoryEventArgsNames.Doer));

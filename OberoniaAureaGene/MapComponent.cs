@@ -1,6 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using RimWorld.Planet;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -9,6 +10,7 @@ namespace OberoniaAureaGene;
 public class MapComponent_OberoniaAureaGene : MapComponent
 {
     protected int enemyCheckTicks;
+    protected int fastEnemyCheckCycleLeft;
     public int cachedEnemiesCount;
     protected int cachedHostileSitesCount;
     public bool HasHostileSites => cachedHostileSitesCount > 0;
@@ -40,7 +42,15 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (enemyCheckTicks <= 0)
         {
             PeriodicEnemyCheck();
-            enemyCheckTicks = 15000;
+            if (fastEnemyCheckCycleLeft > 0)
+            {
+                fastEnemyCheckCycleLeft--;
+                enemyCheckTicks = 2500;
+            }
+            else
+            {
+                enemyCheckTicks = 30000;
+            }
         }
     }
     protected void RaidCheckTick()
@@ -51,16 +61,16 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             TryExcuteRaid();
             raidCheckTicks = 300000;
         }
-
     }
 
     protected void RecacheHegemonicFlagCount()
     {
         cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OberoniaAureaGeneDefOf.OAGene_HegemonicFlag).Count();
     }
-    public void QuickEnemyCheck()
+    public void QuickEnemyCheck(int fastCheckCycle = 0)
     {
         enemyCheckTicks = 600;
+        fastEnemyCheckCycleLeft = fastCheckCycle;
     }
 
     private void PeriodicEnemyCheck()
@@ -89,6 +99,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     {
         base.ExposeData();
         Scribe_Values.Look(ref enemyCheckTicks, "enemyCheckTicks", 0);
+        Scribe_Values.Look(ref fastEnemyCheckCycleLeft, "fastEnemyCheckCycleLeft", 0);
         Scribe_Values.Look(ref cachedEnemiesCount, "cachedEnemiesCount", 0);
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);
 
@@ -98,8 +109,12 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     public static int HostileCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
     {
+        if (tile <= 0)
+        {
+            return 0;
+        }
         WorldGrid worldGrid = Find.WorldGrid;
-        var potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Spawned && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);
+        IEnumerable<WorldObject> potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Tile > 0 && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);
         return potentiallyDangerous.Count();
     }
 }
