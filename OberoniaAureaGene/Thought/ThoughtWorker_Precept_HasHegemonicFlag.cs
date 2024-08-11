@@ -11,7 +11,7 @@ public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
         {
             return ThoughtState.Inactive;
         }
-        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map?.GetComponent<MapComponent_OberoniaAureaGene>();
+        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map?.GetOAGeneMapComp();
         if (oaGene_MCOAG == null)
         {
             return ThoughtState.Inactive;
