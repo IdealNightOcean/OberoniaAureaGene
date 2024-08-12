@@ -10,7 +10,6 @@ namespace OberoniaAureaGene;
 public class MapComponent_OberoniaAureaGene : MapComponent
 {
     protected int enemyCheckTicks;
-    protected int fastEnemyCheckCycleLeft;
     public int cachedEnemiesCount;
     protected int cachedHostileSitesCount;
     public bool HasHostileSites => cachedHostileSitesCount > 0;
@@ -42,15 +41,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (enemyCheckTicks <= 0)
         {
             PeriodicEnemyCheck();
-            if (fastEnemyCheckCycleLeft > 0)
-            {
-                fastEnemyCheckCycleLeft--;
-                enemyCheckTicks = 2500;
-            }
-            else
-            {
-                enemyCheckTicks = 30000;
-            }
+            enemyCheckTicks = cachedEnemiesCount > 0 ? 2500 : 15000;
         }
     }
     protected void RaidCheckTick()
@@ -67,16 +58,23 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     {
         cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OberoniaAureaGeneDefOf.OAGene_HegemonicFlag).Count();
     }
-    public void QuickEnemyCheck(int fastCheckCycle = 0)
+    public void QuickEnemyCheck()
     {
         enemyCheckTicks = 600;
-        fastEnemyCheckCycleLeft = fastCheckCycle;
     }
 
     private void PeriodicEnemyCheck()
     {
-        cachedEnemiesCount = OberoniaAureaFrameUtility.EnemiesCountOfPlayerOnMap(map);
-        cachedHostileSitesCount = HostileCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
+        if (map.IsPlayerHome)
+        {
+            cachedEnemiesCount = OberoniaAureaFrameUtility.EnemiesCountOfPlayerOnMap(map);
+            cachedHostileSitesCount = HostileCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
+        }
+        else
+        {
+            cachedEnemiesCount = 0;
+            cachedHostileSitesCount = 0;
+        }
     }
 
     private void TryExcuteRaid()
@@ -99,7 +97,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     {
         base.ExposeData();
         Scribe_Values.Look(ref enemyCheckTicks, "enemyCheckTicks", 0);
-        Scribe_Values.Look(ref fastEnemyCheckCycleLeft, "fastEnemyCheckCycleLeft", 0);
         Scribe_Values.Look(ref cachedEnemiesCount, "cachedEnemiesCount", 0);
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);
 

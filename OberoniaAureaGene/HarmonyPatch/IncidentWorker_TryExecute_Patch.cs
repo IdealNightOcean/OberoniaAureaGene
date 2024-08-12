@@ -30,7 +30,7 @@ public static class TryExecute_Patch
 
     private static void Notify_ThreatBigEvent(Map map)
     {
-        map.GetOAGeneMapComp()?.QuickEnemyCheck(25);
+        map.GetOAGeneMapComp()?.QuickEnemyCheck();
         IEnumerable<Pawn> aliveColonists = map.mapPawns.FreeColonists.Where(p => !p.Dead);
         foreach (Pawn pawn in aliveColonists)
         {
