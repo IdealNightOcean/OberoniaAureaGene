@@ -25,7 +25,7 @@ public class FixCaravan_EspionageSite : FixedCaravan
     }
     protected override void PreConvertToCaravanByPlayer()
     {
-        associateEspionageSiteComp?.ForceFail();
+        associateEspionageSiteComp?.Fail();
     }
     public override void Notify_ConvertToCaravan()
     { }

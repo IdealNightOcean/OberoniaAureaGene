@@ -67,8 +67,8 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     {
         if (map.IsPlayerHome)
         {
-            cachedEnemiesCount = OberoniaAureaFrameUtility.EnemiesCountOfPlayerOnMap(map);
-            cachedHostileSitesCount = HostileCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
+            cachedEnemiesCount = OberoniaAureaFrameUtility.ThreatsCountOfPlayerOnMap(map);
+            cachedHostileSitesCount = HostileSitesCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
         }
         else
         {
@@ -104,7 +104,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         Scribe_Values.Look(ref cachedHegemonicFlagCount, "cachedHegemonicFlagCount", 0);
     }
 
-    public static int HostileCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
+    public static int HostileSitesCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
     {
         if (tile <= 0)
         {
