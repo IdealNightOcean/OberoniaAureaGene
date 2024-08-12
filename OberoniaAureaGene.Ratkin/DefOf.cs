@@ -10,7 +10,11 @@ public static class OAGene_RatkinDefOf
     public static ThingDef Ratkin_Su;
 
     public static HediffDef OAGene_RatkinTail;
+
     public static JobDef OAGene_HaulToDiscriminator;
+
+
+    public static WorldObjectDef OAGene_EspionageSite;
 
     public static XenotypeDef OAGene_RatkinBase;
 

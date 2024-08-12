@@ -5,9 +5,13 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class FixCaravan_EspionageSite : FixedCaravan
 {
-    Site associateSite;
-    public EspionageSiteComp AssociateEspionageSiteComp => associateSite?.GetComponent<EspionageSiteComp>();
+    public EspionageSiteComp associateEspionageSiteComp;
     public static readonly int ReconnaissanceTicks = 10000;
+
+    public void SetEspionageSiteComp(EspionageSiteComp comp)
+    {
+        associateEspionageSiteComp = comp;
+    }
 
     public override void Tick()
     {
@@ -16,12 +20,12 @@ public class FixCaravan_EspionageSite : FixedCaravan
         if (ticksRemaining <= 0)
         {
             Caravan caravan = FixedCaravanUtility.ConvertToCaravan(this);
-            AssociateEspionageSiteComp?.TryGetOutCome(caravan);
+            associateEspionageSiteComp?.TryGetOutCome(caravan);
         }
     }
     protected override void PreConvertToCaravanByPlayer()
     {
-        AssociateEspionageSiteComp?.ForceFail();
+        associateEspionageSiteComp?.ForceFail();
     }
     public override void Notify_ConvertToCaravan()
     { }
