@@ -13,6 +13,8 @@ public class WorldObjectCompProperties_EspionageSite : WorldObjectCompProperties
         compClass = typeof(EspionageSiteComp);
     }
 }
+
+[StaticConstructorOnStartup]
 public class EspionageSiteComp : WorldObjectComp
 {
     protected static readonly List<Pair<Action, float>> tmpPossibleOutcomes = [];
@@ -77,7 +79,7 @@ public class EspionageSiteComp : WorldObjectComp
         {
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
         }
-        
+
     }
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
     {
@@ -104,11 +106,11 @@ public class EspionageSiteComp : WorldObjectComp
             icon = null,
             action = delegate
             {
-                FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_EspionageSite, FixCaravan_EspionageSite.ReconnaissanceTicks);
+                FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
                 fixCaravan.SetEspionageSiteComp(this);
             }
         };
-        if(!AllowEspionage)
+        if (!AllowEspionage)
         {
             command_Action.Disable("OAGene_MessageEspionageCooldown".Translate(CoolingTicksLeft.ToStringTicksToPeriod()));
         }
@@ -144,7 +146,7 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     }
     private static void Espionage(Caravan caravan, WorldObject site)
     {
-        FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_EspionageSite, FixCaravan_EspionageSite.ReconnaissanceTicks);
+        FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
         fixCaravan.SetEspionageSiteComp(site.GetComponent<EspionageSiteComp>());
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)

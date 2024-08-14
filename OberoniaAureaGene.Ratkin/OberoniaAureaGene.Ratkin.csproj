@@ -71,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
+    <Compile Include="Quest\QueseNode_GetExpectedMarketValue.cs" />
+    <Compile Include="Quest\QuestNode_RequestThingCount.cs" />
+    <Compile Include="Quest\QuestPart_InitSaleRequest.cs" />
+    <Compile Include="Quest\QuestNode_ActiveSaleRequest.cs" />
     <Compile Include="WorldObject\EspionageSiteComp.cs" />
     <Compile Include="ImplantXenogermItem_Patch.cs" />
     <Compile Include="ModExtension.cs" />
@@ -82,6 +87,7 @@
     <Compile Include="Utility.cs" />
     <Compile Include="WorkGiver.cs" />
     <Compile Include="WorldObject\FixCaravan_EspionageSite.cs" />
+    <Compile Include="WorldObject\SaleRequestComp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OberoniaAureaGene\OberoniaAureaGene.csproj">
@@ -90,5 +96,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
