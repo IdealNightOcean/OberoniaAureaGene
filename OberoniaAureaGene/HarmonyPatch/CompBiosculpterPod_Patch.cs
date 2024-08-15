@@ -13,7 +13,7 @@ public static class CompBiosculpterPod_Patch
     {
         if (__result == null)
         {
-            if (p.genes != null && p.genes.HasGene(OberoniaAureaGeneDefOf.OAGene_AbnormalBodyStructure))
+            if (p.genes != null && p.genes.HasActiveGene(OberoniaAureaGeneDefOf.OAGene_AbnormalBodyStructure))
             {
                 __result = "OAGene_AbnormalBodyStructure".Translate();
                 return;

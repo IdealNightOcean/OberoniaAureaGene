@@ -12,7 +12,7 @@ public static class OpinionOffsetOfGroup_Patch
     public static void Postfix(ref ThoughtHandler __instance, ref int __result)
     {
         Pawn pawn = __instance.pawn;
-        if (pawn.genes != null && pawn.genes.HasGene(OberoniaAureaGeneDefOf.OAGene_Suspicious))
+        if (pawn.genes != null && pawn.genes.HasActiveGene(OberoniaAureaGeneDefOf.OAGene_Suspicious))
         {
             __result /= 2;
         }

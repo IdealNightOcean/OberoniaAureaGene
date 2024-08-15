@@ -14,7 +14,7 @@ public static class ExtractHemogen_Patch
     {
         if (__result && thing is Pawn pawn && pawn.genes != null)
         {
-            if (pawn.genes.HasGene(OberoniaAureaGeneDefOf.OAGene_SpecificHemogen))
+            if (pawn.genes.HasActiveGene(OberoniaAureaGeneDefOf.OAGene_SpecificHemogen))
             {
                 __result = false;
             }

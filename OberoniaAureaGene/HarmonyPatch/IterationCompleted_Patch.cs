@@ -19,7 +19,7 @@ public static class IterationCompleted_Patch
     }
     private static void TryGetBillInspiration(Pawn pawn)
     {
-        if (pawn.genes == null)
+        if (pawn?.genes == null)
         {
             return;
         }
