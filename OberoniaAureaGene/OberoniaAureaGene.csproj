@@ -76,6 +76,7 @@
     <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
     <Compile Include="GoodwillSituationWorker_HasHegemonicFlag.cs" />
+    <Compile Include="HarmonyPatch\GetDodgeChance_Patch.cs" />
     <Compile Include="HarmonyPatch\IncidentWorker_TryExecute_Patch.cs" />
     <Compile Include="MapComponent.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
