@@ -22,4 +22,6 @@ public static class IconUtility
 
     public static readonly Texture2D CommandContinueWorkTrue = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectTrue");
     public static readonly Texture2D CommandContinueWorkFalse = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectFalse");
+
+    public static readonly Texture2D TradeCommandIcon = ContentFinder<Texture2D>.Get("UI/Commands/FulfillTradeRequest");
 }

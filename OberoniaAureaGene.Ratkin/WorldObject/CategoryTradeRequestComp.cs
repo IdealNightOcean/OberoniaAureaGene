@@ -17,34 +17,45 @@ public class WorldObjectCompProperties_CategoryTradeRequestComp : WorldObjectCom
 [StaticConstructorOnStartup]
 public class CategoryTradeRequestComp : WorldObjectComp
 {
-    protected bool active;
-    public ThingCategoryDef requestedCategoryDef;
-    public int requestCount;
-    public int remainingThingCount;
-    public int requestQuality = -1;
-    public bool isApparel;
-    public int expiration = -1;
-    public string outSignalFulfilled;
-    private static readonly Texture2D TradeCommandTex = ContentFinder<Texture2D>.Get("UI/Commands/FulfillTradeRequest");
+    protected bool activeCategoryRQ;
+    protected ThingCategoryDef categoryRQ_Def;
+    protected int categoryRQ_Count;
+    protected int categoryRQ_Left;
+    protected int categoryRQ_Quality = -1;
+    protected bool categoryRQ_IsApparel;
+    protected int categoryRQ_Expiration = -1;
+    public string outSignal_CategoryRQFulfilled;
 
-    public bool ActiveRequest => active && expiration > Find.TickManager.TicksGame;
+    public bool ActiveRequest => activeCategoryRQ && categoryRQ_Expiration > Find.TickManager.TicksGame;
 
-    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int expirationDelay, int requestQuality = -1, bool isApparel = false)
+    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int requestDuration, int requestQuality = -1, bool isApparel = false)
     {
-        this.requestedCategoryDef = requestedCategoryDef;
-        this.requestCount = requestCount;
-        remainingThingCount = requestCount;
-        this.requestQuality = requestQuality;
-        this.isApparel = isApparel;
-        expiration = Find.TickManager.TicksGame + expirationDelay;
-        active = true;
+        categoryRQ_Def = requestedCategoryDef;
+        categoryRQ_Count = requestCount;
+        categoryRQ_Left = requestCount;
+        if (requestQuality < -1)
+        {
+            categoryRQ_Quality = -1;
+        }
+        else if (requestQuality > 6)
+        {
+            categoryRQ_Quality = 6;
+        }
+        else
+        {
+            categoryRQ_Quality = requestQuality;
+        }
+        categoryRQ_IsApparel = isApparel;
+        categoryRQ_Expiration = Find.TickManager.TicksGame + requestDuration;
+        activeCategoryRQ = true;
     }
 
     public override string CompInspectStringExtra()
     {
+        Log.Message(activeCategoryRQ + " | " + categoryRQ_Expiration);
         if (ActiveRequest)
         {
-            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, requestQuality, isApparel).CapitalizeFirst(), (expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
+            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_Quality, categoryRQ_IsApparel).CapitalizeFirst(), (categoryRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
         }
         return null;
     }
@@ -59,13 +70,13 @@ public class CategoryTradeRequestComp : WorldObjectComp
 
     public void Disable()
     {
-        active = false;
-        expiration = -1;
-        requestedCategoryDef = null;
-        requestCount = 0;
-        remainingThingCount = 0;
-        requestQuality = -1;
-        isApparel = false;
+        activeCategoryRQ = false;
+        categoryRQ_Expiration = -1;
+        categoryRQ_Def = null;
+        categoryRQ_Count = 0;
+        categoryRQ_Left = 0;
+        categoryRQ_Quality = -1;
+        categoryRQ_IsApparel = false;
     }
 
     private Command FulfillRequestCommand(Caravan caravan)
@@ -74,29 +85,29 @@ public class CategoryTradeRequestComp : WorldObjectComp
         {
             defaultLabel = "CommandFulfillTradeOffer".Translate(),
             defaultDesc = "CommandFulfillTradeOfferDesc".Translate(),
-            icon = TradeCommandTex,
+            icon = IconUtility.TradeCommandIcon,
             action = delegate
             {
                 if (!ActiveRequest)
                 {
                     Log.Error("Attempted to fulfill an unavailable request");
                 }
-                else if (!OAGene_RatkinUtility.HasAnyThings(caravan, requestedCategoryDef, PlayerCanGive))
+                else if (!OAGene_RatkinUtility.HasAnyThings(caravan, categoryRQ_Def, PlayerCanGive))
                 {
-                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, requestQuality, isApparel)), MessageTypeDefOf.RejectInput, historical: false);
+                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_Quality, categoryRQ_IsApparel)), MessageTypeDefOf.RejectInput, historical: false);
                 }
                 else
                 {
-                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_CommandFulfillCategoryTradeConfirm".Translate(requestedCategoryDef), delegate
+                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_CommandFulfillCategoryTradeConfirm".Translate(categoryRQ_Def), delegate
                     {
                         Fulfill(caravan);
                     }));
                 }
             }
         };
-        if (!OAGene_RatkinUtility.HasAnyThings(caravan, requestedCategoryDef, PlayerCanGive))
+        if (!OAGene_RatkinUtility.HasAnyThings(caravan, categoryRQ_Def, PlayerCanGive))
         {
-            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, 1, requestQuality, isApparel)));
+            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, 1, categoryRQ_Quality, categoryRQ_IsApparel)));
         }
         return command_Action;
     }
@@ -105,7 +116,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
     {
         List<Thing> list = CaravanInventoryUtility.TakeThings(caravan, delegate (Thing thing)
         {
-            if (!thing.def.thingCategories.Contains(requestedCategoryDef))
+            if (!thing.def.thingCategories.Contains(categoryRQ_Def))
             {
                 return 0;
             }
@@ -113,15 +124,15 @@ public class CategoryTradeRequestComp : WorldObjectComp
             {
                 return 0;
             }
-            int num = Mathf.Min(remainingThingCount, thing.stackCount);
-            remainingThingCount -= num;
+            int num = Mathf.Min(categoryRQ_Left, thing.stackCount);
+            categoryRQ_Left -= num;
             return num;
         });
         for (int i = 0; i < list.Count; i++)
         {
             list[i].Destroy();
         }
-        if (remainingThingCount <= 0)
+        if (categoryRQ_Left <= 0)
         {
             if (parent.Faction != null)
             {
@@ -132,7 +143,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         }
         else
         {
-            Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_FulfillCategoryTradePartComplete".Translate(requestedCategoryDef, requestCount - remainingThingCount, remainingThingCount), null));
+            Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_FulfillCategoryTradePartComplete".Translate(categoryRQ_Def, categoryRQ_Count - categoryRQ_Left, categoryRQ_Left), null));
         }
     }
 
@@ -144,7 +155,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         }
         if (thing is Apparel apparel)
         {
-            if (isApparel)
+            if (categoryRQ_IsApparel)
             {
                 return !apparel.WornByCorpse;
             }
@@ -153,10 +164,10 @@ public class CategoryTradeRequestComp : WorldObjectComp
                 return false;
             }
         }
-        if (requestQuality >= 0)
+        if (categoryRQ_Quality >= 0)
         {
             CompQuality compQuality = thing.TryGetComp<CompQuality>();
-            if (compQuality == null || (int)compQuality.Quality < requestQuality)
+            if (compQuality == null || (int)compQuality.Quality < categoryRQ_Quality)
             {
                 return false;
             }
@@ -167,19 +178,18 @@ public class CategoryTradeRequestComp : WorldObjectComp
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Defs.Look(ref requestedCategoryDef, "requestedCategoryDef");
-        Scribe_Values.Look(ref requestCount, "requestCount", 0);
-        Scribe_Values.Look(ref remainingThingCount, "remainingThingCount", 0);
-        Scribe_Values.Look(ref requestQuality, "requestQuality", -1);
-        Scribe_Values.Look(ref expiration, "expiration", 0);
-        Scribe_Values.Look(ref active, "active", defaultValue: false);
-        BackCompatibility.PostExposeData(this);
+        Scribe_Values.Look(ref activeCategoryRQ, "activeCategoryRQ", defaultValue: false);
+        Scribe_Values.Look(ref categoryRQ_Expiration, "categoryRQ_Expiration", 0);
+        Scribe_Defs.Look(ref categoryRQ_Def, "categoryRQ_Def");
+        Scribe_Values.Look(ref categoryRQ_Count, "categoryRQ_Count", 0);
+        Scribe_Values.Look(ref categoryRQ_Left, "categoryRQ_Left", 0);
+        Scribe_Values.Look(ref categoryRQ_Quality, "categoryRQ_Quality", -1);
     }
 
     public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count, int needQuality, bool isApparel)
     {
         string text = "OAGene_RequestedThingCategoryLabel".Translate(def.label, count);
-        if (needQuality>=0)
+        if (needQuality >= 0)
         {
             text += " (" + "NormalQualityOrBetter".Translate() + ")";
         }

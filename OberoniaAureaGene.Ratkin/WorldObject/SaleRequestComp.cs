@@ -2,7 +2,6 @@
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
-using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
@@ -17,20 +16,19 @@ public class WorldObjectCompProperties_SaleRequestComp : WorldObjectCompProperti
 
 public class SaleRequestComp : WorldObjectComp
 {
-    protected bool active;
-    public ThingDef requestThingDef;
-    public int requestCount;
-    public int expiration = -1;
-    public string outSignalGived;
-    private static readonly Texture2D TradeCommandTex = ContentFinder<Texture2D>.Get("UI/Commands/FulfillTradeRequest");
+    protected bool activeSaleRQ;
+    public ThingDef saleRQ_ThingDef;
+    public int saleRQ_Count;
+    public int saleRQ_Expiration = -1;
+    public string outSignal_SaleRQGived;
 
-    public bool ActiveRequest => active && expiration > Find.TickManager.TicksGame;
+    public bool ActiveRequest => activeSaleRQ && saleRQ_Expiration > Find.TickManager.TicksGame;
 
     public override string CompInspectStringExtra()
     {
         if (ActiveRequest)
         {
-            return "CaravanRequestInfo".Translate(TradeRequestUtility.RequestedThingLabel(requestThingDef, requestCount).CapitalizeFirst(), (expiration - Find.TickManager.TicksGame).ToStringTicksToDays(), (requestThingDef.GetStatValueAbstract(StatDefOf.MarketValue) * (float)requestCount).ToStringMoney());
+            return "CaravanRequestInfo".Translate(TradeRequestUtility.RequestedThingLabel(saleRQ_ThingDef, saleRQ_Count).CapitalizeFirst(), (saleRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays(), (saleRQ_ThingDef.GetStatValueAbstract(StatDefOf.MarketValue) * (float)saleRQ_Count).ToStringMoney());
         }
         return null;
     }
@@ -44,17 +42,17 @@ public class SaleRequestComp : WorldObjectComp
     }
     public void InitSaleRequest(ThingDef thingDef, int thingCount, int expirationDelay)
     {
-        requestThingDef = thingDef;
-        requestCount = thingCount;
-        expiration = Find.TickManager.TicksGame + expirationDelay;
-        active = true;
+        saleRQ_ThingDef = thingDef;
+        saleRQ_Count = thingCount;
+        saleRQ_Expiration = Find.TickManager.TicksGame + expirationDelay;
+        activeSaleRQ = true;
     }
     public void Disable()
     {
-        active = false;
-        expiration = -1;
-        requestThingDef = null;
-        requestCount = 0;
+        activeSaleRQ = false;
+        saleRQ_Expiration = -1;
+        saleRQ_ThingDef = null;
+        saleRQ_Count = 0;
     }
 
     private Command FulfillRequestCommand(Caravan caravan)
@@ -63,7 +61,7 @@ public class SaleRequestComp : WorldObjectComp
         {
             defaultLabel = "OAGene_CommandReciveSaleOffer".Translate(),
             defaultDesc = "OAGene_CommandReciveSaleOfferDesc".Translate(),
-            icon = TradeCommandTex,
+            icon = IconUtility.TradeCommandIcon,
             action = delegate
             {
                 if (!ActiveRequest)
@@ -72,7 +70,7 @@ public class SaleRequestComp : WorldObjectComp
                 }
                 else
                 {
-                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("CommandFulfillTradeOfferConfirm".Translate(GenLabel.ThingLabel(requestThingDef, null, requestCount)), delegate
+                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("CommandFulfillTradeOfferConfirm".Translate(GenLabel.ThingLabel(saleRQ_ThingDef, null, saleRQ_Count)), delegate
                     {
                         Fulfill(caravan);
                     }));
@@ -83,7 +81,7 @@ public class SaleRequestComp : WorldObjectComp
     }
     private void Fulfill(Caravan caravan)
     {
-        List<Thing> things = OberoniaAureaFrameUtility.TryGenerateThing(requestThingDef, requestCount);
+        List<Thing> things = OberoniaAureaFrameUtility.TryGenerateThing(saleRQ_ThingDef, saleRQ_Count);
         foreach (Thing t in things)
         {
             CaravanInventoryUtility.GiveThing(caravan, t);
@@ -98,10 +96,9 @@ public class SaleRequestComp : WorldObjectComp
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Values.Look(ref active, "active", defaultValue: false);
-        Scribe_Values.Look(ref expiration, "expiration", -1);
-        Scribe_Defs.Look(ref requestThingDef, "requestThingDef");
-        Scribe_Values.Look(ref requestCount, "requestCount", 0);
-        BackCompatibility.PostExposeData(this);
+        Scribe_Values.Look(ref activeSaleRQ, "activeSaleRQ", defaultValue: false);
+        Scribe_Values.Look(ref saleRQ_Expiration, "saleRQ_Expiration", -1);
+        Scribe_Defs.Look(ref saleRQ_ThingDef, "saleRQ_ThingDef");
+        Scribe_Values.Look(ref saleRQ_Count, "saleRQ_Count", 0);
     }
 }
