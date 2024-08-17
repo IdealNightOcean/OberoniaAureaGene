@@ -21,8 +21,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
     public ThingCategoryDef requestedCategoryDef;
     public int requestCount;
     public int remainingThingCount;
-    public QualityCategory? requestQuality;
-    public bool NeedQuality => requestQuality != null;
+    public int requestQuality = -1;
     public bool isApparel;
     public int expiration = -1;
     public string outSignalFulfilled;
@@ -30,7 +29,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
 
     public bool ActiveRequest => active && expiration > Find.TickManager.TicksGame;
 
-    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int expirationDelay, QualityCategory? requestQuality = null, bool isApparel = false)
+    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int expirationDelay, int requestQuality = -1, bool isApparel = false)
     {
         this.requestedCategoryDef = requestedCategoryDef;
         this.requestCount = requestCount;
@@ -45,7 +44,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
     {
         if (ActiveRequest)
         {
-            return "CaravanRequestInfo".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, NeedQuality, isApparel).CapitalizeFirst(), (expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
+            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, requestQuality, isApparel).CapitalizeFirst(), (expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
         }
         return null;
     }
@@ -65,7 +64,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         requestedCategoryDef = null;
         requestCount = 0;
         remainingThingCount = 0;
-        requestQuality = null;
+        requestQuality = -1;
         isApparel = false;
     }
 
@@ -84,7 +83,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
                 }
                 else if (!OAGene_RatkinUtility.HasAnyThings(caravan, requestedCategoryDef, PlayerCanGive))
                 {
-                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, NeedQuality, isApparel)), MessageTypeDefOf.RejectInput, historical: false);
+                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, requestCount, requestQuality, isApparel)), MessageTypeDefOf.RejectInput, historical: false);
                 }
                 else
                 {
@@ -97,7 +96,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         };
         if (!OAGene_RatkinUtility.HasAnyThings(caravan, requestedCategoryDef, PlayerCanGive))
         {
-            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, 1, NeedQuality, isApparel)));
+            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(requestedCategoryDef, 1, requestQuality, isApparel)));
         }
         return command_Action;
     }
@@ -106,7 +105,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
     {
         List<Thing> list = CaravanInventoryUtility.TakeThings(caravan, delegate (Thing thing)
         {
-            if (thing.def.thingCategories.Contains(requestedCategoryDef))
+            if (!thing.def.thingCategories.Contains(requestedCategoryDef))
             {
                 return 0;
             }
@@ -154,10 +153,10 @@ public class CategoryTradeRequestComp : WorldObjectComp
                 return false;
             }
         }
-        if (NeedQuality)
+        if (requestQuality >= 0)
         {
             CompQuality compQuality = thing.TryGetComp<CompQuality>();
-            if (compQuality == null || compQuality.Quality < requestQuality)
+            if (compQuality == null || (int)compQuality.Quality < requestQuality)
             {
                 return false;
             }
@@ -171,15 +170,16 @@ public class CategoryTradeRequestComp : WorldObjectComp
         Scribe_Defs.Look(ref requestedCategoryDef, "requestedCategoryDef");
         Scribe_Values.Look(ref requestCount, "requestCount", 0);
         Scribe_Values.Look(ref remainingThingCount, "remainingThingCount", 0);
+        Scribe_Values.Look(ref requestQuality, "requestQuality", -1);
         Scribe_Values.Look(ref expiration, "expiration", 0);
         Scribe_Values.Look(ref active, "active", defaultValue: false);
         BackCompatibility.PostExposeData(this);
     }
 
-    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count, bool needQuality, bool isApparel)
+    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count, int needQuality, bool isApparel)
     {
-        string text = "OAGene_RequestedThingCategoryInfo".Translate(def.label, count);
-        if (needQuality)
+        string text = "OAGene_RequestedThingCategoryLabel".Translate(def.label, count);
+        if (needQuality>=0)
         {
             text += " (" + "NormalQualityOrBetter".Translate() + ")";
         }

@@ -13,7 +13,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
     public ThingCategoryDef requestedCategoryDef;
     public int requestedCount;
     public int requestDuration;
-    public QualityCategory? needQuality;
+    public int requestQuality = -1;
     public bool isApparel;
 
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
@@ -73,7 +73,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
                 Log.Error("Settlement " + settlement.Label + " already has an active category trade request.");
                 return;
             }
-            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, needQuality, isApparel);
+            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, requestQuality, isApparel);
         }
     }
 
@@ -92,7 +92,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
         Scribe_Defs.Look(ref requestedCategoryDef, "requestedCategoryDef");
         Scribe_Values.Look(ref requestedCount, "requestedCount", 0);
         Scribe_Values.Look(ref requestDuration, "requestDuration", 0);
-        Scribe_Values.Look(ref needQuality, "needQuality");
+        Scribe_Values.Look(ref requestQuality, "requestQuality", -1);
         Scribe_Values.Look(ref isApparel, "isApparel", defaultValue: false);
     }
 
@@ -109,7 +109,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
         requestedCategoryDef = ThingCategoryDefOf.StoneBlocks;
         requestedCount = 100;
         requestDuration = 60000;
-        needQuality = null;
+        requestQuality = -1;
         isApparel = false;
     }
 }

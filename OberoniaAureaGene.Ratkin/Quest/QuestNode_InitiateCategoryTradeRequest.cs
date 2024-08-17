@@ -9,9 +9,9 @@ public class QuestNode_InitiateCategoryTradeRequest : QuestNode
 {
     public SlateRef<ThingCategoryDef> requestedCategoryDef;
     public SlateRef<int> requestedThingCount;
+    public SlateRef<int> requestQuality = -1;
     public SlateRef<Settlement> settlement;
     public SlateRef<int> duration;
-    public SlateRef<QualityCategory?> needQuality = null;
     public SlateRef<bool> isApparel = false;
 
     protected override bool TestRunInt(Slate slate)
@@ -27,7 +27,7 @@ public class QuestNode_InitiateCategoryTradeRequest : QuestNode
             requestedCategoryDef = requestedCategoryDef.GetValue(slate),
             requestedCount = requestedThingCount.GetValue(slate),
             requestDuration = duration.GetValue(slate),
-            needQuality = needQuality.GetValue(slate),
+            requestQuality = requestQuality.GetValue(slate),
             isApparel = isApparel.GetValue(slate),
             inSignal = slate.Get<string>("inSignal")
         };
