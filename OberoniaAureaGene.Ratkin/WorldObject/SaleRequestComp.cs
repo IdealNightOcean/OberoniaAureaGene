@@ -7,15 +7,24 @@ using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
+public class WorldObjectCompProperties_SaleRequestComp : WorldObjectCompProperties
+{
+    public WorldObjectCompProperties_SaleRequestComp()
+    {
+        compClass = typeof(SaleRequestComp);
+    }
+}
+
 public class SaleRequestComp : WorldObjectComp
 {
+    protected bool active;
     public ThingDef requestThingDef;
     public int requestCount;
     public int expiration = -1;
     public string outSignalGived;
     private static readonly Texture2D TradeCommandTex = ContentFinder<Texture2D>.Get("UI/Commands/FulfillTradeRequest");
 
-    public bool ActiveRequest => expiration > Find.TickManager.TicksGame;
+    public bool ActiveRequest => active && expiration > Find.TickManager.TicksGame;
 
     public override string CompInspectStringExtra()
     {
@@ -33,15 +42,19 @@ public class SaleRequestComp : WorldObjectComp
             yield return FulfillRequestCommand(caravan);
         }
     }
-    public void InitSaleRequest(ThingDef thingDef, int thingCount, int expiration)
+    public void InitSaleRequest(ThingDef thingDef, int thingCount, int expirationDelay)
     {
         requestThingDef = thingDef;
         requestCount = thingCount;
-        this.expiration = Find.TickManager.TicksGame + expiration;
+        expiration = Find.TickManager.TicksGame + expirationDelay;
+        active = true;
     }
     public void Disable()
     {
+        active = false;
         expiration = -1;
+        requestThingDef = null;
+        requestCount = 0;
     }
 
     private Command FulfillRequestCommand(Caravan caravan)
@@ -85,6 +98,7 @@ public class SaleRequestComp : WorldObjectComp
     public override void PostExposeData()
     {
         base.PostExposeData();
+        Scribe_Values.Look(ref active, "active", defaultValue: false);
         Scribe_Values.Look(ref expiration, "expiration", -1);
         Scribe_Defs.Look(ref requestThingDef, "requestThingDef");
         Scribe_Values.Look(ref requestCount, "requestCount", 0);

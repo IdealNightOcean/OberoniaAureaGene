@@ -6,14 +6,15 @@ using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
-public class QuestPart_InitiateSaleRequest : QuestPart
+public class QuestPart_InitiateCategoryTradeRequest : QuestPart
 {
     public string inSignal;
     public Settlement settlement;
-    public ThingDef requestedThingDef;
+    public ThingCategoryDef requestedCategoryDef;
     public int requestedCount;
     public int requestDuration;
-    public bool keepAfterQuestEnds;
+    public QualityCategory? needQuality;
+    public bool isApparel;
 
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
     {
@@ -53,7 +54,7 @@ public class QuestPart_InitiateSaleRequest : QuestPart
             {
                 yield return hyperlink;
             }
-            yield return new Dialog_InfoCard.Hyperlink(requestedThingDef);
+            yield return new Dialog_InfoCard.Hyperlink(requestedCategoryDef);
         }
     }
 
@@ -64,29 +65,23 @@ public class QuestPart_InitiateSaleRequest : QuestPart
         {
             return;
         }
-        SaleRequestComp component = settlement.GetComponent<SaleRequestComp>();
+        CategoryTradeRequestComp component = settlement.GetComponent<CategoryTradeRequestComp>();
         if (component != null)
         {
             if (component.ActiveRequest)
             {
-                Log.Error("Settlement " + settlement.Label + " already has an active sale request.");
+                Log.Error("Settlement " + settlement.Label + " already has an active category trade request.");
                 return;
             }
-            component.InitSaleRequest(requestedThingDef, requestedCount, requestDuration);
+            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, needQuality, isApparel);
         }
     }
 
     public override void Cleanup()
     {
         base.Cleanup();
-        if (!keepAfterQuestEnds)
-        {
-            SaleRequestComp component = settlement.GetComponent<SaleRequestComp>();
-            if (component != null && component.ActiveRequest)
-            {
-                component.Disable();
-            }
-        }
+        SaleRequestComp component = settlement.GetComponent<SaleRequestComp>();
+        component?.Disable();
     }
 
     public override void ExposeData()
@@ -94,10 +89,11 @@ public class QuestPart_InitiateSaleRequest : QuestPart
         base.ExposeData();
         Scribe_Values.Look(ref inSignal, "inSignal");
         Scribe_References.Look(ref settlement, "settlement");
-        Scribe_Defs.Look(ref requestedThingDef, "requestedThingDef");
+        Scribe_Defs.Look(ref requestedCategoryDef, "requestedCategoryDef");
         Scribe_Values.Look(ref requestedCount, "requestedCount", 0);
         Scribe_Values.Look(ref requestDuration, "requestDuration", 0);
-        Scribe_Values.Look(ref keepAfterQuestEnds, "keepAfterQuestEnds", defaultValue: false);
+        Scribe_Values.Look(ref needQuality, "needQuality");
+        Scribe_Values.Look(ref isApparel, "isApparel", defaultValue: false);
     }
 
     public override void AssignDebugData()
@@ -110,8 +106,10 @@ public class QuestPart_InitiateSaleRequest : QuestPart
             return component != null && !component.ActiveRequest && x.Faction != Faction.OfPlayer;
         }).RandomElementWithFallback();
         settlement ??= Find.WorldObjects.Settlements.RandomElementWithFallback();
-        requestedThingDef = ThingDefOf.Silver;
+        requestedCategoryDef = ThingCategoryDefOf.StoneBlocks;
         requestedCount = 100;
         requestDuration = 60000;
+        needQuality = null;
+        isApparel = false;
     }
 }

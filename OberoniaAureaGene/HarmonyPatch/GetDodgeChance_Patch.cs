@@ -11,7 +11,7 @@ public static class GetDodgeChance_Patch
     [HarmonyPostfix]
     public static void Postfix(ref float __result, LocalTargetInfo target)
     {
-        if (target.Thing is not Pawn pawn)
+        if (__result == 0f || target.Thing is not Pawn pawn)
         {
             return;
         }

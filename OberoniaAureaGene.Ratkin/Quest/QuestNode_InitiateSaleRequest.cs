@@ -4,13 +4,12 @@ using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
-public class QuestNode_InitSaleRequest : QuestNode
+public class QuestNode_InitiateSaleRequest : QuestNode
 {
     public SlateRef<ThingDef> requestedThingDef;
     public SlateRef<int> requestedThingCount;
     public SlateRef<Settlement> settlement;
     public SlateRef<int> duration;
-    public SlateRef<bool> keepAfterQuestEnds = false;
 
     protected override bool TestRunInt(Slate slate)
     {
@@ -25,7 +24,6 @@ public class QuestNode_InitSaleRequest : QuestNode
             requestedThingDef = requestedThingDef.GetValue(slate),
             requestedCount = requestedThingCount.GetValue(slate),
             requestDuration = duration.GetValue(slate),
-            keepAfterQuestEnds = keepAfterQuestEnds.GetValue(slate),
             inSignal = slate.Get<string>("inSignal")
         };
         QuestGen.quest.AddPart(questPart_InitSaleRequest);
