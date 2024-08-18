@@ -1,4 +1,5 @@
-﻿using RimWorld.Planet;
+﻿using RimWorld;
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -11,6 +12,20 @@ public static class OAGene_RatkinUtility
     public static bool IsRatkin(this Pawn pawn)
     {
         return pawn.def == OAGene_RatkinDefOf.Ratkin || pawn.def == OAGene_RatkinDefOf.Ratkin_Su;
+    }
+
+    public static bool IsRatkinKindomFaction(this Faction faction)
+    {
+        if (faction == null || faction.def == null)
+        {
+            return false;
+        }
+        FactionDef fDef = faction.def;
+        if (fDef == OAGene_RatkinDefOf.Rakinia || fDef == OAGene_RatkinDefOf.Rakinia_RockRatkin || fDef == OAGene_RatkinDefOf.Rakinia_SnowRatkin)
+        {
+            return true;
+        }
+        return false;
     }
 
     public static bool HasAnyThings(Caravan caravan, ThingCategoryDef thingCategoryDef, Func<Thing, bool> validator = null)

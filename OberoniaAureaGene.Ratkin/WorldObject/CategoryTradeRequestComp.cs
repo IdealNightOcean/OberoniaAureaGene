@@ -21,31 +21,22 @@ public class CategoryTradeRequestComp : WorldObjectComp
     protected ThingCategoryDef categoryRQ_Def;
     protected int categoryRQ_Count;
     protected int categoryRQ_Left;
-    protected int categoryRQ_Quality = -1;
-    protected bool categoryRQ_IsApparel;
+    protected bool categoryRQ_IsMeat;
+    protected bool categoryRQ_AllowInsectMeat;
+    protected bool categoryRQ_AllowHumanlikeMeat;
     protected int categoryRQ_Expiration = -1;
     public string outSignal_CategoryRQFulfilled;
 
     public bool ActiveRequest => activeCategoryRQ && categoryRQ_Expiration > Find.TickManager.TicksGame;
 
-    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int requestDuration, int requestQuality = -1, bool isApparel = false)
+    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int requestDuration,bool isMeat=false,bool allowInsectMeat = false, bool allowHumanlikeMeat = false)
     {
         categoryRQ_Def = requestedCategoryDef;
         categoryRQ_Count = requestCount;
         categoryRQ_Left = requestCount;
-        if (requestQuality < -1)
-        {
-            categoryRQ_Quality = -1;
-        }
-        else if (requestQuality > 6)
-        {
-            categoryRQ_Quality = 6;
-        }
-        else
-        {
-            categoryRQ_Quality = requestQuality;
-        }
-        categoryRQ_IsApparel = isApparel;
+        categoryRQ_IsMeat = isMeat;
+        categoryRQ_AllowInsectMeat = allowInsectMeat;
+        categoryRQ_AllowHumanlikeMeat = allowHumanlikeMeat;
         categoryRQ_Expiration = Find.TickManager.TicksGame + requestDuration;
         activeCategoryRQ = true;
     }
@@ -55,7 +46,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         Log.Message(activeCategoryRQ + " | " + categoryRQ_Expiration);
         if (ActiveRequest)
         {
-            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_Quality, categoryRQ_IsApparel).CapitalizeFirst(), (categoryRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
+            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_IsMeat, categoryRQ_AllowInsectMeat,categoryRQ_AllowHumanlikeMeat).CapitalizeFirst(), (categoryRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
         }
         return null;
     }
@@ -75,8 +66,8 @@ public class CategoryTradeRequestComp : WorldObjectComp
         categoryRQ_Def = null;
         categoryRQ_Count = 0;
         categoryRQ_Left = 0;
-        categoryRQ_Quality = -1;
-        categoryRQ_IsApparel = false;
+        categoryRQ_AllowInsectMeat = false;
+        categoryRQ_AllowHumanlikeMeat = false;
     }
 
     private Command FulfillRequestCommand(Caravan caravan)
@@ -94,7 +85,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
                 }
                 else if (!OAGene_RatkinUtility.HasAnyThings(caravan, categoryRQ_Def, PlayerCanGive))
                 {
-                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_Quality, categoryRQ_IsApparel)), MessageTypeDefOf.RejectInput, historical: false);
+                    Messages.Message("CommandFulfillTradeOfferFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_IsMeat, categoryRQ_AllowInsectMeat, categoryRQ_AllowHumanlikeMeat)), MessageTypeDefOf.RejectInput, historical: false);
                 }
                 else
                 {
@@ -107,7 +98,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         };
         if (!OAGene_RatkinUtility.HasAnyThings(caravan, categoryRQ_Def, PlayerCanGive))
         {
-            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, 1, categoryRQ_Quality, categoryRQ_IsApparel)));
+            command_Action.Disable("OAGene_CommandFulfillCategoryTradeFailInsufficient".Translate(RequestedThingCategoryLabel(categoryRQ_Def, 1, categoryRQ_IsMeat, categoryRQ_AllowInsectMeat, categoryRQ_AllowHumanlikeMeat)));
         }
         return command_Action;
     }
@@ -149,25 +140,25 @@ public class CategoryTradeRequestComp : WorldObjectComp
 
     private bool PlayerCanGive(Thing thing)
     {
-        if (thing.GetRotStage() != 0)
+        if (thing.GetRotStage() != RotStage.Fresh)
         {
             return false;
         }
-        if (thing is Apparel apparel)
+        if (categoryRQ_IsMeat)
         {
-            if (categoryRQ_IsApparel)
+            if (FoodUtility.GetFoodKind(thing.def) == FoodKind.Meat)
             {
-                return !apparel.WornByCorpse;
+                MeatSourceCategory meatSource = FoodUtility.GetMeatSourceCategory(thing.def);
+                if (!categoryRQ_AllowInsectMeat && meatSource == MeatSourceCategory.Insect)
+                {
+                    return false;
+                }
+                if (!categoryRQ_AllowHumanlikeMeat && meatSource == MeatSourceCategory.Humanlike)
+                {
+                    return false;
+                }
             }
             else
-            {
-                return false;
-            }
-        }
-        if (categoryRQ_Quality >= 0)
-        {
-            CompQuality compQuality = thing.TryGetComp<CompQuality>();
-            if (compQuality == null || (int)compQuality.Quality < categoryRQ_Quality)
             {
                 return false;
             }
@@ -183,22 +174,26 @@ public class CategoryTradeRequestComp : WorldObjectComp
         Scribe_Defs.Look(ref categoryRQ_Def, "categoryRQ_Def");
         Scribe_Values.Look(ref categoryRQ_Count, "categoryRQ_Count", 0);
         Scribe_Values.Look(ref categoryRQ_Left, "categoryRQ_Left", 0);
-        Scribe_Values.Look(ref categoryRQ_Quality, "categoryRQ_Quality", -1);
+        Scribe_Values.Look(ref categoryRQ_IsMeat, "categoryRQ_IsMeat", defaultValue: false);
+        Scribe_Values.Look(ref categoryRQ_AllowInsectMeat, "categoryRQ_AllowInsectMeat", defaultValue: false);
+        Scribe_Values.Look(ref categoryRQ_AllowHumanlikeMeat, "categoryRQ_AllowHumanlikeMeat", defaultValue: false);
     }
 
-    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count, int needQuality, bool isApparel)
+    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count,bool isMeat, bool allowInsectMeat, bool allowHumanlikeMeat)
     {
         string text = "OAGene_RequestedThingCategoryLabel".Translate(def.label, count);
-        if (needQuality >= 0)
+        if(isMeat)
         {
-            text += " (" + "NormalQualityOrBetter".Translate() + ")";
-        }
+            if (!allowInsectMeat)
+            {
+                text += " (" + "OAGene_NotInsectMeat".Translate() + ")";
+            }
 
-        if (isApparel)
-        {
-            text += " (" + "NotTainted".Translate() + ")";
+            if (!allowHumanlikeMeat)
+            {
+                text += " (" + "OAGene_NotHumanlikeMeat".Translate() + ")";
+            }
         }
-
         return text;
     }
 }

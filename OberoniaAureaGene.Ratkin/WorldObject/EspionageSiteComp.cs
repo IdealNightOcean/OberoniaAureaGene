@@ -19,11 +19,11 @@ public class EspionageSiteComp : WorldObjectComp
 {
     protected static readonly List<Pair<Action, float>> tmpPossibleOutcomes = [];
 
-    private bool active = false;
-    protected int allowTick = -1;
-    public int CoolingTicksLeft => allowTick - Find.TickManager.TicksGame;
-    public bool AllowEspionage => Find.TickManager.TicksGame > allowTick;
-    protected Quest associateQuest;
+    private bool activeEspionage = false;
+    protected int allowEspionageTick = -1;
+    public int CoolingTicksLeft => allowEspionageTick - Find.TickManager.TicksGame;
+    public bool AllowEspionage => Find.TickManager.TicksGame > allowEspionageTick;
+    protected Quest espionageQuest;
 
     public void TryGetOutCome(Caravan caravan)
     {
@@ -55,7 +55,7 @@ public class EspionageSiteComp : WorldObjectComp
     }
     public void Fail()
     {
-        allowTick = Find.TickManager.TicksGame + 60000;
+        allowEspionageTick = Find.TickManager.TicksGame + 60000;
     }
 
     protected static void SuccessButBeFound(Site site, Caravan caravan)
@@ -83,7 +83,7 @@ public class EspionageSiteComp : WorldObjectComp
     }
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
     {
-        if (!active)
+        if (!activeEspionage)
         {
             yield break;
         }
@@ -95,7 +95,7 @@ public class EspionageSiteComp : WorldObjectComp
 
     public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
     {
-        if (!active || parent is not Site site)
+        if (!activeEspionage || parent is not Site site)
         {
             yield break;
         }
@@ -121,9 +121,9 @@ public class EspionageSiteComp : WorldObjectComp
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Values.Look(ref active, "active", defaultValue: false);
-        Scribe_Values.Look(ref allowTick, "allowTick", -1);
-        Scribe_References.Look(ref associateQuest, "associateQuest");
+        Scribe_Values.Look(ref activeEspionage, "activeEspionage", defaultValue: false);
+        Scribe_Values.Look(ref allowEspionageTick, "allowEspionageTick", -1);
+        Scribe_References.Look(ref espionageQuest, "espionageQuest");
     }
 }
 

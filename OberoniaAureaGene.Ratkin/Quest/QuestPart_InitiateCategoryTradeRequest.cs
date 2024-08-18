@@ -13,8 +13,9 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
     public ThingCategoryDef requestedCategoryDef;
     public int requestedCount;
     public int requestDuration;
-    public int requestQuality = -1;
-    public bool isApparel;
+    public bool requestIsMeat;
+    public bool requestAllowInsectMeat;
+    public bool requestAllowHumanlikeMeat;
 
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
     {
@@ -73,7 +74,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
                 Log.Error("Settlement " + settlement.Label + " already has an active category trade request.");
                 return;
             }
-            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, requestQuality, isApparel);
+            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, requestIsMeat, requestAllowInsectMeat,requestAllowHumanlikeMeat);
         }
     }
 
@@ -93,8 +94,9 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
         Scribe_Defs.Look(ref requestedCategoryDef, "requestedCategoryDef");
         Scribe_Values.Look(ref requestedCount, "requestedCount", 0);
         Scribe_Values.Look(ref requestDuration, "requestDuration", 0);
-        Scribe_Values.Look(ref requestQuality, "requestQuality", -1);
-        Scribe_Values.Look(ref isApparel, "isApparel", defaultValue: false);
+        Scribe_Values.Look(ref requestIsMeat, "requestIsMeat", defaultValue: false);
+        Scribe_Values.Look(ref requestAllowInsectMeat, "requestAllowInsectMeat", defaultValue: false);
+        Scribe_Values.Look(ref requestAllowHumanlikeMeat, "requestAllowHumanlikeMeat", defaultValue: false);
     }
 
     public override void AssignDebugData()
@@ -110,7 +112,8 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
         requestedCategoryDef = ThingCategoryDefOf.StoneBlocks;
         requestedCount = 100;
         requestDuration = 60000;
-        requestQuality = -1;
-        isApparel = false;
+        requestIsMeat = false;
+        requestAllowInsectMeat = false;
+        requestAllowHumanlikeMeat = false;
     }
 }

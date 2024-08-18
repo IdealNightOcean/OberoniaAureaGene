@@ -6,7 +6,10 @@ namespace OberoniaAureaGene.Ratkin;
 [DefOf]
 public static class OAGene_RatkinDefOf
 {
-    public static FactionDef Rakinia_TravelRatkin;
+    public static FactionDef Rakinia; //鼠族王国
+    public static FactionDef Rakinia_RockRatkin; //岩鼠王国
+    public static FactionDef Rakinia_TravelRatkin; //旅鼠联邦
+    public static FactionDef Rakinia_SnowRatkin; //雪鼠王国
 
     public static HediffDef OAGene_RatkinTail;
 

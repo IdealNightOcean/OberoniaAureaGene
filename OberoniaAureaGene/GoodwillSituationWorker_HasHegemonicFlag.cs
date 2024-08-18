@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System.Linq;
+using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -12,7 +13,7 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
         {
             return 0;
         }
-        var playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
+        IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
         foreach (Map map in playerHomes)
         {
             MapComponent_OberoniaAureaGene oaGene_MCOAG = map.GetOAGeneMapComp();
