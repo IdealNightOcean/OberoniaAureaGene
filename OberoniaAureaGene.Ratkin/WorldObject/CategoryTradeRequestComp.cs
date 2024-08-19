@@ -125,11 +125,13 @@ public class CategoryTradeRequestComp : WorldObjectComp
         }
         if (categoryRQ_Left <= 0)
         {
+            /*
             if (parent.Faction != null)
             {
                 Faction.OfPlayer.TryAffectGoodwillWith(parent.Faction, 12, canSendMessage: true, canSendHostilityLetter: true, HistoryEventDefOf.QuestGoodwillReward);
             }
-            QuestUtility.SendQuestTargetSignals(parent.questTags, "TradeRequestFulfilled", parent.Named("SUBJECT"), caravan.Named("CARAVAN"));
+            */
+            QuestUtility.SendQuestTargetSignals(parent.questTags, "OAGene_CategoryRQFulfilled", parent.Named("SUBJECT"), caravan.Named("CARAVAN"));
             Disable();
         }
         else

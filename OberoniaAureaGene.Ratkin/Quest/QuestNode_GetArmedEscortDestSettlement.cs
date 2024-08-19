@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System;
@@ -12,17 +13,54 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlementOfFaction
 {
-    public SlateRef<WorldObject> startSettlement;
+    public SlateRef<Settlement> startSettlement;
     public SlateRef<int> minEscortTileDistance;
-
-    protected override bool ValidSettlement(Settlement settlement, Slate slate)
+    protected override Settlement RandomNearbySettlement(int originTile, Slate slate)
     {
-        int originTile = startSettlement.GetValue(slate)?.Tile ?? -1;
-        if (originTile < 0)
+        Settlement startSettle = startSettlement.GetValue(slate);
+        if (startSettle == null || startSettle.Tile < 0)
+        {
+            return null;
+        }
+        Faction faction = this.faction.GetValue(slate);
+        if (faction == null)
+        {
+            return null;
+        }
+        Settlement outSettlement = Find.WorldObjects.SettlementBases.Where(delegate (Settlement settlement)
+        {
+            return IsGoodSettlement(settlement, startSettle, originTile, slate);
+        }).RandomElementWithFallback();
+
+        if (ignoreConditionsIfNecessary.GetValue(slate) && outSettlement == null)
+        {
+            outSettlement = Find.WorldObjects.SettlementBases.Where(delegate (Settlement settlement)
+            {
+                if (!settlement.Visitable || settlement.Faction != faction)
+                {
+                    return false;
+                }
+                if(settlement == startSettle)
+                {
+                    return false;
+                }
+                return true;
+            }).RandomElementWithFallback();
+        }
+        return outSettlement;
+
+    }
+    protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, int originTile, Slate slate)
+    {
+        if (settlement == startSettle)
         {
             return false;
         }
-        if (Find.WorldGrid.ApproxDistanceInTiles(originTile, settlement.Tile) < minEscortTileDistance.GetValue(slate))
+        if (!base.IsGoodSettlement(settlement, originTile, slate))
+        {
+            return false;
+        }
+        if (Find.WorldGrid.ApproxDistanceInTiles(startSettle.Tile, settlement.Tile) < minEscortTileDistance.GetValue(slate))
         {
             return false;
         }

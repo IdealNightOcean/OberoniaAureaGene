@@ -86,10 +86,12 @@ public class SaleRequestComp : WorldObjectComp
         {
             CaravanInventoryUtility.GiveThing(caravan, t);
         }
+        /*
         if (parent.Faction != null)
         {
             Faction.OfPlayer.TryAffectGoodwillWith(parent.Faction, 12, canSendMessage: true, canSendHostilityLetter: true, HistoryEventDefOf.QuestGoodwillReward);
         }
+        */
         QuestUtility.SendQuestTargetSignals(parent.questTags, "OAGene_SaleRequestFulfilled", parent.Named("SUBJECT"), caravan.Named("CARAVAN"));
         Disable();
     }

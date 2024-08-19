@@ -25,7 +25,7 @@ public static class GetDodgeChance_Patch
         {
             float dodgeChance = __result > 0.5f ? 0.5f : __result;
             flag = Rand.Chance(dodgeChance);
-            __result = flag ? 2f : dodgeChance;
+            __result = flag ? 2f : (Rand.Chance(dodgeChance) ? 2f : dodgeChance);
         }
     }
 }
