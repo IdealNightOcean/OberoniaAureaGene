@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
+    <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />
     <Compile Include="Quest\QuestNode_GetArmedEscortDestSettlement.cs" />
     <Compile Include="Quest\QuestNode_GetRatKinKindomFaction.cs" />
     <Compile Include="Quest\QuestNode_InitiateCategoryTradeRequest.cs" />

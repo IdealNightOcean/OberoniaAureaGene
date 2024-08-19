@@ -74,7 +74,7 @@ public class QuestPart_InitiateCategoryTradeRequest : QuestPart
                 Log.Error("Settlement " + settlement.Label + " already has an active category trade request.");
                 return;
             }
-            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, requestIsMeat, requestAllowInsectMeat,requestAllowHumanlikeMeat);
+            component.InitTradeRequest(requestedCategoryDef, requestedCount, requestDuration, requestIsMeat, requestAllowInsectMeat, requestAllowHumanlikeMeat);
         }
     }
 

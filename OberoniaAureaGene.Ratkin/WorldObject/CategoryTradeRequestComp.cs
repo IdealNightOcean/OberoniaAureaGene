@@ -29,7 +29,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
 
     public bool ActiveRequest => activeCategoryRQ && categoryRQ_Expiration > Find.TickManager.TicksGame;
 
-    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int requestDuration,bool isMeat=false,bool allowInsectMeat = false, bool allowHumanlikeMeat = false)
+    public virtual void InitTradeRequest(ThingCategoryDef requestedCategoryDef, int requestCount, int requestDuration, bool isMeat = false, bool allowInsectMeat = false, bool allowHumanlikeMeat = false)
     {
         categoryRQ_Def = requestedCategoryDef;
         categoryRQ_Count = requestCount;
@@ -46,7 +46,7 @@ public class CategoryTradeRequestComp : WorldObjectComp
         Log.Message(activeCategoryRQ + " | " + categoryRQ_Expiration);
         if (ActiveRequest)
         {
-            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_IsMeat, categoryRQ_AllowInsectMeat,categoryRQ_AllowHumanlikeMeat).CapitalizeFirst(), (categoryRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
+            return "OAGene_CaravanCategoryRequestInfo".Translate(RequestedThingCategoryLabel(categoryRQ_Def, categoryRQ_Count, categoryRQ_IsMeat, categoryRQ_AllowInsectMeat, categoryRQ_AllowHumanlikeMeat).CapitalizeFirst(), (categoryRQ_Expiration - Find.TickManager.TicksGame).ToStringTicksToDays());
         }
         return null;
     }
@@ -181,10 +181,10 @@ public class CategoryTradeRequestComp : WorldObjectComp
         Scribe_Values.Look(ref categoryRQ_AllowHumanlikeMeat, "categoryRQ_AllowHumanlikeMeat", defaultValue: false);
     }
 
-    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count,bool isMeat, bool allowInsectMeat, bool allowHumanlikeMeat)
+    public static string RequestedThingCategoryLabel(ThingCategoryDef def, int count, bool isMeat, bool allowInsectMeat, bool allowHumanlikeMeat)
     {
         string text = "OAGene_RequestedThingCategoryLabel".Translate(def.label, count);
-        if(isMeat)
+        if (isMeat)
         {
             if (!allowInsectMeat)
             {

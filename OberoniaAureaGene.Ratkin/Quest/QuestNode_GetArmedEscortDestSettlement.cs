@@ -2,11 +2,7 @@
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
@@ -40,7 +36,7 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
                 {
                     return false;
                 }
-                if(settlement == startSettle)
+                if (settlement == startSettle)
                 {
                     return false;
                 }

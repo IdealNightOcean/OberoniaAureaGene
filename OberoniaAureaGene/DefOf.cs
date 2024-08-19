@@ -39,6 +39,9 @@ public static class OAGene_RimWorldDefOf
     public static HediffDef Frail;
     public static WorkTypeDef Tailoring;
 
+    [MayRequireIdeology]
+    public static SitePartDef WorkSite_Farming;
+
     static OAGene_RimWorldDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_RimWorldDefOf));
