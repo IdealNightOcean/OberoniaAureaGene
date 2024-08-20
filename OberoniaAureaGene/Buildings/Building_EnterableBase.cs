@@ -6,6 +6,7 @@ using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
+using OberoniaAurea_Frame;
 
 namespace OberoniaAureaGene;
 
