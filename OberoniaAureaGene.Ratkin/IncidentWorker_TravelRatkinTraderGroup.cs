@@ -35,9 +35,9 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
         };
         subParms.faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, subParms.faction), out subParms.traderKind);
         IncidentDefOf.TraderCaravanArrival.Worker.TryExecute(subParms);
-        int traderCount = TraderCount.RandomInRange - 1;
+        int traderCount = TraderCount.RandomInRange;
         int delayTicks = 0;
-        for (int i = 0; i < traderCount; i++)
+        for (int i = 0; i < traderCount - 1; i++)
         {
             delayTicks += DelayTicks.RandomInRange;
             TraderCaravanArrival(map, parms.faction, delayTicks);

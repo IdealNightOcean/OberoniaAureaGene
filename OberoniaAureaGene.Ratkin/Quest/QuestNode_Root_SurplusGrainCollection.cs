@@ -189,10 +189,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     protected override void RunInt()
     {
-        if (!ModLister.CheckIdeology("Work site"))
-        {
-            return;
-        }
         Faction questFaction = GetQuestFaction();
         if (questFaction == null)
         {
