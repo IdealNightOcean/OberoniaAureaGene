@@ -61,7 +61,7 @@ public class EspionageSiteComp : WorldObjectComp
     protected static void SuccessButBeFound(Site site, Caravan caravan)
     {
         Faction faction = site.Faction;
-        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15);
+        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
         if (Faction.OfPlayer.HostileTo(faction))
         {
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
@@ -74,7 +74,7 @@ public class EspionageSiteComp : WorldObjectComp
     protected static void FailAndBeBeFound(Site site, Caravan caravan)
     {
         Faction faction = site.Faction;
-        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15);
+        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
         if (Faction.OfPlayer.HostileTo(faction))
         {
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);

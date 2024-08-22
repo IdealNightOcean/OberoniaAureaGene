@@ -13,6 +13,9 @@ public static class OAGene_RatkinDefOf
 
     public static HediffDef OAGene_RatkinTail;
 
+    public static HistoryEventDef OAGene_SuspectedBehavior;
+    public static HistoryEventDef OAGene_EspionageBehavior;
+
     public static JobDef OAGene_HaulToDiscriminator;
 
     public static ThingDef Ratkin;

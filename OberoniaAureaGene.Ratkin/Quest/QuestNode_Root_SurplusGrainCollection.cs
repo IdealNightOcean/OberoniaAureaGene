@@ -26,13 +26,13 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     private const float SurpriseReinforcementChance = 0.35f;
 
-    private static readonly SimpleCurve ExistingCampsAppearanceFrequencyMultiplier = new SimpleCurve
-    {
+    private static readonly SimpleCurve ExistingCampsAppearanceFrequencyMultiplier =
+    [
         new CurvePoint(0f, 1f),
         new CurvePoint(2f, 1f),
         new CurvePoint(3f, 0.3f),
         new CurvePoint(4f, 0.1f)
-    };
+    ];
 
     private const float MinPoints = 40f;
 
@@ -66,8 +66,12 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         SiteSpawnCandidate candidate = new()
         {
             sitePart = sitePart,
-            tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(aroundTile)
+            tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(-1)
         };
+        if(candidate.tile == -1)
+        {
+            candidate.tile = potentialTiles.RandomElement();
+        }
         return candidate;
     }
 
@@ -209,14 +213,16 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         {
             num = 40f;
         }
-        Map map = Find.Maps.Where((Map m) => m.IsPlayerHome).RandomElementByWeight(AppearanceFrequency);
+        Map map = QuestGen_Get.GetMap();
         slate.Set("map", map);
         Site site = GenerateSite(num, map.Tile, originalFation.def);
-
+        Log.Message((site == null) + " " + site.Tile);
         quest.SpawnWorldObject(site);
         quest.ReserveFaction(site.Faction);
-        quest.AddInvolvedFaction(questFaction);
-        quest.AddInvolvedFaction(originalFation);
+        QuestPart_InvolvedFactions questPart_InvolvedFactions = new();
+        questPart_InvolvedFactions.factions.Add(questFaction);
+        questPart_InvolvedFactions.factions.Add(originalFation);
+        quest.AddPart(questPart_InvolvedFactions);
         int num2 = 1800000;
         quest.WorldObjectTimeout(site, num2);
         quest.Delay(num2, delegate
@@ -268,7 +274,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             quest.SurpriseReinforcements(inSignalEnabled, site, site.Faction, 0.35f);
         }
         quest.Notify_PlayerRaidedSomeone(null, site, inSignal);
-        quest.FactionGoodwillChange(originalFation, -60, inSignal: inSignalEnabled);
+        quest.FactionGoodwillChange(originalFation, -60, inSignal: inSignalEnabled, historyEvent: HistoryEventDefOf.AttackedSettlement);
         quest.End(QuestEndOutcome.Success, 0, null, inSignal2);
         QuestGen.AddQuestDescriptionRules(
         [
@@ -282,18 +288,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         {
             return false;
         }
-        QuestGenUtility.TestRunAdjustPointsForDistantFight(slate);
-        if (slate.Get("points", 0f) < 40f)
-        {
-            return false;
-        }
-        foreach (Map map in Find.Maps)
-        {
-            if (map.IsPlayerHome && AppearanceFrequency(map) > 0f)
-            {
-                return true;
-            }
-        }
-        return false;
+        Map map = QuestGen_Get.GetMap();
+        return map != null;
     }
 }
