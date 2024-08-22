@@ -10,7 +10,7 @@ public class QuestNode_GetRatKinKindomFaction : OberoniaAurea_Frame.QuestNode_Ge
         if (!faction.IsRatkinKindomFaction())
         {
             return false;
-        }   
+        }
         return base.IsGoodFaction(faction, slate);
     }
 }

@@ -3,7 +3,6 @@ using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Verse;
 using Verse.Grammar;
 
@@ -68,7 +67,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             sitePart = sitePart,
             tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(-1)
         };
-        if(candidate.tile == -1)
+        if (candidate.tile == -1)
         {
             candidate.tile = potentialTiles.RandomElement();
         }
@@ -138,59 +137,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         return tiles;
     }
 
-    public static float AppearanceFrequency(Map map)
-    {
-        float num = 1f;
-        float num2 = 0f;
-        List<int> list = PotentialSiteTiles(map.Tile);
-        if (list.Count == 0)
-        {
-            return 0f;
-        }
-        if (!AnySpawnCandidate(map.Tile))
-        {
-            return 0f;
-        }
-        foreach (int item in list)
-        {
-            num2 += Find.WorldGrid[item].biome.campSelectionWeight;
-        }
-        num2 /= (float)list.Count;
-        num *= num2;
-        int num3 = 0;
-        foreach (Site site in Find.WorldObjects.Sites)
-        {
-            if (site.MainSitePartDef.tags != null && site.MainSitePartDef.tags.Contains("WorkSite"))
-            {
-                num3++;
-            }
-        }
-        num *= ExistingCampsAppearanceFrequencyMultiplier.Evaluate(num3);
-        int num4 = map.mapPawns.FreeColonists.Count();
-        if (num4 <= 1)
-        {
-            return 0f;
-        }
-        if (num4 == 2)
-        {
-            return num / 2f;
-        }
-        return num;
-    }
-
-    public static float BestAppearanceFrequency()
-    {
-        float num = 0f;
-        foreach (Map map in Find.Maps)
-        {
-            if (map.IsPlayerHome)
-            {
-                num = Mathf.Max(num, AppearanceFrequency(map));
-            }
-        }
-        return num;
-    }
-
     protected override void RunInt()
     {
         Faction questFaction = GetQuestFaction();
@@ -204,7 +150,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             return;
         }
 
-
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
         QuestGenUtility.RunAdjustPointsForDistantFight();
@@ -216,7 +161,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         Map map = QuestGen_Get.GetMap();
         slate.Set("map", map);
         Site site = GenerateSite(num, map.Tile, originalFation.def);
-        Log.Message((site == null) + " " + site.Tile);
         quest.SpawnWorldObject(site);
         quest.ReserveFaction(site.Faction);
         QuestPart_InvolvedFactions questPart_InvolvedFactions = new();

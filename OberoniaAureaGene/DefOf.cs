@@ -37,6 +37,10 @@ public static class OAGene_RimWorldDefOf
 {
 
     public static HediffDef Frail;
+
+    public static WeatherDef SnowHard;
+    public static WeatherDef SnowGentle;
+
     public static WorkTypeDef Tailoring;
 
     [MayRequireIdeology]
