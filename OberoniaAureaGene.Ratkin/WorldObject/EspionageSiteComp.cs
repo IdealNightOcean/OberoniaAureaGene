@@ -19,10 +19,10 @@ public class EspionageSiteComp : WorldObjectComp
 {
     protected static readonly List<Pair<Action, float>> tmpPossibleOutcomes = [];
 
-    private bool activeEspionage = false;
+    public bool activeEspionage = false;
     protected int allowEspionageTick = -1;
     public int CoolingTicksLeft => allowEspionageTick - Find.TickManager.TicksGame;
-    public bool AllowEspionage => Find.TickManager.TicksGame > allowEspionageTick;
+    public bool AllowEspionage => activeEspionage && Find.TickManager.TicksGame > allowEspionageTick;
     protected Quest espionageQuest;
 
     public void TryGetOutCome(Caravan caravan)
@@ -47,6 +47,16 @@ public class EspionageSiteComp : WorldObjectComp
             Fail();
         }, 10f));
         tmpPossibleOutcomes.RandomElementByWeight((Pair<Action, float> x) => x.Second).First();
+    }
+    public void InitEspionage(int allowEspionageTick = -1)
+    {
+        activeEspionage = true;
+        this.allowEspionageTick = allowEspionageTick;
+    }
+    public void Disable()
+    {
+        activeEspionage = false;
+        allowEspionageTick = -1;
     }
 
     protected static void Success(Site site)
@@ -146,8 +156,9 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     }
     private static void Espionage(Caravan caravan, WorldObject site)
     {
-        FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
-        fixCaravan.SetEspionageSiteComp(site.GetComponent<EspionageSiteComp>());
+        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
+        fixedCaravan.SetEspionageSiteComp(site.GetComponent<EspionageSiteComp>());
+        Find.WorldObjects.Add(fixedCaravan);
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {

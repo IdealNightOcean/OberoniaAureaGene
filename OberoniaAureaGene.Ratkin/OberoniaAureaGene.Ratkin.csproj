@@ -72,9 +72,11 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
+    <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
     <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />
     <Compile Include="Quest\QuestNode_GetArmedEscortDestSettlement.cs" />
     <Compile Include="Quest\QuestNode_GetRatKinKindomFaction.cs" />
+    <Compile Include="Quest\QuestPart_InitiateEspionage.cs" />
     <Compile Include="WorldObject\EspionageSiteComp.cs" />
     <Compile Include="ImplantXenogermItem_Patch.cs" />
     <Compile Include="ModExtension.cs" />
