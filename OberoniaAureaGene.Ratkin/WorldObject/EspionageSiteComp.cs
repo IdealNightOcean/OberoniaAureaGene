@@ -24,6 +24,7 @@ public class EspionageSiteComp : WorldObjectComp
     public int CoolingTicksLeft => allowEspionageTick - Find.TickManager.TicksGame;
     public bool AllowEspionage => activeEspionage && Find.TickManager.TicksGame > allowEspionageTick;
     protected Quest espionageQuest;
+    protected bool espionageSuccess;
 
     public void TryGetOutCome(Caravan caravan)
     {
@@ -61,7 +62,8 @@ public class EspionageSiteComp : WorldObjectComp
 
     protected static void Success(Site site)
     {
-        site.Destroy();
+        QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
+        site.Destroy();  
     }
     public void Fail()
     {
@@ -72,7 +74,8 @@ public class EspionageSiteComp : WorldObjectComp
     {
         Faction faction = site.Faction;
         Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
-        if (Faction.OfPlayer.HostileTo(faction))
+        QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
+        if (faction.HostileTo(Faction.OfPlayer))
         {
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
         }
@@ -89,7 +92,6 @@ public class EspionageSiteComp : WorldObjectComp
         {
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
         }
-
     }
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
     {
@@ -127,7 +129,19 @@ public class EspionageSiteComp : WorldObjectComp
         yield return command_Action;
     }
 
-
+    public override void PostDestroy()
+    {
+        if(!espionageSuccess)
+        {
+            Site site = parent as Site;
+            bool allEnemiesDefeated = ReflectionUtility.GetFieldValue<bool>(site, "allEnemiesDefeatedSignalSent", fallback: false);
+            if(allEnemiesDefeated)
+            {
+                QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
+            }
+        }
+        base.PostDestroy();
+    }
     public override void PostExposeData()
     {
         base.PostExposeData();
