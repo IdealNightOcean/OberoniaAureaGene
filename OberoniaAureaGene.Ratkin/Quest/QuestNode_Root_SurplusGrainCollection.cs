@@ -149,7 +149,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         {
             return;
         }
-
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
         QuestGenUtility.RunAdjustPointsForDistantFight();
@@ -227,6 +226,10 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     protected override bool TestRunInt(Slate slate)
     {
         if (!Find.Storyteller.difficulty.allowViolentQuests)
+        {
+            return false;
+        }
+        if (WealthUtility.PlayerWealth < 80000f)
         {
             return false;
         }
