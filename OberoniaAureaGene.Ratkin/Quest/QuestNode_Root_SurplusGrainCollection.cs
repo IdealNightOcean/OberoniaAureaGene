@@ -159,7 +159,9 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             num = 40f;
         }
         Map map = QuestGen_Get.GetMap();
+        Pawn asker = questFaction.leader;
         slate.Set("map", map);
+        slate.Set("asker", asker);
         Site site = GenerateSite(num, map.Tile, originalFation.def);
         quest.SpawnWorldObject(site);
         quest.ReserveFaction(site.Faction);
@@ -167,9 +169,9 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         questPart_InvolvedFactions.factions.Add(questFaction);
         questPart_InvolvedFactions.factions.Add(originalFation);
         quest.AddPart(questPart_InvolvedFactions);
-        int num2 = 1800000;
-        quest.WorldObjectTimeout(site, num2);
-        quest.Delay(num2, delegate
+        int timeout = 1800000;
+        quest.WorldObjectTimeout(site, timeout);
+        quest.Delay(timeout, delegate
         {
             QuestGen_End.End(quest, QuestEndOutcome.Fail);
         });
@@ -195,31 +197,27 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         slate.Set("questFaction", questFaction);
         slate.Set("originalFation", originalFation);
         slate.Set("faction", site.Faction);
-        slate.Set("timeout", num2);
-        string inSignal = QuestGenUtility.HardcodedSignalWithQuestID("campSite.AllEnemiesDefeated");
+        slate.Set("timeout", timeout);
+        string inSignalSuccess = QuestGenUtility.HardcodedSignalWithQuestID("campSite.AllEnemiesDefeated");
         string inSignalEnabled = QuestGenUtility.HardcodedSignalWithQuestID("campSite.MapGenerated");
-        string inSignal2 = QuestGenUtility.HardcodedSignalWithQuestID("campSite.MapRemoved");
+        string inSignalEnd = QuestGenUtility.HardcodedSignalWithQuestID("campSite.MapRemoved");
 
-        QuestPart_Choice questPart_Choice = quest.RewardChoice();
-        QuestPart_Choice.Choice reward_choice = new()
-        {
-            rewards = { new Reward_CampLoot() }
-        };
-        RewardsGeneratorParams rewardsGeneratorParams = new()
-        {
-            rewardValue = RewardValue.RandomInRange,
-            thingRewardItemsOnly = true,
-            giverFaction = questFaction
-        };
-        reward_choice.rewards.AddRange(RewardsGenerator.Generate(rewardsGeneratorParams));
-        questPart_Choice.choices.Add(reward_choice);
         if (num >= 400f)
         {
             quest.SurpriseReinforcements(inSignalEnabled, site, site.Faction, 0.35f);
         }
-        quest.Notify_PlayerRaidedSomeone(null, site, inSignal);
+        quest.Notify_PlayerRaidedSomeone(null, site, inSignalSuccess);
         quest.FactionGoodwillChange(originalFation, -60, inSignal: inSignalEnabled, historyEvent: HistoryEventDefOf.AttackedSettlement);
-        quest.End(QuestEndOutcome.Success, 0, null, inSignal2);
+        //任务奖励
+
+        quest.GiveRewards(new RewardsGeneratorParams
+        {
+            rewardValue = RewardValue.RandomInRange,
+            thingRewardItemsOnly = true,
+            giverFaction = questFaction
+        }, inSignalSuccess, addCampLootReward: true, asker: asker);
+        
+        quest.End(QuestEndOutcome.Success, 0, null, inSignalEnd);
         QuestGen.AddQuestDescriptionRules(
         [
             new Rule_String("siteLabel", site.Label)
