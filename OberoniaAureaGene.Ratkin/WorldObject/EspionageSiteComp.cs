@@ -63,7 +63,7 @@ public class EspionageSiteComp : WorldObjectComp
     protected static void Success(Site site)
     {
         QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
-        site.Destroy();  
+        site.Destroy();
     }
     public void Fail()
     {
@@ -131,11 +131,11 @@ public class EspionageSiteComp : WorldObjectComp
 
     public override void PostDestroy()
     {
-        if(!espionageSuccess)
+        if (!espionageSuccess)
         {
             Site site = parent as Site;
             bool allEnemiesDefeated = ReflectionUtility.GetFieldValue<bool>(site, "allEnemiesDefeatedSignalSent", fallback: false);
-            if(allEnemiesDefeated)
+            if (allEnemiesDefeated)
             {
                 QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
             }

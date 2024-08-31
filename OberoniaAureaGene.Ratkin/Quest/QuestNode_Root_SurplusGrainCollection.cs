@@ -215,7 +215,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             thingRewardItemsOnly = true,
             giverFaction = questFaction
         }, inSignalSuccess, addCampLootReward: true, asker: asker);
-        
+
         quest.End(QuestEndOutcome.Success, 0, null, inSignalEnd);
         QuestGen.AddQuestDescriptionRules(
         [

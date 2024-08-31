@@ -33,7 +33,7 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
         for (int i = 0; i < settlementList.Count; i++)
         {
             Settlement settle = settlementList[i];
-            if (IsGoodSettlement(settle, startSettle, originTile, slate, out distance))
+            if (IsGoodSettlement(settle, startSettle, faction, originTile, slate, out distance))
             {
                 potentialSettle.Add(settle, distance);
             }
@@ -69,14 +69,14 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
         return outSettlement;
 
     }
-    protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, int originTile, Slate slate, out float distance)
+    protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, Faction faction, int originTile, Slate slate, out float distance)
     {
         distance = 999999f;
         if (settlement == startSettle)
         {
             return false;
         }
-        if (!base.IsGoodSettlement(settlement, originTile, slate, out distance))
+        if (!base.IsGoodSettlement(settlement, faction, originTile, slate, out distance))
         {
             return false;
         }
