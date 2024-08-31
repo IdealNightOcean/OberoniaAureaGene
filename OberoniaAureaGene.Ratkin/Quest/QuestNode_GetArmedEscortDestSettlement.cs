@@ -2,6 +2,7 @@
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -23,10 +24,32 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
         {
             return null;
         }
-        Settlement outSettlement = Find.WorldObjects.SettlementBases.Where(delegate (Settlement settlement)
+
+        Settlement outSettlement = null;
+
+        List<Settlement> settlementList = Find.WorldObjects.SettlementBases;
+        Dictionary<Settlement, float> potentialSettle = [];
+        float distance = 999999f;
+        for (int i = 0; i < settlementList.Count; i++)
         {
-            return IsGoodSettlement(settlement, startSettle, originTile, slate);
-        }).RandomElementWithFallback();
+            Settlement settle = settlementList[i];
+            if (IsGoodSettlement(settle, startSettle, originTile, slate, out distance))
+            {
+                potentialSettle.Add(settle, distance);
+            }
+        }
+        if (potentialSettle.Any())
+        {
+            if (nearFirst.GetValue(slate))
+            {
+                potentialSettle.OrderBy(sd => sd.Value);
+                outSettlement = potentialSettle.First().Key;
+            }
+            else
+            {
+                outSettlement = potentialSettle.RandomElement().Key;
+            }
+        }
 
         if (ignoreConditionsIfNecessary.GetValue(slate) && outSettlement == null)
         {
@@ -46,13 +69,14 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
         return outSettlement;
 
     }
-    protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, int originTile, Slate slate)
+    protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, int originTile, Slate slate, out float distance)
     {
+        distance = 999999f;
         if (settlement == startSettle)
         {
             return false;
         }
-        if (!base.IsGoodSettlement(settlement, originTile, slate))
+        if (!base.IsGoodSettlement(settlement, originTile, slate, out distance))
         {
             return false;
         }
