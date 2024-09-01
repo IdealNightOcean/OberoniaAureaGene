@@ -26,9 +26,9 @@ public class EspionageSiteComp : WorldObjectComp
     public int CoolingTicksLeft => allowEspionageTick - Find.TickManager.TicksGame;
     public bool AllowEspionage => activeEspionage && Find.TickManager.TicksGame > allowEspionageTick;
     public Site Site => parent as Site;
-    
 
-    public void TryGetOutCome(Caravan caravan,bool forceFail = false)
+
+    public void TryGetOutCome(Caravan caravan, bool forceFail = false)
     {
         if (forceFail)
         {
@@ -46,11 +46,11 @@ public class EspionageSiteComp : WorldObjectComp
         }, 50f));
         tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
         {
-            SuccessButBeFound(caravan,this);
+            SuccessButBeFound(caravan, this);
         }, 25f));
         tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
         {
-            FailAndBeBeFound(caravan,this);
+            FailAndBeBeFound(caravan, this);
         }, 10f));
         tmpPossibleOutcomes.RandomElementByWeight((Pair<Action, float> x) => x.Second).First();
     }
@@ -81,7 +81,7 @@ public class EspionageSiteComp : WorldObjectComp
     }
 
     protected static void SuccessButBeFound(Caravan caravan, EspionageSiteComp espionageSiteComp)
-    {      
+    {
         Site site = espionageSiteComp.Site;
 
         Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
@@ -201,7 +201,7 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {
-        if(site == null)
+        if (site == null)
         {
             return false;
         }
