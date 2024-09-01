@@ -1,5 +1,7 @@
 ﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
+using System.Text;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
@@ -14,6 +16,12 @@ public class FixCaravan_EspionageSite : FixedCaravan
     {
         associateSite = site;
         associateEspionageSiteComp = associateSite?.GetComponent<EspionageSiteComp>();
+    }
+    public override string GetInspectString()
+    {
+        StringBuilder stringBuilder = new(base.GetInspectString());
+        stringBuilder.AppendInNewLine("OAGene_Espionaging".Translate(ticksRemaining.ToStringTicksToPeriod()));
+        return stringBuilder.ToString();
     }
 
     public override void Tick()

@@ -9,7 +9,10 @@ namespace OberoniaAureaGene.Ratkin;
 public class QuestPart_InitiateEspionage : QuestPart
 {
     public string inSignal;
+    
     public Site site;
+    public string customLabel;
+
 
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
     {
@@ -48,12 +51,13 @@ public class QuestPart_InitiateEspionage : QuestPart
         {
             EspionageSiteComp component = site.GetComponent<EspionageSiteComp>();
             if (component != null)
-            {
+            {              
                 if (component.activeEspionage)
                 {
                     Log.Error("Site " + site.Label + " already has an active espionage.");
                     return;
                 }
+                site.customLabel = customLabel;
                 component.InitEspionage();
             }
         }
@@ -71,6 +75,7 @@ public class QuestPart_InitiateEspionage : QuestPart
     {
         base.ExposeData();
         Scribe_Values.Look(ref inSignal, "inSignal");
+        Scribe_Values.Look(ref customLabel, "customLabel");
         Scribe_References.Look(ref site, "site");
     }
 }

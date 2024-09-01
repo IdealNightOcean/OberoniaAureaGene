@@ -27,7 +27,6 @@ public class EspionageSiteComp : WorldObjectComp
     public bool AllowEspionage => activeEspionage && Find.TickManager.TicksGame > allowEspionageTick;
     public Site Site => parent as Site;
 
-
     public void TryGetOutCome(Caravan caravan, bool forceFail = false)
     {
         if (forceFail)
@@ -77,15 +76,15 @@ public class EspionageSiteComp : WorldObjectComp
     public static void Fail(EspionageSiteComp espionageSiteComp)
     {
         Messages.Message("OAGene_MessageEspionageFail".Translate(), MessageTypeDefOf.NeutralEvent);
-        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 60000;
+        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 15000;
     }
 
     protected static void SuccessButBeFound(Caravan caravan, EspionageSiteComp espionageSiteComp)
     {
         Site site = espionageSiteComp.Site;
 
-        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
         espionageSiteComp.espionageSuccess = true;
+        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);    
         QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
         if (site.Faction.HostileTo(Faction.OfPlayer))
         {
@@ -102,7 +101,7 @@ public class EspionageSiteComp : WorldObjectComp
     {
         Site site = espionageSiteComp.Site;
 
-        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 60000;
+        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 15000;
         Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
         if (site.Faction.HostileTo(Faction.OfPlayer))
         {
@@ -148,7 +147,6 @@ public class EspionageSiteComp : WorldObjectComp
             yield return command_Action;
         }
     }
-
     public override void PostDestroy()
     {
         if (activeEspionage && !espionageSuccess)
