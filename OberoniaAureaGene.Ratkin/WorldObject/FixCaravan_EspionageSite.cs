@@ -1,16 +1,19 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld.Planet;
+using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
 public class FixCaravan_EspionageSite : FixedCaravan
 {
+    public Site associateSite;
     public EspionageSiteComp associateEspionageSiteComp;
     public static readonly int ReconnaissanceTicks = 10000;
 
-    public void SetEspionageSiteComp(EspionageSiteComp comp)
+    public void SetEspionageSiteComp(Site site)
     {
-        associateEspionageSiteComp = comp;
+        associateSite = site;
+        associateEspionageSiteComp = associateSite?.GetComponent<EspionageSiteComp>();
     }
 
     public override void Tick()
@@ -25,8 +28,18 @@ public class FixCaravan_EspionageSite : FixedCaravan
     }
     protected override void PreConvertToCaravanByPlayer()
     {
-        associateEspionageSiteComp?.Fail();
+        associateEspionageSiteComp?.TryGetOutCome(null, true);
     }
     public override void Notify_ConvertToCaravan()
     { }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_References.Look(ref associateSite, "associateSite");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            associateEspionageSiteComp = associateSite?.GetComponent<EspionageSiteComp>();
+        }
+    }
 }

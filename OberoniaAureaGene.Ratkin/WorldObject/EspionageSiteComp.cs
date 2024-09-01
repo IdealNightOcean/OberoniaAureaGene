@@ -21,31 +21,36 @@ public class EspionageSiteComp : WorldObjectComp
 
     public bool activeEspionage = false;
     protected int allowEspionageTick = -1;
+    public bool espionageSuccess;
+
     public int CoolingTicksLeft => allowEspionageTick - Find.TickManager.TicksGame;
     public bool AllowEspionage => activeEspionage && Find.TickManager.TicksGame > allowEspionageTick;
-    protected Quest espionageQuest;
-    protected bool espionageSuccess;
+    public Site Site => parent as Site;
+    
 
-    public void TryGetOutCome(Caravan caravan)
+    public void TryGetOutCome(Caravan caravan,bool forceFail = false)
     {
-        tmpPossibleOutcomes.Clear();
-        if (parent is not Site site)
+        if (forceFail)
         {
+            Fail(this);
             return;
         }
+        tmpPossibleOutcomes.Clear();
         tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
         {
-            Success(site);
+            Success(this);
         }, 15f));
-        tmpPossibleOutcomes.Add(new Pair<Action, float>(Fail, 50f));
         tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
         {
-            SuccessButBeFound(site, caravan);
+            Fail(this);
+        }, 50f));
+        tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
+        {
+            SuccessButBeFound(caravan,this);
         }, 25f));
         tmpPossibleOutcomes.Add(new Pair<Action, float>(delegate
         {
-            FailAndBeBeFound(site, caravan);
-            Fail();
+            FailAndBeBeFound(caravan,this);
         }, 10f));
         tmpPossibleOutcomes.RandomElementByWeight((Pair<Action, float> x) => x.Second).First();
     }
@@ -60,78 +65,93 @@ public class EspionageSiteComp : WorldObjectComp
         allowEspionageTick = -1;
     }
 
-    protected static void Success(Site site)
+    protected static void Success(EspionageSiteComp espionageSiteComp)
     {
+        Site site = espionageSiteComp.Site;
+
+        espionageSiteComp.espionageSuccess = true;
         QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
+        Messages.Message("OAGene_MessageEspionageSuccess".Translate(), MessageTypeDefOf.PositiveEvent);
         site.Destroy();
     }
-    public void Fail()
+    public static void Fail(EspionageSiteComp espionageSiteComp)
     {
-        allowEspionageTick = Find.TickManager.TicksGame + 60000;
+        Messages.Message("OAGene_MessageEspionageFail".Translate(), MessageTypeDefOf.NeutralEvent);
+        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 60000;
     }
 
-    protected static void SuccessButBeFound(Site site, Caravan caravan)
-    {
-        Faction faction = site.Faction;
-        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
+    protected static void SuccessButBeFound(Caravan caravan, EspionageSiteComp espionageSiteComp)
+    {      
+        Site site = espionageSiteComp.Site;
+
+        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
+        espionageSiteComp.espionageSuccess = true;
         QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
-        if (faction.HostileTo(Faction.OfPlayer))
+        if (site.Faction.HostileTo(Faction.OfPlayer))
         {
+            Messages.Message("OAGene_MessageEspionageSuccessButBeFound".Translate(), MessageTypeDefOf.ThreatBig);
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
         }
         else
         {
+            Messages.Message("OAGene_MessageEspionageSuccessButBeFound".Translate(), MessageTypeDefOf.NegativeEvent);
             site.Destroy();
         }
     }
-    protected static void FailAndBeBeFound(Site site, Caravan caravan)
+    protected static void FailAndBeBeFound(Caravan caravan, EspionageSiteComp espionageSiteComp)
     {
-        Faction faction = site.Faction;
-        Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
-        if (Faction.OfPlayer.HostileTo(faction))
+        Site site = espionageSiteComp.Site;
+
+        espionageSiteComp.allowEspionageTick = Find.TickManager.TicksGame + 60000;
+        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
+        if (site.Faction.HostileTo(Faction.OfPlayer))
         {
+            Messages.Message("OAGene_MessageEspionageFailAndBeBeFound".Translate(), MessageTypeDefOf.ThreatBig);
             new CaravanArrivalAction_VisitSite(site).Arrived(caravan);
+        }
+        else
+        {
+            Messages.Message("OAGene_MessageEspionageFailAndBeBeFound".Translate(), MessageTypeDefOf.NegativeEvent);
         }
     }
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
     {
-        if (!activeEspionage)
+        if (activeEspionage)
         {
-            yield break;
-        }
-        foreach (FloatMenuOption floatMenuOption in CaravanArrivalAction_EspionageSiteComp.GetFloatMenuOptions(caravan, parent))
-        {
-            yield return floatMenuOption;
+            foreach (FloatMenuOption floatMenuOption in CaravanArrivalAction_EspionageSiteComp.GetFloatMenuOptions(caravan, parent))
+            {
+                yield return floatMenuOption;
+            }
         }
     }
 
     public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
     {
-        if (!activeEspionage || parent is not Site site)
+        if (activeEspionage)
         {
-            yield break;
-        }
-        Command_Action command_Action = new()
-        {
-            defaultLabel = "OAGene_CommandStartEspionage".Translate(),
-            defaultDesc = "OAGene_CommandStartEspionageDesc".Translate(),
-            icon = null,
-            action = delegate
+            Command_Action command_Action = new()
             {
-                FixCaravan_EspionageSite fixCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
-                fixCaravan.SetEspionageSiteComp(this);
+                defaultLabel = "OAGene_CommandStartEspionage".Translate(),
+                defaultDesc = "OAGene_CommandStartEspionageDesc".Translate(),
+                icon = null,
+                action = delegate
+                {
+                    FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
+                    fixedCaravan.SetEspionageSiteComp(Site);
+                    Find.WorldObjects.Add(fixedCaravan);
+                }
+            };
+            if (!AllowEspionage)
+            {
+                command_Action.Disable("OAGene_MessageEspionageCooldown".Translate(CoolingTicksLeft.ToStringTicksToPeriod()));
             }
-        };
-        if (!AllowEspionage)
-        {
-            command_Action.Disable("OAGene_MessageEspionageCooldown".Translate(CoolingTicksLeft.ToStringTicksToPeriod()));
+            yield return command_Action;
         }
-        yield return command_Action;
     }
 
     public override void PostDestroy()
     {
-        if (!espionageSuccess)
+        if (activeEspionage && !espionageSuccess)
         {
             Site site = parent as Site;
             bool allEnemiesDefeated = ReflectionUtility.GetFieldValue<bool>(site, "allEnemiesDefeatedSignalSent", fallback: false);
@@ -139,7 +159,12 @@ public class EspionageSiteComp : WorldObjectComp
             {
                 QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
             }
+            else
+            {
+                QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageFail", site.Named("SUBJECT"));
+            }
         }
+        Disable();
         base.PostDestroy();
     }
     public override void PostExposeData()
@@ -147,7 +172,7 @@ public class EspionageSiteComp : WorldObjectComp
         base.PostExposeData();
         Scribe_Values.Look(ref activeEspionage, "activeEspionage", defaultValue: false);
         Scribe_Values.Look(ref allowEspionageTick, "allowEspionageTick", -1);
-        Scribe_References.Look(ref espionageQuest, "espionageQuest");
+        Scribe_Values.Look(ref espionageSuccess, "espionageSuccess", defaultValue: false);
     }
 }
 
@@ -171,17 +196,16 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     private static void Espionage(Caravan caravan, WorldObject site)
     {
         FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
-        fixedCaravan.SetEspionageSiteComp(site.GetComponent<EspionageSiteComp>());
+        fixedCaravan.SetEspionageSiteComp(site as Site);
         Find.WorldObjects.Add(fixedCaravan);
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {
-        FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(caravan, destinationTile);
-        if (!floatMenuAcceptanceReport)
+        if(site == null)
         {
-            return floatMenuAcceptanceReport;
+            return false;
         }
-        if (site != null && site.Tile != destinationTile)
+        if (site.Tile != destinationTile)
         {
             return false;
         }
@@ -190,7 +214,6 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
 
     public override void ExposeData()
     {
-        base.ExposeData();
         Scribe_References.Look(ref site, "site");
     }
 
@@ -201,7 +224,11 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
             return false;
         }
         EspionageSiteComp espionageSiteComp = site.GetComponent<EspionageSiteComp>();
-        if (espionageSiteComp != null && !espionageSiteComp.AllowEspionage)
+        if (espionageSiteComp == null)
+        {
+            return false;
+        }
+        if (!espionageSiteComp.AllowEspionage)
         {
             return FloatMenuAcceptanceReport.WithFailMessage("OAGene_MessageEspionageCooldown".Translate(espionageSiteComp.CoolingTicksLeft.ToStringTicksToPeriod()));
         }
