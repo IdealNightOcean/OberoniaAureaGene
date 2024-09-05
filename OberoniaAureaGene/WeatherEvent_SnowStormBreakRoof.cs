@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HarmonyLib;
+using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -12,6 +14,8 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
     protected static IntRange AfftectRoomRange = new(1, 3);
     protected static FloatRange AfftectRoofRange = new(0.05f, 0.55f);
 
+    public static readonly List<TargetInfo> LookTargetCells = [];
+
     public WeatherEvent_SnowStormBreakRoof(Map map) : base(map)
     { }
     public override void WeatherEventTick()
@@ -19,13 +23,12 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
 
     public override void FireEvent()
     {
-        Log.Message("fire");
         TryFireEvent(map);
         expired = true;
     }
     protected static void TryFireEvent(Map map)
     {
-        if (false)//if (Rand.Chance(0.8f))
+        if (Rand.Chance(0.8f))
         {
             return;
         }
@@ -34,10 +37,10 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
         {
             return;
         }
-
         RoofGrid roofGrid = map.roofGrid;
         IEnumerable<IntVec3> potentialRoofs;
         IEnumerable<IntVec3> targetRoofs;
+        LookTargetCells.Clear();
         int afftectRoofCount;
         for (int i = 0; i < potentialRooms.Count; i++)
         {
@@ -46,12 +49,15 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
             afftectRoofCount = (int)(potentialRoofs.Count() * AfftectRoofRange.RandomInRange);
             targetRoofs = potentialRoofs.Take(afftectRoofCount);
             RoofCollapserImmediate.DropRoofInCells(targetRoofs, map);
+            LookTargetCells.Add(new TargetInfo(targetRoofs.RandomElement(), map));
         }
-
+      
+        LookTargets lookTargets = new(LookTargetCells);
+        Messages.Message("OAGene_SnowStormBreakRoof".Translate(), lookTargets, MessageTypeDefOf.NegativeEvent);
         bool ValidRoof(IntVec3 c)
         {
             RoofDef roofDef = roofGrid.RoofAt(c);
-            return roofDef != null && !roofDef.isNatural && roofDef.isThickRoof;
+            return roofDef != null && !roofDef.isNatural && !roofDef.isThickRoof;
         }
     }
 }
