@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using RimWorld.Planet;
+﻿using RimWorld.Planet;
 using RimWorld.QuestGen;
 using Verse;
 

@@ -84,7 +84,7 @@ public class EspionageSiteComp : WorldObjectComp
         Site site = espionageSiteComp.Site;
 
         espionageSiteComp.espionageSuccess = true;
-        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);    
+        Faction.OfPlayer.TryAffectGoodwillWith(site.Faction, -15, reason: OAGene_RatkinDefOf.OAGene_SuspectedBehavior);
         QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));
         if (site.Faction.HostileTo(Faction.OfPlayer))
         {

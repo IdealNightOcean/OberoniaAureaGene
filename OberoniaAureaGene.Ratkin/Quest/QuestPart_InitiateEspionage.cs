@@ -9,7 +9,7 @@ namespace OberoniaAureaGene.Ratkin;
 public class QuestPart_InitiateEspionage : QuestPart
 {
     public string inSignal;
-    
+
     public Site site;
     public string customLabel;
 
@@ -51,7 +51,7 @@ public class QuestPart_InitiateEspionage : QuestPart
         {
             EspionageSiteComp component = site.GetComponent<EspionageSiteComp>();
             if (component != null)
-            {              
+            {
                 if (component.activeEspionage)
                 {
                     Log.Error("Site " + site.Label + " already has an active espionage.");

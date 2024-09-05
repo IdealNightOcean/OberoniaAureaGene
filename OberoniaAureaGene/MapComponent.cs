@@ -3,7 +3,6 @@ using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -37,9 +36,9 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         {
             EnemyCheckTick();
             RaidCheckTick();
-        } 
+        }
     }
-    
+
     //漫长风雪的保底下雪天气
     protected void SnowCheckTick()
     {
@@ -51,21 +50,29 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     }
     protected bool CheckSnow()
     {
-        if (!map.GameConditionManager.ConditionIsActive(OberoniaAureaGeneDefOf.OAGene_LongSnowstorm))
+        if (!map.IsPlayerHome || !map.GameConditionManager.ConditionIsActive(OberoniaAureaGeneDefOf.OAGene_Snowstorm))
         {
             return true;
         }
-        if (map.weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard)
+        WeatherManager weatherManager = map.weatherManager;
+        if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OberoniaAureaGeneDefOf.OAGene_SnowExtreme)
         {
-            lastSnowTick = Find.TickManager.TicksGame;
+            lastSnowTick = Find.TickManager.TicksGame + 60000;
         }
         if (Find.TickManager.TicksGame - lastSnowTick > 300000 && map.weatherDecider.ForcedWeather == null)
         {
             map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
+            lastSnowTick = Find.TickManager.TicksGame + 60000;
             return true;
         }
         return false;
+    }
+
+    public void Notify_Snow(int snowDuration = 0)
+    {
+        lastSnowTick = Find.TickManager.TicksGame + snowDuration;
+        snowCheckTicks = snowDuration;
     }
 
     //搜索地图上敌人和大地图敌对据点
@@ -131,6 +138,9 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref lastSnowTick, "lastSnowTick", -1);
+        Scribe_Values.Look(ref snowCheckTicks, "snowCheckTicks", 0);
+
         Scribe_Values.Look(ref enemyCheckTicks, "enemyCheckTicks", 0);
         Scribe_Values.Look(ref cachedEnemiesCount, "cachedEnemiesCount", 0);
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);

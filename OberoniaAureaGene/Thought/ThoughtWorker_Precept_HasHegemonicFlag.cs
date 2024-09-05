@@ -7,7 +7,7 @@ public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
 {
     protected override ThoughtState ShouldHaveThought(Pawn p)
     {
-        if (!p.Spawned || p.Faction != Faction.OfPlayer)
+        if (!p.Spawned || !p.Faction.IsPlayer)
         {
             return ThoughtState.Inactive;
         }

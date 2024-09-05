@@ -16,7 +16,7 @@ public static class OberoniaAureaGeneDefOf
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_PlayerThreatBig;
 
-    public static GameConditionDef OAGene_LongSnowstorm;
+    public static GameConditionDef OAGene_Snowstorm;
 
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
@@ -41,6 +41,9 @@ public static class OAGene_RimWorldDefOf
 {
 
     public static HediffDef Frail;
+
+    public static TraitDef Faith;
+    public static TraitDef Nerves;
 
     public static WeatherDef SnowHard;
     public static WeatherDef SnowGentle;

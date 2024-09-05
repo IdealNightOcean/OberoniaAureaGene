@@ -13,21 +13,19 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
     protected static FloatRange AfftectRoofRange = new(0.05f, 0.55f);
 
     public WeatherEvent_SnowStormBreakRoof(Map map) : base(map)
-    {
-
-    }
+    { }
     public override void WeatherEventTick()
     { }
 
-
     public override void FireEvent()
     {
+        Log.Message("fire");
         TryFireEvent(map);
         expired = true;
     }
     protected static void TryFireEvent(Map map)
     {
-        if (Rand.Chance(0.8f))
+        if (false)//if (Rand.Chance(0.8f))
         {
             return;
         }
