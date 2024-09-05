@@ -3,12 +3,16 @@ using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using Verse;
 
 namespace OberoniaAureaGene;
 
 public class MapComponent_OberoniaAureaGene : MapComponent
 {
+    protected int lastSnowTick = -1;
+    protected int snowCheckTicks;
+
     protected int enemyCheckTicks;
     public int cachedEnemiesCount;
     protected int cachedHostileSitesCount;
@@ -28,13 +32,43 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     public override void MapComponentTick()
     {
-        if (!ModsConfig.IdeologyActive)
+        SnowCheckTick();
+        if (ModsConfig.IdeologyActive)
         {
-            return;
-        }
-        EnemyCheckTick();
-        RaidCheckTick();
+            EnemyCheckTick();
+            RaidCheckTick();
+        } 
     }
+    
+    //漫长风雪的保底下雪天气
+    protected void SnowCheckTick()
+    {
+        snowCheckTicks--;
+        if (snowCheckTicks <= 0)
+        {
+            snowCheckTicks = CheckSnow() ? 60000 : 15000;
+        }
+    }
+    protected bool CheckSnow()
+    {
+        if (!map.GameConditionManager.ConditionIsActive(OberoniaAureaGeneDefOf.OAGene_LongSnowstorm))
+        {
+            return true;
+        }
+        if (map.weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard)
+        {
+            lastSnowTick = Find.TickManager.TicksGame;
+        }
+        if (Find.TickManager.TicksGame - lastSnowTick > 300000 && map.weatherDecider.ForcedWeather == null)
+        {
+            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
+            ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
+            return true;
+        }
+        return false;
+    }
+
+    //搜索地图上敌人和大地图敌对据点
     protected void EnemyCheckTick()
     {
         enemyCheckTicks--;
@@ -44,25 +78,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             enemyCheckTicks = cachedEnemiesCount > 0 ? 2500 : 15000;
         }
     }
-    protected void RaidCheckTick()
-    {
-        raidCheckTicks--;
-        if (raidCheckTicks <= 0)
-        {
-            TryExcuteRaid();
-            raidCheckTicks = 300000;
-        }
-    }
-
-    protected void RecacheHegemonicFlagCount()
-    {
-        cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OberoniaAureaGeneDefOf.OAGene_HegemonicFlag).Count();
-    }
-    public void QuickEnemyCheck()
-    {
-        enemyCheckTicks = 600;
-    }
-
     private void PeriodicEnemyCheck()
     {
         if (map.IsPlayerHome)
@@ -76,7 +91,21 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             cachedHostileSitesCount = 0;
         }
     }
+    public void QuickEnemyCheck()
+    {
+        enemyCheckTicks = 600;
+    }
 
+    //霸权旗的周期袭击
+    protected void RaidCheckTick()
+    {
+        raidCheckTicks--;
+        if (raidCheckTicks <= 0)
+        {
+            TryExcuteRaid();
+            raidCheckTicks = 300000;
+        }
+    }
     private void TryExcuteRaid()
     {
         if (!HasHegemonicFlag || !map.IsPlayerHome)
@@ -93,6 +122,12 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             IncidentDefOf.RaidEnemy.Worker.TryExecute(incidentParms);
         }
     }
+    protected void RecacheHegemonicFlagCount()
+    {
+        cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OberoniaAureaGeneDefOf.OAGene_HegemonicFlag).Count();
+    }
+
+
     public override void ExposeData()
     {
         base.ExposeData();

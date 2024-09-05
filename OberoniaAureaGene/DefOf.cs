@@ -16,6 +16,8 @@ public static class OberoniaAureaGeneDefOf
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_PlayerThreatBig;
 
+    public static GameConditionDef OAGene_LongSnowstorm;
+
     public static GeneDef OAGene_AbnormalBodyStructure;
     public static GeneDef OAGene_AgriculturalEnthusiasm;
     public static GeneDef OAGene_SpecificHemogen;
@@ -24,7 +26,9 @@ public static class OberoniaAureaGeneDefOf
     public static GeneDef OAGene_MeleeIntouchable;
 
     [MayRequireIdeology]
-    public static ThingDef OAGene_HegemonicFlag;
+    public static ThingDef OAGene_HegemonicFlag; //霸权旗
+
+    public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
 
     static OberoniaAureaGeneDefOf()
     {
