@@ -9,17 +9,16 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
 {
     public override int GetNaturalGoodwillOffset(Faction other)
     {
-        if (!ModsConfig.IdeologyActive)
+        if (ModsConfig.IdeologyActive)
         {
-            return 0;
-        }
-        IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
-        foreach (Map map in playerHomes)
-        {
-            MapComponent_OberoniaAureaGene oaGene_MCOAG = map.GetOAGeneMapComp();
-            if (oaGene_MCOAG != null && oaGene_MCOAG.HasHegemonicFlag)
+            IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
+            foreach (Map map in playerHomes)
             {
-                return def.naturalGoodwillOffset;
+                MapComponent_OberoniaAureaGene oaGene_MCOAG = map.GetOAGeneMapComp();
+                if (oaGene_MCOAG != null && oaGene_MCOAG.HasHegemonicFlag)
+                {
+                    return def.naturalGoodwillOffset;
+                }
             }
         }
         return 0;

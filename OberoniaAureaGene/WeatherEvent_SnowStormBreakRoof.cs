@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -45,15 +44,21 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
         for (int i = 0; i < potentialRooms.Count; i++)
         {
             Room room = potentialRooms[i];
-            potentialRoofs = room.Cells.Where(ValidRoof).InRandomOrder();
-            afftectRoofCount = (int)(potentialRoofs.Count() * AfftectRoofRange.RandomInRange);
-            targetRoofs = potentialRoofs.Take(afftectRoofCount);
-            RoofCollapserImmediate.DropRoofInCells(targetRoofs, map);
-            LookTargetCells.Add(new TargetInfo(targetRoofs.RandomElement(), map));
+            potentialRoofs = room.Cells.Where(ValidRoof).InRandomOrder(); //所有可能受影响的屋顶
+            afftectRoofCount = (int)(potentialRoofs.Count() * AfftectRoofRange.RandomInRange); //受影响的屋顶的个数
+            targetRoofs = potentialRoofs.Take(afftectRoofCount); //受影响的屋顶
+            RoofCollapserImmediate.DropRoofInCells(targetRoofs, map); //使受影响的屋顶掉落
+
+            //随机选取一个受影响的屋顶作为LookTarget
+            IntVec3 lookCell = targetRoofs.RandomElementWithFallback(IntVec3.Invalid);
+            if (lookCell != IntVec3.Invalid)
+            {
+                LookTargetCells.Add(new TargetInfo(lookCell, map));
+            }
         }
-      
+
         LookTargets lookTargets = new(LookTargetCells);
-        Messages.Message("OAGene_SnowStormBreakRoof".Translate(), lookTargets, MessageTypeDefOf.NegativeEvent);
+        Messages.Message("OAGene_MessageSnowStormBreakRoof".Translate(), lookTargets, MessageTypeDefOf.NegativeEvent);
         bool ValidRoof(IntVec3 c)
         {
             RoofDef roofDef = roofGrid.RoofAt(c);

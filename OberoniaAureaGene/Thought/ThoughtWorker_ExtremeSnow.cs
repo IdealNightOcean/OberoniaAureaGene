@@ -25,7 +25,7 @@ public class ThoughtWorker_ExtremeSnow : ThoughtWorker
                     }
                 }
             }
-            return ThoughtState.ActiveAtStage(0);;
+            return ThoughtState.ActiveAtStage(0);
         }
         return ThoughtState.Inactive;
     }
