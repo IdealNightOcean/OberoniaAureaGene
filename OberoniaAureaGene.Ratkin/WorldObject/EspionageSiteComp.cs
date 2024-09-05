@@ -124,28 +124,15 @@ public class EspionageSiteComp : WorldObjectComp
         }
     }
 
-    public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
+    public void Espionage(Caravan caravan)
     {
-        if (activeEspionage)
+        if (!FixedCaravanUtility.IsExactTypeCaravan(caravan))
         {
-            Command_Action command_Action = new()
-            {
-                defaultLabel = "OAGene_CommandStartEspionage".Translate(),
-                defaultDesc = "OAGene_CommandStartEspionageDesc".Translate(),
-                icon = null,
-                action = delegate
-                {
-                    FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
-                    fixedCaravan.SetEspionageSiteComp(Site);
-                    Find.WorldObjects.Add(fixedCaravan);
-                }
-            };
-            if (!AllowEspionage)
-            {
-                command_Action.Disable("OAGene_MessageEspionageCooldown".Translate(CoolingTicksLeft.ToStringTicksToPeriod()));
-            }
-            yield return command_Action;
+            return;
         }
+        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
+        fixedCaravan.SetEspionageSiteComp(Site);
+        Find.WorldObjects.Add(fixedCaravan);
     }
     public override void PostDestroy()
     {
@@ -189,13 +176,7 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     }
     public override void Arrived(Caravan caravan)
     {
-        Espionage(caravan, site);
-    }
-    private static void Espionage(Caravan caravan, WorldObject site)
-    {
-        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
-        fixedCaravan.SetEspionageSiteComp(site as Site);
-        Find.WorldObjects.Add(fixedCaravan);
+        site.GetComponent<EspionageSiteComp>()?.Espionage(caravan);
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {
