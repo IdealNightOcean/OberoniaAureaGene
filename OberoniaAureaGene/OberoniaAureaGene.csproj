@@ -76,6 +76,8 @@
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
+    <Compile Include="HediffGiver_ColdImmersion.cs" />
+    <Compile Include="HediffGiver_ColdSnow.cs" />
     <Compile Include="Thought\ThoughtWorker_ExtremeSnow.cs" />
     <Compile Include="WeatherEvent_SnowStormBreakRoof.cs" />
     <Compile Include="GameCondition_LongSnowstorm.cs" />
@@ -118,7 +120,6 @@
     <Compile Include="Thought\ThoughtWorker_Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="Genes\Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="ModExtension.cs" />
-    <Compile Include="Thought\Thought_SituationalGiveHediff.cs" />
     <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
     <Compile Include="Genes\Gene_FrailPhysique.cs" />
     <Compile Include="Genes\Gene_GiveHediff.cs" />

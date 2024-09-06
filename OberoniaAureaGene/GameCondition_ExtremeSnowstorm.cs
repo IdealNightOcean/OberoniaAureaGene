@@ -28,7 +28,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            map.GetComponent<MapComponent_OberoniaAureaGene>()?.Notify_Snow(Duration);
+            map.GetOAGeneMapComp()?.Notify_Snow(Duration);
             TryBreakPowerPlantWind(map);
         }
     }

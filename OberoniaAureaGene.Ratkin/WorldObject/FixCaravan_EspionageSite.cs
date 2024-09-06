@@ -20,7 +20,7 @@ public class FixCaravan_EspionageSite : FixedCaravan
     public override string GetInspectString()
     {
         StringBuilder stringBuilder = new(base.GetInspectString());
-        stringBuilder.AppendInNewLine("OAGene_Espionaging".Translate(ticksRemaining.ToStringTicksToPeriod()));
+        stringBuilder.AppendInNewLine("OAGene_FixedCaravanEspionae_TimeLeft".Translate(ticksRemaining.ToStringTicksToPeriod()));
         return stringBuilder.ToString();
     }
 
