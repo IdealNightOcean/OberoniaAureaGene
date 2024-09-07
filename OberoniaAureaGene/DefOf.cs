@@ -11,6 +11,11 @@ public static class OberoniaAureaGeneDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
+    public static HediffDef OAGene_Hediff_SnowExtreme;
+    public static HediffDef OAGene_Hediff_ColdSnow;
+    public static HediffDef OAGene_Hediff_ColdImmersion;
+
+
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_ThreatBig;
     [MayRequireIdeology]

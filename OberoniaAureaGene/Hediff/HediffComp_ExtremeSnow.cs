@@ -2,14 +2,14 @@
 using Verse;
 
 namespace OberoniaAureaGene;
-public class HediffCompProperties_ExtremeSnow : HediffCompProperties
+public class HediffCompProperties_SnowExtreme : HediffCompProperties
 {
-    public HediffCompProperties_ExtremeSnow()
+    public HediffCompProperties_SnowExtreme()
     {
-        compClass = typeof(HediffComp_ExtremeSnow);
+        compClass = typeof(HediffComp_SnowExtreme);
     }
 }
-public class HediffComp_ExtremeSnow : HediffComp
+public class HediffComp_SnowExtreme : HediffComp
 {
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {

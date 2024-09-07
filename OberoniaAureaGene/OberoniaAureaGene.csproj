@@ -76,9 +76,8 @@
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
-    <Compile Include="HediffComp_ExtremeSnow.cs" />
-    <Compile Include="HediffGiver_ColdImmersion.cs" />
-    <Compile Include="HediffGiver_ColdSnow.cs" />
+    <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Thought\ThoughtWorker_SnowExtreme.cs" />
     <Compile Include="WeatherEvent_SnowStormBreakRoof.cs" />
     <Compile Include="GameCondition_LongSnowstorm.cs" />
@@ -94,7 +93,7 @@
     <Compile Include="HarmonyPatch\ExtractHemogen_Patch.cs" />
     <Compile Include="HarmonyPatch\IterationCompleted_Patch.cs" />
     <Compile Include="HarmonyPatch\OpinionOffsetOfGroup_Patch.cs" />
-    <Compile Include="HediffComp_BloodLoss.cs" />
+    <Compile Include="Hediff\HediffComp_BloodLoss.cs" />
     <Compile Include="Genes\Gene_BloodCellsAutophagy.cs" />
     <Compile Include="Genes\Gene_IllnessFactor.cs" />
     <Compile Include="Genes\Gene_PermanentChance.cs" />
