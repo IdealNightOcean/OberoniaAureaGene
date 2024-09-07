@@ -76,9 +76,10 @@
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
+    <Compile Include="HediffComp_ExtremeSnow.cs" />
     <Compile Include="HediffGiver_ColdImmersion.cs" />
     <Compile Include="HediffGiver_ColdSnow.cs" />
-    <Compile Include="Thought\ThoughtWorker_ExtremeSnow.cs" />
+    <Compile Include="Thought\ThoughtWorker_SnowExtreme.cs" />
     <Compile Include="WeatherEvent_SnowStormBreakRoof.cs" />
     <Compile Include="GameCondition_LongSnowstorm.cs" />
     <Compile Include="GameCondition_ExtremeSnowstorm.cs" />

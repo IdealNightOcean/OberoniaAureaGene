@@ -28,6 +28,8 @@ public static class OberoniaAureaGeneDefOf
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
 
+    public static TraitDef OAGene_ExtremeSnowSurvivor; //暴风雪幸存者
+
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
 
     static OberoniaAureaGeneDefOf()

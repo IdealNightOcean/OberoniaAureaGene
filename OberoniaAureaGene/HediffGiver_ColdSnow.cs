@@ -7,7 +7,7 @@ public class HediffGiver_ColdSnow : HediffGiver
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(hediff);
-        bool active = ActiveGiver(pawn);
+        bool active = ActiveHediff(pawn);
 
         if (active && firstHediffOfDef == null)
         {
@@ -20,12 +20,8 @@ public class HediffGiver_ColdSnow : HediffGiver
             return;
         }
     }
-    public static bool ActiveGiver(Pawn p)
+    public static bool ActiveHediff(Pawn p)
     {
-        if (!p.Spawned || p.Dead)
-        {
-            return false;
-        }
         Map map = p.Map;
         if (map == null)
         {

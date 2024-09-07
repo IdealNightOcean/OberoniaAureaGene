@@ -12,9 +12,8 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 
     private static readonly float SkyGlow = 0.25f;
     private static SkyColorSet SnowstormSkyColors = new(new Color(0.482f, 0.603f, 0.682f), Color.white, new Color(0.6f, 0.6f, 0.6f), 1f);
-    private static SkyTarget SnowstormSky => new(SkyGlow, SnowstormSkyColors, 1f, 1f);
 
-    private List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowHard()];
+    private readonly List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowHard()];
     public override void Init()
     {
         base.Init();
@@ -24,6 +23,8 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
             gameConditionManager.RegisterCondition(gameCondition);
+            Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+            Find.LetterStack.ReceiveLetter(letter);
         }
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
@@ -60,7 +61,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
     }
     public override SkyTarget? SkyTarget(Map map)
     {
-        return SnowstormSky;
+        return new(SkyGlow, SnowstormSkyColors, 1f, 1f);
     }
     public override List<SkyOverlay> SkyOverlays(Map map)
     {
