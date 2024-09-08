@@ -8,12 +8,13 @@ namespace OberoniaAureaGene;
 
 public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 {
-    public float tempOffset;
-
     private static readonly float SkyGlow = 0.25f;
     private static SkyColorSet SnowstormSkyColors = new(new Color(0.482f, 0.603f, 0.682f), Color.white, new Color(0.6f, 0.6f, 0.6f), 1f);
 
+    public float tempOffset;
+    public override int TransitionTicks => 5000;
     private readonly List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowHard()];
+
     public override void Init()
     {
         base.Init();
@@ -31,6 +32,30 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             Map map = AffectedMaps[i];
             map.GetOAGeneMapComp()?.Notify_Snow(Duration);
             TryBreakPowerPlantWind(map);
+        }
+    }
+
+    public override float TemperatureOffset()
+    {
+        return tempOffset;
+    }
+    public override SkyTarget? SkyTarget(Map map)
+    {
+        return new(SkyGlow, SnowstormSkyColors, 1f, 1f);
+    }
+    public override float SkyTargetLerpFactor(Map map)
+    {
+        return GameConditionUtility.LerpInOutValue(this, TransitionTicks);
+    }
+    public override List<SkyOverlay> SkyOverlays(Map map)
+    {
+        return snowHardOverlay;
+    }
+    public override void GameConditionDraw(Map map)
+    {
+        for (int i = 0; i < snowHardOverlay.Count; i++)
+        {
+            snowHardOverlay[i].DrawOverlay(map);
         }
     }
     protected static void TryBreakPowerPlantWind(Map map)
@@ -55,25 +80,6 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         }
     }
 
-    public override float TemperatureOffset()
-    {
-        return tempOffset;
-    }
-    public override SkyTarget? SkyTarget(Map map)
-    {
-        return new(SkyGlow, SnowstormSkyColors, 1f, 1f);
-    }
-    public override List<SkyOverlay> SkyOverlays(Map map)
-    {
-        return snowHardOverlay;
-    }
-    public override void GameConditionDraw(Map map)
-    {
-        for (int i = 0; i < snowHardOverlay.Count; i++)
-        {
-            snowHardOverlay[i].DrawOverlay(map);
-        }
-    }
     public override void ExposeData()
     {
         base.ExposeData();

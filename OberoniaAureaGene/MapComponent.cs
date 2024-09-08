@@ -45,31 +45,33 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         snowCheckTicks--;
         if (snowCheckTicks <= 0)
         {
-            snowCheckTicks = CheckSnow() ? 60000 : 15000;
+            CheckSnow();
         }
     }
-    protected bool CheckSnow()
+    protected void CheckSnow()
     {
         if (!map.IsPlayerHome || !map.GameConditionManager.ConditionIsActive(OberoniaAureaGeneDefOf.OAGene_Snowstorm))
         {
-            return true;
+            snowCheckTicks = 60000;
+            return;
         }
         WeatherManager weatherManager = map.weatherManager;
         if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OberoniaAureaGeneDefOf.OAGene_SnowExtreme)
         {
-            lastSnowTick = Find.TickManager.TicksGame + 60000;
+            Notify_Snow(60000);
+            return;
         }
         if (Find.TickManager.TicksGame - lastSnowTick > 300000 && map.weatherDecider.ForcedWeather == null)
         {
             map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
-            lastSnowTick = Find.TickManager.TicksGame + 60000;
-            return true;
+            Notify_Snow(60000);
+            return;
         }
-        return false;
+        snowCheckTicks = 15000;
     }
 
-    public void Notify_Snow(int snowDuration = 0)
+    public void Notify_Snow(int snowDuration = 60000)
     {
         lastSnowTick = Find.TickManager.TicksGame + snowDuration;
         snowCheckTicks = snowDuration;

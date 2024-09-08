@@ -5,10 +5,11 @@ namespace OberoniaAureaGene;
 
 public class GameCondition_LongSnowstorm : GameCondition
 {
-    public float tempOffset;
-
     private static readonly float SkyGlow = 0.9f;
-    private static SkyTarget SnowstormSky = new(SkyGlow, default, 1f, 1f);
+
+    public float tempOffset;
+    public override int TransitionTicks => 5000;
+
     public override void Init()
     {
         base.Init();
@@ -23,9 +24,12 @@ public class GameCondition_LongSnowstorm : GameCondition
 
     public override SkyTarget? SkyTarget(Map map)
     {
-        return SnowstormSky;
+        return new(SkyGlow, default, 1f, 1f);
     }
-
+    public override float SkyTargetLerpFactor(Map map)
+    {
+        return GameConditionUtility.LerpInOutValue(this, TransitionTicks);
+    }
     public override void ExposeData()
     {
         base.ExposeData();
