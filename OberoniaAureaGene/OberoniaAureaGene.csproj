@@ -76,6 +76,7 @@
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
     <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Thought\ThoughtWorker_SnowExtreme.cs" />

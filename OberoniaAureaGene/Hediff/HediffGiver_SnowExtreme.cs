@@ -39,9 +39,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
                 Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(OberoniaAureaGeneDefOf.OAGene_Hediff_ColdImmersion);
                 if (firstHediffOfDef != null)
                 {
-                    float sevOffest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature);
-                    sevOffest *= 0.001f;
-                    firstHediffOfDef.Severity += sevOffest;
+
                 }
             }
         }
