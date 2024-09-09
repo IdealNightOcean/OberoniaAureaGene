@@ -27,6 +27,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
             Find.LetterStack.ReceiveLetter(letter);
         }
+        //Find.MusicManagerPlay.ForcePlaySong();
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
