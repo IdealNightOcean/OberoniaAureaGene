@@ -3,8 +3,9 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
+
 [DefOf]
-public static class OberoniaAureaGeneDefOf
+public static class OAGene_HediffDefOf
 {
     public static HediffDef OAGene_BloodCellsAutophagy;
     public static HediffDef OAGene_DeepSleep;
@@ -14,8 +15,30 @@ public static class OberoniaAureaGeneDefOf
     public static HediffDef OAGene_Hediff_SnowExtreme;
     public static HediffDef OAGene_Hediff_ColdSnow;
     public static HediffDef OAGene_Hediff_ColdImmersion;
+    static OAGene_HediffDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_HediffDefOf));
+    }
+}
 
+[DefOf]
+public static class OAGene_GeneDefOf
+{
+    public static GeneDef OAGene_AbnormalBodyStructure;
+    public static GeneDef OAGene_AgriculturalEnthusiasm;
+    public static GeneDef OAGene_SpecificHemogen;
+    public static GeneDef OAGene_Suspicious;
+    public static GeneDef OAGene_BillInspiration;
+    public static GeneDef OAGene_MeleeIntouchable;
+    static OAGene_GeneDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_GeneDefOf));
+    }
+}
 
+[DefOf]
+public static class OberoniaAureaGeneDefOf
+{
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_ThreatBig;
     [MayRequireIdeology]
@@ -23,12 +46,7 @@ public static class OberoniaAureaGeneDefOf
 
     public static GameConditionDef OAGene_Snowstorm;
 
-    public static GeneDef OAGene_AbnormalBodyStructure;
-    public static GeneDef OAGene_AgriculturalEnthusiasm;
-    public static GeneDef OAGene_SpecificHemogen;
-    public static GeneDef OAGene_Suspicious;
-    public static GeneDef OAGene_BillInspiration;
-    public static GeneDef OAGene_MeleeIntouchable;
+    public static LetterDef OAGene_SnowstormColdSnap; //暴风雪寒流信件
 
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
@@ -46,7 +64,6 @@ public static class OberoniaAureaGeneDefOf
 [DefOf]
 public static class OAGene_RimWorldDefOf
 {
-
     public static HediffDef Frail;
 
     public static TraitDef Faith;

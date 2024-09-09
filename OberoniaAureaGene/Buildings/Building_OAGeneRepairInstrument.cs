@@ -24,7 +24,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         {
             return false;
         }
-        if (pawn.health.hediffSet.HasHediff(OberoniaAureaGeneDefOf.OAGene_XenogermRepairing))
+        if (pawn.health.hediffSet.HasHediff(OAGene_HediffDefOf.OAGene_XenogermRepairing))
         {
             return "OAGene_XenogermRepairing".Translate();
         }
@@ -91,7 +91,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
             {
                 containedPawn.health.RemoveHediff(hediff);
             }
-            containedPawn.health.AddHediff(OberoniaAureaGeneDefOf.OAGene_XenogermRepairing);
+            containedPawn.health.AddHediff(OAGene_HediffDefOf.OAGene_XenogermRepairing);
         }
         base.FinishWork();
     }

@@ -19,24 +19,24 @@ public class HediffGiver_SnowExtreme : HediffGiver
         float ambientTemperature = pawn.AmbientTemperature;
         if (active)
         {
-            pawn.health.GetOrAddHediff(OberoniaAureaGeneDefOf.OAGene_Hediff_SnowExtreme);
+            pawn.health.GetOrAddHediff(OAGene_HediffDefOf.OAGene_Hediff_SnowExtreme);
             if (ambientTemperature < pawn.SafeTemperatureRange().min)
             {
-                pawn.health.GetOrAddHediff(OberoniaAureaGeneDefOf.OAGene_Hediff_ColdSnow);
+                pawn.health.GetOrAddHediff(OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
             }
             else
             {
-                RemoveFirstHediffOfDef(pawn, OberoniaAureaGeneDefOf.OAGene_Hediff_ColdSnow);
+                RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
             }
-            HealthUtility.AdjustSeverity(pawn, OberoniaAureaGeneDefOf.OAGene_Hediff_ColdImmersion, 0.0012f);
+            HealthUtility.AdjustSeverity(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdImmersion, 0.0012f);
         }
         else
         {
-            RemoveFirstHediffOfDef(pawn, OberoniaAureaGeneDefOf.OAGene_Hediff_SnowExtreme);
-            RemoveFirstHediffOfDef(pawn, OberoniaAureaGeneDefOf.OAGene_Hediff_ColdSnow);
+            RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_SnowExtreme);
+            RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
             if (ambientTemperature > 0)
             {
-                Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(OberoniaAureaGeneDefOf.OAGene_Hediff_ColdImmersion);
+                Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(OAGene_HediffDefOf.OAGene_Hediff_ColdImmersion);
                 if (firstHediffOfDef != null)
                 {
 

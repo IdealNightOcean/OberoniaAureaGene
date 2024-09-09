@@ -20,7 +20,7 @@ public class Gene_DeepSleep : Gene
         }
         if (pawn.jobs.curDriver.asleep)
         {
-            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OberoniaAureaGeneDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
         }
     }
 }

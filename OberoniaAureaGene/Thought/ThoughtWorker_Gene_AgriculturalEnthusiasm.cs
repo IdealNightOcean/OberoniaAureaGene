@@ -11,7 +11,7 @@ public class ThoughtWorker_Gene_AgriculturalEnthusiasm : ThoughtWorker
         {
             return ThoughtState.Inactive;
         }
-        if (p.genes.GetGene(OberoniaAureaGeneDefOf.OAGene_AgriculturalEnthusiasm) is Gene_AgriculturalEnthusiasm gene)
+        if (p.genes.GetGene(OAGene_GeneDefOf.OAGene_AgriculturalEnthusiasm) is Gene_AgriculturalEnthusiasm gene)
         {
             if (gene.activeThought)
             {

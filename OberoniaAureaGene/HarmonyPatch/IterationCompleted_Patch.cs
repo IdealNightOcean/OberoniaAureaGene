@@ -23,7 +23,7 @@ public static class IterationCompleted_Patch
         {
             return;
         }
-        Gene_BillInspiration gene = (Gene_BillInspiration)pawn.genes.GetGene(OberoniaAureaGeneDefOf.OAGene_BillInspiration);
+        Gene_BillInspiration gene = (Gene_BillInspiration)pawn.genes.GetGene(OAGene_GeneDefOf.OAGene_BillInspiration);
         gene?.TryGetBillInspiration();
     }
 }

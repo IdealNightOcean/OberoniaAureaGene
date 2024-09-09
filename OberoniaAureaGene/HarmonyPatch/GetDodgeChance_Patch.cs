@@ -21,7 +21,7 @@ public static class GetDodgeChance_Patch
             __result = 2f;
             return;
         }
-        if (pawn.genes != null && pawn.genes.HasActiveGene(OberoniaAureaGeneDefOf.OAGene_MeleeIntouchable))
+        if (pawn.genes != null && pawn.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_MeleeIntouchable))
         {
             float dodgeChance = __result > 0.5f ? 0.5f : __result;
             flag = Rand.Chance(dodgeChance);
