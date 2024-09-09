@@ -13,7 +13,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 
     public float tempOffset;
     public override int TransitionTicks => 5000;
-    private readonly List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowHard()];
+    private readonly List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowExtreme()];
 
     public override void Init()
     {
