@@ -5,13 +5,14 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
+[StaticConstructorOnStartup]
 public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
 {
     public bool expired;
     public override bool Expired => expired;
 
-    protected static IntRange AfftectRoomRange = new(1, 3);
-    protected static FloatRange AfftectRoofRange = new(0.05f, 0.55f);
+    protected static readonly IntRange AfftectRoomRange = new(1, 3);
+    protected static readonly FloatRange AfftectRoofRange = new(0.05f, 0.55f);
 
     public static readonly List<TargetInfo> LookTargetCells = [];
 

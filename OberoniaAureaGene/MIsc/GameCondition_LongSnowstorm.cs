@@ -3,6 +3,7 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
+[StaticConstructorOnStartup]
 public class GameCondition_LongSnowstorm : GameCondition
 {
     private static readonly float SkyGlow = 0.9f;

@@ -6,6 +6,7 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
+[StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 {
     private static readonly float SkyGlow = 0.25f;
