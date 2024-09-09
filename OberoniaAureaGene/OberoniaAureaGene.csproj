@@ -68,25 +68,25 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
-    <Compile Include="CompPawnGeneDamageModified.cs" />
+    <Compile Include="MIsc\CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
-    <Compile Include="DefOf.cs" />
+    <Compile Include="MIsc\DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
-    <Compile Include="Dialog_CreateDiscriminatGene.cs" />
+    <Compile Include="MIsc\Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
-    <Compile Include="ConditionalStatAffecter_OurTerritory.cs" />
+    <Compile Include="MIsc\ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
     <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Thought\ThoughtWorker_SnowExtreme.cs" />
-    <Compile Include="WeatherEvent_SnowStormBreakRoof.cs" />
-    <Compile Include="GameCondition_LongSnowstorm.cs" />
-    <Compile Include="GameCondition_ExtremeSnowstorm.cs" />
-    <Compile Include="GoodwillSituationWorker_HasHegemonicFlag.cs" />
+    <Compile Include="MIsc\WeatherEvent_SnowStormBreakRoof.cs" />
+    <Compile Include="MIsc\GameCondition_LongSnowstorm.cs" />
+    <Compile Include="MIsc\GameCondition_ExtremeSnowstorm.cs" />
+    <Compile Include="MIsc\GoodwillSituationWorker_HasHegemonicFlag.cs" />
     <Compile Include="HarmonyPatch\GetDodgeChance_Patch.cs" />
     <Compile Include="HarmonyPatch\IncidentWorker_TryExecute_Patch.cs" />
-    <Compile Include="MapComponent.cs" />
+    <Compile Include="MIsc\MapComponent.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
     <Compile Include="HarmonyPatch\BloodfeederBite_Patch.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="HarmonyPatch\CompBiosculpterPod_Patch.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_TemperatureRange.cs" />
     <Compile Include="Buildings\Building_GeneExtractorBase.cs" />
-    <Compile Include="Dialog_CreateExtractGenes.cs" />
+    <Compile Include="MIsc\Dialog_CreateExtractGenes.cs" />
     <Compile Include="Buildings\Building_RatkinGeneDiscriminator.cs" />
     <Compile Include="Buildings\Building_OARatkinGeneDiscriminator.cs" />
     <Compile Include="Buildings\Building_RatkinDestructiveGeneExtractor.cs" />
@@ -120,12 +120,12 @@
     <Compile Include="Thought\ThoughtWorker_Drafted.cs" />
     <Compile Include="Thought\ThoughtWorker_Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="Genes\Gene_AgriculturalEnthusiasm.cs" />
-    <Compile Include="ModExtension.cs" />
+    <Compile Include="MIsc\ModExtension.cs" />
     <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
     <Compile Include="Genes\Gene_FrailPhysique.cs" />
     <Compile Include="Genes\Gene_GiveHediff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="MIsc\Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
