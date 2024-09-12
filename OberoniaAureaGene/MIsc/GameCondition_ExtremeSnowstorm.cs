@@ -33,11 +33,20 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(weather);
             map.GetOAGeneMapComp()?.Notify_Snow(Duration);
-            TryBreakPowerPlantWind(map);
+            TryBreakPowerPlantWind(map, Duration);
         }
     }
-
+    public override void End()
+    {
+        base.End();
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
+        }
+    }
     public override float TemperatureOffset()
     {
         return tempOffset;
@@ -61,7 +70,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             snowHardOverlay[i].DrawOverlay(map);
         }
     }
-    protected static void TryBreakPowerPlantWind(Map map) //破坏风力发电机
+    protected static void TryBreakPowerPlantWind(Map map, int duration) //破坏风力发电机
     {
         BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
         if (breakdownManager == null)
@@ -73,13 +82,11 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         {
             return;
         }
+        CompPowerNormalPlantWind normalPlantWind;
         for (int i = 0; i < breakdownableComps.Count; i++)
         {
-            CompBreakdownable breakComp = breakdownableComps[i];
-            if (breakComp.parent.GetComp<CompPowerPlantWind>() != null)
-            {
-                breakComp.DoBreakdown();
-            }
+            normalPlantWind = breakdownableComps[i].parent.GetComp<CompPowerNormalPlantWind>();
+            normalPlantWind?.Notify_ExtremeSnowstorm(duration);
         }
     }
 
