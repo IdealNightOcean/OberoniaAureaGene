@@ -5,6 +5,10 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public class HediffGiver_SnowExtreme : HediffGiver
 {
+    public HediffDef snowExtremeHediff;
+    public HediffDef coldSnowHediff;
+    public HediffDef coldImmersionHediff;
+
     public static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
         new CurvePoint(-9999f, 0f),
@@ -19,24 +23,24 @@ public class HediffGiver_SnowExtreme : HediffGiver
         float ambientTemperature = pawn.AmbientTemperature;
         if (active)
         {
-            pawn.health.GetOrAddHediff(OAGene_HediffDefOf.OAGene_Hediff_SnowExtreme);
+            pawn.health.GetOrAddHediff(snowExtremeHediff);
             if (ambientTemperature < pawn.SafeTemperatureRange().min)
             {
-                pawn.health.GetOrAddHediff(OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
+                pawn.health.GetOrAddHediff(coldSnowHediff);
             }
             else
             {
-                RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
+                RemoveFirstHediffOfDef(pawn, coldSnowHediff);
             }
-            HealthUtility.AdjustSeverity(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdImmersion, 0.0012f);
+            HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
         }
         else
         {
-            RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_SnowExtreme);
-            RemoveFirstHediffOfDef(pawn, OAGene_HediffDefOf.OAGene_Hediff_ColdSnow);
+            RemoveFirstHediffOfDef(pawn, snowExtremeHediff);
+            RemoveFirstHediffOfDef(pawn, coldSnowHediff);
             if (ambientTemperature > 0)
             {
-                Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(OAGene_HediffDefOf.OAGene_Hediff_ColdImmersion);
+                Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
                 if (firstHediffOfDef != null)
                 {
 

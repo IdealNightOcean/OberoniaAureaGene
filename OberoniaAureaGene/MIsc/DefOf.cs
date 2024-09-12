@@ -12,9 +12,6 @@ public static class OAGene_HediffDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
-    public static HediffDef OAGene_Hediff_SnowExtreme;
-    public static HediffDef OAGene_Hediff_ColdSnow;
-    public static HediffDef OAGene_Hediff_ColdImmersion;
     static OAGene_HediffDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_HediffDefOf));
