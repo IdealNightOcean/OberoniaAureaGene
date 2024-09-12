@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="GetInheritedGeneSet_Patch.cs" />
     <Compile Include="HediffComp_ColdSnow.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
     <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
