@@ -21,14 +21,15 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         base.Init();
         tempOffset = def.temperatureOffset;
         weather = def.weatherDef;
+        Find.MusicManagerPlay.ForcePlaySong(OberoniaAureaGeneDefOf.OAGene_ExtremeSnowstormStart, false);
+
         if (Rand.Chance(0.25f))
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
             gameConditionManager.RegisterCondition(gameCondition);
-            Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+            Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), OberoniaAureaGeneDefOf.OAGene_SnowstormColdSnap);
             Find.LetterStack.ReceiveLetter(letter);
         }
-        //Find.MusicManagerPlay.ForcePlaySong();
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
@@ -60,7 +61,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             snowHardOverlay[i].DrawOverlay(map);
         }
     }
-    protected static void TryBreakPowerPlantWind(Map map)
+    protected static void TryBreakPowerPlantWind(Map map) //破坏风力发电机
     {
         BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
         if (breakdownManager == null)

@@ -9,7 +9,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
     public HediffDef coldSnowHediff;
     public HediffDef coldImmersionHediff;
 
-    public static readonly SimpleCurve ImmersionAdjustmentCurve =
+    protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
         new CurvePoint(-9999f, 0f),
         new CurvePoint(0f, 0f),
@@ -43,7 +43,8 @@ public class HediffGiver_SnowExtreme : HediffGiver
                 Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
                 if (firstHediffOfDef != null)
                 {
-
+                    float sevAdjiest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature);
+                    firstHediffOfDef.Severity += sevAdjiest;
                 }
             }
         }

@@ -45,6 +45,8 @@ public static class OberoniaAureaGeneDefOf
 
     public static LetterDef OAGene_SnowstormColdSnap; //暴风雪寒流信件
 
+    public static SongDef OAGene_ExtremeSnowstormStart; //暴风雪BGM
+
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
 

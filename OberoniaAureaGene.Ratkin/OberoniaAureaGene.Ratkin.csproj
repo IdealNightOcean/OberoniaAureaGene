@@ -44,6 +44,10 @@
       <HintPath>..\..\..\RimWorld引用dll\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="NewRatkin">
+      <HintPath>..\..\..\RimWorld引用dll\NewRatkin.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="OberoniaAurea_Frame">
       <HintPath>..\..\OberoniaAurea_Frame\release\OberoniaAurea_Frame.dll</HintPath>
       <Private>False</Private>
@@ -71,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="HediffComp_ColdSnow.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
     <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
     <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />

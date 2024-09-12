@@ -16,7 +16,6 @@ public class HediffCompPropertiesp_ColdImmersion : HediffCompProperties
 [StaticConstructorOnStartup]
 public class HediffComp_ColdImmersion : HediffComp
 {
-    [Unsaved]
     protected HediffDef hediffDef;
     HediffCompPropertiesp_ColdImmersion Props => props as HediffCompPropertiesp_ColdImmersion;
 
