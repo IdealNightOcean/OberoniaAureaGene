@@ -43,8 +43,8 @@ public class HediffGiver_SnowExtreme : HediffGiver
                 Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
                 if (firstHediffOfDef != null)
                 {
-                    float sevAdjiest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature);
-                    firstHediffOfDef.Severity += sevAdjiest;
+                    float sevAdjuest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature) * 0.001f;
+                    firstHediffOfDef.Severity += sevAdjuest;
                 }
             }
         }

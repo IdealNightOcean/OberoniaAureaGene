@@ -41,7 +41,8 @@ public static class OberoniaAureaGeneDefOf
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_PlayerThreatBig;
 
-    public static GameConditionDef OAGene_Snowstorm;
+    public static GameConditionDef OAGene_Snowstorm; //漫长风雪
+    public static GameConditionDef OAGene_ExtremeSnowstorm; //极端暴风雪
 
     public static LetterDef OAGene_SnowstormColdSnap; //暴风雪寒流信件
 

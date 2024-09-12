@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
+    <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
     <Compile Include="Misc\CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
