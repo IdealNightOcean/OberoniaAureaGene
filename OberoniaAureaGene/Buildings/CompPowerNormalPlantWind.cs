@@ -10,7 +10,7 @@ public class CompPowerNormalPlantWind : CompPowerPlantWind
 
     protected override float DesiredPowerOutput => broken ? 0f : base.DesiredPowerOutput;
     public override void PostSpawnSetup(bool respawningAfterLoad)
-    {      
+    {
         base.PostSpawnSetup(respawningAfterLoad);
         GameCondition snowstorm = parent.Map?.gameConditionManager.GetActiveCondition(OberoniaAureaGeneDefOf.OAGene_ExtremeSnowstorm);
         if (snowstorm != null)
@@ -34,8 +34,8 @@ public class CompPowerNormalPlantWind : CompPowerPlantWind
         base.CompTick();
     }
     public void Notify_ExtremeSnowstorm(int duration)
-    {       
-        brokenRecoverTicks = duration;   
+    {
+        brokenRecoverTicks = duration;
         broken = true;
         PowerOutput = 0f;
         breakdownableComp?.DoBreakdown();
