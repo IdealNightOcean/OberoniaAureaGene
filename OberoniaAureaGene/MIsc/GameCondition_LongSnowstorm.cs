@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -7,6 +8,8 @@ namespace OberoniaAureaGene;
 public class GameCondition_LongSnowstorm : GameCondition
 {
     private static readonly float SkyGlow = 0.9f;
+    private static SkyColorSet LongSnowSkyColors = new(new Color(0.8f, 0.8f, 0.8f), new Color(0.92f, 0.92f, 0.92f), new Color(0.7f, 0.7f, 0.7f), 0.9f);
+
 
     public float tempOffset;
     public override int TransitionTicks => 5000;
@@ -25,7 +28,7 @@ public class GameCondition_LongSnowstorm : GameCondition
 
     public override SkyTarget? SkyTarget(Map map)
     {
-        return new(SkyGlow, default, 1f, 1f);
+        return new(SkyGlow, LongSnowSkyColors, 1f, 1f);
     }
     public override float SkyTargetLerpFactor(Map map)
     {

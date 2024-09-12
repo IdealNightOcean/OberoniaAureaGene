@@ -10,7 +10,7 @@ namespace OberoniaAureaGene;
 public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 {
     private static readonly float SkyGlow = 0.25f;
-    private static SkyColorSet SnowstormSkyColors = new(new Color(0.482f, 0.603f, 0.682f), Color.white, new Color(0.6f, 0.6f, 0.6f), 1f);
+    private static SkyColorSet SnowstormSkyColors = new(new Color(0.482f, 0.603f, 0.682f), new Color(0.92f, 0.92f, 0.92f), new Color(0.6f, 0.6f, 0.6f), 0.9f);
 
     public float tempOffset;
     public override int TransitionTicks => 5000;
