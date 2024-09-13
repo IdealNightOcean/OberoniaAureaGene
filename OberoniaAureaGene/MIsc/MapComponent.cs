@@ -50,13 +50,13 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     }
     protected void CheckSnow()
     {
-        if (!map.IsPlayerHome || !map.GameConditionManager.ConditionIsActive(OberoniaAureaGeneDefOf.OAGene_Snowstorm))
+        if (!map.IsPlayerHome || !map.GameConditionManager.ConditionIsActive(OAGene_MiscDefOf.OAGene_Snowstorm))
         {
             snowCheckTicks = 60000;
             return;
         }
         WeatherManager weatherManager = map.weatherManager;
-        if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OberoniaAureaGeneDefOf.OAGene_SnowExtreme)
+        if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme)
         {
             Notify_Snow(60000);
             return;
@@ -133,7 +133,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     }
     protected void RecacheHegemonicFlagCount()
     {
-        cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OberoniaAureaGeneDefOf.OAGene_HegemonicFlag).Count();
+        cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OAGene_MiscDefOf.OAGene_HegemonicFlag).Count();
     }
 
 

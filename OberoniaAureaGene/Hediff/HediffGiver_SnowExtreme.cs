@@ -24,7 +24,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
         if (active)
         {
             pawn.health.GetOrAddHediff(snowExtremeHediff);
-            if (ambientTemperature < pawn.SafeTemperatureRange().min)
+            if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
             {
                 pawn.health.GetOrAddHediff(coldSnowHediff);
             }
@@ -57,7 +57,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
         {
             return false;
         }
-        if (map.weatherManager.curWeather != OberoniaAureaGeneDefOf.OAGene_SnowExtreme)
+        if (!OAGeneUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

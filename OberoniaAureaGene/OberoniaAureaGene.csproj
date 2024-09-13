@@ -81,8 +81,10 @@
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
     <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
+    <Compile Include="Misc\StatPart_ExtremeSnowstorm.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtremeFog.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtreme.cs" />
+    <Compile Include="Thought\ThoughtWorker_SnowExtremeSurvivor.cs" />
     <Compile Include="Thought\ThoughtWorker_SnowExtreme.cs" />
     <Compile Include="Misc\WeatherEvent_SnowStormBreakRoof.cs" />
     <Compile Include="Misc\GameCondition_LongSnowstorm.cs" />

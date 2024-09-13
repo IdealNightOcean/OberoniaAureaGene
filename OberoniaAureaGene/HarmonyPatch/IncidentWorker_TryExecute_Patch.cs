@@ -34,9 +34,9 @@ public static class TryExecute_Patch
         IEnumerable<Pawn> aliveColonists = map.mapPawns.FreeColonists.Where(p => !p.Dead);
         foreach (Pawn pawn in aliveColonists)
         {
-            HistoryEvent historyEvent = new(OberoniaAureaGeneDefOf.OAGene_ThreatBig, pawn.Named(HistoryEventArgsNames.Doer));
+            HistoryEvent historyEvent = new(OAGene_MiscDefOf.OAGene_ThreatBig, pawn.Named(HistoryEventArgsNames.Doer));
             Find.HistoryEventsManager.RecordEvent(historyEvent);
         }
-        Find.HistoryEventsManager.RecordEvent(new HistoryEvent(OberoniaAureaGeneDefOf.OAGene_PlayerThreatBig));
+        Find.HistoryEventsManager.RecordEvent(new HistoryEvent(OAGene_MiscDefOf.OAGene_PlayerThreatBig));
     }
 }

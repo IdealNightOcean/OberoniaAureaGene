@@ -34,7 +34,7 @@ public static class OAGene_GeneDefOf
 }
 
 [DefOf]
-public static class OberoniaAureaGeneDefOf
+public static class OAGene_MiscDefOf
 {
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_ThreatBig;
@@ -44,9 +44,9 @@ public static class OberoniaAureaGeneDefOf
     public static GameConditionDef OAGene_Snowstorm; //漫长风雪
     public static GameConditionDef OAGene_ExtremeSnowstorm; //极端暴风雪
 
-    public static LetterDef OAGene_SnowstormColdSnap; //暴风雪寒流信件
+    public static LetterDef OAGene_SnowstormStart; //暴风雪信件
 
-    public static SongDef OAGene_ExtremeSnowstormStart; //暴风雪BGM
+    public static SongDef OAGene_SnowstormColdSnap; //暴风雪韩流BGM
 
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
@@ -55,9 +55,9 @@ public static class OberoniaAureaGeneDefOf
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
 
-    static OberoniaAureaGeneDefOf()
+    static OAGene_MiscDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(OberoniaAureaGeneDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_MiscDefOf));
     }
 }
 

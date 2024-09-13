@@ -33,7 +33,7 @@ public class HediffComp_ColdImmersion : HediffComp
 
     protected static void CheckHypothermia(Pawn pawn, HediffDef hediffDef, float immersionSeverity)
     {
-        if (pawn.AmbientTemperature < pawn.SafeTemperatureRange().min)
+        if (pawn.AmbientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
         {
             float hypothermiaIncrease;
             if (immersionSeverity < 0.04f)

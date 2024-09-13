@@ -29,7 +29,7 @@ public class HediffGiver_SnowExtremeMechanoid : HediffGiver
         {
             return false;
         }
-        if (map.weatherManager.curWeather != OberoniaAureaGeneDefOf.OAGene_SnowExtreme)
+        if (!OAGeneUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

@@ -19,21 +19,28 @@ public class HediffComp_ColdSnowSpeech : HediffComp
     protected static readonly IntRange SpeechSection = new(1, 4);
     protected static readonly IntRange SpeechInterval = new(1800, 7200);
 
-    protected int ticksRemaining;
+    protected int ticksRemaining = 60;
+    protected bool humanlike;
 
     [Unsaved]
     public Mote_CountDown tempMote;
 
     HediffCompProperties_ColdSnowSpeech Props => props as HediffCompProperties_ColdSnowSpeech;
-
+    public override void CompPostPostAdd(DamageInfo? dinfo)
+    {
+        humanlike = parent.pawn.RaceProps.Humanlike;
+    }
     public override void CompPostTick(ref float severityAdjustment)
     {
-        ticksRemaining--;
-        if (ticksRemaining <= 0)
+        if (humanlike)
         {
-            string speech = GenerateGrammarRequest(Props.speechRulePack);
-            ThrowText(parent.pawn.DrawPos + new Vector3(0f, 0f, 0.75f), parent.pawn.Map, speech, Color.white);
-            ticksRemaining = SpeechInterval.RandomInRange;
+            ticksRemaining--;
+            if (ticksRemaining <= 0)
+            {
+                string speech = GenerateGrammarRequest(Props.speechRulePack);
+                ThrowText(parent.pawn.DrawPos + new Vector3(0f, 0f, 0.75f), parent.pawn.Map, speech, Color.white);
+                ticksRemaining = SpeechInterval.RandomInRange;
+            }
         }
     }
     protected void ThrowText(Vector3 loc, Map map, string text, Color color, float timeBeforeStartFadeout = -1f)
@@ -64,6 +71,7 @@ public class HediffComp_ColdSnowSpeech : HediffComp
     public override void CompExposeData()
     {
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
+        Scribe_Values.Look(ref humanlike, "humanlike", defaultValue: false);
     }
 
     protected static string GenerateGrammarRequest(RulePackDef rulePack)

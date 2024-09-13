@@ -12,7 +12,7 @@ public class CompPowerNormalPlantWind : CompPowerPlantWind
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        GameCondition snowstorm = parent.Map?.gameConditionManager.GetActiveCondition(OberoniaAureaGeneDefOf.OAGene_ExtremeSnowstorm);
+        GameCondition snowstorm = parent.Map?.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
         if (snowstorm != null)
         {
             int duration = snowstorm.startTick + snowstorm.Duration - Find.TickManager.TicksGame;
