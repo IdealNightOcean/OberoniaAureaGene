@@ -9,13 +9,16 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
 {
-    private static readonly float SkyGlow = 0.25f;
-    private static SkyColorSet SnowstormSkyColors = new(new Color(0.416f, 0.553f, 0.643f), new Color(0.92f, 0.92f, 0.92f), new Color(0.6f, 0.6f, 0.6f), 0.9f);
+    protected static readonly float SkyGlow = 0.25f;
+    protected static SkyColorSet SnowstormSkyColors = new(new Color(0.416f, 0.553f, 0.643f), new Color(0.92f, 0.92f, 0.92f), new Color(0.6f, 0.6f, 0.6f), 0.9f);
+
+    protected static IntRange ColdGlowSpawnRange = new(60, 120);
+    protected static IntRange ColdGlowIntervalRange = new(2400, 3000);
 
     public float tempOffset;
-    protected bool causeColdSnap;
-    protected bool musicPlayed;
-    protected int musicDelay = 1200;
+
+    protected int coldGlowSpawnTicks;
+    protected bool coldGlowSpawn;
     public override int TransitionTicks => 5000;
     private readonly List<SkyOverlay> snowHardOverlay = [new WeatherOverlay_SnowExtreme()];
 
@@ -31,9 +34,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             gameConditionManager.RegisterCondition(gameCondition);
             Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
             Find.LetterStack.ReceiveLetter(letter, playSound: false);
-            Find.MusicManagerPlay.ForceFadeoutAndSilenceFor(21);
-            causeColdSnap = true;
-            musicDelay = 1200;
+            Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
         }
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
@@ -51,19 +52,6 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
             Map map = AffectedMaps[i];
             map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         }
-    }
-    public override void GameConditionTick()
-    {
-        if (causeColdSnap && !musicPlayed)
-        {
-            musicDelay--;
-            if (musicDelay <= 0)
-            {
-                Find.MusicManagerPlay.ForcePlaySong(OAGene_MiscDefOf.OAGene_SnowstormColdSnap, false);
-                musicPlayed = true;
-            }
-        }
-        base.GameConditionTick();
     }
     public override float TemperatureOffset()
     {
@@ -86,6 +74,31 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         for (int i = 0; i < snowHardOverlay.Count; i++)
         {
             snowHardOverlay[i].DrawOverlay(map);
+        }
+    }
+    public override void GameConditionTick()
+    {
+        coldGlowSpawnTicks--;
+        if (coldGlowSpawnTicks < 0)
+        {
+            coldGlowSpawnTicks = coldGlowSpawn ? ColdGlowIntervalRange.RandomInRange : ColdGlowSpawnRange.RandomInRange;
+            coldGlowSpawn = !coldGlowSpawn;
+        }
+    }
+    public override void DoCellSteadyEffects(IntVec3 c, Map map)
+    {
+        if (!coldGlowSpawn)
+        {
+            return;
+        }
+        if (Rand.Chance(0.02f))
+        {
+            FleckDef fleckDef = OAGene_MiscDefOf.OAGene_ColdGlow;
+            FleckCreationData dataStatic = FleckMaker.GetDataStatic(new Vector3(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f), map, fleckDef, FastEffectRandom.Next(200, 300) / 100f);
+            dataStatic.rotationRate = FastEffectRandom.Next(-300, 300) / 100f;
+            dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
+            dataStatic.velocitySpeed = 0.04f;
+            map.flecks.CreateFleck(dataStatic);
         }
     }
     protected static void TryBreakPowerPlantWind(Map map, int duration) //破坏风力发电机
@@ -112,8 +125,5 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
     {
         base.ExposeData();
         Scribe_Values.Look(ref tempOffset, "tempOffset", 0f);
-        Scribe_Values.Look(ref causeColdSnap, "causeColdSnap", defaultValue: false);
-        Scribe_Values.Look(ref musicPlayed, "musicPlayed", defaultValue: false);
-        Scribe_Values.Look(ref musicDelay, "musicDelay", 1200);
     }
 }

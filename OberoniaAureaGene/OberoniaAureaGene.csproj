@@ -81,6 +81,7 @@
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
     <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
+    <Compile Include="Misc\MusicTransition_ClairDeLune.cs" />
     <Compile Include="Misc\StatPart_ExtremeSnowstorm.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtremeFog.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtreme.cs" />
