@@ -13,9 +13,15 @@ public class MusicTransition_ClairDeLune : MusicTransition
         }
         foreach (Map map in Find.Maps)
         {
-            if (map.gameConditionManager.ConditionIsActive(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm))
+            if(!map.IsPlayerHome)
             {
-                return true;
+                continue;
+            }
+
+            GameCondition_ExtremeSnowstorm snowstorm = (GameCondition_ExtremeSnowstorm)map.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
+            if (snowstorm != null)
+            {
+                return snowstorm.causeColdSnap;
             }
         }
         return false;
