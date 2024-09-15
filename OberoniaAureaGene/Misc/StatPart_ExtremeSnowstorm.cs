@@ -12,7 +12,7 @@ public class StatPart_ExtremeSnowstorm : StatPart
     {
         if (ActiveFor(req.Thing))
         {
-            val *= req.Thing is Corpse? corpseMultiplier: multiplier;
+            val *= req.Thing is Corpse ? corpseMultiplier : multiplier;
         }
     }
 
@@ -38,7 +38,7 @@ public class StatPart_ExtremeSnowstorm : StatPart
         {
             return false;
         }
-        if (map.gameConditionManager.ConditionIsActive(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm))
+        if (OAGeneUtility.IsSnowExtremeWeather(map))
         {
             return !cell.Roofed(map);
         }

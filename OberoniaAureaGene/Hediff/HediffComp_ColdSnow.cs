@@ -4,11 +4,10 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-
 public class HediffCompProperties_ColdSnow : HediffCompProperties
 {
     public IntRange frostbiteInterval;
-    public IntRange frostbiteDamageRange;
+    public FloatRange frostbiteDamageRange;
     public HediffCompProperties_ColdSnow()
     {
         compClass = typeof(HediffComp_ColdSnow);
@@ -41,7 +40,10 @@ public class HediffComp_ColdSnow : HediffComp
         {
             DamageInfo dinfo = new(DamageDefOf.Frostbite, damageAmount, 0f, -1f, null, bodyPart);
             pawn.TakeDamage(dinfo);
-            Messages.Message("OAGene_MessageColdSnowFrostbite".Translate(pawn.Named("PAWN"), bodyPart.LabelCap), MessageTypeDefOf.NegativeEvent);
+            if (pawn.IsColonist)
+            {
+                Messages.Message("OAGene_MessageColdSnowFrostbite".Translate(pawn.Named("PAWN"), bodyPart.LabelCap), MessageTypeDefOf.NegativeEvent);
+            }
         }
     }
     public override void CompExposeData()
