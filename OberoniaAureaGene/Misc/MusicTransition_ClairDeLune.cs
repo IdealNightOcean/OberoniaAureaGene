@@ -7,6 +7,7 @@ public class MusicTransition_ClairDeLune : MusicTransition
 {
     public override bool IsTransitionSatisfied()
     {
+        /*
         if (!base.IsTransitionSatisfied())
         {
             return false;
@@ -24,6 +25,7 @@ public class MusicTransition_ClairDeLune : MusicTransition
                 return snowstorm.causeColdSnap;
             }
         }
+        */
         return false;
     }
 }

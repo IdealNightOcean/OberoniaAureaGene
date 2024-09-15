@@ -69,6 +69,7 @@
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
+    <Compile Include="Hediff\HediffComp_WarmTorch.cs" />
     <Compile Include="Hediff\HediffComp_ColdSnow.cs" />
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
     <Compile Include="Misc\CompPawnGeneDamageModified.cs" />

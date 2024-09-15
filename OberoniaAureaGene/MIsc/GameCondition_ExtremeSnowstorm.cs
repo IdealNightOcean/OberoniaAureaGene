@@ -93,7 +93,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         {
             return;
         }
-        if (Rand.Chance(0.02f))
+        if (Rand.Chance(0.025f))
         {
             Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
             FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, OAGene_MiscDefOf.OAGene_ColdGlow, FastEffectRandom.Next(200, 300) / 100f);
