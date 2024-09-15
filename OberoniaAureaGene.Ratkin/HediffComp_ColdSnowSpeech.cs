@@ -28,7 +28,7 @@ public class HediffComp_ColdSnowSpeech : HediffComp
     HediffCompProperties_ColdSnowSpeech Props => props as HediffCompProperties_ColdSnowSpeech;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
-        humanlike = parent.pawn.RaceProps.Humanlike;
+        humanlike = parent.pawn.RaceProps.Humanlike && !parent.pawn.RaceProps.IsAnomalyEntity;
     }
     public override void CompPostTick(ref float severityAdjustment)
     {

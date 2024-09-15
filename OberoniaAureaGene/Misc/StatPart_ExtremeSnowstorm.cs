@@ -6,20 +6,22 @@ namespace OberoniaAureaGene;
 public class StatPart_ExtremeSnowstorm : StatPart
 {
     private float multiplier = 1f;
+    private float corpseMultiplier = 1f;
 
     public override void TransformValue(StatRequest req, ref float val)
     {
         if (ActiveFor(req.Thing))
         {
-            val *= multiplier;
+            val *= req.Thing is Corpse? corpseMultiplier: multiplier;
         }
     }
 
     public override string ExplanationPart(StatRequest req)
     {
-        if (req.HasThing && ActiveFor(req.Thing))
+        if (ActiveFor(req.Thing))
         {
-            return "StatsReport_MultiplierFor".Translate(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm.label) + (": x" + multiplier.ToStringPercent());
+            float val = req.Thing is Corpse ? corpseMultiplier : multiplier;
+            return "StatsReport_MultiplierFor".Translate(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm.label) + (": x" + val.ToStringPercent());
         }
         return null;
     }

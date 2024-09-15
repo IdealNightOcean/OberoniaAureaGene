@@ -13,7 +13,7 @@ public class MusicTransition_ClairDeLune : MusicTransition
         }
         foreach (Map map in Find.Maps)
         {
-            if(!map.IsPlayerHome)
+            if (!map.IsPlayerHome)
             {
                 continue;
             }

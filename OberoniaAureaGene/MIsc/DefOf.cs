@@ -66,7 +66,8 @@ public static class OAGene_MiscDefOf
 [DefOf]
 public static class OAGene_RimWorldDefOf
 {
-    public static HediffDef Frail;
+    public static HediffDef Frail; //体弱
+    public static HediffDef Hypothermia; //低温症
 
     public static TraitDef Faith;
     public static TraitDef Nerves;
