@@ -39,28 +39,28 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
             return;
         }
         RoofGrid roofGrid = map.roofGrid;
-        IEnumerable<IntVec3> potentialRoofs;
-        IEnumerable<IntVec3> targetRoofs;
+        List<IntVec3> potentialRoofs;
+        List<IntVec3> targetRoofs;
         LookTargetCells.Clear();
         int afftectRoofCount;
         bool affected = false;
         for (int i = 0; i < potentialRooms.Count; i++)
         {
             Room room = potentialRooms[i];
-            potentialRoofs = room.Cells.Where(ValidRoof).InRandomOrder(); //所有可能受影响的屋顶
+            potentialRoofs = room.Cells.Where(ValidRoof).InRandomOrder().ToList(); //所有可能受影响的屋顶
             afftectRoofCount = (int)(potentialRoofs.Count() * AfftectRoofRange.RandomInRange); //受影响的屋顶的个数
             afftectRoofCount = Mathf.Max(30, afftectRoofCount);
-            targetRoofs = potentialRoofs.Take(afftectRoofCount); //受影响的屋顶
+            targetRoofs = potentialRoofs.Take(afftectRoofCount).ToList(); //受影响的屋顶
             if (targetRoofs.Any())
             {
+                //选取第一个受影响的屋顶作为LookTarget
+                affected = true;
+                IntVec3 lookCell = targetRoofs.First();
+                LookTargetCells.Add(new TargetInfo(lookCell, map));
                 foreach (IntVec3 roofCell in targetRoofs)
                 {
                     roofGrid.SetRoof(roofCell, null);
-                }
-                affected = true;
-                //随机选取一个受影响的屋顶作为LookTarget
-                IntVec3 lookCell = targetRoofs.RandomElement();
-                LookTargetCells.Add(new TargetInfo(lookCell, map));
+                }         
             }
         }
         if (affected)
