@@ -39,6 +39,7 @@ public class HediffComp_ColdSnow : HediffComp
         if (pawn.RaceProps.body.AllPartsVulnerableToFrostbite.Where((BodyPartRecord x) => !pawn.health.hediffSet.PartIsMissing(x)).TryRandomElementByWeight((BodyPartRecord x) => x.def.frostbiteVulnerability, out BodyPartRecord bodyPart))
         {
             DamageInfo dinfo = new(DamageDefOf.Frostbite, damageAmount, 0f, -1f, null, bodyPart);
+            dinfo.SetInstantPermanentInjury(true);
             pawn.TakeDamage(dinfo);
             if (pawn.IsColonist)
             {

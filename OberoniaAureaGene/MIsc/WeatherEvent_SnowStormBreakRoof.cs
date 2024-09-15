@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -12,7 +13,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
     public override bool Expired => expired;
 
     protected static readonly IntRange AfftectRoomRange = new(1, 3);
-    protected static readonly FloatRange AfftectRoofRange = new(0.05f, 0.55f);
+    protected static readonly FloatRange AfftectRoofRange = new(0.25f, 0.8f);
 
     public static readonly List<TargetInfo> LookTargetCells = [];
 
@@ -48,6 +49,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
             Room room = potentialRooms[i];
             potentialRoofs = room.Cells.Where(ValidRoof).InRandomOrder(); //所有可能受影响的屋顶
             afftectRoofCount = (int)(potentialRoofs.Count() * AfftectRoofRange.RandomInRange); //受影响的屋顶的个数
+            afftectRoofCount = Mathf.Max(30, afftectRoofCount);
             targetRoofs = potentialRoofs.Take(afftectRoofCount); //受影响的屋顶
             if (targetRoofs.Any())
             {
