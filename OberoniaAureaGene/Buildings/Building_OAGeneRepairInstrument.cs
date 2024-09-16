@@ -46,7 +46,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         {
             return;
         }
-        foreach (Pawn pawn in base.Map.mapPawns.AllPawnsSpawned)
+        foreach (Pawn pawn in base.Map.mapPawns.FreeColonistsAndPrisonersSpawned)
         {
             AcceptanceReport acceptanceReport = CanAcceptPawn(pawn);
             if (acceptanceReport.Accepted)
@@ -83,7 +83,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
             HediffComp_Disappears disappearsComp = containedPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermReplicating)?.TryGetComp<HediffComp_Disappears>();
             if (disappearsComp != null)
             {
-                int num = Mathf.Max((int)(disappearsComp.ticksToDisappear * 0.2), 120000);
+                int num = Mathf.Max((int)(disappearsComp.ticksToDisappear * 0.2f), 120000);
                 disappearsComp.ticksToDisappear -= num;
             }
             Hediff hediff = containedPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermLossShock);

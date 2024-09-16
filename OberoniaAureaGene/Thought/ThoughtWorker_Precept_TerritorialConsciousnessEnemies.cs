@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -7,7 +8,7 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessEnemies : ThoughtWork
 {
     protected override ThoughtState ShouldHaveThought(Pawn p)
     {
-        if (!p.Spawned || !p.Faction.IsPlayer)
+        if (!p.Spawned || !p.Faction.IsPlayerFaction())
         {
             return ThoughtState.Inactive;
         }
