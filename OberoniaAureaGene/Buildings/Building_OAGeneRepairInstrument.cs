@@ -9,6 +9,8 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public class Building_OAGeneRepairInstrument : Building_EnterableBase
 {
+    public static readonly Texture2D CommandContinueWorkTrue = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectTrue");
+    public static readonly Texture2D CommandContinueWorkFalse = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectFalse");
     protected override int AllTicks => 10000;
     protected int searchTicksRemaining;
     protected bool autoSelect;
@@ -66,7 +68,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         {
             defaultLabel = "OAGene_CommandAutoSelect".Translate(),
             defaultDesc = "OAGene_CommandAutoSelectDesc".Translate(this.Label),
-            icon = autoSelect ? IconUtility.CommandContinueWorkTrue : IconUtility.CommandContinueWorkFalse,
+            icon = autoSelect ? CommandContinueWorkTrue : CommandContinueWorkFalse,
             action = delegate
             {
                 autoSelect = !autoSelect;

@@ -8,6 +8,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
     public HediffDef snowExtremeHediff;
     public HediffDef coldSnowHediff;
     public HediffDef coldImmersionHediff;
+    public HediffDef frozenWoundHediff;
 
     protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
@@ -24,6 +25,10 @@ public class HediffGiver_SnowExtreme : HediffGiver
         if (active)
         {
             pawn.health.GetOrAddHediff(snowExtremeHediff);
+            if (pawn.health.hediffSet.BleedRateTotal > 0.001f)
+            {
+                pawn.health.GetOrAddHediff(frozenWoundHediff);
+            }
             if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
             {
                 pawn.health.GetOrAddHediff(coldSnowHediff);

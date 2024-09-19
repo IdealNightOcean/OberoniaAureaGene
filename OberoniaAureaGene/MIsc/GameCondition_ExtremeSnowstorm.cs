@@ -29,7 +29,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ForceWeather
         tempOffset = def.temperatureOffset;
         weather = def.weatherDef;
 
-        if (Rand.Chance(0.25f))
+        if (Rand.Chance(0.33f))
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
             gameConditionManager.RegisterCondition(gameCondition);
