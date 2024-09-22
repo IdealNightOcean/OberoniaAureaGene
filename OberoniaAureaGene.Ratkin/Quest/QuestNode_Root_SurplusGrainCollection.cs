@@ -109,13 +109,13 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         faction.temporary = true;
         Find.FactionManager.Add(faction);
 
-        Site site = QuestGen_Sites.GenerateSite(new SitePartDefWithParams[1]
-        {
+        Site site = QuestGen_Sites.GenerateSite(
+        [
             new(spawnCandidate.sitePart, new SitePartParams
             {
                 threatPoints = points
             })
-        }, spawnCandidate.tile, faction);
+        ], spawnCandidate.tile, faction);
         if (site.parts.Any() && site.parts[0].lootThings.Any())
         {
             questPart_Hyperlinks.thingDefs.Add(site.parts[0].lootThings[0].ThingDef);

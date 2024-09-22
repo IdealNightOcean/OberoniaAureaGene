@@ -29,7 +29,7 @@ public class HediffGiver_SnowExtremeMechanoid : HediffGiver
         {
             return false;
         }
-        if (!OAGeneUtility.IsSnowExtremeWeather(map))
+        if (!SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

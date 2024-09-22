@@ -7,7 +7,7 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public class GameCondition_LongSnowstorm : GameCondition
 {
-    private static readonly float SkyGlow = 0.9f;
+    private static readonly float SkyGlow = 0.88f;
     private static readonly Color LongColor = new(0.92f, 0.92f, 0.92f);
     private static SkyColorSet LongSnowSkyColors = new(LongColor, LongColor, LongColor, 1f);
 

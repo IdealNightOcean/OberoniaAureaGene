@@ -38,7 +38,7 @@ public class StatPart_ExtremeSnowstorm : StatPart
         {
             return false;
         }
-        if (OAGeneUtility.IsSnowExtremeWeather(map))
+        if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return !cell.Roofed(map);
         }

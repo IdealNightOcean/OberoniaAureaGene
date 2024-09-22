@@ -28,7 +28,7 @@ public class CompWarmTorch : ThingComp
         }
         HealthUtility.AdjustSeverity(holder, OAGene_RimWorldDefOf.Hypothermia, -Props.hypothermiaReducePerHour);
         parent.HitPoints -= Props.hitPointsReducePerHour;
-        if (OAGeneUtility.IsSnowExtremeWeather(holder.Map))
+        if (SnowstormUtility.IsSnowExtremeWeather(holder.Map))
         {
             parent.HitPoints -= Props.hitPointsExtraReducePerHourSnowStorm;
         }

@@ -12,6 +12,9 @@ public static class OAGene_HediffDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
+    public static HediffDef OAGene_Hediff_PreparationWarm;
+    public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
+
     static OAGene_HediffDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_HediffDefOf));
@@ -43,6 +46,8 @@ public static class OAGene_MiscDefOf
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_PlayerThreatBig;
 
+    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
+
     public static GameConditionDef OAGene_Snowstorm; //漫长风雪
     public static GameConditionDef OAGene_ExtremeSnowstorm; //极端暴风雪
 
@@ -50,12 +55,16 @@ public static class OAGene_MiscDefOf
 
     public static MusicTransitionDef OAGene_Transition_ClairDeLune; //暴风雪韩流BGM
 
+    public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
+
+    public static ThoughtDef OAGene_Thought_SnowstormEnd;
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
 
     public static TraitDef OAGene_ExtremeSnowSurvivor; //暴风雪幸存者
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
+    public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
 
     static OAGene_MiscDefOf()
     {

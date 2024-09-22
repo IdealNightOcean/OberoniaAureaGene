@@ -69,6 +69,8 @@
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
+    <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
+    <Compile Include="Hediff\HeidffComp_ExperienceSnowstorm.cs" />
     <Compile Include="Hediff\HediffComp_WarmTorch.cs" />
     <Compile Include="Hediff\HediffComp_ColdSnow.cs" />
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
@@ -84,6 +86,9 @@
     <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Misc\CompWarmTorch.cs" />
+    <Compile Include="Misc\GameCondition_SnowstormBase.cs" />
+    <Compile Include="Misc\IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
+    <Compile Include="Misc\RaidStrategyWorker_SnowstormImmediateAttackBreaching.cs" />
     <Compile Include="Misc\MusicTransition_ClairDeLune.cs" />
     <Compile Include="Misc\StatPart_ExtremeSnowstorm.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtremeFog.cs" />

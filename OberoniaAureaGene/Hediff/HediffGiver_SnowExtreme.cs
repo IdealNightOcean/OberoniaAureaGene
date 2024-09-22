@@ -62,7 +62,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
         {
             return false;
         }
-        if (!OAGeneUtility.IsSnowExtremeWeather(map))
+        if (!SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

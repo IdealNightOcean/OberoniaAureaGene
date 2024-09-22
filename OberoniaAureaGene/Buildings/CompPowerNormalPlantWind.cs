@@ -9,6 +9,7 @@ public class CompPowerNormalPlantWind : CompPowerPlantWind
     protected int brokenRecoverTicks;
 
     protected override float DesiredPowerOutput => broken ? 0f : base.DesiredPowerOutput;
+
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
