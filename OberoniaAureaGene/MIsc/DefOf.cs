@@ -37,6 +37,19 @@ public static class OAGene_GeneDefOf
 }
 
 [DefOf]
+public static class OAGene_IncidentDefOf
+{
+    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
+    public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
+    public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
+
+    static OAGene_IncidentDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_IncidentDefOf));
+    }
+}
+
+    [DefOf]
 public static class OAGene_MiscDefOf
 {
     public static FleckDef OAGene_ColdGlow; //
@@ -45,8 +58,6 @@ public static class OAGene_MiscDefOf
     public static HistoryEventDef OAGene_ThreatBig;
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_PlayerThreatBig;
-
-    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
 
     public static GameConditionDef OAGene_Snowstorm; //漫长风雪
     public static GameConditionDef OAGene_ExtremeSnowstorm; //极端暴风雪

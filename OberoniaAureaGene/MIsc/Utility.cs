@@ -23,6 +23,10 @@ public static class OAGeneUtility
 [StaticConstructorOnStartup]
 public static class SnowstormUtility
 {
+    private static IntRange IceStormDelay = new(180000, 300000); //3~5天
+    private static IntRange TempChangeCount = new(1, 3); 
+    private static IntRange TempChangeDelay = new(60000, 120000); //1~2天
+    private static IntRange TempChangeInterval = new(90000, 120000); //1.5~2天
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
         if (map == null)
@@ -35,7 +39,19 @@ public static class SnowstormUtility
     {
         return map?.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
     }
-    public static void InitExtremeSnowstorm(Map map, int duration)
+    public static void InitExtremeSnowstormWorld(Map ownerMap, int duration)
+    {
+        if (Rand.Bool)
+        {
+            IncidentParms iceParms = new()
+            {
+                target = ownerMap
+            };
+            Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
+        }
+        TryQueueTempChengeIncident(ownerMap, duration);
+    }
+    public static void InitExtremeSnowstormLocal(Map map, int duration)
     {
         if (map == null)
         {
@@ -49,7 +65,7 @@ public static class SnowstormUtility
             TryInitSnowstormRaid(map);
         }
     }
-    public static void EndExtremeSnowstorm(Map map)
+    public static void EndExtremeSnowstormLocal(Map map)
     {
         if (map == null)
         {
@@ -57,6 +73,26 @@ public static class SnowstormUtility
         }
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryGiveEndSnowstormThought(map);
+    }
+
+    public static void TryQueueTempChengeIncident(Map ownerMap, int duration)
+    {
+        int delay = TempChangeDelay.RandomInRange;
+        int count = TempChangeCount.RandomInRange;
+        IncidentParms parms = new()
+        {
+            target = ownerMap
+        };
+        for (int i = 0; i < count; i++)
+        {
+            IncidentDef incidentDef = Rand.Bool ? OAGene_IncidentDefOf.OAGene_SnowstormWarm : OAGene_IncidentDefOf.OAGene_SnowstormCold;
+            Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delay, parms);
+            delay += TempChangeInterval.RandomInRange;
+            if (delay < duration - 30000)
+            {
+                return;
+            }
+        }
     }
     public static void TryBreakPowerPlantWind(Map map, int duration) //破坏风力发电机
     {

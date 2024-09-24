@@ -9,8 +9,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
 {
     protected static IntRange ColdGlowSpawnRange = new(30, 60);
     protected static IntRange ColdGlowIntervalRange = new(1200, 1500);
-    protected static IntRange IceStormDelay = new(25000, 35000);
-
+    
     public bool causeColdSnap;
     protected int coldGlowSpawnTicks;
     protected bool coldGlowSpawn;
@@ -22,19 +21,13 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.InitExtremeSnowstorm(map, Duration);
+            SnowstormUtility.InitExtremeSnowstormLocal(map, Duration);
         }
     }
     private void ColdSnapAndIceStorm()
     {
-        if (Rand.Bool)
-        {
-            IncidentParms iceParms = new()
-            {
-                target = gameConditionManager.ownerMap
-            };
-            Find.Storyteller.incidentQueue.Add(OAGene_MiscDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
-        }
+        Map ownerMap = gameConditionManager.ownerMap;
+
         if (Rand.Bool)
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
@@ -51,7 +44,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.EndExtremeSnowstorm(map);
+            SnowstormUtility.EndExtremeSnowstormLocal(map);
         }
     }
     public override void GameConditionTick()
