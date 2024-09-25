@@ -24,7 +24,7 @@ public static class OAGeneUtility
 public static class SnowstormUtility
 {
     private static IntRange IceStormDelay = new(180000, 300000); //3~5天
-    private static IntRange TempChangeCount = new(1, 3); 
+    private static IntRange TempChangeCount = new(1, 3);
     private static IntRange TempChangeDelay = new(60000, 120000); //1~2天
     private static IntRange TempChangeInterval = new(90000, 120000); //1.5~2天
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气

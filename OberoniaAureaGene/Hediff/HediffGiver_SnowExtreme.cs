@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using OberoniaAurea_Frame;
+using Verse;
 
 namespace OberoniaAureaGene;
 
@@ -9,6 +10,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
     public HediffDef coldSnowHediff;
     public HediffDef coldImmersionHediff;
     public HediffDef frozenWoundHediff;
+    public HediffDef iceStormHediff;
 
     protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
@@ -24,25 +26,28 @@ public class HediffGiver_SnowExtreme : HediffGiver
         float ambientTemperature = pawn.AmbientTemperature;
         if (active)
         {
-            pawn.health.GetOrAddHediff(snowExtremeHediff);
-            if (pawn.health.hediffSet.BleedRateTotal > 0.001f)
+            Pawn_HealthTracker pawnHealth = pawn.health;
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, overrideDisappearTicks: 250);
+            //伤口冻结
+            if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
             {
-                pawn.health.GetOrAddHediff(frozenWoundHediff);
+                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, frozenWoundHediff, overrideDisappearTicks: 30000);
             }
+            //冷雪
             if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
             {
-                pawn.health.GetOrAddHediff(coldSnowHediff);
+                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, coldSnowHediff, overrideDisappearTicks: 250);
             }
-            else
+            //冰晶暴风雪
+            if (SnowstormUtility.IsIceStormWeather(pawn.Map))
             {
-                RemoveFirstHediffOfDef(pawn, coldSnowHediff);
+                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, iceStormHediff, overrideDisappearTicks: 250);
             }
+            //寒冷堆砌
             HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
         }
         else
         {
-            RemoveFirstHediffOfDef(pawn, snowExtremeHediff);
-            RemoveFirstHediffOfDef(pawn, coldSnowHediff);
             if (ambientTemperature > 0)
             {
                 Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);

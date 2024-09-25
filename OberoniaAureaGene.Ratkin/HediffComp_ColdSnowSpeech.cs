@@ -29,7 +29,7 @@ public class HediffComp_ColdSnowSpeech : HediffComp
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         humanlike = parent.pawn.RaceProps.Humanlike && !parent.pawn.IsMutant;
-        
+
     }
     public override void CompPostTick(ref float severityAdjustment)
     {

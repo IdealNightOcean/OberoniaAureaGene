@@ -12,7 +12,7 @@ public static class OAGene_HediffDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
-    public static HediffDef OAGene_Hediff_PreparationWarm;
+    public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
 
     static OAGene_HediffDefOf()
@@ -49,7 +49,7 @@ public static class OAGene_IncidentDefOf
     }
 }
 
-    [DefOf]
+[DefOf]
 public static class OAGene_MiscDefOf
 {
     public static FleckDef OAGene_ColdGlow; //

@@ -9,7 +9,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
 {
     protected static IntRange ColdGlowSpawnRange = new(30, 60);
     protected static IntRange ColdGlowIntervalRange = new(1200, 1500);
-    
+
     public bool causeColdSnap;
     protected int coldGlowSpawnTicks;
     protected bool coldGlowSpawn;
@@ -17,17 +17,16 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
     public override void Init()
     {
         base.Init();
-        ColdSnapAndIceStorm();
+        TryAddColdSnap();
+        SnowstormUtility.InitExtremeSnowstormWorld(gameConditionManager.ownerMap, Duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
             SnowstormUtility.InitExtremeSnowstormLocal(map, Duration);
         }
     }
-    private void ColdSnapAndIceStorm()
+    private void TryAddColdSnap()
     {
-        Map ownerMap = gameConditionManager.ownerMap;
-
         if (Rand.Bool)
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
