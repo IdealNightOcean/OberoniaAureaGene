@@ -92,7 +92,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (map.IsPlayerHome)
         {
             cachedEnemiesCount = OberoniaAureaFrameUtility.ThreatsCountOfPlayerOnMap(map);
-            cachedHostileSitesCount = HostileSitesCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 8f);
+            cachedHostileSitesCount = HostileSitesCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 6f);
         }
         else
         {

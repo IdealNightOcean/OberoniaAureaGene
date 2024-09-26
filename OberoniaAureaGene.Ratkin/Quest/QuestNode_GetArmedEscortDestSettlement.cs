@@ -67,7 +67,6 @@ public class QuestNode_GetArmedEscortDestSettlement : QuestNode_GetNearbySettlem
             }).RandomElementWithFallback();
         }
         return outSettlement;
-
     }
     protected bool IsGoodSettlement(Settlement settlement, Settlement startSettle, Faction faction, int originTile, Slate slate, out float distance)
     {
