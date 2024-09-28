@@ -80,7 +80,7 @@
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
     <Compile Include="Misc\CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
-    <Compile Include="Misc\DefOf.cs" />
+    <Compile Include="Utility\DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Misc\Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
@@ -144,7 +144,9 @@
     <Compile Include="Genes\Gene_FrailPhysique.cs" />
     <Compile Include="Genes\Gene_GiveHediff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Misc\Utility.cs" />
+    <Compile Include="Utility\FastEffectRandom.cs" />
+    <Compile Include="Utility\OAGeneUtility.cs" />
+    <Compile Include="Utility\SnowstormUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
