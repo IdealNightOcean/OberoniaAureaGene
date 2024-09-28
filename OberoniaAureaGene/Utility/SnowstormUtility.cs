@@ -8,10 +8,18 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public static class SnowstormUtility
 {
-    private static IntRange IceStormDelay = new(180000, 300000); //3~5天
-    private static IntRange TempChangeCount = new(1, 3);
-    private static IntRange TempChangeDelay = new(60000, 120000); //1~2天
-    private static IntRange TempChangeInterval = new(90000, 120000); //1.5~2天
+    private static readonly IntRange IceStormDelay = new(180000, 300000); //3~5天
+    private static readonly IntRange RaidCount = new(-1, 2);
+    private static readonly IntRange RaidDelay = new(60000, 120000); //1~2天
+    private static readonly IntRange RaidInterval = new(90000, 120000); //1~2天
+
+    private static readonly IntRange TempChangeCount = new(1, 3);
+    private static readonly IntRange TempChangeDelay = new(60000, 120000); //1~2天
+    private static readonly IntRange TempChangeInterval = new(90000, 120000); //1.5~2天
+
+    private static readonly IntRange TraderCount = new(1, 2);
+    private static readonly IntRange TraderDelay = new(15000, 30000); //6~12小时
+    private static readonly IntRange TraderInterval = new(15000, 30000); //6~12小时
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
         if (map == null)
@@ -57,7 +65,11 @@ public static class SnowstormUtility
             return;
         }
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
-        TryGiveEndSnowstormThought(map);
+        TryGiveEndSnowstormHediffAndThought(map);
+        if(map.IsPlayerHome)
+        {
+
+        }
     }
 
     public static void TryQueueTempChengeIncident(Map ownerMap, int duration)
@@ -104,38 +116,69 @@ public static class SnowstormUtility
         {
             return;
         }
-        if (Rand.Bool)
+        int raidCount = RaidCount.RandomInRange;
+        if (raidCount > 0)
         {
             Faction faction = Find.FactionManager.RandomRaidableEnemyFaction(allowNonHumanlike: false);
             if (faction == null)
             {
-
+                FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
+                factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
+                List<FactionRelation> list = [];
+                foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
+                {
+                    if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
+                    {
+                        if (faction1 == Faction.OfPlayer)
+                        {
+                            list.Add(new FactionRelation
+                            {
+                                other = faction1,
+                                kind = FactionRelationKind.Hostile
+                            });
+                        }
+                        else
+                        {
+                            list.Add(new FactionRelation
+                            {
+                                other = faction1,
+                                kind = FactionRelationKind.Neutral
+                            });
+                        }
+                    }
+                }
+                faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
+                faction.temporary = true;
+                Find.FactionManager.Add(faction);
             }
             if (faction == null)
             {
                 return;
             }
-            IncidentParms incidentParms = new()
+            IncidentParms parms = new()
             {
                 target = map,
                 faction = faction,
                 points = StorytellerUtility.DefaultThreatPointsNow(map),
                 raidStrategy = OAGene_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching,
             };
-            int raidCount = Rand.Bool ? 1 : 2;
-            int delayTicks = new IntRange().RandomInRange;
+            int delayTicks = RaidDelay.RandomInRange;
             for (int i = 0; i < raidCount; i++)
             {
-                delayTicks += new IntRange().RandomInRange;
-                Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, Find.TickManager.TicksGame + delayTicks, incidentParms);
+                Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, Find.TickManager.TicksGame + delayTicks, parms);
+                delayTicks += RaidInterval.RandomInRange;
             }
         }
     }
-    public static void TryGiveEndSnowstormThought(Map map)
+    public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {
         List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
         foreach (Pawn pawn in pawns)
         {
+            if(pawn.IsMutant)
+            {
+                continue;
+            }
             if (pawn.needs.mood?.thoughts.memories != null)
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_MiscDefOf.OAGene_Thought_SnowstormEnd);
@@ -144,6 +187,20 @@ public static class SnowstormUtility
             {
                 pawn.health.AddHediff(OAGene_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
+        }
+    }
+    public static void TryInitAfterSnowstormTrader(Map map)
+    {
+        int traderCount = TraderCount.RandomInRange;
+        IncidentParms parms = new()
+        {
+            target = map
+        };
+        int delayTicks = TraderDelay.RandomInRange;
+        for(int i=0;i<traderCount;i++)
+        {
+            Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
+            delayTicks += RaidInterval.RandomInRange;
         }
     }
 }
