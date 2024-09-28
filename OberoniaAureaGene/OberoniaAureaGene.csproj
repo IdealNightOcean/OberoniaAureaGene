@@ -71,8 +71,9 @@
     <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
     <Compile Include="GameCondition\GameCondition_TemperatureChange.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
+    <Compile Include="Hediff\HediffComp_SnowstormHiden.cs" />
     <Compile Include="Hediff\HediffComp_IceStorm.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtremeHumanlickHide.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHiden.cs" />
     <Compile Include="Hediff\HeidffComp_ExperienceSnowstorm.cs" />
     <Compile Include="Hediff\HediffComp_WarmTorch.cs" />
     <Compile Include="Hediff\HediffComp_ColdSnow.cs" />

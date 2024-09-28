@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame;
-using Verse;
+﻿using Verse;
 
 namespace OberoniaAureaGene;
 
@@ -27,21 +26,21 @@ public class HediffGiver_SnowExtreme : HediffGiver
         if (active)
         {
             Pawn_HealthTracker pawnHealth = pawn.health;
-            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, overrideDisappearTicks: 250);
+            pawnHealth.AddHediff(snowExtremeHediff);
             //伤口冻结
             if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
             {
-                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, frozenWoundHediff, overrideDisappearTicks: 30000);
+                pawnHealth.AddHediff(frozenWoundHediff);
             }
             //冷雪
             if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
             {
-                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, coldSnowHediff, overrideDisappearTicks: 250);
+                pawnHealth.AddHediff(coldSnowHediff);
             }
             //冰晶暴风雪
             if (SnowstormUtility.IsIceStormWeather(pawn.Map))
             {
-                OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, iceStormHediff, overrideDisappearTicks: 250);
+                pawnHealth.AddHediff(iceStormHediff);
             }
             //寒冷堆砌
             HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
@@ -63,10 +62,6 @@ public class HediffGiver_SnowExtreme : HediffGiver
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;
-        if (map == null)
-        {
-            return false;
-        }
         if (!SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
@@ -76,13 +71,5 @@ public class HediffGiver_SnowExtreme : HediffGiver
             return false;
         }
         return true;
-    }
-    private static void RemoveFirstHediffOfDef(Pawn p, HediffDef hediffDef)
-    {
-        Hediff firstHediffOfDef = p.health.hediffSet.GetFirstHediffOfDef(hediffDef);
-        if (firstHediffOfDef != null)
-        {
-            p.health.RemoveHediff(firstHediffOfDef);
-        }
     }
 }

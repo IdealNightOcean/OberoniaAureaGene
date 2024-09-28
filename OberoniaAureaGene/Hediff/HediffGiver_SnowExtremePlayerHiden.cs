@@ -2,8 +2,7 @@
 
 namespace OberoniaAureaGene;
 
-[StaticConstructorOnStartup]
-public class HediffGiver_SnowExtremeMechanoid : HediffGiver
+public class HediffGiver_SnowExtremePlayerHiden : HediffGiver
 {
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
@@ -15,15 +14,22 @@ public class HediffGiver_SnowExtremeMechanoid : HediffGiver
 
     public static bool ActiveHediff(Pawn p)
     {
-        Map map = p.Map;
-        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (p.IsMutant)
         {
             return false;
         }
-        if (map.roofGrid.Roofed(p.Position))
+        if (p.Faction == null || !p.Faction.IsPlayer)
+        {
+            if (!p.IsPrisoner)
+            {
+                return false;
+            }
+        }
+        if (!SnowstormUtility.IsSnowExtremeWeather(p.Map))
         {
             return false;
         }
         return true;
     }
+
 }
