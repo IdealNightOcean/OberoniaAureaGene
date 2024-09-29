@@ -241,7 +241,7 @@ public static class SnowstormUtility
         for (int i = 0; i < traderCount; i++)
         {
             Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
-            delayTicks += RaidInterval.RandomInRange;
+            delayTicks += TraderInterval.RandomInRange;
         }
     }
 }

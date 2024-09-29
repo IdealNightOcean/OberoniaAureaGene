@@ -71,6 +71,7 @@
     <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
     <Compile Include="GameCondition\GameCondition_TemperatureChange.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowstormHidden.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormHiden.cs" />
     <Compile Include="Hediff\HediffComp_IceStorm.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHiden.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
     <Compile Include="Misc\CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
+    <Compile Include="Misc\QuestNode_Root_SnowstromStrugglers.cs" />
+    <Compile Include="Misc\IncidentWorker_SnowstormSurvivorJoin.cs" />
     <Compile Include="Utility\DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Misc\Dialog_CreateDiscriminatGene.cs" />
