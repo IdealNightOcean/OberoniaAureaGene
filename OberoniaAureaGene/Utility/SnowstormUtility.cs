@@ -1,6 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -66,9 +67,9 @@ public static class SnowstormUtility
         }
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryGiveEndSnowstormHediffAndThought(map);
-        if(map.IsPlayerHome)
+        if (map.IsPlayerHome)
         {
-
+            TryInitAfterSnowstormTrader(map);
         }
     }
 
@@ -119,7 +120,13 @@ public static class SnowstormUtility
         int raidCount = RaidCount.RandomInRange;
         if (raidCount > 0)
         {
-            Faction faction = Find.FactionManager.RandomRaidableEnemyFaction(allowNonHumanlike: false);
+            IncidentParms parms = new()
+            {
+                target = map,
+                points = StorytellerUtility.DefaultThreatPointsNow(map),
+                raidStrategy = OAGene_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching,
+            };
+            Faction faction = RandomRaidableEnemyFaction(parms);
             if (faction == null)
             {
                 FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
@@ -155,13 +162,7 @@ public static class SnowstormUtility
             {
                 return;
             }
-            IncidentParms parms = new()
-            {
-                target = map,
-                faction = faction,
-                points = StorytellerUtility.DefaultThreatPointsNow(map),
-                raidStrategy = OAGene_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching,
-            };
+            parms.faction = faction;
             int delayTicks = RaidDelay.RandomInRange;
             for (int i = 0; i < raidCount; i++)
             {
@@ -170,12 +171,52 @@ public static class SnowstormUtility
             }
         }
     }
+    private static Faction RandomRaidableEnemyFaction(IncidentParms parms = null)
+    {
+        FactionManager factionManager = Find.FactionManager;
+        Faction playerFaction = Faction.OfPlayer;
+        if ((from f in factionManager.GetFactions(allowHidden: false, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined)
+             where ValidFaction(f)
+             select f).TryRandomElement(out var result))
+        {
+            return result;
+        }
+
+        return null;
+
+        bool ValidFaction(Faction fa)
+        {
+            if (!fa.HostileTo(playerFaction))
+            {
+                return false;
+            }
+            if (fa.def.pawnGroupMakers.NullOrEmpty())
+            {
+                return false;
+            }
+            if (parms != null)
+            {
+                parms.faction = fa;
+                RaidStrategyDef strategyDef = parms.raidStrategy;
+                if (strategyDef == null || !strategyDef.Worker.CanUseWith(parms, PawnGroupKindDefOf.Combat))
+                {
+                    return false;
+                }
+                if (parms.raidArrivalMode != null)
+                {
+                    return true;
+                }
+                return strategyDef.arriveModes?.Any((PawnsArrivalModeDef x) => x.Worker.CanUseWith(parms)) ?? false;
+            }
+            return true;
+        }
+    }
     public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {
         List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
         foreach (Pawn pawn in pawns)
         {
-            if(pawn.IsMutant)
+            if (pawn.IsMutant)
             {
                 continue;
             }
@@ -197,7 +238,7 @@ public static class SnowstormUtility
             target = map
         };
         int delayTicks = TraderDelay.RandomInRange;
-        for(int i=0;i<traderCount;i++)
+        for (int i = 0; i < traderCount; i++)
         {
             Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
             delayTicks += RaidInterval.RandomInRange;
