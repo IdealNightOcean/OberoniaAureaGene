@@ -14,7 +14,7 @@ public class ThrumboPasses_Patch
         if (__result)
         {
             Map map = (Map)parms.target;
-            if (SnowstormUtility.IsSnowExtremeWeather(map))
+            if (OAGeneUtility.IsSnowExtremeWeather(map))
             {
                 __result = false;
             }

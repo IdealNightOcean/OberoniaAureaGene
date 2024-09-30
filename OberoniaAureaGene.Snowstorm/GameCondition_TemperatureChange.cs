@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 public class GameCondition_TemperatureChange : GameCondition
 {
     public float tempOffset;

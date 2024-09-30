@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
 public static class SnowstormUtility
@@ -41,7 +41,7 @@ public static class SnowstormUtility
             {
                 target = ownerMap
             };
-            Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
+            Find.Storyteller.incidentQueue.Add(OAGene_SnowstromDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
         }
         TryQueueTempChengeIncident(ownerMap, duration);
     }
@@ -83,7 +83,7 @@ public static class SnowstormUtility
         };
         for (int i = 0; i < count; i++)
         {
-            IncidentDef incidentDef = Rand.Bool ? OAGene_IncidentDefOf.OAGene_SnowstormWarm : OAGene_IncidentDefOf.OAGene_SnowstormCold;
+            IncidentDef incidentDef = Rand.Bool ? OAGene_SnowstromDefOf.OAGene_SnowstormWarm : OAGene_SnowstromDefOf.OAGene_SnowstormCold;
             Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delay, parms);
             delay += TempChangeInterval.RandomInRange;
             if (delay < duration - 30000)
@@ -124,7 +124,7 @@ public static class SnowstormUtility
             {
                 target = map,
                 points = StorytellerUtility.DefaultThreatPointsNow(map),
-                raidStrategy = OAGene_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching,
+                raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching,
             };
             Faction faction = RandomRaidableEnemyFaction(parms);
             if (faction == null)
@@ -222,11 +222,11 @@ public static class SnowstormUtility
             }
             if (pawn.needs.mood?.thoughts.memories != null)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_MiscDefOf.OAGene_Thought_SnowstormEnd);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_SnowstromDefOf.OAGene_Thought_SnowstormEnd);
             }
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                pawn.health.AddHediff(OAGene_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
+                pawn.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
         }
     }
@@ -240,7 +240,7 @@ public static class SnowstormUtility
         int delayTicks = TraderDelay.RandomInRange;
         for (int i = 0; i < traderCount; i++)
         {
-            Find.Storyteller.incidentQueue.Add(OAGene_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
+            Find.Storyteller.incidentQueue.Add(OAGene_SnowstromDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
             delayTicks += TraderInterval.RandomInRange;
         }
     }

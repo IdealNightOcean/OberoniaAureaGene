@@ -1,7 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffCompProperties_SnowstormHiden : HediffCompProperties
 {

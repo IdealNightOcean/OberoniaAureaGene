@@ -4,7 +4,7 @@ using Verse;
 using Verse.AI;
 using Verse.AI.Group;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_TraderCaravanArrival
 {
@@ -27,7 +27,7 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
         for (int i = 0; i < pawns.Count; i++)
         {
             Pawn pawn1 = pawns[i];
-            pawn1.health.AddHediff(OAGene_HediffDefOf.OAGene_Hediff_PreparationWarm);
+            pawn1.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_PreparationWarm);
             if (pawn1.needs != null && pawn1.needs.food != null)
             {
                 pawn1.needs.food.CurLevel = pawn1.needs.food.MaxLevel;

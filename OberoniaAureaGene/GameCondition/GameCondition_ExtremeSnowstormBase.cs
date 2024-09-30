@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
+public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
 {
     protected static IntRange ColdGlowSpawnRange = new(30, 60);
     protected static IntRange ColdGlowIntervalRange = new(1200, 1500);
@@ -18,12 +18,6 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
     {
         base.Init();
         TryAddColdSnap();
-        SnowstormUtility.InitExtremeSnowstormWorld(gameConditionManager.ownerMap, Duration);
-        for (int i = 0; i < AffectedMaps.Count; i++)
-        {
-            Map map = AffectedMaps[i];
-            SnowstormUtility.InitExtremeSnowstormLocal(map, Duration);
-        }
     }
     private void TryAddColdSnap()
     {
@@ -37,13 +31,18 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_SnowstormBase
             causeColdSnap = true;
         }
     }
+
     public override void End()
     {
+        PreEnd();
         base.End();
+    }
+    protected virtual void PreEnd()
+    {
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.EndExtremeSnowstormLocal(map);
+            OAGeneUtility.TryGiveEndSnowstormThought(map);
         }
     }
     public override void GameConditionTick()

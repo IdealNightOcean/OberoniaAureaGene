@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffGiver_SnowExtremePlayerHiden : HediffGiver
 {
@@ -25,7 +25,7 @@ public class HediffGiver_SnowExtremePlayerHiden : HediffGiver
                 return false;
             }
         }
-        if (!SnowstormUtility.IsSnowExtremeWeather(p.Map))
+        if (!OAGeneUtility.IsSnowExtremeWeather(p.Map))
         {
             return false;
         }

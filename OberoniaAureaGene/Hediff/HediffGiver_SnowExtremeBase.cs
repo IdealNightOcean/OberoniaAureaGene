@@ -3,13 +3,13 @@
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-public class HediffGiver_SnowExtreme : HediffGiver
+public class HediffGiver_SnowExtremeBase : HediffGiver
 {
     public HediffDef snowExtremeHediff;
     public HediffDef coldSnowHediff;
     public HediffDef coldImmersionHediff;
     public HediffDef frozenWoundHediff;
-    public HediffDef iceStormHediff;
+
 
     protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
@@ -37,11 +37,7 @@ public class HediffGiver_SnowExtreme : HediffGiver
             {
                 pawnHealth.AddHediff(coldSnowHediff);
             }
-            //冰晶暴风雪
-            if (SnowstormUtility.IsIceStormWeather(pawn.Map))
-            {
-                pawnHealth.AddHediff(iceStormHediff);
-            }
+            IceStormActive(pawn);
             //寒冷堆砌
             HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
         }
@@ -58,11 +54,14 @@ public class HediffGiver_SnowExtreme : HediffGiver
             }
         }
     }
-
+    protected virtual void IceStormActive(Pawn pawn)
+    { }
+    protected virtual void IceStormInactive(Pawn pawn)
+    { }
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;
-        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (!OAGeneUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

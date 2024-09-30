@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffGiver_SnowstormHidden : HediffGiver
 {

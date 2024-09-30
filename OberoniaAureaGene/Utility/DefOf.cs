@@ -12,9 +12,6 @@ public static class OAGene_HediffDefOf
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
 
-    public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
-    public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
-
     static OAGene_HediffDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_HediffDefOf));
@@ -37,22 +34,9 @@ public static class OAGene_GeneDefOf
 }
 
 [DefOf]
-public static class OAGene_IncidentDefOf
-{
-    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
-    public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
-    public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
-    public static IncidentDef OAGene_AfterSnowstormTraderCaravanArrival; //暴风雪后的商队
-    static OAGene_IncidentDefOf()
-    {
-        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_IncidentDefOf));
-    }
-}
-
-[DefOf]
 public static class OAGene_MiscDefOf
 {
-    public static FleckDef OAGene_ColdGlow; //
+    public static FleckDef OAGene_ColdGlow; //暴风雪冰晶特效
 
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_ThreatBig;
@@ -66,15 +50,15 @@ public static class OAGene_MiscDefOf
 
     public static MusicTransitionDef OAGene_Transition_ClairDeLune; //暴风雪韩流BGM
 
-    public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
-
-    public static ThoughtDef OAGene_Thought_SnowstormEnd;
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
+
+    public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
 
     public static TraitDef OAGene_ExtremeSnowSurvivor; //暴风雪幸存者
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
+    [MayRequire("OARK.RatkinFaction.ScriptExpand.Snow")]
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
 
     static OAGene_MiscDefOf()

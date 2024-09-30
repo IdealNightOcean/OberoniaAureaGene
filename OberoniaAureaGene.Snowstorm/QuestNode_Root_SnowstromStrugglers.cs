@@ -1,18 +1,14 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Verse;
-using static System.Net.Mime.MediaTypeNames;
-using Verse.Noise;
 using UnityEngine;
-using RimWorld.Planet;
-using static System.Collections.Specialized.BitVector32;
+using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
 {

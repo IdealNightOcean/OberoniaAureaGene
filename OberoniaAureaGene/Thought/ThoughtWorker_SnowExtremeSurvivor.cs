@@ -6,7 +6,7 @@ public class ThoughtWorker_SnowExtremeSurvivor : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
-        if (!p.Spawned || !SnowstormUtility.IsSnowExtremeWeather(p.Map))
+        if (!p.Spawned || !OAGeneUtility.IsSnowExtremeWeather(p.Map))
         {
             return ThoughtState.Inactive;
         }

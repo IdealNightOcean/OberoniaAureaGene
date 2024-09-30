@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -14,5 +15,31 @@ public static class OAGeneUtility
     {
         return pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, applyPostProcess: true, 1);
     }
-
+    public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
+    {
+        if (map == null)
+        {
+            return false;
+        }
+        return map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
+    }
+    public static bool IsIceStormWeather(Map map) //是否为冰晶暴风雪天气
+    {
+        return map?.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
+    }
+    public static void TryGiveEndSnowstormThought(Map map)
+    {
+        List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
+        foreach (Pawn pawn in pawns)
+        {
+            if (pawn.IsMutant)
+            {
+                continue;
+            }
+            if (pawn.needs.mood?.thoughts.memories != null)
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_MiscDefOf.OAGene_Thought_SnowstormEnd);
+            }
+        }
+    }
 }

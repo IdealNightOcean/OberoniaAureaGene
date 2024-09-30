@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Verse;
 using Verse.AI.Group;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class RaidStrategyWorker_SnowstormImmediateAttackBreaching : RaidStrategyWorker_ImmediateAttackBreaching
 {
@@ -13,7 +13,7 @@ public class RaidStrategyWorker_SnowstormImmediateAttackBreaching : RaidStrategy
         {
             foreach (Pawn pawn in pawns)
             {
-                pawn.health.AddHediff(OAGene_HediffDefOf.OAGene_Hediff_PreparationWarm);
+                pawn.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_PreparationWarm);
             }
         }
         return base.MakeLordJob(parms, map, pawns, raidSeed);

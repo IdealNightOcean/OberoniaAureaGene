@@ -16,7 +16,7 @@ public class HediffGiver_SnowExtremeMechanoid : HediffGiver
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;
-        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (!OAGeneUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

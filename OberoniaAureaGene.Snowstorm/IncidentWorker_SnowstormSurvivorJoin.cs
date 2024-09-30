@@ -2,7 +2,7 @@
 using System.Linq;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormSurvivorJoin : IncidentWorker_WandererJoin
 {
