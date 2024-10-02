@@ -21,7 +21,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     }
     private void TryAddColdSnap()
     {
-        if (Rand.Bool)
+        if (Rand.Chance(0.3f))
         {
             GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
             gameConditionManager.RegisterCondition(gameCondition);

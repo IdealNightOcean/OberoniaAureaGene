@@ -7,6 +7,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public static class OAGene_SnowstromDefOf
 {
     public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
+    public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
 
     public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件

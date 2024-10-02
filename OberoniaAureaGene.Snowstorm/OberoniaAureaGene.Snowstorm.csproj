@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="QuestPart_IsSnowExtremeWeather.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="GameCondition_ExtremeSnowstorm.cs" />
     <Compile Include="GameCondition_TemperatureChange.cs" />

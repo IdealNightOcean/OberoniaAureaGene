@@ -10,7 +10,6 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
     public HediffDef coldImmersionHediff;
     public HediffDef frozenWoundHediff;
 
-
     protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
         new CurvePoint(-9999f, 0f),

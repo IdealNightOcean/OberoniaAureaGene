@@ -3,7 +3,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffGiver_SnowstormHidden : HediffGiver
+public class HediffGiver_SnowstormHidden : HediffGiver_Random
 {
     public override float ChanceFactor(Pawn pawn)
     {

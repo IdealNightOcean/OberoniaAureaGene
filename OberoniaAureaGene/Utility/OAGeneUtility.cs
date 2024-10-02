@@ -17,15 +17,11 @@ public static class OAGeneUtility
     }
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
-        if (map == null)
+        if (map == null || map.weatherManager.curWeather == null)
         {
             return false;
         }
         return map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
-    }
-    public static bool IsIceStormWeather(Map map) //是否为冰晶暴风雪天气
-    {
-        return map?.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
     }
     public static void TryGiveEndSnowstormThought(Map map)
     {

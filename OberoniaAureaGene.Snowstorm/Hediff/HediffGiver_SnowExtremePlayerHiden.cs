@@ -25,7 +25,7 @@ public class HediffGiver_SnowExtremePlayerHiden : HediffGiver
                 return false;
             }
         }
-        if (!OAGeneUtility.IsSnowExtremeWeather(p.Map))
+        if (!SnowstormUtility.IsSnowExtremeWeather(p.Map))
         {
             return false;
         }
