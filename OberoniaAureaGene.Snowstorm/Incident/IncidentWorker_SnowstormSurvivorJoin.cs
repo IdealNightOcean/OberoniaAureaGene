@@ -6,15 +6,6 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormSurvivorJoin : IncidentWorker_WandererJoin
 {
-    protected override bool CanFireNowSub(IncidentParms parms)
-    {
-        if (!base.CanFireNowSub(parms))
-        {
-            return false;
-        }
-        Map map = (Map)parms.target;
-        return SnowstormUtility.IsSnowExtremeWeather(map);
-    }
     public override Pawn GeneratePawn()
     {
         Gender? fixedGender = null;

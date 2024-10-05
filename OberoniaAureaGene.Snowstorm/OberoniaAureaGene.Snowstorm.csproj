@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="Incident\IncidentWorker_AffectedMerchant.cs" />
     <Compile Include="QuestPart_IsSnowExtremeWeather.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="GameCondition_ExtremeSnowstorm.cs" />
@@ -76,8 +77,8 @@
     <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHiden.cs" />
     <Compile Include="Hediff\HediffGiver_SnowstormHidden.cs" />
     <Compile Include="Hediff\HediffComp_ExperienceSnowstorm.cs" />
-    <Compile Include="IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
-    <Compile Include="IncidentWorker_SnowstormSurvivorJoin.cs" />
+    <Compile Include="Incident\IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormSurvivorJoin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestNode_Root_SnowstromStrugglers.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormImmediateAttackBreaching.cs" />

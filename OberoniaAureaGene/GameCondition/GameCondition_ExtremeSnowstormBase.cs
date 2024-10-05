@@ -17,9 +17,19 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     public override void Init()
     {
         base.Init();
-        TryAddColdSnap();
+        PostInit();
     }
-    private void TryAddColdSnap()
+
+    protected virtual void PostInit()
+    {
+        TryAddColdSnap();
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
+        }
+    }
+    protected void TryAddColdSnap()
     {
         if (Rand.Chance(0.3f))
         {
@@ -42,6 +52,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
             OAGeneUtility.TryGiveEndSnowstormThought(map);
         }
     }

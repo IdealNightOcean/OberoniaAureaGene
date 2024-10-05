@@ -10,7 +10,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
 {
-    protected override IntRange LodgerCount => new(1, 8);
+    protected override IntRange LodgerCount => new(2, 4);
     private static readonly IntRange FoodCount = new(5, 7);
     protected override bool TestRunInt(Slate slate)
     {
@@ -19,7 +19,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
         {
             return false;
         }
-        if(!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (!SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }
@@ -39,7 +39,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
                 p.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_HopeForSurvival);
                 Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
                 food.stackCount = FoodCount.RandomInRange;
-                p.inventory.TryAddAndUnforbid(food);
+                p.inventory.innerContainer.TryAdd(food);
             }
         }
         return pawns;
@@ -81,7 +81,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
             if (childCount == lodgerCount - 1)
             {
                 slate.Set("allButOneChildren", true);
-            }           
+            }
         }
         List<Pawn> pawns = GeneratePawns(lodgerCount, childCount, faction, map, quest, lodgerRecruitedSignal);
         Pawn asker = pawns.First();
@@ -115,7 +115,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
         //暴风雪结束时离开
         quest.SignalPassWithFaction(faction, null, delegate
         {
-            quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersLeavingEarlyLetterText]", null, "[lodgersLeavingEarlyLetterLabel]");
+            quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersLeavingLetterText]", null, "[lodgersLeavingLetterLabel]");
         }, inSignal: outSignalNotSnowstorm);
         quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, lodgerArrestedOrRecruited, wakeUp: true);
 
@@ -131,13 +131,12 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
             quest.End(QuestEndOutcome.Success, 25, faction, null, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
         }, [questPart_StrugglersInteractions.outSignalLast_LeftMapAllHealthy, questPart_StrugglersInteractions.outSignalLast_LeftMapAllNotHealthy]);
 
-
+        slate.Set("map", map);
+        slate.Set("faction", faction);
         slate.Set("lodgerCount", lodgerCount);
         slate.Set("lodgersCountMinusOne", lodgerCount - 1);
         slate.Set("childCount", childCount);
-        
-        slate.Set("map", map);
-        slate.Set("faction", faction);
+
     }
     private void SetAward(Faction faction, Quest quest)
     {
@@ -193,7 +192,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
     };
     private void SetQuestEndComp(Quest quest, QuestPart_OARefugeeInteractions questPart_StrugglersInteractions, List<Pawn> pawns, Faction faction)
     {
-        int faillGoodwill = -25;
+        int failGoodwill = -25;
 
         quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalDestroyed_BadThought, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgerDiedMemoryThoughtLetterText]", null, "[lodgerDiedMemoryThoughtLetterLabel]");
         quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalLast_Destroyed, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersAllDiedLetterText]", null, "[lodgersAllDiedLetterLabel]");
@@ -204,10 +203,10 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
         quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerDied, questPart_StrugglersInteractions.outSignalDestroyed_BadThought);
         quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerArrested, questPart_StrugglersInteractions.outSignalArrested_BadThought);
         quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerSurgicallyViolated, questPart_StrugglersInteractions.outSignalSurgeryViolation_BadThought);
-        quest.End(QuestEndOutcome.Fail, faillGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Destroyed);
-        quest.End(QuestEndOutcome.Fail, faillGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Arrested);
-        quest.End(QuestEndOutcome.Fail, faillGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Kidnapped, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
-        quest.End(QuestEndOutcome.Fail, faillGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Banished, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
+        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Destroyed);
+        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Arrested);
+        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Kidnapped, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
+        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Banished, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
         quest.End(QuestEndOutcome.Success, 25, faction, questPart_StrugglersInteractions.outSignalLast_Recruited, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
     }
 }

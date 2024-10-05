@@ -5,9 +5,9 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
 {
-    public override void Init()
+    protected override void PostInit()
     {
-        base.Init();
+        TryAddColdSnap();
         SnowstormUtility.InitExtremeSnowstormWorld(gameConditionManager.ownerMap, Duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
