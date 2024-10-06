@@ -1,26 +1,52 @@
-﻿using Verse;
+﻿using System.Linq;
+using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
 {
+    protected Map mainMap;
+    public Map MainMap
+    {
+        get
+        {
+            if (mainMap == null)
+            {
+                if (gameConditionManager.ownerMap != null)
+                {
+                    mainMap = gameConditionManager.ownerMap;
+                }
+                else
+                {
+                    mainMap = AffectedMaps.Where(m => m.IsPlayerHome).RandomElementWithFallback(null);
+                }
+            }
+            return mainMap;
+        }
+    }
     protected override void PostInit()
     {
         TryAddColdSnap();
-        SnowstormUtility.InitExtremeSnowstormWorld(gameConditionManager.ownerMap, Duration);
+        SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, Duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.InitExtremeSnowstormLocal(map, Duration);
+            SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, Duration);
         }
     }
     protected override void PreEnd()
     {
+        SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.EndExtremeSnowstormLocal(map);
+            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map);
         }
+    }
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_References.Look(ref mainMap, "mainMap");
     }
 }

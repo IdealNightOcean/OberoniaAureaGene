@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
 using Verse;
 
@@ -37,5 +38,50 @@ public static class OAGeneUtility
                 pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_MiscDefOf.OAGene_Thought_SnowstormEnd);
             }
         }
+    }
+
+    //破坏风力发电机 (allMaps)
+    public static void TryBreakPowerPlantWind(Map map, int duration)
+    {
+        BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
+        if (breakdownManager == null)
+        {
+            return;
+        }
+        List<CompBreakdownable> breakdownableComps = ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
+        if (breakdownableComps == null)
+        {
+            return;
+        }
+        CompPowerNormalPlantWind normalPlantWind;
+        for (int i = 0; i < breakdownableComps.Count; i++)
+        {
+            normalPlantWind = breakdownableComps[i].parent.GetComp<CompPowerNormalPlantWind>();
+            normalPlantWind?.Notify_ExtremeSnowstorm(duration);
+        }
+    }
+
+    //范围内是否有屋顶支撑
+    public static bool WithinRangeOfRoofHolder(IntVec3 c, Map map, float range, bool assumeNonNoRoofCellsAreRoofed = false)
+    {
+        bool connected = false;
+        map.floodFiller.FloodFill(c, (IntVec3 x) => (x.Roofed(map) || x == c || (assumeNonNoRoofCellsAreRoofed && !map.areaManager.NoRoof[x])) && x.InHorDistOf(c, 6.9f), delegate (IntVec3 x)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                IntVec3 c2 = x + GenAdj.CardinalDirectionsAndInside[i];
+                if (c2.InBounds(map) && c2.InHorDistOf(c, range))
+                {
+                    Building edifice = c2.GetEdifice(map);
+                    if (edifice != null && edifice.def.holdsRoof)
+                    {
+                        connected = true;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+        return connected;
     }
 }

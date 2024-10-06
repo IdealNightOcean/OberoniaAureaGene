@@ -7,17 +7,17 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
+public class WeatherEvent_IceStormBreakRoof : WeatherEvent
 {
     public bool expired;
     public override bool Expired => expired;
 
-    protected static readonly IntRange AfftectRoomRange = new(1, 3);
-    protected static readonly FloatRange AfftectRoofRange = new(0.25f, 0.8f);
+    protected static readonly IntRange AfftectRoomRange = new(4, 6);
+    protected static readonly FloatRange AfftectRoofRange = new(0.05f, 0.2f);
 
     public static readonly List<TargetInfo> LookTargetCells = [];
 
-    public WeatherEvent_SnowStormBreakRoof(Map map) : base(map)
+    public WeatherEvent_IceStormBreakRoof(Map map) : base(map)
     { }
     public override void WeatherEventTick()
     { }
@@ -29,10 +29,6 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
     }
     protected static void TryFireEvent(Map map)
     {
-        if (Rand.Chance(0.8f))
-        {
-            return;
-        }
         List<Room> potentialRooms = map.regionGrid.allRooms.Where(r => !r.IsDoorway).InRandomOrder().Take(AfftectRoomRange.RandomInRange).ToList();
         if (!potentialRooms.Any())
         {
@@ -57,15 +53,12 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
                 affected = true;
                 IntVec3 lookCell = targetRoofs.First();
                 LookTargetCells.Add(new TargetInfo(lookCell, map));
-                foreach (IntVec3 roofCell in targetRoofs)
-                {
-                    roofGrid.SetRoof(roofCell, null);
-                }
+                RoofCollapserImmediate.DropRoofInCells(targetRoofs, map);
             }
         }
         if (affected)
         {
-            Messages.Message("OAGene_MessageSnowStormBreakRoof".Translate(), new LookTargets(LookTargetCells), MessageTypeDefOf.NegativeEvent);
+            Messages.Message("OAGene_MessageIceStormBreakRoof".Translate(), new LookTargets(LookTargetCells), MessageTypeDefOf.NegativeEvent);
         }
 
         bool ValidRoof(IntVec3 c)

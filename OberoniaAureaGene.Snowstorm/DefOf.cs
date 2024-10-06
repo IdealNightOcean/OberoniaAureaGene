@@ -14,10 +14,11 @@ public static class OAGene_SnowstromDefOf
     public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
 
-    public static IncidentDef OAGene_AffectedMerchant; //风雪后的幸存者
+    public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者
+    public static IncidentDef OAGene_AffectedMerchant; //暴风雪中的遇难商人
 
     public static IncidentDef OAGene_AfterSnowstormTraderCaravanArrival; //暴风雪后的商队
-    public static IncidentDef OAGene_SnowstormSurvivorJoin; //风雪后的幸存者
+    public static IncidentDef OAGene_SnowstormSurvivorJoins; //风雪后的幸存者
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 

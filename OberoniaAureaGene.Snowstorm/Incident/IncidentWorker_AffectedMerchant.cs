@@ -3,7 +3,6 @@ using RimWorld;
 using System.Linq;
 using Verse;
 using Verse.AI.Group;
-using Verse.Noise;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -104,7 +103,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnGroupMaker.traders.RandomElementByWeight((PawnGenOption x) => x.selectionWeight).kind, parms.faction, PawnGenerationContext.NonPlayer, forceGenerateNewPawn: false, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, colonistRelationChanceFactor: 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true));
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
         OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OAGene_RimWorldDefOf.Hypothermia, 0.5f);
-        
+
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(parms.spawnCenter, map, 5);
         GenSpawn.Spawn(pawn, loc, map);
         parms.storeGeneratedNeutralPawns?.Add(pawn);

@@ -23,10 +23,13 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     protected virtual void PostInit()
     {
         TryAddColdSnap();
+        int duration = Duration;
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
             map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
+            map.GetOAGeneMapComp()?.Notify_Snow(duration);
+            OAGeneUtility.TryBreakPowerPlantWind(map, duration);
         }
     }
     protected void TryAddColdSnap()

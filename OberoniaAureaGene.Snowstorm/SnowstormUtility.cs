@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -33,19 +32,21 @@ public static class SnowstormUtility
     {
         return map?.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
     }
-    public static void InitExtremeSnowstormWorld(Map ownerMap, int duration)
+    public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
+        mainMap ??= Find.AnyPlayerHomeMap;
         if (Rand.Bool)
         {
             IncidentParms iceParms = new()
             {
-                target = ownerMap
+                target = mainMap
             };
             Find.Storyteller.incidentQueue.Add(OAGene_SnowstromDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
         }
-        TryQueueTempChengeIncident(ownerMap, duration);
+        TryQueueTempChengeIncident(mainMap, duration);
+        TryInitSnowstormRaid(mainMap);
     }
-    public static void InitExtremeSnowstormLocal(Map map, int duration)
+    public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
     {
         if (map == null)
         {
@@ -53,13 +54,13 @@ public static class SnowstormUtility
         }
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         map.GetOAGeneMapComp()?.Notify_Snow(duration);
-        TryBreakPowerPlantWind(map, duration);
-        if (map.IsPlayerHome)
-        {
-            TryInitSnowstormRaid(map);
-        }
+        OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
-    public static void EndExtremeSnowstormLocal(Map map)
+    public static void EndExtremeSnowstorm_MainMap(Map mainMap)
+    {
+        TryInitAfterSnowstormIncident(mainMap);
+    }
+    public static void EndExtremeSnowstorm_AllMaps(Map map)
     {
         if (map == null)
         {
@@ -67,51 +68,47 @@ public static class SnowstormUtility
         }
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryGiveEndSnowstormHediffAndThought(map);
-        if (map.IsPlayerHome)
-        {
-            TryInitAfterSnowstormTrader(map);
-        }
     }
 
-    public static void TryQueueTempChengeIncident(Map ownerMap, int duration)
+    //骤冷丨骤暖事件 (mainMap)
+    public static void TryQueueTempChengeIncident(Map mainMap, int duration)
     {
-        int delay = TempChangeDelay.RandomInRange;
+        int delayTicks = TempChangeDelay.RandomInRange;
         int count = TempChangeCount.RandomInRange;
-        IncidentParms parms = new()
-        {
-            target = ownerMap
-        };
+
         for (int i = 0; i < count; i++)
         {
             IncidentDef incidentDef = Rand.Bool ? OAGene_SnowstromDefOf.OAGene_SnowstormWarm : OAGene_SnowstromDefOf.OAGene_SnowstormCold;
-            Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delay, parms);
-            delay += TempChangeInterval.RandomInRange;
-            if (delay < duration - 30000)
+            AddNewIncident(incidentDef, mainMap, delayTicks);
+            delayTicks += TempChangeInterval.RandomInRange;
+            if (delayTicks < duration - 30000)
             {
                 return;
             }
         }
     }
-    public static void TryBreakPowerPlantWind(Map map, int duration) //破坏风力发电机
+
+    //暴风雪中的事件 (mainMap)
+    public static void TryInitSnowstormIncident(Map mainMap)
     {
-        BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
-        if (breakdownManager == null)
+        int delayTicks;
+
+        if (Rand.Chance(0.4f))
         {
-            return;
+            delayTicks = new IntRange(120000, 240000).RandomInRange;
+            AddNewIncident(OAGene_SnowstromDefOf.OAGene_SnowstromStrugglers, mainMap, delayTicks);
+
         }
-        List<CompBreakdownable> breakdownableComps = ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
-        if (breakdownableComps == null)
+        if (Rand.Chance(0.6f))
         {
-            return;
+            delayTicks = new IntRange(180000, 300000).RandomInRange;
+            AddNewIncident(OAGene_SnowstromDefOf.OAGene_AffectedMerchant, mainMap, delayTicks);
         }
-        CompPowerNormalPlantWind normalPlantWind;
-        for (int i = 0; i < breakdownableComps.Count; i++)
-        {
-            normalPlantWind = breakdownableComps[i].parent.GetComp<CompPowerNormalPlantWind>();
-            normalPlantWind?.Notify_ExtremeSnowstorm(duration);
-        }
+
     }
-    public static void TryInitSnowstormRaid(Map map) //暴风雪破墙袭击
+
+    //暴风雪破墙袭击 (mainMap)
+    public static void TryInitSnowstormRaid(Map mainMap)
     {
         if (GenDate.DaysPassed < 60)
         {
@@ -122,42 +119,11 @@ public static class SnowstormUtility
         {
             IncidentParms parms = new()
             {
-                target = map,
-                points = StorytellerUtility.DefaultThreatPointsNow(map),
+                target = mainMap,
+                points = StorytellerUtility.DefaultThreatPointsNow(mainMap),
                 raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching,
             };
             Faction faction = RandomRaidableEnemyFaction(parms);
-            if (faction == null)
-            {
-                FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
-                factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
-                List<FactionRelation> list = [];
-                foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
-                {
-                    if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
-                    {
-                        if (faction1 == Faction.OfPlayer)
-                        {
-                            list.Add(new FactionRelation
-                            {
-                                other = faction1,
-                                kind = FactionRelationKind.Hostile
-                            });
-                        }
-                        else
-                        {
-                            list.Add(new FactionRelation
-                            {
-                                other = faction1,
-                                kind = FactionRelationKind.Neutral
-                            });
-                        }
-                    }
-                }
-                faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
-                faction.temporary = true;
-                Find.FactionManager.Add(faction);
-            }
             if (faction == null)
             {
                 return;
@@ -175,15 +141,47 @@ public static class SnowstormUtility
     {
         FactionManager factionManager = Find.FactionManager;
         Faction playerFaction = Faction.OfPlayer;
-        if ((from f in factionManager.GetFactions(allowHidden: false, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined)
-             where ValidFaction(f)
-             select f).TryRandomElement(out var result))
+        //获取可用派系
+        (from f in factionManager.GetFactions(allowHidden: false, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined)
+         where ValidFaction(f)
+         select f).TryRandomElement(out Faction faction);
+
+        //如果没有，创建临时海盗派系
+        if (faction == null)
         {
-            return result;
+            FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
+            factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
+            List<FactionRelation> list = [];
+            foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
+            {
+                if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
+                {
+                    if (faction1 == playerFaction)
+                    {
+                        list.Add(new FactionRelation
+                        {
+                            other = faction1,
+                            kind = FactionRelationKind.Hostile
+                        });
+                    }
+                    else
+                    {
+                        list.Add(new FactionRelation
+                        {
+                            other = faction1,
+                            kind = FactionRelationKind.Neutral
+                        });
+                    }
+                }
+            }
+            faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
+            faction.temporary = true;
+            Find.FactionManager.Add(faction);
         }
 
-        return null;
+        return faction;
 
+        //派系是否可用
         bool ValidFaction(Faction fa)
         {
             if (!fa.HostileTo(playerFaction))
@@ -211,6 +209,17 @@ public static class SnowstormUtility
             return true;
         }
     }
+
+    //暴风雪中的恶意 (mainMap)
+    public static void TryInitSnowstormMalice(Map mainMap)
+    {
+        if (GenDate.DaysPassed < 60 || Rand.Chance(0.66f))
+        {
+            return;
+        }
+    }
+
+    //暴风雪结束后的心情与buff (allMaps) 
     public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {
         List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
@@ -230,18 +239,33 @@ public static class SnowstormUtility
             }
         }
     }
-    public static void TryInitAfterSnowstormTrader(Map map)
+
+    //暴风雪结束后的事件 (mainMap)
+    public static void TryInitAfterSnowstormIncident(Map mainMap)
     {
+        int delayTicks;
+
         int traderCount = TraderCount.RandomInRange;
-        IncidentParms parms = new()
-        {
-            target = map
-        };
-        int delayTicks = TraderDelay.RandomInRange;
+        delayTicks = TraderDelay.RandomInRange;
         for (int i = 0; i < traderCount; i++)
         {
-            Find.Storyteller.incidentQueue.Add(OAGene_SnowstromDefOf.OAGene_AfterSnowstormTraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
+            AddNewIncident(OAGene_SnowstromDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
             delayTicks += TraderInterval.RandomInRange;
         }
+
+        if (Rand.Chance(0.4f))
+        {
+            delayTicks = new IntRange(10000, 50000).RandomInRange;
+            AddNewIncident(OAGene_SnowstromDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
+        }
+    }
+
+    private static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
+    {
+        IncidentParms parms = new()
+        {
+            target = targetMap
+        };
+        Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delayTicks, parms);
     }
 }
