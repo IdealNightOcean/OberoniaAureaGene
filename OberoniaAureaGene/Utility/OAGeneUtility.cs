@@ -61,11 +61,11 @@ public static class OAGeneUtility
         }
     }
 
-    //范围内是否有屋顶支撑
+    //范围内是否有支撑柱
     public static bool WithinRangeOfRoofHolder(IntVec3 c, Map map, float range, bool assumeNonNoRoofCellsAreRoofed = false)
     {
         bool connected = false;
-        map.floodFiller.FloodFill(c, (IntVec3 x) => (x.Roofed(map) || x == c || (assumeNonNoRoofCellsAreRoofed && !map.areaManager.NoRoof[x])) && x.InHorDistOf(c, 6.9f), delegate (IntVec3 x)
+        map.floodFiller.FloodFill(c, (IntVec3 x) => (x.Roofed(map) || x == c || (assumeNonNoRoofCellsAreRoofed && !map.areaManager.NoRoof[x])) && x.InHorDistOf(c, range), delegate (IntVec3 x)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -75,8 +75,8 @@ public static class OAGeneUtility
                     Building edifice = c2.GetEdifice(map);
                     if (edifice != null && edifice.def.holdsRoof)
                     {
-                        connected = true;
-                        return true;
+                        connected = (!edifice.def.building?.supportsWallAttachments) ?? true;
+                        return connected;
                     }
                 }
             }

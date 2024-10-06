@@ -75,7 +75,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
             {
                 return false;
             }
-            return OAGeneUtility.WithinRangeOfRoofHolder(c, map, 3.9f);
+            return !OAGeneUtility.WithinRangeOfRoofHolder(c, map, 3.9f);
         }
     }
 }

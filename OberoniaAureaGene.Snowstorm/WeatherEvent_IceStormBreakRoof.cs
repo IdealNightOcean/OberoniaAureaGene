@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
 public class WeatherEvent_IceStormBreakRoof : WeatherEvent
@@ -68,7 +68,7 @@ public class WeatherEvent_IceStormBreakRoof : WeatherEvent
             {
                 return false;
             }
-            return OAGeneUtility.WithinRangeOfRoofHolder(c, map, 3.9f);
+            return !OAGeneUtility.WithinRangeOfRoofHolder(c, map, 3.9f);
         }
     }
 }
