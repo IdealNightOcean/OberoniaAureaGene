@@ -35,7 +35,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         {
             Find.WorldPawns.PassToWorld(pawn);
         }
-        pawn.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_HopeForSurvival);
+        pawn.health.AddHediff(Snowstrom_MiscDefOf.OAGene_Hediff_HopeForSurvival);
         return pawn;
     }
 

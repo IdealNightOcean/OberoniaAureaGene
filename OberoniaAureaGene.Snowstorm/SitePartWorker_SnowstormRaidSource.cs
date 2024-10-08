@@ -31,7 +31,7 @@ public class SitePartWorker_SnowstormRaidSource : SitePartWorker_Outpost
     {
         IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
         incidentParms.forced = true;
-        incidentParms.raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching;
+        incidentParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
         if (IncidentDefOf.RaidEnemy.Worker.CanFireNow(incidentParms))
         {
             IncidentDefOf.RaidEnemy.Worker.TryExecute(incidentParms);

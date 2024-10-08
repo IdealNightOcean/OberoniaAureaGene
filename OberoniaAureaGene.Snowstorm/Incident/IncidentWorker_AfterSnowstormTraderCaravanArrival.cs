@@ -27,7 +27,7 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
         for (int i = 0; i < pawns.Count; i++)
         {
             Pawn pawn1 = pawns[i];
-            pawn1.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_PreparationWarm);
+            pawn1.health.AddHediff(Snowstrom_MiscDefOf.OAGene_Hediff_PreparationWarm);
             if (pawn1.needs != null && pawn1.needs.food != null)
             {
                 pawn1.needs.food.CurLevel = pawn1.needs.food.MaxLevel;

@@ -37,11 +37,7 @@ public static class SnowstormUtility
         mainMap ??= Find.AnyPlayerHomeMap;
         if (Rand.Bool)
         {
-            IncidentParms iceParms = new()
-            {
-                target = mainMap
-            };
-            Find.Storyteller.incidentQueue.Add(OAGene_SnowstromDefOf.OAGene_ExtremeIceStorm, Find.TickManager.TicksGame + IceStormDelay.RandomInRange, iceParms);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, mainMap, IceStormDelay.RandomInRange);
         }
         TryQueueTempChengeIncident(mainMap, duration);
         TryInitSnowstormRaid(mainMap);
@@ -78,7 +74,7 @@ public static class SnowstormUtility
 
         for (int i = 0; i < count; i++)
         {
-            IncidentDef incidentDef = Rand.Bool ? OAGene_SnowstromDefOf.OAGene_SnowstormWarm : OAGene_SnowstromDefOf.OAGene_SnowstormCold;
+            IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormWarm : Snowstrom_IncidentDefOf.OAGene_SnowstormCold;
             AddNewIncident(incidentDef, mainMap, delayTicks);
             delayTicks += TempChangeInterval.RandomInRange;
             if (delayTicks < duration - 30000)
@@ -96,13 +92,13 @@ public static class SnowstormUtility
         if (Rand.Chance(0.4f))
         {
             delayTicks = new IntRange(120000, 240000).RandomInRange;
-            AddNewIncident(OAGene_SnowstromDefOf.OAGene_SnowstromStrugglers, mainMap, delayTicks);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, delayTicks);
 
         }
         if (Rand.Chance(0.6f))
         {
             delayTicks = new IntRange(180000, 300000).RandomInRange;
-            AddNewIncident(OAGene_SnowstromDefOf.OAGene_AffectedMerchant, mainMap, delayTicks);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, delayTicks);
         }
 
     }
@@ -119,7 +115,7 @@ public static class SnowstormUtility
         {
             IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, mainMap);
             parms.forced = true;
-            parms.raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching;
+            parms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
 
             Faction faction = RandomRaidableEnemyFaction(parms);
             if (faction == null)
@@ -215,6 +211,7 @@ public static class SnowstormUtility
         {
             return;
         }
+        IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
     }
 
     //暴风雪结束后的心情与buff (allMaps) 
@@ -229,11 +226,11 @@ public static class SnowstormUtility
             }
             if (pawn.needs.mood?.thoughts.memories != null)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_SnowstromDefOf.OAGene_Thought_SnowstormEnd);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstrom_MiscDefOf.OAGene_Thought_SnowstormEnd);
             }
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                pawn.health.AddHediff(OAGene_SnowstromDefOf.OAGene_Hediff_ExperienceSnowstorm);
+                pawn.health.AddHediff(Snowstrom_MiscDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
         }
     }
@@ -247,14 +244,14 @@ public static class SnowstormUtility
         delayTicks = TraderDelay.RandomInRange;
         for (int i = 0; i < traderCount; i++)
         {
-            AddNewIncident(OAGene_SnowstromDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
             delayTicks += TraderInterval.RandomInRange;
         }
 
         if (Rand.Chance(0.4f))
         {
             delayTicks = new IntRange(10000, 50000).RandomInRange;
-            AddNewIncident(OAGene_SnowstromDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
         }
     }
 
