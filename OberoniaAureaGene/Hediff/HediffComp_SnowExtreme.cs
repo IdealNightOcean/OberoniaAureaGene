@@ -3,7 +3,7 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-//暴风雪幸存者 的 冷雪Hediff 进入不同的严重度阶段
+//暴风雪幸存者 的 极端暴风雪Hediff 进入不同的严重度阶段
 public class HediffCompProperties_SnowExtreme : HediffCompProperties
 {
     public HediffCompProperties_SnowExtreme()

@@ -117,12 +117,10 @@ public static class SnowstormUtility
         int raidCount = RaidCount.RandomInRange;
         if (raidCount > 0)
         {
-            IncidentParms parms = new()
-            {
-                target = mainMap,
-                points = StorytellerUtility.DefaultThreatPointsNow(mainMap),
-                raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching,
-            };
+            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, mainMap);
+            parms.forced = true;
+            parms.raidStrategy = OAGene_SnowstromDefOf.OAGene_SnowstormImmediateAttackBreaching;
+
             Faction faction = RandomRaidableEnemyFaction(parms);
             if (faction == null)
             {

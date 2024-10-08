@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using OberoniaAurea_Frame;
+using Verse;
 
 namespace OberoniaAureaGene;
 
@@ -25,7 +26,7 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
         if (active)
         {
             Pawn_HealthTracker pawnHealth = pawn.health;
-            pawnHealth.AddHediff(snowExtremeHediff);
+            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
             //伤口冻结
             if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
             {

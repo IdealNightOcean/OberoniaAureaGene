@@ -82,7 +82,7 @@
     <Compile Include="Misc\ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
-    <Compile Include="Hediff\HediffComp_ExtremeSnow.cs" />
+    <Compile Include="Hediff\HediffComp_SnowExtreme.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeBase.cs" />
     <Compile Include="Misc\CompWarmTorch.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormBase.cs" />
