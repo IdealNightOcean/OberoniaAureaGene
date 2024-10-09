@@ -41,6 +41,7 @@ public static class SnowstormUtility
         }
         TryQueueTempChengeIncident(mainMap, duration);
         TryInitSnowstormRaid(mainMap);
+        TryInitSnowstormMalice(mainMap);
     }
     public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
     {
@@ -212,6 +213,8 @@ public static class SnowstormUtility
             return;
         }
         IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
+        int delayTicks = new IntRange(120000, 180000).RandomInRange;
+        AddNewIncident(incidentDef, mainMap, delayTicks);
     }
 
     //暴风雪结束后的心情与buff (allMaps) 

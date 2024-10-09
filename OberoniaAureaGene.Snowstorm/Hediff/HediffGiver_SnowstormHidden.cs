@@ -3,8 +3,10 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffGiver_SnowstormHidden : HediffGiver_Random
+public class HediffGiver_SnowstormHidden : HediffGiver
 {
+    public float mtbDays;
+
     public override float ChanceFactor(Pawn pawn)
     {
         TraitSet traitSet = pawn.story?.traits;
@@ -20,6 +22,16 @@ public class HediffGiver_SnowstormHidden : HediffGiver_Random
             }
         }
         return 1f;
+    }
+
+    public override void OnIntervalPassed(Pawn pawn, Hediff cause)
+    {
+        float mtbDays = this.mtbDays;
+        float chance = ChanceFactor(pawn);
+        if (chance != 0f && Rand.MTBEventOccurs(chance / mtbDays, 60000f, 60f))
+        {
+            TryApply(pawn);
+        }
     }
 
     private static bool IsSpecialTrait(Trait t)

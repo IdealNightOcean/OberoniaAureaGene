@@ -78,13 +78,9 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         Lord lord = pawn.GetLord();
         pawn.mindState.wantsToTradeWithColony = true;
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
-        TraderKindDef traderKindDef = faction.def.visitorTraderKinds.RandomElementByWeight((TraderKindDef traderDef) => traderDef.CalculatedCommonality);
+        TraderKindDef traderKindDef = FactionDefOf.OutlanderCivil.visitorTraderKinds.RandomElementByWeight((TraderKindDef traderDef) => traderDef.CalculatedCommonality);
         pawn.trader.traderKind = traderKindDef;
         pawn.inventory.DestroyAll();
-        ThingSetMakerParams parms = default;
-        parms.traderDef = traderKindDef;
-        parms.tile = map.Tile;
-        parms.makingFaction = faction;
         PawnInventoryGenerator.GiveRandomFood(pawn);
         ThingDef thingDef = DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw)).RandomElement();
         Thing item = ThingMaker.MakeThing(thingDef);

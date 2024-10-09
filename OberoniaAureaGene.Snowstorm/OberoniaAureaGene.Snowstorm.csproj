@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="WeatherEvent_IceStormCrystals.cs" />
+    <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
     <Compile Include="SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
     <Compile Include="SitePartWorker_SnowstormRaidSource.cs" />
     <Compile Include="Quest\QuestNode_Root_SnowstormSurvivorJoin_WalkIn.cs" />
