@@ -12,6 +12,8 @@ public static class Snowstrom_MiscDefOf
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
+    public static ThingDef OAGene_IceStormCrystal;
+
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪

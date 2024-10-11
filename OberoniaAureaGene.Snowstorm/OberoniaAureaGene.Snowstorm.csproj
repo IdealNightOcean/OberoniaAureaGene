@@ -68,6 +68,10 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="Quest\QuestNode_Root_SnowstormRaid.cs" />
+    <Compile Include="GameComponent_Snowstorm.cs" />
+    <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
+    <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
     <Compile Include="WeatherEvent_IceStormCrystals.cs" />
     <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
     <Compile Include="SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />

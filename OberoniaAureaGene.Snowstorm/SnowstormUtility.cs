@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -9,8 +8,9 @@ namespace OberoniaAureaGene.Snowstorm;
 public static class SnowstormUtility
 {
     private static readonly IntRange IceStormDelay = new(180000, 300000); //3~5天
+
     private static readonly IntRange RaidCount = new(-1, 2);
-    private static readonly IntRange RaidDelay = new(60000, 120000); //1~2天
+    private static readonly IntRange RaidDelay = new(600, 1200); //1~2天
     private static readonly IntRange RaidInterval = new(90000, 120000); //1~2天
 
     private static readonly IntRange TempChangeCount = new(1, 3);
@@ -90,15 +90,15 @@ public static class SnowstormUtility
     {
         int delayTicks;
 
-        if (Rand.Chance(0.4f))
+        if (Rand.Chance(2f)) //0.4f
         {
-            delayTicks = new IntRange(120000, 240000).RandomInRange;
+            delayTicks = new IntRange(1200, 2400).RandomInRange;
             AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, delayTicks);
 
         }
-        if (Rand.Chance(0.6f))
+        if (Rand.Chance(2f)) //0.6f
         {
-            delayTicks = new IntRange(180000, 300000).RandomInRange;
+            delayTicks = new IntRange(1800, 3000).RandomInRange;
             AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, delayTicks);
         }
 
@@ -132,86 +132,15 @@ public static class SnowstormUtility
             }
         }
     }
-    private static Faction RandomRaidableEnemyFaction(IncidentParms parms = null)
-    {
-        FactionManager factionManager = Find.FactionManager;
-        Faction playerFaction = Faction.OfPlayer;
-        //获取可用派系
-        (from f in factionManager.GetFactions(allowHidden: false, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined)
-         where ValidFaction(f)
-         select f).TryRandomElement(out Faction faction);
-
-        //如果没有，创建临时海盗派系
-        if (faction == null)
-        {
-            FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
-            factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
-            List<FactionRelation> list = [];
-            foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
-            {
-                if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
-                {
-                    if (faction1 == playerFaction)
-                    {
-                        list.Add(new FactionRelation
-                        {
-                            other = faction1,
-                            kind = FactionRelationKind.Hostile
-                        });
-                    }
-                    else
-                    {
-                        list.Add(new FactionRelation
-                        {
-                            other = faction1,
-                            kind = FactionRelationKind.Neutral
-                        });
-                    }
-                }
-            }
-            faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
-            faction.temporary = true;
-            Find.FactionManager.Add(faction);
-        }
-
-        return faction;
-
-        //派系是否可用
-        bool ValidFaction(Faction fa)
-        {
-            if (!fa.HostileTo(playerFaction))
-            {
-                return false;
-            }
-            if (fa.def.pawnGroupMakers.NullOrEmpty())
-            {
-                return false;
-            }
-            if (parms != null)
-            {
-                parms.faction = fa;
-                RaidStrategyDef strategyDef = parms.raidStrategy;
-                if (strategyDef == null || !strategyDef.Worker.CanUseWith(parms, PawnGroupKindDefOf.Combat))
-                {
-                    return false;
-                }
-                if (parms.raidArrivalMode != null)
-                {
-                    return true;
-                }
-                return strategyDef.arriveModes?.Any((PawnsArrivalModeDef x) => x.Worker.CanUseWith(parms)) ?? false;
-            }
-            return true;
-        }
-    }
-
     //暴风雪中的恶意 (mainMap)
     public static void TryInitSnowstormMalice(Map mainMap)
     {
+
         if (GenDate.DaysPassed < 60 || Rand.Chance(0.66f))
         {
             return;
         }
+
         IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
         int delayTicks = new IntRange(120000, 180000).RandomInRange;
         AddNewIncident(incidentDef, mainMap, delayTicks);
