@@ -26,7 +26,7 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
         if (active)
         {
             Pawn_HealthTracker pawnHealth = pawn.health;
-            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
+            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
             //伤口冻结
             if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
             {

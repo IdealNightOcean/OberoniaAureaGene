@@ -18,7 +18,7 @@ public class Gene_BloodCellsAutophagy : Gene
         Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
         if (hediff != null && hediff.Severity > 0.05)
         {
-            OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_BloodCellsAutophagy, overrideDisappearTicks: 30000);
+            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_BloodCellsAutophagy, overrideDisappearTicks: 30000);
         }
     }
 }
