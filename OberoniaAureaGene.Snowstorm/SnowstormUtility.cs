@@ -1,5 +1,7 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -9,7 +11,7 @@ public static class SnowstormUtility
 {
     private static readonly IntRange IceStormDelay = new(180000, 300000); //3~5天
 
-    private static readonly IntRange RaidCount = new(-1, 2);
+    private static readonly IntRange RaidCount = new(1, 2);
     private static readonly IntRange RaidDelay = new(600, 1200); //1~2天
     private static readonly IntRange RaidInterval = new(90000, 120000); //1~2天
 
@@ -107,29 +109,16 @@ public static class SnowstormUtility
     //暴风雪破墙袭击 (mainMap)
     public static void TryInitSnowstormRaid(Map mainMap)
     {
-        if (GenDate.DaysPassed < 60)
+        int raidCount = RaidCount.RandomInRange;
+        if (GenDate.DaysPassed < 60 || raidCount <= 0)
         {
             return;
         }
-        int raidCount = RaidCount.RandomInRange;
-        if (raidCount > 0)
+        int delayTicks = RaidDelay.RandomInRange;
+        for (int i = 0; i < raidCount; i++)
         {
-            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, mainMap);
-            parms.forced = true;
-            parms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
-
-            Faction faction = RandomRaidableEnemyFaction(parms);
-            if (faction == null)
-            {
-                return;
-            }
-            parms.faction = faction;
-            int delayTicks = RaidDelay.RandomInRange;
-            for (int i = 0; i < raidCount; i++)
-            {
-                Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, Find.TickManager.TicksGame + delayTicks, parms);
-                delayTicks += RaidInterval.RandomInRange;
-            }
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid, mainMap, delayTicks);
+            delayTicks += RaidInterval.RandomInRange;
         }
     }
     //暴风雪中的恶意 (mainMap)
@@ -146,6 +135,84 @@ public static class SnowstormUtility
         AddNewIncident(incidentDef, mainMap, delayTicks);
     }
 
+    //暴风雪恶意袭击可用的派系
+    public static Faction RandomSnowstromMaliceRaidableFaction(Map map)
+    {
+        FactionManager factionManager = Find.FactionManager;
+        Faction playerFaction = Faction.OfPlayer;
+        Faction faction = OberoniaAureaFrameUtility.RandomFactionOfDef(FactionDefOf.Pirate, allowDefeated: false, allowTemporary: true);
+        if (faction != null)
+        {
+            return faction;
+        }
+
+        //获取可用派系
+        (from f in factionManager.GetFactions(allowHidden: true, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined, allowTemporary: true)
+         where ValidFaction(f)
+         select f).TryRandomElement(out faction);
+
+        //如果没有，创建临时海盗派系
+        if (faction == null)
+        {
+            FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
+            factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
+            List<FactionRelation> list = [];
+            foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
+            {
+                if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
+                {
+                    if (faction1 == playerFaction)
+                    {
+                        list.Add(new FactionRelation
+                        {
+                            other = faction1,
+                            kind = FactionRelationKind.Hostile
+                        });
+                    }
+                    else
+                    {
+                        list.Add(new FactionRelation
+                        {
+                            other = faction1,
+                            kind = FactionRelationKind.Neutral
+                        });
+                    }
+                }
+            }
+            faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
+            faction.temporary = true;
+            Find.FactionManager.Add(faction);
+        }
+
+        return faction;
+
+        //派系是否可用
+        bool ValidFaction(Faction fa)
+        {
+            if (!fa.HostileTo(playerFaction))
+            {
+                return false;
+            }
+            if (fa.def.pawnGroupMakers.NullOrEmpty())
+            {
+                return false;
+            }
+            IncidentParms tempParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
+            tempParms.forced = true;
+            tempParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
+            tempParms.faction = fa;
+            RaidStrategyDef strategyDef = tempParms.raidStrategy;
+            if (strategyDef == null || !strategyDef.Worker.CanUseWith(tempParms, PawnGroupKindDefOf.Combat))
+            {
+                return false;
+            }
+            if (tempParms.raidArrivalMode != null)
+            {
+                return true;
+            }
+            return strategyDef.arriveModes?.Any((PawnsArrivalModeDef x) => x.Worker.CanUseWith(tempParms)) ?? false;
+        }
+    }
     //暴风雪结束后的心情与buff (allMaps) 
     public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {

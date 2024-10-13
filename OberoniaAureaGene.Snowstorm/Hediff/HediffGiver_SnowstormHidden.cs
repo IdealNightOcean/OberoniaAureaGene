@@ -28,7 +28,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     {
         float mtbDays = this.mtbDays;
         float chance = ChanceFactor(pawn);
-        if (chance != 0f && Rand.MTBEventOccurs(chance / mtbDays, 60000f, 60f))
+        if (chance > 0f && Rand.MTBEventOccurs(chance / mtbDays, 60000f, 60f))
         {
             TryApply(pawn);
         }

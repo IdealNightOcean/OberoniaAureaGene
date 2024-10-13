@@ -31,6 +31,7 @@ public static class Snowstrom_IncidentDefOf
     public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
 
+    public static IncidentDef OAGene_SnowstormMaliceRaid; //暴风雪破墙袭击
     public static IncidentDef OAGene_SnowstormRaidSource; //暴风雪中的恶意（袭击）
     public static IncidentDef OAGene_SnowstormClimateAdjuster; //暴风雪中的恶意（气候）
 

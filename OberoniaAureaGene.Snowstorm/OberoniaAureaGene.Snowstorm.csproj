@@ -68,7 +68,9 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
-    <Compile Include="Quest\QuestNode_Root_SnowstormRaid.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
+    <Compile Include="Quest\QuestNode_SnowstormRaid.cs" />
+    <Compile Include="Quest\QuestNode_GetSnowstromRaidFaction.cs" />
     <Compile Include="GameComponent_Snowstorm.cs" />
     <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
     <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
