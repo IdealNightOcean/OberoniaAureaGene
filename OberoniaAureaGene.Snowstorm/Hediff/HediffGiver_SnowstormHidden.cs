@@ -7,6 +7,11 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 {
     public float mtbDays;
 
+    [Unsaved]
+    protected GameComponent_Snowstorm snowstorm_GC;
+
+    protected GameComponent_Snowstorm Snowstorm_GC => snowstorm_GC ??= Current.Game.GetComponent<GameComponent_Snowstorm>();
+
     public override float ChanceFactor(Pawn pawn)
     {
         TraitSet traitSet = pawn.story?.traits;
@@ -26,11 +31,18 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
+        if (Snowstorm_GC.lastSnowstormMentalTick < Find.TickManager.TicksGame + 30000)
+        {
+            return;
+        }
         float mtbDays = this.mtbDays;
         float chance = ChanceFactor(pawn);
-        if (chance > 0f && Rand.MTBEventOccurs(chance / mtbDays, 60000f, 60f))
+        if (chance > 0f && Rand.Value < 1f / (mtbDays * 60000f))
         {
-            TryApply(pawn);
+            if (TryApply(pawn))
+            {
+                Snowstorm_GC.lastSnowstormMentalTick = Find.TickManager.TicksGame;
+            }
         }
     }
 

@@ -75,6 +75,7 @@
     <Compile Include="Hediff\HediffComp_ColdImmersion.cs" />
     <Compile Include="Misc\CompPawnGeneDamageModified.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecterBase.cs" />
+    <Compile Include="Utility\ModMain.cs" />
     <Compile Include="Utility\DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
     <Compile Include="Misc\Dialog_CreateDiscriminatGene.cs" />

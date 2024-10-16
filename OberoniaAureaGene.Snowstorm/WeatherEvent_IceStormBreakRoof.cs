@@ -29,6 +29,10 @@ public class WeatherEvent_IceStormBreakRoof : WeatherEvent
     }
     protected static void TryFireEvent(Map map)
     {
+        if (!OAGene_SnowstormSettings.IceStormBreakRoof)
+        {
+            return;
+        }
         List<Room> potentialRooms = map.regionGrid.allRooms.Where(r => !r.IsDoorway).InRandomOrder().Take(AfftectRoomRange.RandomInRange).ToList();
         if (!potentialRooms.Any())
         {
@@ -64,7 +68,15 @@ public class WeatherEvent_IceStormBreakRoof : WeatherEvent
         bool ValidRoof(IntVec3 c)
         {
             RoofDef roofDef = roofGrid.RoofAt(c);
-            if (roofDef == null || roofDef.isNatural || roofDef.isThickRoof)
+            if (roofDef == null)
+            {
+                return false;
+            }
+            if (roofDef.isNatural && !OAGene_SnowstormSettings.IceStormBreakNaturalRoof)
+            {
+                return false;
+            }
+            if (roofDef.isThickRoof && !OAGene_SnowstormSettings.IceStormBreakThickRoof)
             {
                 return false;
             }

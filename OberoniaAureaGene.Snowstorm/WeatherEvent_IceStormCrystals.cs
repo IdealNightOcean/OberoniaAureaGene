@@ -1,5 +1,6 @@
-﻿using RimWorld;
-using UnityEngine;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -23,37 +24,20 @@ public class WeatherEvent_IceStormCrystals : WeatherEvent
     }
     protected static void TryFireEvent(Map map)
     {
-        TryFindCell(out IntVec3 spawnCenter, map);
+        IntVec3 spawnCenter = DropCellFinder.RandomDropSpot(map);
         if (!spawnCenter.IsValid)
         {
             return;
         }
-        int spawnCounts = CrystalsCountRange.RandomInRange;
-        for (int i = 0; i < spawnCounts; i++)
+        List<Thing> spawnThings = OberoniaAureaFrameUtility.TryGenerateThing(Snowstrom_MiscDefOf.OAGene_IceStormCrystal, CrystalsCountRange.RandomInRange);
+        for (int i = 0; i < spawnThings.Count; i++)
         {
-            Thing t = ThingMaker.MakeThing(Snowstrom_MiscDefOf.OAGene_IceStormCrystal);
+            Thing t = spawnThings[i];
             GenPlace.TryPlaceThing(t, spawnCenter, map, ThingPlaceMode.Near, delegate (Thing thing, int count)
             {
                 PawnUtility.RecoverFromUnwalkablePositionOrKill(thing.Position, thing.Map);
             }, null, t.def.defaultPlacingRot);
         }
-    }
-    protected static bool TryFindCell(out IntVec3 cell, Map map)
-    {
-        int maxMineables = CrystalsCountRange.max;
-        return CellFinderLoose.TryFindSkyfallerCell(ThingDefOf.MeteoriteIncoming, map, out cell, 10, default, -1, allowRoofedCells: true, allowCellsWithItems: false, allowCellsWithBuildings: false, colonyReachable: false, avoidColonistsIfExplosive: true, alwaysAvoidColonists: true, delegate (IntVec3 x)
-        {
-            int num = Mathf.CeilToInt(Mathf.Sqrt(maxMineables)) + 2;
-            CellRect other = CellRect.CenteredOn(x, num, num);
-            int validCellCount = 0;
-            foreach (IntVec3 item in other)
-            {
-                if (item.InBounds(map) && item.Standable(map))
-                {
-                    validCellCount++;
-                }
-            }
-            return validCellCount >= maxMineables;
-        });
+        Messages.Message("OAGene_MessageIceStormCrystals".Translate(), new LookTargets(spawnCenter, map), MessageTypeDefOf.NeutralEvent);
     }
 }

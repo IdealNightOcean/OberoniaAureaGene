@@ -58,6 +58,7 @@ public static class OAGene_MiscDefOf
     public static TraitDef OAGene_ExtremeSnowSurvivor; //暴风雪幸存者
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
+
     [MayRequire("OARK.RatkinFaction.ScriptExpand.Snow")]
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
 
@@ -80,6 +81,8 @@ public static class OAGene_RimWorldDefOf
     public static WeatherDef SnowGentle;
 
     public static WorkTypeDef Tailoring;
+
+    public static MentalBreakDef Wander_Psychotic;
 
     [MayRequireIdeology]
     public static SitePartDef WorkSite_Farming;

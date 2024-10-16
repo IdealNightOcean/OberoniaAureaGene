@@ -68,12 +68,15 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="ModMain.cs" />
+    <Compile Include="Hediff\HediffComp_UnderDark.cs" />
+    <Compile Include="ThoughtWorker_UnderDark.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
+    <Compile Include="Need_SnowstormGlow.cs" />
     <Compile Include="Quest\QuestNode_SnowstormRaid.cs" />
     <Compile Include="Quest\QuestNode_GetSnowstromRaidFaction.cs" />
     <Compile Include="GameComponent_Snowstorm.cs" />
     <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
-    <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
     <Compile Include="WeatherEvent_IceStormCrystals.cs" />
     <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
     <Compile Include="SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />

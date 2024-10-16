@@ -29,7 +29,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
     }
     protected static void TryFireEvent(Map map)
     {
-        if (Rand.Chance(0.8f))
+        if (!OberoniaAureaGene_Settings.SnowstormBreakRoof || Rand.Chance(0.8f))
         {
             return;
         }
@@ -71,7 +71,15 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
         bool ValidRoof(IntVec3 c)
         {
             RoofDef roofDef = roofGrid.RoofAt(c);
-            if (roofDef == null || roofDef.isNatural || roofDef.isThickRoof)
+            if (roofDef == null)
+            {
+                return false;
+            }
+            if (roofDef.isNatural && !OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof)
+            {
+                return false;
+            }
+            if (roofDef.isThickRoof && !OberoniaAureaGene_Settings.SnowstormBreakThickRoof)
             {
                 return false;
             }
