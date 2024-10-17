@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -31,6 +32,7 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker
                 return false;
             }
         }
+        parms.points = Mathf.Max(1000, parms.points);
         return true;
 
     }

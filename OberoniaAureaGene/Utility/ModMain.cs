@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -8,7 +7,6 @@ namespace OberoniaAureaGene;
 public class OberoniaAureaGene_Mod : Mod
 {
     public static OberoniaAureaGene_Settings _settings;
-    public static Harmony HarmonyInstance;
 
     public OberoniaAureaGene_Mod(ModContentPack content) : base(content)
     {
@@ -33,6 +31,8 @@ public class OberoniaAureaGene_Settings : ModSettings
     public static bool SnowstormBreakRoof = true;
     public static bool SnowstormBreakNaturalRoof;
     public static bool SnowstormBreakThickRoof;
+
+    public static bool DodgeChancePatch = true;
     public void DoSettingsWindowContents(Rect inRect)
     {
         Rect viewRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
@@ -51,6 +51,13 @@ public class OberoniaAureaGene_Settings : ModSettings
         }
 
         listing_Rect.Gap(6f);
+        Text.Font = GameFont.Medium;
+        listing_Rect.Label("OAGene_NeedRestart".Translate().Colorize(Color.red));
+        Text.Font = GameFont.Small;
+        listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_DodgeChancePatch".Translate(), ref DodgeChancePatch, "OAGene_DodgeChancePatchTooltip".Translate());
+
+        listing_Rect.Gap(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
             ForMountaintopCave();
@@ -78,6 +85,8 @@ public class OberoniaAureaGene_Settings : ModSettings
         SnowstormBreakRoof = true;
         SnowstormBreakNaturalRoof = false;
         SnowstormBreakThickRoof = false;
+
+        DodgeChancePatch = true;
     }
 
     public override void ExposeData()
@@ -86,5 +95,7 @@ public class OberoniaAureaGene_Settings : ModSettings
         Scribe_Values.Look(ref SnowstormBreakRoof, "SnowstormBreakRoof", defaultValue: true);
         Scribe_Values.Look(ref SnowstormBreakNaturalRoof, "SnowstormBreakNaturalRoof", defaultValue: false);
         Scribe_Values.Look(ref SnowstormBreakThickRoof, "SnowstormBreakThickRoof", defaultValue: false);
+
+        Scribe_Values.Look(ref DodgeChancePatch, "DodgeChancePatch", defaultValue: true);
     }
 }

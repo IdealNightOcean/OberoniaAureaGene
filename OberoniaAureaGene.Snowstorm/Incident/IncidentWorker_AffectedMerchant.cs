@@ -10,16 +10,6 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
 {
     private static readonly IntRange ItemCount = new(550, 650);
 
-    private static readonly SimpleCurve PointsCurve =
-    [
-        new CurvePoint(45f, 0f),
-        new CurvePoint(50f, 1f),
-        new CurvePoint(100f, 1f),
-        new CurvePoint(200f, 0.25f),
-        new CurvePoint(300f, 0.1f),
-        new CurvePoint(500f, 0f)
-    ];
-
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
@@ -60,18 +50,11 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
 
     protected override void ResolveParmsPoints(IncidentParms parms)
     {
-        if (!(parms.points >= 0f))
-        {
-            parms.points = Rand.ByCurve(PointsCurve);
-        }
+        parms.points = 1500;
     }
 
     private bool TryConvertOnePawnToSmallTrader(Pawn pawn, Faction faction, Map map)
     {
-        if (faction.def.visitorTraderKinds.NullOrEmpty())
-        {
-            return false;
-        }
         if (!pawn.DevelopmentalStage.Adult())
         {
             return false;
@@ -99,7 +82,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         }
         Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnGroupMaker.traders.RandomElementByWeight((PawnGenOption x) => x.selectionWeight).kind, parms.faction, PawnGenerationContext.NonPlayer, forceGenerateNewPawn: false, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, colonistRelationChanceFactor: 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true));
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
-        OberoniaAureaFrameUtility.AdjustOrAddHediff(pawn, OAGene_RimWorldDefOf.Hypothermia, 0.5f);
+        OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_RimWorldDefOf.Hypothermia, 0.5f);
 
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(parms.spawnCenter, map, 5);
         GenSpawn.Spawn(pawn, loc, map);

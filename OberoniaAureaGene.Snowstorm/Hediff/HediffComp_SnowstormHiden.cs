@@ -18,7 +18,7 @@ public class HediffComp_SnowstormHiden : HediffComp
     public override void CompPostPostRemoved()
     {
         Pawn pawn = parent.pawn;
-        OberoniaAureaFrameUtility.RemoveFirstHediffOfDef(pawn, Props.depressHediff);
-        OberoniaAureaFrameUtility.RemoveFirstHediffOfDef(pawn, Props.underDarkHediff);
+        OAFrame_PawnUtility.RemoveFirstHediffOfDef(pawn, Props.depressHediff);
+        OAFrame_PawnUtility.RemoveFirstHediffOfDef(pawn, Props.underDarkHediff);
     }
 }

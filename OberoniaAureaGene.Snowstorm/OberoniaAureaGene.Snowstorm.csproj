@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompIceStormCrystal.cs" />
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
     <Compile Include="ModMain.cs" />

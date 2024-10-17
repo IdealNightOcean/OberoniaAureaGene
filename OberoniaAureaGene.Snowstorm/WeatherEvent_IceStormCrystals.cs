@@ -33,6 +33,11 @@ public class WeatherEvent_IceStormCrystals : WeatherEvent
         for (int i = 0; i < spawnThings.Count; i++)
         {
             Thing t = spawnThings[i];
+            CompForbiddable forbiddable = t.TryGetComp<CompForbiddable>();
+            if (forbiddable != null)
+            {
+                forbiddable.Forbidden = true;
+            }
             GenPlace.TryPlaceThing(t, spawnCenter, map, ThingPlaceMode.Near, delegate (Thing thing, int count)
             {
                 PawnUtility.RecoverFromUnwalkablePositionOrKill(thing.Position, thing.Map);

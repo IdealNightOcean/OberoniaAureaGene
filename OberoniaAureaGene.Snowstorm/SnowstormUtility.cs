@@ -11,8 +11,8 @@ public static class SnowstormUtility
 {
     private static readonly IntRange IceStormDelay = new(180000, 300000); //3~5天
 
-    private static readonly IntRange RaidCount = new(1, 2);
-    private static readonly IntRange RaidDelay = new(600, 1200); //1~2天
+    private static readonly IntRange RaidCount = new(-1, 2);
+    private static readonly IntRange RaidDelay = new(60000, 120000); //1~2天
     private static readonly IntRange RaidInterval = new(90000, 120000); //1~2天
 
     private static readonly IntRange TempChangeCount = new(1, 3);
@@ -129,7 +129,6 @@ public static class SnowstormUtility
         {
             return;
         }
-
         IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
         int delayTicks = new IntRange(120000, 180000).RandomInRange;
         AddNewIncident(incidentDef, mainMap, delayTicks);

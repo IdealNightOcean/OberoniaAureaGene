@@ -5,11 +5,17 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(Verb_MeleeAttack), "GetDodgeChance")]
 public static class GetDodgeChance_Patch
 {
-    [HarmonyPostfix]
-    public static void Postfix(ref float __result, LocalTargetInfo target)
+    static GetDodgeChance_Patch()
+    {
+        if (OberoniaAureaGene_Settings.DodgeChancePatch)
+        {
+            ModHarmonyPatch.HarmonyInstance.Patch(AccessTools.Method(typeof(Verb_MeleeAttack), "GetDodgeChance"), null, new HarmonyMethod(typeof(GetDodgeChance_Patch), "GetDodgeChance_Postfix"));
+        }
+    }
+
+    public static void GetDodgeChance_Postfix(ref float __result, LocalTargetInfo target)
     {
         if (__result == 0f || target.Thing is not Pawn pawn)
         {
