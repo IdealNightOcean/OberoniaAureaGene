@@ -8,6 +8,12 @@ public class GameCondition_TemperatureChange : GameCondition
 
     public override int TransitionTicks => 6000;
 
+    public override void Init()
+    {
+        base.Init();
+        tempOffset = def.temperatureOffset;
+    }
+
     public override float TemperatureOffset()
     {
         return GameConditionUtility.LerpInOutValue(this, TransitionTicks, tempOffset);

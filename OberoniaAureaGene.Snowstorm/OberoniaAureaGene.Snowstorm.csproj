@@ -69,6 +69,13 @@
     <Compile Include="CompIceStormCrystal.cs" />
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="GameCondition\GameCondition_StarryNight.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
+    <Compile Include="IncidentWorker_MakeGameCondition_IcaRain.cs" />
+    <Compile Include="GameCondition\GameCondition_ForceWithTempChange.cs" />
+    <Compile Include="GameCondition\GameCondition_SuperColdSnap.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
+    <Compile Include="Hediff\HediffGiver_IceRain.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Hediff\HediffComp_UnderDark.cs" />
     <Compile Include="ThoughtWorker_UnderDark.cs" />
@@ -85,9 +92,8 @@
     <Compile Include="Quest\QuestNode_Root_SnowstormSurvivorJoin_WalkIn.cs" />
     <Compile Include="Incident\IncidentWorker_AffectedMerchant.cs" />
     <Compile Include="Quest\QuestPart_IsSnowExtremeWeather.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
-    <Compile Include="GameCondition_ExtremeSnowstorm.cs" />
-    <Compile Include="GameCondition_TemperatureChange.cs" />
+    <Compile Include="GameCondition\GameCondition_ExtremeSnowstorm.cs" />
+    <Compile Include="GameCondition\GameCondition_TemperatureChange.cs" />
     <Compile Include="Hediff\HediffComp_IceStorm.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormHiden.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHiden.cs" />

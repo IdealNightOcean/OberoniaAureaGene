@@ -2,12 +2,12 @@
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffGiver_SnowExtreme : HediffGiver_SnowExtremeBase
+public class HediffGiver_SnowExtremeMechanoid : HediffGiver_SnowExtremeMechanoidBase
 {
     public HediffDef iceStormHediff;
-    protected override void TryActiveHediff(Pawn pawn, float ambientTemperature)
+    protected override void TryActiveHediff(Pawn pawn)
     {
-        base.TryActiveHediff(pawn, ambientTemperature);
+        base.TryActiveHediff(pawn);
         if (pawn.Map?.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme)
         {
             pawn.health.AddHediff(iceStormHediff);

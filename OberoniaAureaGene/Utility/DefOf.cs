@@ -52,6 +52,8 @@ public static class OAGene_MiscDefOf
 
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
+    [MayRequire("OARK.RatkinFaction.OberoniaAurea")]
+    public static ThingDef OAGene_OAGeneBank; //金鸢尾兰基因储存箱
 
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
 

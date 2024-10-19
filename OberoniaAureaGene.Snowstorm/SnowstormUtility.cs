@@ -28,11 +28,19 @@ public static class SnowstormUtility
         {
             return false;
         }
-        return map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
+        return map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme;
     }
     public static bool IsIceStormWeather(Map map) //是否为冰晶暴风雪天气
     {
-        return map?.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
+        return map?.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme;
+    }
+    public static bool IsIceExtremeWeather(Map map) //是否为冰晶天气
+    {
+        if (map == null)
+        {
+            return false;
+        }
+        return map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme || map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceRain;
     }
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {

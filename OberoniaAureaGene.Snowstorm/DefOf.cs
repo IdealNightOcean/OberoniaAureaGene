@@ -18,6 +18,7 @@ public static class Snowstrom_MiscDefOf
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
+    public static WeatherDef OAGene_IceRain; //冰晶雨
     static Snowstrom_MiscDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));

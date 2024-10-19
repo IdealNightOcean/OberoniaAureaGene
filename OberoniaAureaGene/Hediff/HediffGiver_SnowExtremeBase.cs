@@ -25,39 +25,44 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
         float ambientTemperature = pawn.AmbientTemperature;
         if (active)
         {
-            Pawn_HealthTracker pawnHealth = pawn.health;
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
-            //伤口冻结
-            if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
-            {
-                pawnHealth.AddHediff(frozenWoundHediff);
-            }
-            //冷雪
-            if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
-            {
-                pawnHealth.AddHediff(coldSnowHediff);
-            }
-            IceStormActive(pawn);
-            //寒冷堆砌
-            HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
+            TryActiveHediff(pawn, ambientTemperature);
         }
         else
         {
-            if (ambientTemperature > 0)
+            TryInactiveHediff(pawn, ambientTemperature);
+        }
+    }
+
+    protected virtual void TryActiveHediff(Pawn pawn, float ambientTemperature)
+    {
+        Pawn_HealthTracker pawnHealth = pawn.health;
+        OAFrame_PawnUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
+        //伤口冻结
+        if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
+        {
+            pawnHealth.AddHediff(frozenWoundHediff);
+        }
+        //冷雪
+        if (ambientTemperature < OAGeneUtility.ComfyTemperatureMin(pawn))
+        {
+            pawnHealth.AddHediff(coldSnowHediff);
+        }
+        //寒冷堆砌
+        HealthUtility.AdjustSeverity(pawn, coldImmersionHediff, 0.0012f);
+    }
+
+    protected virtual void TryInactiveHediff(Pawn pawn, float ambientTemperature)
+    {
+        if (ambientTemperature > 0)
+        {
+            Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
+            if (firstHediffOfDef != null)
             {
-                Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
-                if (firstHediffOfDef != null)
-                {
-                    float sevAdjuest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature) * 0.001f;
-                    firstHediffOfDef.Severity += sevAdjuest;
-                }
+                float sevAdjuest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature) * 0.001f;
+                firstHediffOfDef.Severity += sevAdjuest;
             }
         }
     }
-    protected virtual void IceStormActive(Pawn pawn)
-    { }
-    protected virtual void IceStormInactive(Pawn pawn)
-    { }
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;

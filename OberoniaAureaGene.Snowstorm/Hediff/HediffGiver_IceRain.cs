@@ -1,22 +1,25 @@
 ﻿using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-public class HediffGiver_SnowExtremeMechanoid : HediffGiver
+public class HediffGiver_IceRain : HediffGiver
 {
+    public HediffDef iceRainHediff;
+
+    //冰晶暴风雪
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         if (ActiveHediff(pawn))
         {
-            pawn.health.AddHediff(hediff);
+            pawn.health.AddHediff(iceRainHediff);
         }
     }
 
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;
-        if (!OAGeneUtility.IsSnowExtremeWeather(map))
+        if (map?.weatherManager.curWeather != Snowstrom_MiscDefOf.OAGene_IceRain)
         {
             return false;
         }
@@ -26,4 +29,6 @@ public class HediffGiver_SnowExtremeMechanoid : HediffGiver
         }
         return true;
     }
+
 }
+

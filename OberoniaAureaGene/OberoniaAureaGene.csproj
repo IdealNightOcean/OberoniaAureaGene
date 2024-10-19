@@ -69,6 +69,8 @@
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="Buildings\CompPowerNormalPlantWind.cs" />
+    <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
+    <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
     <Compile Include="Hediff\HediffComp_WarmTorch.cs" />
     <Compile Include="Hediff\HediffComp_ColdSnow.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="Misc\ConditionalStatAffecter_OurTerritory.cs" />
     <Compile Include="Buildings\CompHegemonicFlag.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoidBase.cs" />
     <Compile Include="Hediff\HediffComp_SnowExtreme.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeBase.cs" />
     <Compile Include="Misc\CompWarmTorch.cs" />
