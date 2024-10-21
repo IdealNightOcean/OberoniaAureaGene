@@ -2,7 +2,7 @@
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffGiver_SnowExtremePlayerHiden : HediffGiver
+public class HediffGiver_SnowExtremePlayerHidden : HediffGiver
 {
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {

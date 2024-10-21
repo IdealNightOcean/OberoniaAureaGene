@@ -28,6 +28,8 @@ public static class Snowstrom_MiscDefOf
 [DefOf]
 public static class Snowstrom_IncidentDefOf
 {
+    public static IncidentDef OAGene_ExtremeSnowstorm; //极端暴风雪
+
     public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
     public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷

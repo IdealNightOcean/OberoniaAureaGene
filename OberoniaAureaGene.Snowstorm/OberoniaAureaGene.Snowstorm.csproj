@@ -69,7 +69,10 @@
     <Compile Include="CompIceStormCrystal.cs" />
     <Compile Include="DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="GameCondition\GameCondition_SnowstormPrecursor.cs" />
     <Compile Include="GameCondition\GameCondition_StarryNight.cs" />
+    <Compile Include="Hediff\Hediff_SnowstormInsomnia.cs" />
+    <Compile Include="Hediff\HediffComp_DisappearAfterSnowstorm.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
     <Compile Include="IncidentWorker_MakeGameCondition_IcaRain.cs" />
     <Compile Include="GameCondition\GameCondition_ForceWithTempChange.cs" />
@@ -95,8 +98,7 @@
     <Compile Include="GameCondition\GameCondition_ExtremeSnowstorm.cs" />
     <Compile Include="GameCondition\GameCondition_TemperatureChange.cs" />
     <Compile Include="Hediff\HediffComp_IceStorm.cs" />
-    <Compile Include="Hediff\HediffComp_SnowstormHiden.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHiden.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHidden.cs" />
     <Compile Include="Hediff\HediffGiver_SnowstormHidden.cs" />
     <Compile Include="Hediff\HediffComp_ExperienceSnowstorm.cs" />
     <Compile Include="Incident\IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
