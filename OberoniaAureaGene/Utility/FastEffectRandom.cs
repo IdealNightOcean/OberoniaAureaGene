@@ -32,9 +32,9 @@ public static class FastEffectRandom
     public static void Reinitialise(int seed)
     {
         x = (uint)seed;
-        y = 842502087u;
-        z = 3579807591u;
-        w = 273326509u;
+        y = Y;
+        z = Z;
+        w = W;
     }
 
     public static int Next(int lowerBound, int upperBound)
@@ -50,8 +50,8 @@ public static class FastEffectRandom
         int num2 = upperBound - lowerBound;
         if (num2 < 0)
         {
-            return lowerBound + (int)(2.3283064365386963E-10 * (double)(w = w ^ (w >> 19) ^ (num ^ (num >> 8))) * (double)((long)upperBound - (long)lowerBound));
+            return lowerBound + (int)(REAL_UNIT_UINT * (double)(w = w ^ (w >> 19) ^ (num ^ (num >> 8))) * (double)((long)upperBound - (long)lowerBound));
         }
-        return lowerBound + (int)(4.656612873077393E-10 * (double)(int)(0x7FFFFFFF & (w = w ^ (w >> 19) ^ (num ^ (num >> 8)))) * (double)num2);
+        return lowerBound + (int)(REAL_UNIT_INT * (double)(int)(0x7FFFFFFF & (w = w ^ (w >> 19) ^ (num ^ (num >> 8)))) * (double)num2);
     }
 }

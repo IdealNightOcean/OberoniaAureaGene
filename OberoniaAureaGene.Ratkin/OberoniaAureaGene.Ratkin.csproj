@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Game\SteamLibrary\steamapps\common\RimWorld\Mods\Ratkin Faction Gene Expand\Ratkin\1.5\Assemblies\</OutputPath>
+    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\Ratkin Faction Gene Expand\Ratkin\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,19 +33,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\RimWorld引用dll\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AlienRace">
-      <HintPath>..\..\..\RimWorld引用dll\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\RimWorld引用dll\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NewRatkin">
-      <HintPath>..\..\..\RimWorld引用dll\NewRatkin.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\NewRatkin.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="OberoniaAurea_Frame">
@@ -61,15 +57,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\RimWorld引用dll\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\..\..\RimWorldReference\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -102,6 +98,5 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
