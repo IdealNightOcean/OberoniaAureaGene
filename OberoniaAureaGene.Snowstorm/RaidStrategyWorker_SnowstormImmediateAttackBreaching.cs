@@ -13,9 +13,11 @@ public class RaidStrategyWorker_SnowstormImmediateAttackBreaching : RaidStrategy
         {
             foreach (Pawn pawn in pawns)
             {
-                pawn.health.AddHediff(Snowstrom_MiscDefOf.OAGene_Hediff_PreparationWarm);
+                pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_PreparationWarm);
             }
         }
-        return base.MakeLordJob(parms, map, pawns, raidSeed);
+        Faction faction = parms.faction;
+        bool canTimeoutOrFlee = parms.canTimeoutOrFlee;
+        return new LordJob_AssistColony_SnowstormAttackBreaching(canKidnap: parms.canKidnap, canTimeoutOrFlee: canTimeoutOrFlee, sappers: false, canSteal: parms.canSteal, assaulterFaction: faction, useAvoidGridSmart: useAvoidGridSmart, breachers: true);
     }
 }

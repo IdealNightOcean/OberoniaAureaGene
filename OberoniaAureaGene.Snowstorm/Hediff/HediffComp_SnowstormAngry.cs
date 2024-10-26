@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -18,11 +19,11 @@ public class HediffComp_SnowstormAngry : HediffComp
 {
     HediffCompProperties_SnowstormAngry Props => props as HediffCompProperties_SnowstormAngry;
     public override void CompPostTick(ref float severityAdjustment)
-    {       
+    {
         if (parent.pawn.IsHashIntervalTick(1000))
         {
             Pawn pawn = parent.pawn;
-            if (!PawnSleepNow(pawn))
+            if (!OAFrame_PawnUtility.PawnSleepNow(pawn))
             {
                 return;
             }
@@ -35,8 +36,5 @@ public class HediffComp_SnowstormAngry : HediffComp
         }
     }
 
-    public static bool PawnSleepNow(Pawn pawn)
-    {
-        return pawn.jobs?.curDriver?.asleep ?? false;
-    }
+
 }

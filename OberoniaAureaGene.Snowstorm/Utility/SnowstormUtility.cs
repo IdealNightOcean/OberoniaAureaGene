@@ -232,11 +232,11 @@ public static class SnowstormUtility
             }
             if (pawn.needs.mood?.thoughts.memories != null)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstrom_MiscDefOf.OAGene_Thought_SnowstormEnd);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
             }
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                pawn.health.AddHediff(Snowstrom_MiscDefOf.OAGene_Hediff_ExperienceSnowstorm);
+                pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
         }
     }

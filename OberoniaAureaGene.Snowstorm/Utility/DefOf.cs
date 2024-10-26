@@ -6,15 +6,9 @@ namespace OberoniaAureaGene.Snowstorm;
 [DefOf]
 public static class Snowstrom_MiscDefOf
 {
-    public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
-    public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
-    public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
-
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
     public static ThingDef OAGene_IceStormCrystal;
-
-    public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
@@ -24,6 +18,35 @@ public static class Snowstrom_MiscDefOf
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));
     }
 }
+
+
+[DefOf]
+public static class Snowstrom_HediffDefOf
+{
+    public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
+    public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
+    public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
+
+    public static HediffDef OAGene_Hediff_SnowstromStrugglers; //难民健康状态（用于心情）
+    static Snowstrom_HediffDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_HediffDefOf));
+    }
+}
+
+
+[DefOf]
+public static class Snowstrom_ThoughtDefOf
+{
+    public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
+    public static ThoughtDef OAGene_Thought_StarryNightP; //星月夜主角心情
+    public static ThoughtDef OAGene_Thought_SnowstromStrugglers; //难民心情
+    static Snowstrom_ThoughtDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThoughtDefOf));
+    }
+}
+
 
 [DefOf]
 public static class Snowstrom_IncidentDefOf

@@ -67,8 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompIceStormCrystal.cs" />
-    <Compile Include="DefOf.cs" />
+    <Compile Include="Utility\DefOf.cs" />
     <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="GameComponent_SnowstormStory.cs" />
+    <Compile Include="ScenPart_SnowstormStory.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormPrecursor.cs" />
     <Compile Include="GameCondition\GameCondition_StarryNight.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormAngry.cs" />
@@ -80,6 +82,8 @@
     <Compile Include="GameCondition\GameCondition_SuperColdSnap.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Hediff\HediffGiver_IceRain.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstornThrumboWanderIn.cs" />
+    <Compile Include="LordJob_AssistColony_SnowstormAttackBreaching.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Hediff\HediffComp_UnderDark.cs" />
     <Compile Include="ThoughtWorker_UnderDark.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Quest\QuestNode_GetSnowstromRaidFaction.cs" />
     <Compile Include="GameComponent_Snowstorm.cs" />
     <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
+    <Compile Include="Utility\Snowstorm_StoryUtility.cs" />
     <Compile Include="WeatherEvent_IceStormCrystals.cs" />
     <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
     <Compile Include="SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
@@ -106,13 +111,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quest\QuestNode_Root_SnowstromStrugglers.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormImmediateAttackBreaching.cs" />
-    <Compile Include="SnowstormUtility.cs" />
+    <Compile Include="Utility\SnowstormUtility.cs" />
     <Compile Include="WeatherEvent_IceStormBreakRoof.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OberoniaAureaGene.Ratkin\OberoniaAureaGene.Ratkin.csproj">
+      <Project>{d3667693-c5da-45fc-aa77-972c7d04b105}</Project>
+      <Name>OberoniaAureaGene.Ratkin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OberoniaAureaGene\OberoniaAureaGene.csproj">
       <Project>{c8107c0d-4859-44fe-bb15-acac9174c294}</Project>
       <Name>OberoniaAureaGene</Name>

@@ -8,12 +8,15 @@ public class GameComponent_Snowstorm : GameComponent
     public int lastSnowstormMentalTick = -1;
 
     public bool SnowstormNow => snowstormCount > 0;
+
     public GameComponent_Snowstorm(Game game) { }
+
 
     public void Notify_SnowstormStart()
     {
         snowstormCount++;
     }
+
 
     public void Notify_SnowstormEnd()
     {

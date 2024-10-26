@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -76,7 +77,22 @@ public class GameCondition_StarryNight : GameCondition
         weather ??= def.weatherDef;
         tempOffset = def.temperatureOffset;
     }
-
+    protected void PostInit()
+    {
+        if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
+        {
+            if (OAFrame_PawnUtility.PawnSleepNow(protagonist))
+            {
+                protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_StarryNightP);
+            }
+            InspirationDef inspirationDef = protagonist.mindState.inspirationHandler.GetRandomAvailableInspirationDef();
+            if (inspirationDef == null)
+            {
+                return;
+            }
+            protagonist.mindState.inspirationHandler.TryStartInspiration(inspirationDef);
+        }
+    }
     public override float TemperatureOffset()
     {
         return GameConditionUtility.LerpInOutValue(this, TransitionTicks, tempOffset);
