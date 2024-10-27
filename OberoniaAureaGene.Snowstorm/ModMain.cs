@@ -39,6 +39,9 @@ public class OAGene_SnowstormSettings : ModSettings
     public static bool IceStormBreakNaturalRoof;
     public static bool IceStormBreakThickRoof;
 
+    public static bool AllowSnowstormMaliciousRaid;
+    public static bool AllowSnowstormMaliciousSite;
+
     public void DoSettingsWindowContents(Rect inRect)
     {
         Rect outRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
@@ -66,6 +69,9 @@ public class OAGene_SnowstormSettings : ModSettings
             listing_Rect.CheckboxLabeled("OAGene_IceStormBreakNaturalRoof".Translate(), ref IceStormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_IceStormBreakThickRoof".Translate(), ref IceStormBreakThickRoof);
         }
+        listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousRaid".Translate(), ref AllowSnowstormMaliciousRaid);
+        listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousSite".Translate(), ref AllowSnowstormMaliciousSite);
 
         listing_Rect.Gap(6f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
@@ -105,6 +111,9 @@ public class OAGene_SnowstormSettings : ModSettings
         IceStormBreakRoof = true;
         IceStormBreakNaturalRoof = false;
         IceStormBreakThickRoof = false;
+
+        AllowSnowstormMaliciousRaid = true;
+        AllowSnowstormMaliciousSite = true;
     }
     public override void ExposeData()
     {
@@ -112,5 +121,8 @@ public class OAGene_SnowstormSettings : ModSettings
         Scribe_Values.Look(ref IceStormBreakRoof, "IceStormBreakRoof", defaultValue: true);
         Scribe_Values.Look(ref IceStormBreakNaturalRoof, "IceStormBreakNaturalRoof", defaultValue: false);
         Scribe_Values.Look(ref IceStormBreakThickRoof, "IceStormBreakThickRoof", defaultValue: false);
+
+        Scribe_Values.Look(ref AllowSnowstormMaliciousRaid, "AllowSnowstormMaliciousRaid", defaultValue: true);
+        Scribe_Values.Look(ref AllowSnowstormMaliciousSite, "AllowSnowstormMaliciousSite", defaultValue: true);
     }
 }

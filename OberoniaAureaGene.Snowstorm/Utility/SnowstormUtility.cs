@@ -117,6 +117,10 @@ public static class SnowstormUtility
     //暴风雪破墙袭击 (mainMap)
     public static void TryInitSnowstormRaid(Map mainMap)
     {
+        if(!OAGene_SnowstormSettings.AllowSnowstormMaliciousRaid)
+        {
+            return;
+        }
         int raidCount = RaidCount.RandomInRange;
         if (GenDate.DaysPassed < 60 || raidCount <= 0)
         {
@@ -132,7 +136,10 @@ public static class SnowstormUtility
     //暴风雪中的恶意 (mainMap)
     public static void TryInitSnowstormMalice(Map mainMap)
     {
-
+        if(!OAGene_SnowstormSettings.AllowSnowstormMaliciousSite)
+        {
+            return;
+        }
         if (GenDate.DaysPassed < 60 || Rand.Chance(0.66f))
         {
             return;
