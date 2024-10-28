@@ -49,9 +49,23 @@ public static class SnowstormUtility
         {
             AddNewIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, mainMap, IceStormDelay.RandomInRange);
         }
+        //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
-        TryInitSnowstormRaid(mainMap);
-        TryInitSnowstormMalice(mainMap);
+        //暴风雪破墙袭击
+        if (OAGene_SnowstormSettings.AllowSnowstormMaliciousRaid)
+        {
+            TryInitSnowstormRaid(mainMap);
+        }
+        //暴风雪中的恶意
+        if (OAGene_SnowstormSettings.AllowSnowstormMaliciousSite)
+        {
+            TryInitSnowstormMalice(mainMap);
+        }
+        //敲击兽
+        if (Rand.Chance(0.2f))
+        {
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, new IntRange(30000, duration - 30000).RandomInRange);
+        }
     }
     public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
     {
@@ -117,10 +131,6 @@ public static class SnowstormUtility
     //暴风雪破墙袭击 (mainMap)
     public static void TryInitSnowstormRaid(Map mainMap)
     {
-        if(!OAGene_SnowstormSettings.AllowSnowstormMaliciousRaid)
-        {
-            return;
-        }
         int raidCount = RaidCount.RandomInRange;
         if (GenDate.DaysPassed < 60 || raidCount <= 0)
         {
@@ -136,10 +146,6 @@ public static class SnowstormUtility
     //暴风雪中的恶意 (mainMap)
     public static void TryInitSnowstormMalice(Map mainMap)
     {
-        if(!OAGene_SnowstormSettings.AllowSnowstormMaliciousSite)
-        {
-            return;
-        }
         if (GenDate.DaysPassed < 60 || Rand.Chance(0.66f))
         {
             return;

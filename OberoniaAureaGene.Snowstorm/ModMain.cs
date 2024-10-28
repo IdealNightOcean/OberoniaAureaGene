@@ -25,7 +25,7 @@ public class OAGene_SnowstormMod : Mod
 
     public override string SettingsCategory()
     {
-        return "OAGene_Snowstorm".Translate();
+        return "OAGene_SnowstormExpanded".Translate();
     }
 }
 
@@ -35,12 +35,14 @@ public class OAGene_SnowstormSettings : ModSettings
     private Vector2 scrollPosition;
     private float viewRectHeight;
 
+    public static bool SnowstormBreakDoor = true;
+
     public static bool IceStormBreakRoof = true;
     public static bool IceStormBreakNaturalRoof;
     public static bool IceStormBreakThickRoof;
 
-    public static bool AllowSnowstormMaliciousRaid;
-    public static bool AllowSnowstormMaliciousSite;
+    public static bool AllowSnowstormMaliciousRaid = true;
+    public static bool AllowSnowstormMaliciousSite = true;
 
     public void DoSettingsWindowContents(Rect inRect)
     {
@@ -61,14 +63,18 @@ public class OAGene_SnowstormSettings : ModSettings
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakNaturalRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakThickRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakThickRoof);
         }
-        listing_Rect.Gap(6f);
 
+        listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakDoor".Translate(), ref SnowstormBreakDoor);
+
+        listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_IceStormBreakRoof".Translate(), ref IceStormBreakRoof);
         if (IceStormBreakRoof)
         {
             listing_Rect.CheckboxLabeled("OAGene_IceStormBreakNaturalRoof".Translate(), ref IceStormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_IceStormBreakThickRoof".Translate(), ref IceStormBreakThickRoof);
         }
+
         listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousRaid".Translate(), ref AllowSnowstormMaliciousRaid);
         listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousSite".Translate(), ref AllowSnowstormMaliciousSite);
@@ -97,6 +103,7 @@ public class OAGene_SnowstormSettings : ModSettings
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakThickRoof = true;
+        SnowstormBreakDoor = true;
 
         IceStormBreakRoof = true;
         IceStormBreakNaturalRoof = true;
@@ -107,6 +114,7 @@ public class OAGene_SnowstormSettings : ModSettings
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = false;
         OberoniaAureaGene_Settings.SnowstormBreakThickRoof = false;
+        SnowstormBreakDoor = true;
 
         IceStormBreakRoof = true;
         IceStormBreakNaturalRoof = false;
@@ -118,6 +126,8 @@ public class OAGene_SnowstormSettings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref SnowstormBreakDoor, "SnowstormBreakDoor", defaultValue: true);
+
         Scribe_Values.Look(ref IceStormBreakRoof, "IceStormBreakRoof", defaultValue: true);
         Scribe_Values.Look(ref IceStormBreakNaturalRoof, "IceStormBreakNaturalRoof", defaultValue: false);
         Scribe_Values.Look(ref IceStormBreakThickRoof, "IceStormBreakThickRoof", defaultValue: false);

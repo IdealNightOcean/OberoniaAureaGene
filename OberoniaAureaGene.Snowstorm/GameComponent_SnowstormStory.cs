@@ -19,7 +19,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
-        protagonist = Find.GameInitData.startingAndOptionalPawns.Where(p => p.IsColonist).RandomElementWithFallback(null);      
+        protagonist = Find.GameInitData.startingAndOptionalPawns.Where(p => p.IsColonist).RandomElementWithFallback(null);
         Log.Message(protagonist.NameShortColored);
     }
 

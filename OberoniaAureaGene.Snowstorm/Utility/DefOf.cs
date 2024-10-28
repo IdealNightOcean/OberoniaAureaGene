@@ -63,6 +63,7 @@ public static class Snowstrom_IncidentDefOf
 
     public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者
     public static IncidentDef OAGene_AffectedMerchant; //暴风雪中的遇难商人
+    public static IncidentDef OAGene_SnowstornThrumboWanderIn; //暴风雪中的敲击兽
 
     public static IncidentDef OAGene_AfterSnowstormTraderCaravanArrival; //暴风雪后的商队
     public static IncidentDef OAGene_SnowstormSurvivorJoins; //风雪后的幸存者

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -17,5 +18,11 @@ public class LordJob_AssistColony_SnowstormAttackBreaching : LordJob_AssaultColo
     }
 
     private void OnDefeat()
-    { }
+    {
+        if (Rand.Bool)
+        {
+
+        }
+
+    }
 }

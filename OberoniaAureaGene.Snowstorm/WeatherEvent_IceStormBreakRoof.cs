@@ -15,7 +15,7 @@ public class WeatherEvent_IceStormBreakRoof : WeatherEvent
     protected static readonly IntRange AfftectRoomRange = new(4, 6);
     protected static readonly FloatRange AfftectRoofRange = new(0.05f, 0.2f);
 
-    public static readonly List<TargetInfo> LookTargetCells = [];
+    protected static readonly List<TargetInfo> LookTargetCells = [];
 
     public WeatherEvent_IceStormBreakRoof(Map map) : base(map)
     { }

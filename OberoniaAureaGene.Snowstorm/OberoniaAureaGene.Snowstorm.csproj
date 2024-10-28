@@ -66,9 +66,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompIceStormCrystal.cs" />
+    <Compile Include="Thing\CompIceStormCrystal.cs" />
+    <Compile Include="Thing\Building_IceStormCrystalCollector.cs" />
+    <Compile Include="WeatherEvent_SnowStormBreakDoor.cs" />
     <Compile Include="Utility\DefOf.cs" />
-    <Compile Include="CompSnowstormCampfire.cs" />
+    <Compile Include="Thing\CompSnowstormCampfire.cs" />
     <Compile Include="GameComponent_SnowstormStory.cs" />
     <Compile Include="ScenPart_SnowstormStory.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormPrecursor.cs" />
@@ -77,7 +79,7 @@
     <Compile Include="Hediff\Hediff_SnowstormInsomnia.cs" />
     <Compile Include="Hediff\HediffComp_DisappearAfterSnowstorm.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
-    <Compile Include="IncidentWorker_MakeGameCondition_IcaRain.cs" />
+    <Compile Include="Incident\IncidentWorker_MakeGameCondition_IcaRain.cs" />
     <Compile Include="GameCondition\GameCondition_ForceWithTempChange.cs" />
     <Compile Include="GameCondition\GameCondition_SuperColdSnap.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />

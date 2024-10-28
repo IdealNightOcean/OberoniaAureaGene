@@ -37,6 +37,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
             foreach (Pawn p in pawns)
             {
                 p.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_HopeForSurvival);
+                p.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SnowstromStrugglers);
                 Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
                 food.stackCount = FoodCount.RandomInRange;
                 p.inventory.innerContainer.TryAdd(food);
