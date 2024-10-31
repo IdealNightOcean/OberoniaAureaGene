@@ -1,0 +1,36 @@
+﻿using RimWorld;
+using RimWorld.BaseGen;
+using System.Collections.Generic;
+using Verse;
+
+namespace OberoniaAureaGene.Snowstorm;
+
+public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
+{
+    public override void Resolve(ResolveParams rp)
+    {
+        CellRect rect = rp.rect;
+        CellRect rect2 = rect.ContractedBy(1);
+        List<Thing> list = [];
+        TraderKindDef traderKindDef = Snowstrom_MiscDefOf.OAGene_Trader_SnowstormCamp;
+        int forTile = BaseGen.globalSettings.map?.Tile ?? -1;
+        for (int i = 0; i < traderKindDef.stockGenerators.Count; i++)
+        {
+            foreach (Thing item in traderKindDef.stockGenerators[i].GenerateThings(forTile, rp.faction))
+            {
+                if (item is Pawn pawn)
+                {
+                    pawn.Destroy(DestroyMode.KillFinalize);
+                    continue;
+                }
+                list.Add(item);
+            }
+        }
+        BaseGen.symbolStack.Push("stockpile", new ResolveParams
+        {
+            rect = rect2,
+            stockpileConcreteContents = list
+        });
+        BaseGen.symbolStack.Push("storage", rp);
+    }
+}

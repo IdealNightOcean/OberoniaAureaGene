@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,11 @@ public class Building_IceStormCrystalCollector : Building
     }
     protected const int Max_Storge = 20;
 
+    [Unsaved]
     protected int nearCollectorCount;
     public bool NearOtherCollector => nearCollectorCount > 0;
+    [Unsaved]
+    protected bool underRoof;
 
     public float CollectEfficiency => NearOtherCollector ? 0.05f : 1f;
 
@@ -31,6 +35,7 @@ public class Building_IceStormCrystalCollector : Building
         base.SpawnSetup(map, respawningAfterLoad);
         CrystalCollectors.Add(this);
         RecalculateNearCollector(this, despawn: false);
+        underRoof = this.Map.roofGrid.Roofed(this.Position);
     }
 
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
@@ -82,11 +87,18 @@ public class Building_IceStormCrystalCollector : Building
     public override void TickLong()
     {
         base.TickLong();
-        if (!this.Spawned || this.Map.roofGrid.Roofed(this.Position))
+        if (!this.Spawned)
         {
             curEfficiency = 0f;
             return;
         }
+        if (this.Map.roofGrid.Roofed(this.Position))
+        {
+            underRoof = true;
+            curEfficiency = 0f;
+            return;
+        }
+        underRoof = false;
         CurWeather curWeather = GetCurWeather(this.Map.weatherManager.curWeather);
         float weatherEfficiency = curWeather switch
         {
@@ -110,7 +122,10 @@ public class Building_IceStormCrystalCollector : Building
         sb.AppendInNewLine("OAGene_IceCrystalCollector_CurStorage".Translate(curStorge, Max_Storge));
 
         sb.AppendInNewLine("OAGene_IceCrystalCollector_CurEfficiency".Translate(curEfficiency));
-
+        if (underRoof)
+        {
+            sb.AppendInNewLine("OAGene_IceCrystalCollector_UnderRoof".Translate(0f.ToStringPercent().Colorize(Color.red)));
+        }
         if (NearOtherCollector)
         {
             sb.AppendInNewLine("OAGene_IceCrystalCollector_NearOtherCollector".Translate(0.05f.ToStringPercent().Colorize(Color.yellow)));
@@ -123,7 +138,7 @@ public class Building_IceStormCrystalCollector : Building
         base.ExposeData();
         Scribe_Values.Look(ref curStorge, "curStorge", 0f);
         Scribe_Values.Look(ref curEfficiency, "curEfficiency", 0f);
-}
+    }
 
     protected static CurWeather GetCurWeather(WeatherDef weather)
     {

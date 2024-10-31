@@ -66,6 +66,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WorldObject\FileName.cs" />
+    <Compile Include="WorldObject\SymbolResolver_Site_SnowstormCamp.cs" />
+    <Compile Include="WorldObject\SnowstormCampComp.cs" />
     <Compile Include="Thing\CompIceStormCrystal.cs" />
     <Compile Include="Thing\Building_IceStormCrystalCollector.cs" />
     <Compile Include="WeatherEvent_SnowStormBreakDoor.cs" />
@@ -98,8 +101,8 @@
     <Compile Include="Utility\Snowstorm_StoryUtility.cs" />
     <Compile Include="WeatherEvent_IceStormCrystals.cs" />
     <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
-    <Compile Include="SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
-    <Compile Include="SitePartWorker_SnowstormRaidSource.cs" />
+    <Compile Include="WorldObject\SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
+    <Compile Include="WorldObject\SitePartWorker_SnowstormRaidSource.cs" />
     <Compile Include="Quest\QuestNode_Root_SnowstormSurvivorJoin_WalkIn.cs" />
     <Compile Include="Incident\IncidentWorker_AffectedMerchant.cs" />
     <Compile Include="Quest\QuestPart_IsSnowExtremeWeather.cs" />

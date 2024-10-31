@@ -16,7 +16,7 @@ public static class ModHarmonyPatch
     {
         get
         {
-            harmonyInstance ??= new Harmony("OberoniaAureaGene_Hramony");
+            harmonyInstance ??= new Harmony("OberoniaAureaGene_Harmony");
             return harmonyInstance;
         }
     }
