@@ -11,26 +11,50 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
     {
         CellRect rect = rp.rect;
         CellRect rect2 = rect.ContractedBy(1);
-        List<Thing> list = [];
+        List<Thing> stockList = [];
         TraderKindDef traderKindDef = Snowstrom_MiscDefOf.OAGene_Trader_SnowstormCamp;
         int forTile = BaseGen.globalSettings.map?.Tile ?? -1;
         for (int i = 0; i < traderKindDef.stockGenerators.Count; i++)
         {
             foreach (Thing item in traderKindDef.stockGenerators[i].GenerateThings(forTile, rp.faction))
             {
-                if (item is Pawn pawn)
+                if (item is Pawn || item is Building)
                 {
-                    pawn.Destroy(DestroyMode.KillFinalize);
+                    item.Destroy(DestroyMode.KillFinalize);
                     continue;
                 }
-                list.Add(item);
+                AddThind(stockList, item);
+            }
+        }
+        foreach (Thing item2 in stockList)
+        {
+            CompForbiddable compForbiddable = item2.TryGetComp<CompForbiddable>();
+            if(compForbiddable!=null)
+            {
+                compForbiddable.Forbidden = true;
             }
         }
         BaseGen.symbolStack.Push("stockpile", new ResolveParams
         {
             rect = rect2,
-            stockpileConcreteContents = list
+            stockpileConcreteContents = stockList,
+            skipSingleThingIfHasToWipeBuildingOrDoesntFit = true,
         });
-        BaseGen.symbolStack.Push("storage", rp);
+        BaseGen.symbolStack.Push("oaframe_EmptyRoom", rp);
+    }
+
+    protected static void AddThind(List<Thing> outThings, Thing t)
+    {
+        if (t.stackCount <= t.def.stackLimit)
+        {
+            outThings.Add(t);
+        }
+        else
+        {
+            int exceededStack = t.stackCount - t.def.stackLimit;
+            t.stackCount = t.def.stackLimit;
+            outThings.Add(t);
+            outThings.AddRange(OberoniaAurea_Frame.OberoniaAureaFrameUtility.TryGenerateThing(t.def, exceededStack));
+        }
     }
 }

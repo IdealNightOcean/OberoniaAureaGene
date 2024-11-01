@@ -21,14 +21,14 @@ public class SnowstormCampComp : WorldObjectComp
 
     protected const string Postfix = "_SnowstormCamp";
 
-    public enum CampType
+    protected enum SnowstormCampType
     {
         None,
         Firendly,
         Hostile
     }
 
-    public CampType curType = CampType.None;
+    protected SnowstormCampType curType = SnowstormCampType.None;
     public void InitInnerTrader()
     {
         innerTrader = new(Snowstrom_MiscDefOf.OAGene_Trader_SnowstormCamp, parent);
@@ -36,18 +36,18 @@ public class SnowstormCampComp : WorldObjectComp
     }
     public void VisitCamp(Caravan caravan)
     {
-        if (curType == CampType.None)
+        if (curType == SnowstormCampType.None)
         {
             TryInitType(caravan);
         }
-        else if (curType == CampType.Firendly)
+        else if (curType == SnowstormCampType.Firendly)
         {
             DiaNode diaNode = OAFrame_DiaUtility.ConfirmDiaNode("OAGene_SnowstormCamp_Firendly".Translate(), "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
                 TradeWithCamp(caravan);
             }, "GoBack".Translate(), null);
         }
-        else if (curType == CampType.Hostile)
+        else if (curType == SnowstormCampType.Hostile)
         {
             DiaNode diaNode = OAFrame_DiaUtility.ConfirmDiaNode("OAGene_SnowstormCamp_Hostile".Translate(), "Attack".Translate(), delegate
             {
@@ -64,8 +64,8 @@ public class SnowstormCampComp : WorldObjectComp
         float randFlag = Rand.Value;
         if (randFlag < 0.05f)
         {
-            curType = CampType.Firendly;
-            InitInnerTrader();         
+            curType = SnowstormCampType.Firendly;
+            InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyAndGift".Translate();
             diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
@@ -74,8 +74,8 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else if (randFlag < 0.4f)
         {
-            curType = CampType.Firendly;
-            InitInnerTrader();     
+            curType = SnowstormCampType.Firendly;
+            InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyFirst".Translate();
             diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
@@ -85,7 +85,7 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else
         {
-            curType = CampType.Hostile;
+            curType = SnowstormCampType.Hostile;
             innerTrader = null;
             text = "OAGene_SnowstormCamp_HostileFirst".Translate();
             diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "Attack".Translate(), delegate
@@ -99,7 +99,7 @@ public class SnowstormCampComp : WorldObjectComp
 
     protected void TradeWithCamp(Caravan caravan)
     {
-        if(innerTrader == null)
+        if (innerTrader == null)
         {
             return;
         }
@@ -122,15 +122,32 @@ public class SnowstormCampComp : WorldObjectComp
             }
         }
     }
-    public void SetActivate(bool active)
+    public void ActiveComp()
     {
-        this.active = active;
+        Log.Message("active");
+        active = true;
+        curType = SnowstormCampType.None;
     }
+
+    public void InactiveComp()
+    {
+        active = false;
+        curType = SnowstormCampType.None;
+        innerTrader?.Destory();
+        innerTrader = null;
+    }
+
+    public override void PostDestroy()
+    {
+        innerTrader?.Destory();
+        base.PostDestroy();
+    }
+
     public override void PostExposeData()
     {
         base.PostExposeData();
         Scribe_Values.Look(ref active, "active" + Postfix, defaultValue: false);
-        Scribe_Values.Look(ref curType, "curType" + Postfix, defaultValue: CampType.None);
+        Scribe_Values.Look(ref curType, "curType" + Postfix, defaultValue: SnowstormCampType.None);
         Scribe_Deep.Look(ref innerTrader, "innerTrader" + Postfix);
     }
 }
@@ -138,7 +155,7 @@ public class SnowstormCampComp : WorldObjectComp
 public class CaravanArrivalAction_VisitSnowstormCamp : CaravanArrivalAction
 {
     private WorldObject site;
-    public override string Label => "OAGene_VisitSnowstormCamp".Translate(site.Label);
+    public override string Label => "OAFrame_Visit".Translate(site.Label);
     public override string ReportString => "CaravanVisiting".Translate(site.Label);
     public CaravanArrivalAction_VisitSnowstormCamp()
     { }
@@ -158,11 +175,11 @@ public class CaravanArrivalAction_VisitSnowstormCamp : CaravanArrivalAction
         {
             return floatMenuAcceptanceReport;
         }
-        if (site != null && site.Tile != destinationTile)
+        if (site == null || site.Tile != destinationTile)
         {
             return false;
         }
-        return CanVisit(site);
+        return site.Spawned;
     }
 
     public override void ExposeData()
@@ -182,6 +199,6 @@ public class CaravanArrivalAction_VisitSnowstormCamp : CaravanArrivalAction
 
     public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan, WorldObject site)
     {
-        return CaravanArrivalActionUtility.GetFloatMenuOptions(() => CanVisit(site), () => new CaravanArrivalAction_VisitSnowstormCamp(site), "OAGene_VisitSnowstormCamp".Translate(site.Label), caravan, site.Tile, site);
+        return CaravanArrivalActionUtility.GetFloatMenuOptions(() => CanVisit(site), () => new CaravanArrivalAction_VisitSnowstormCamp(site), "OAFrame_Visit".Translate(site.Label), caravan, site.Tile, site);
     }
 }

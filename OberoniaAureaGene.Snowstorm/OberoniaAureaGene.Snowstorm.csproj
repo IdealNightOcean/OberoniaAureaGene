@@ -66,7 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorldObject\FileName.cs" />
+    <Compile Include="WorldObject\SitePartWorker_SnowstormCamp.cs" />
     <Compile Include="WorldObject\SymbolResolver_Site_SnowstormCamp.cs" />
     <Compile Include="WorldObject\SnowstormCampComp.cs" />
     <Compile Include="Thing\CompIceStormCrystal.cs" />
