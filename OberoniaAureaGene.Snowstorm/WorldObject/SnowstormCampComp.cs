@@ -46,6 +46,8 @@ public class SnowstormCampComp : WorldObjectComp
             {
                 TradeWithCamp(caravan);
             }, "GoBack".Translate(), null);
+            Dialog_NodeTree nodeTree = new(diaNode);
+            Find.WindowStack.Add(nodeTree);
         }
         else if (curType == SnowstormCampType.Hostile)
         {
@@ -53,6 +55,8 @@ public class SnowstormCampComp : WorldObjectComp
             {
                 new CaravanArrivalAction_VisitSite(parent as RimWorld.Planet.Site).Arrived(caravan);
             }, "GoBack".Translate(), null);
+            Dialog_NodeTree nodeTree = new(diaNode);
+            Find.WindowStack.Add(nodeTree);
         }
     }
 
@@ -124,7 +128,6 @@ public class SnowstormCampComp : WorldObjectComp
     }
     public void ActiveComp()
     {
-        Log.Message("active");
         active = true;
         curType = SnowstormCampType.None;
     }

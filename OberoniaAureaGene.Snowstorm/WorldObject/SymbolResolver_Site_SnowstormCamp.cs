@@ -23,13 +23,13 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
                     item.Destroy(DestroyMode.KillFinalize);
                     continue;
                 }
-                AddThind(stockList, item);
+                AddThing(stockList, item);
             }
         }
         foreach (Thing item2 in stockList)
         {
             CompForbiddable compForbiddable = item2.TryGetComp<CompForbiddable>();
-            if(compForbiddable!=null)
+            if (compForbiddable != null)
             {
                 compForbiddable.Forbidden = true;
             }
@@ -43,7 +43,7 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
         BaseGen.symbolStack.Push("oaframe_EmptyRoom", rp);
     }
 
-    protected static void AddThind(List<Thing> outThings, Thing t)
+    protected static void AddThing(List<Thing> outThings, Thing t)
     {
         if (t.stackCount <= t.def.stackLimit)
         {

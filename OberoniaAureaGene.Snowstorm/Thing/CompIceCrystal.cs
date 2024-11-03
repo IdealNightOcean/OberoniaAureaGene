@@ -2,17 +2,17 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
-public class CompProperties_IceStormCrystal : CompProperties
+public class CompProperties_IceCrystal : CompProperties
 {
     public float disappearHours;
-    public CompProperties_IceStormCrystal()
+    public CompProperties_IceCrystal()
     {
-        compClass = typeof(CompIceStormCrystal);
+        compClass = typeof(CompIceCrystal);
     }
 }
-public class CompIceStormCrystal : ThingComp
+public class CompIceCrystal : ThingComp
 {
-    public CompProperties_IceStormCrystal Props => props as CompProperties_IceStormCrystal;
+    public CompProperties_IceCrystal Props => props as CompProperties_IceCrystal;
     public override void CompTickRare()
     {
         if (!parent.Spawned || parent.AmbientTemperature <= 0)
@@ -25,7 +25,7 @@ public class CompIceStormCrystal : ThingComp
         {
             Map map = parent.Map;
             IntVec3 cell = parent.Position;
-            Messages.Message("OAGene_IceStormCrystalMelted".Translate(), new LookTargets(cell, map), MessageTypeDefOf.NeutralEvent);
+            Messages.Message("OAGene_MessageIceCrystalMelted".Translate(), new LookTargets(cell, map), MessageTypeDefOf.NeutralEvent);
             parent.Destroy();
         }
     }

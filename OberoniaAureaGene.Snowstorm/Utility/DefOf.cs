@@ -6,11 +6,14 @@ namespace OberoniaAureaGene.Snowstorm;
 [DefOf]
 public static class Snowstrom_MiscDefOf
 {
+    public static JobDef OAGene_TakeIceCrystalOutOfCollector;
+
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
 
-    public static ThingDef OAGene_IceStormCrystal;
+    public static ThingDef OAGene_IceCrystal;
+    public static ThingDef OAGene_IceCrystalCollector;
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪

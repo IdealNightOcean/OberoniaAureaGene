@@ -29,7 +29,7 @@ public class WeatherEvent_IceStormCrystals : WeatherEvent
         {
             return;
         }
-        List<Thing> spawnThings = OberoniaAureaFrameUtility.TryGenerateThing(Snowstrom_MiscDefOf.OAGene_IceStormCrystal, CrystalsCountRange.RandomInRange);
+        List<Thing> spawnThings = OberoniaAureaFrameUtility.TryGenerateThing(Snowstrom_MiscDefOf.OAGene_IceCrystal, CrystalsCountRange.RandomInRange);
         for (int i = 0; i < spawnThings.Count; i++)
         {
             Thing t = spawnThings[i];
@@ -43,6 +43,6 @@ public class WeatherEvent_IceStormCrystals : WeatherEvent
                 PawnUtility.RecoverFromUnwalkablePositionOrKill(thing.Position, thing.Map);
             }, null, t.def.defaultPlacingRot);
         }
-        Messages.Message("OAGene_MessageIceStormCrystals".Translate(), new LookTargets(spawnCenter, map), MessageTypeDefOf.NeutralEvent);
+        Messages.Message("OAGene_MessageIceCrystalsSpawn".Translate(), new LookTargets(spawnCenter, map), MessageTypeDefOf.NeutralEvent);
     }
 }
