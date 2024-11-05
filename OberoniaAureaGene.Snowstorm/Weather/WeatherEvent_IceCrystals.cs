@@ -5,17 +5,15 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class WeatherEvent_IceStormCrystals : WeatherEvent
+public class WeatherEvent_IceCrystals : WeatherEvent
 {
     public bool expired;
     public override bool Expired => expired;
 
     protected static readonly IntRange CrystalsCountRange = new(8, 20);
 
-    public WeatherEvent_IceStormCrystals(Map map) : base(map)
-    { }
-    public override void WeatherEventTick()
-    { }
+    public WeatherEvent_IceCrystals(Map map) : base(map) { }
+    public override void WeatherEventTick() { }
 
     public override void FireEvent()
     {

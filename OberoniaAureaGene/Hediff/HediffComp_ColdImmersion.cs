@@ -40,6 +40,9 @@ public class HediffComp_ColdImmersion : HediffComp
     }
     public override void CompExposeData()
     {
-        Scribe_Defs.Look(ref hediffDef, "hediffDef");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            hediffDef = (parent.pawn.RaceProps.FleshType == FleshTypeDefOf.Insectoid) ? Props.hediffInsectoid : Props.hediffHuman;
+        }
     }
 }

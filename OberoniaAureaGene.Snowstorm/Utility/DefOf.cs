@@ -12,8 +12,9 @@ public static class Snowstrom_MiscDefOf
 
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
 
-    public static ThingDef OAGene_IceCrystal;
-    public static ThingDef OAGene_IceCrystalCollector;
+    public static ThingDef OAGene_IceCrystal; //风雪碎晶
+    public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
+    public static ThingDef OAGene_Plant_IceCrystalFlower; //碎晶花
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪

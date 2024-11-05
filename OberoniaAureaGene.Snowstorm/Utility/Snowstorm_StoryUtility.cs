@@ -13,6 +13,15 @@ public static class Snowstorm_StoryUtility
         storyComp = Current.Game.GetComponent<GameComponent_SnowstormStory>();
         return storyComp != null && storyComp.StoryActive;
     }
+
+    public static bool StoryFinishedOnce()
+    {
+        if (TryGetActivedStoryComp(out GameComponent_SnowstormStory storyComp))
+        {
+            return storyComp.StoryFinishedOnce;
+        }
+        return false;
+    }
     public static bool TryGetStoryProtagonist(out Pawn protagonist)
     {
         protagonist = StoryProtagonist();
@@ -26,5 +35,14 @@ public static class Snowstorm_StoryUtility
             return storyComp.Protagonist;
         }
         return null;
+    }
+
+    public static bool IsStoryProtagonist(Pawn pawn)
+    {
+        if (TryGetActivedStoryComp(out GameComponent_SnowstormStory storyComp))
+        {
+            return pawn == storyComp.Protagonist;
+        }
+        return false;
     }
 }

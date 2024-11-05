@@ -210,8 +210,8 @@ public class Building_IceCrystalCollector : Building
         base.ExposeData();
         Scribe_Values.Look(ref curStorge, "curStorge", 0f);
         Scribe_Values.Look(ref curEfficiency, "curEfficiency", 0f);
-        Scribe_Values.Look(ref unloadingEnabled, "unloadingEnabled", defaultValue:true);
-       
+        Scribe_Values.Look(ref unloadingEnabled, "unloadingEnabled", defaultValue: true);
+
     }
 
     protected static CurWeather GetCurWeather(WeatherDef weather)

@@ -2,7 +2,7 @@
 
 namespace OberoniaAureaGene;
 
-public class MusicTransition_ClairDeLune : MusicTransition
+public class MusicTransition_OnlyPlayOneTime : MusicTransition
 {
     public override bool IsTransitionSatisfied()
     {

@@ -93,7 +93,6 @@ public class OAGene_SnowstormSettings : ModSettings
         if (Event.current.type == EventType.Layout)
         {
             viewRectHeight = listing_Rect.MaxColumnHeightSeen + 100f;
-            //Log.Message(viewRectHeight.ToString());
         }
         Widgets.EndScrollView();
     }

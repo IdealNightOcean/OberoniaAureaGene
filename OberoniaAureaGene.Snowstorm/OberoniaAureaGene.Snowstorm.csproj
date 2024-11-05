@@ -66,6 +66,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecipeWorker_RequireFinishStory.cs" />
+    <Compile Include="JoyGiver_RecallHometown.cs" />
+    <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
+    <Compile Include="Weather\WeatherEvent_IceCrystalFlowers.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="WorldObject\GenStep_SnowstormPawns.cs" />
@@ -74,7 +78,7 @@
     <Compile Include="WorldObject\SnowstormCampComp.cs" />
     <Compile Include="Thing\CompIceCrystal.cs" />
     <Compile Include="Thing\Building_IceCrystalCollector.cs" />
-    <Compile Include="WeatherEvent_SnowStormBreakDoor.cs" />
+    <Compile Include="Weather\WeatherEvent_SnowStormBreakDoor.cs" />
     <Compile Include="Utility\DefOf.cs" />
     <Compile Include="Thing\CompSnowstormCampfire.cs" />
     <Compile Include="GameComponent_SnowstormStory.cs" />
@@ -102,7 +106,7 @@
     <Compile Include="GameComponent_Snowstorm.cs" />
     <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
     <Compile Include="Utility\Snowstorm_StoryUtility.cs" />
-    <Compile Include="WeatherEvent_IceStormCrystals.cs" />
+    <Compile Include="Weather\WeatherEvent_IceCrystals.cs" />
     <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
     <Compile Include="WorldObject\SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
     <Compile Include="WorldObject\SitePartWorker_SnowstormRaidSource.cs" />
@@ -120,7 +124,7 @@
     <Compile Include="Quest\QuestNode_Root_SnowstromStrugglers.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormImmediateAttackBreaching.cs" />
     <Compile Include="Utility\SnowstormUtility.cs" />
-    <Compile Include="WeatherEvent_IceStormBreakRoof.cs" />
+    <Compile Include="Weather\WeatherEvent_IceStormBreakRoof.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

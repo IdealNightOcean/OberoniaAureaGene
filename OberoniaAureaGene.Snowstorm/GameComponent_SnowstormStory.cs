@@ -11,10 +11,10 @@ public class GameComponent_SnowstormStory : GameComponent
     protected Pawn protagonist;
     public Pawn Protagonist => protagonist;
 
-    public bool storyFinishedOnce;
+    protected bool storyFinishedOnce;
+    public bool StoryFinishedOnce => storyFinishedOnce;
 
-    public GameComponent_SnowstormStory(Game game)
-    { }
+    public GameComponent_SnowstormStory(Game game) { }
 
     public void Notify_StoryActive()
     {

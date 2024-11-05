@@ -17,10 +17,8 @@ public class WeatherEvent_IceStormBreakRoof : WeatherEvent
 
     protected static readonly List<TargetInfo> LookTargetCells = [];
 
-    public WeatherEvent_IceStormBreakRoof(Map map) : base(map)
-    { }
-    public override void WeatherEventTick()
-    { }
+    public WeatherEvent_IceStormBreakRoof(Map map) : base(map) { }
+    public override void WeatherEventTick() { }
 
     public override void FireEvent()
     {
