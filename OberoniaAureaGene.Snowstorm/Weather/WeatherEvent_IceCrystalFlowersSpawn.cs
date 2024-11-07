@@ -4,11 +4,11 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-public class WeatherEvent_IceCrystalFlowers : WeatherEvent
+public class WeatherEvent_IceCrystalFlowersSpawn : WeatherEvent
 {
     public bool expired;
     public override bool Expired => expired;
-    public WeatherEvent_IceCrystalFlowers(Map map) : base(map) { }
+    public WeatherEvent_IceCrystalFlowersSpawn(Map map) : base(map) { }
     public override void WeatherEventTick() { }
     public override void FireEvent()
     {
