@@ -149,8 +149,8 @@ public class Building_IceCrystalCollector : Building
         }
         Command_Toggle command_Toggle = new()
         {
-            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(),
-            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this),
+            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(Snowstrom_MiscDefOf.OAGene_IceCrystal.label),
+            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this, Snowstrom_MiscDefOf.OAGene_IceCrystal.label),
             icon = ContentFinder<Texture2D>.Get("UI/Commands/BioferriteUnloading"),
             isActive = () => unloadingEnabled,
             toggleAction = delegate

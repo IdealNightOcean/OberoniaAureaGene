@@ -24,7 +24,7 @@ public class WorkGiver_TakeIceCrystalOutOfCollector : WorkGiver_Scanner
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
-        return JobMaker.MakeJob(Snowstrom_MiscDefOf.OAGene_TakeIceCrystalOutOfCollector, t);
+        return JobMaker.MakeJob(Snowstrom_MiscDefOf.OAGene_Job_TakeIceCrystalOutOfCollector, t);
     }
 }
 

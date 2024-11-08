@@ -48,7 +48,7 @@ public static class OAGene_MiscDefOf
 
     public static LetterDef OAGene_SnowstormStart; //暴风雪信件
 
-    public static MusicTransitionDef OAGene_Transition_ClairDeLune; //暴风雪韩流BGM
+    public static MusicTransitionDef OAGene_Transition_ClairDeLune; //暴风雪寒流BGM
 
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗

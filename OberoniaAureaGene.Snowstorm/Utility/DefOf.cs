@@ -6,7 +6,9 @@ namespace OberoniaAureaGene.Snowstorm;
 [DefOf]
 public static class Snowstrom_MiscDefOf
 {
-    public static JobDef OAGene_TakeIceCrystalOutOfCollector;
+    public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
+
+    public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 

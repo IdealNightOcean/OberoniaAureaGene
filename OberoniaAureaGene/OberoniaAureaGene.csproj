@@ -89,7 +89,7 @@
     <Compile Include="Hediff\HediffGiver_SnowExtremeBase.cs" />
     <Compile Include="Misc\CompWarmTorch.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormBase.cs" />
-    <Compile Include="Misc\MusicTransition_ClairDeLune.cs" />
+    <Compile Include="Misc\MusicTransition_OnlyPlayOneTime.cs" />
     <Compile Include="Misc\StatPart_ExtremeSnowstorm.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtremeFog.cs" />
     <Compile Include="Misc\WeatherOverlay_SnowExtreme.cs" />

@@ -74,11 +74,15 @@ public class GameCondition_StarryNight : GameCondition
         prevColorIndex = curColorIndex;
         curColorTransition = 1f;
 
-        weather ??= def.weatherDef;
+        weather = def.weatherDef;
         tempOffset = def.temperatureOffset;
+
+        PostInit();
     }
     protected void PostInit()
     {
+        Find.MusicManagerPlay.ForceTriggerTransition(Snowstrom_MiscDefOf.OAGene_Transition_StarryNight);
+
         if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
         {
             if (OAFrame_PawnUtility.PawnSleepNow(protagonist))
@@ -86,18 +90,20 @@ public class GameCondition_StarryNight : GameCondition
                 protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_StarryNightP);
             }
             InspirationDef inspirationDef = protagonist.mindState.inspirationHandler.GetRandomAvailableInspirationDef();
-            if (inspirationDef == null)
+            if (inspirationDef != null)
             {
-                return;
+                protagonist.mindState.inspirationHandler.TryStartInspiration(inspirationDef);
             }
-            protagonist.mindState.inspirationHandler.TryStartInspiration(inspirationDef);
         }
     }
     public override float TemperatureOffset()
     {
         return GameConditionUtility.LerpInOutValue(this, TransitionTicks, tempOffset);
     }
-
+    public override WeatherDef ForcedWeather()
+    {
+        return weather;
+    }
     public override float SkyGazeChanceFactor(Map map)
     {
         return 8f;
