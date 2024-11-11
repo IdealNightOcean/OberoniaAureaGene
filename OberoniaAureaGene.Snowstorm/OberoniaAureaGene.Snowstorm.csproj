@@ -66,11 +66,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Incident\IncidentWorker_SnowstormSnowstormCultistArrival.cs" />
+    <Compile Include="Incident\IncidentWorker_TraderCaravanNoFactionArrival.cs" />
+    <Compile Include="PawnGroupKindWorker_TraderNoFaction.cs" />
     <Compile Include="RecipeWorker_RequireFinishStory.cs" />
     <Compile Include="JoyGiver_RecallHometown.cs" />
     <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
     <Compile Include="Thing\IceCrystalFlower.cs" />
-    <Compile Include="Weather\WeatherEvent_IceCrystalFlowersSpawn.cs" />
+    <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="WorldObject\GenStep_SnowstormPawns.cs" />
@@ -134,6 +137,7 @@
     <ProjectReference Include="..\OberoniaAureaGene.Ratkin\OberoniaAureaGene.Ratkin.csproj">
       <Project>{d3667693-c5da-45fc-aa77-972c7d04b105}</Project>
       <Name>OberoniaAureaGene.Ratkin</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\OberoniaAureaGene\OberoniaAureaGene.csproj">
       <Project>{c8107c0d-4859-44fe-bb15-acac9174c294}</Project>

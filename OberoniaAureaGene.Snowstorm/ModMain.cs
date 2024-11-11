@@ -44,6 +44,8 @@ public class OAGene_SnowstormSettings : ModSettings
     public static bool AllowSnowstormMaliciousRaid = true;
     public static bool AllowSnowstormMaliciousSite = true;
 
+    public static bool IceCrystalFlowerSpawnMessage;
+
     public void DoSettingsWindowContents(Rect inRect)
     {
         Rect outRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
@@ -80,6 +82,9 @@ public class OAGene_SnowstormSettings : ModSettings
         listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousSite".Translate(), ref AllowSnowstormMaliciousSite);
 
         listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_IceCrystalFlowerSpawnMessage".Translate(), ref IceCrystalFlowerSpawnMessage);
+
+        listing_Rect.Gap(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
             ForMountaintopCave();
@@ -107,6 +112,11 @@ public class OAGene_SnowstormSettings : ModSettings
         IceStormBreakRoof = true;
         IceStormBreakNaturalRoof = true;
         IceStormBreakThickRoof = true;
+
+        AllowSnowstormMaliciousRaid = true;
+        AllowSnowstormMaliciousSite = true;
+
+        IceCrystalFlowerSpawnMessage = false;
     }
     protected void Reset()
     {
@@ -121,6 +131,8 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowSnowstormMaliciousRaid = true;
         AllowSnowstormMaliciousSite = true;
+
+        IceCrystalFlowerSpawnMessage = false;
     }
     public override void ExposeData()
     {
@@ -133,5 +145,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
         Scribe_Values.Look(ref AllowSnowstormMaliciousRaid, "AllowSnowstormMaliciousRaid", defaultValue: true);
         Scribe_Values.Look(ref AllowSnowstormMaliciousSite, "AllowSnowstormMaliciousSite", defaultValue: true);
+
+        Scribe_Values.Look(ref IceCrystalFlowerSpawnMessage, "IceCrystalFlowerSpawnMessage", defaultValue: false);
     }
 }

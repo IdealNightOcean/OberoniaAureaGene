@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -6,13 +7,19 @@ namespace OberoniaAureaGene.Snowstorm;
 [DefOf]
 public static class Snowstrom_MiscDefOf
 {
+    public static IsolatedPawnGroupMakerDef OAGene_GroupMaker_SnowstormCultist;
+
     public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
 
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
+    public static PawnGroupKindDef OAGene_GroupKind_SnowstormCultist;
+
+    public static TraderKindDef Caravan_Neolithic_BulkGoods;
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
+    //public static TraderKindDef OAGene_Trader_SnowstormCultist;
 
     public static ThingDef OAGene_IceCrystal; //风雪碎晶
     public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
@@ -78,5 +85,16 @@ public static class Snowstrom_IncidentDefOf
     static Snowstrom_IncidentDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_IncidentDefOf));
+    }
+}
+
+[DefOf]
+public static class Snowstrom_RimWorldDefOf
+{
+    public static PawnKindDef Husky; //哈士奇
+
+    static Snowstrom_RimWorldDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_RimWorldDefOf));
     }
 }

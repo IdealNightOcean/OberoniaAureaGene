@@ -4,11 +4,11 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-public class WeatherEvent_IceCrystalFlowersSpawn : WeatherEvent
+public class WeatherEvent_IceCrystalFlowerSpawn : WeatherEvent
 {
     public bool expired;
     public override bool Expired => expired;
-    public WeatherEvent_IceCrystalFlowersSpawn(Map map) : base(map) { }
+    public WeatherEvent_IceCrystalFlowerSpawn(Map map) : base(map) { }
     public override void WeatherEventTick() { }
     public override void FireEvent()
     {
@@ -22,11 +22,29 @@ public class WeatherEvent_IceCrystalFlowersSpawn : WeatherEvent
             return;
         }
 
-        if (CellFinder.TryFindRandomCell(map, CellValidator, out IntVec3 cell))
+        if (TryFindValidatorCell(map, out IntVec3 cell))
         {
-            Thing flower = GenSpawn.Spawn(Snowstrom_MiscDefOf.OAGene_Plant_IceCrystalFlower, cell, map);
-            Messages.Message("OAGene_MessagesIceCrystalFlowerSpawned".Translate(), flower, MessageTypeDefOf.NeutralEvent);
+            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstrom_MiscDefOf.OAGene_Plant_IceCrystalFlower, cell, map);
+            flower?.Notify_FirstSpawn();
+            if (OAGene_SnowstormSettings.IceCrystalFlowerSpawnMessage)
+            {
+                Messages.Message("OAGene_MessagesIceCrystalFlowerSpawned".Translate(), flower, MessageTypeDefOf.NeutralEvent);
+            }
         }
+    }
+
+    private static bool TryFindValidatorCell(Map map, out IntVec3 outCell)
+    {
+        for (int i = 0; i < 500; i++)
+        {
+            outCell = CellFinder.RandomCell(map);
+            if (CellValidator(outCell))
+            {
+                return true;
+            }
+        }
+        outCell = IntVec3.Invalid;
+        return false;
 
         bool CellValidator(IntVec3 c)
         {
@@ -38,7 +56,8 @@ public class WeatherEvent_IceCrystalFlowersSpawn : WeatherEvent
             {
                 return false;
             }
-            if (c.GetRoom(map) == null)
+            Room room = c.GetRoom(map);
+            if (room == null || room.UsesOutdoorTemperature)
             {
                 return false;
             }

@@ -32,8 +32,10 @@ public class IceCrystalFlower : Plant
         }
     }
 
-    public void Notify_FirstSpawn(IceCrystalFlower parentFlower)
+    public void Notify_FirstSpawn(IceCrystalFlower parentFlower = null)
     {
+        this.growthInt = 0.5f;
+
         Map map = base.Map;
         IntVec3 pos = base.Position;
         if (parentFlower != null)
