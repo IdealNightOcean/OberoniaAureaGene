@@ -7,7 +7,6 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class ScenPart_SnowstormStory : ScenPart
 {
-
     public override void PostGameStart()
     {
         base.PostGameStart();
@@ -39,6 +38,7 @@ public class ScenPart_SnowstormStory : ScenPart
                     trainingTracker.Train(trainableDef, null, complete: true);
                 }
             }
+            //动物命名
             if (animal.Name == null || animal.Name.Numerical)
             {
                 animal.Name = PawnBioAndNameGenerator.GeneratePawnName(animal);

@@ -5,27 +5,26 @@ using Verse.Grammar;
 
 namespace OberoniaAureaGene.Ratkin;
 
-public class HediffCompProperties_ColdSnowSpeech : HediffCompProperties
+public class HediffCompProperties_SnowstormSpeech : HediffCompProperties
 {
     public RulePackDef speechRulePack;
-    public HediffCompProperties_ColdSnowSpeech()
+    public IntRange speechSection = IntRange.one;
+    public IntRange speechInterval = new(2500, 5000);
+    public HediffCompProperties_SnowstormSpeech()
     {
-        compClass = typeof(HediffComp_ColdSnowSpeech);
+        compClass = typeof(HediffComp_SnowstormSpeech);
     }
 }
 
-public class HediffComp_ColdSnowSpeech : HediffComp
+public class HediffComp_SnowstormSpeech : HediffComp
 {
-    protected static readonly IntRange SpeechSection = new(1, 4);
-    protected static readonly IntRange SpeechInterval = new(1800, 7200);
-
     protected int ticksRemaining = 60;
     protected bool humanlike;
 
     [Unsaved]
     public Mote_CountDown tempMote;
 
-    HediffCompProperties_ColdSnowSpeech Props => props as HediffCompProperties_ColdSnowSpeech;
+    HediffCompProperties_SnowstormSpeech Props => props as HediffCompProperties_SnowstormSpeech;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         humanlike = parent.pawn.RaceProps.Humanlike && !parent.pawn.IsMutant;
@@ -38,9 +37,9 @@ public class HediffComp_ColdSnowSpeech : HediffComp
             ticksRemaining--;
             if (ticksRemaining <= 0)
             {
-                string speech = GenerateGrammarRequest(Props.speechRulePack);
+                string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
                 ThrowText(parent.pawn.DrawPos + new Vector3(0f, 0f, 0.75f), parent.pawn.Map, speech, Color.white);
-                ticksRemaining = SpeechInterval.RandomInRange;
+                ticksRemaining = Props.speechInterval.RandomInRange;
             }
         }
     }
@@ -75,11 +74,10 @@ public class HediffComp_ColdSnowSpeech : HediffComp
         Scribe_Values.Look(ref humanlike, "humanlike", defaultValue: false);
     }
 
-    protected static string GenerateGrammarRequest(RulePackDef rulePack)
+    protected static string GenerateGrammarRequest(RulePackDef rulePack, int speechSection)
     {
         GrammarRequest grammarRequest = default;
         grammarRequest.Includes.Add(rulePack);
-        int speechSection = SpeechSection.RandomInRange;
         grammarRequest.Constants.Add("speechSection", speechSection.ToString());
         return GenText.CapitalizeAsTitle(GrammarResolver.Resolve("speech_root", grammarRequest));
     }

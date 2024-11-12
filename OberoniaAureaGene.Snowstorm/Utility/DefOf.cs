@@ -15,11 +15,7 @@ public static class Snowstrom_MiscDefOf
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
-    public static PawnGroupKindDef OAGene_GroupKind_SnowstormCultist;
-
-    public static TraderKindDef Caravan_Neolithic_BulkGoods;
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
-    //public static TraderKindDef OAGene_Trader_SnowstormCultist;
 
     public static ThingDef OAGene_IceCrystal; //风雪碎晶
     public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
@@ -42,6 +38,7 @@ public static class Snowstrom_HediffDefOf
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
 
+    public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态
     public static HediffDef OAGene_Hediff_SnowstromStrugglers; //难民健康状态（用于心情）
     static Snowstrom_HediffDefOf()
     {
