@@ -104,7 +104,7 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
         return pawns;
     }
 
-    
+
     protected virtual void SendLetter(IncidentParms parms, List<Pawn> pawns)
     {
         TaggedString letterLabel = "LetterLabelTraderCaravanArrival".Translate(parms.faction.Name, parms.traderKind.label).CapitalizeFirst();
@@ -113,5 +113,5 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
         PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
         SendStandardLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, parms, pawns[0]);
     }
-    
+
 }

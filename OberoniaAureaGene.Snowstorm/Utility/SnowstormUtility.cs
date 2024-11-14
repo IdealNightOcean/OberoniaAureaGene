@@ -42,6 +42,7 @@ public static class SnowstormUtility
         }
         return map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme || map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceRain;
     }
+
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
@@ -64,7 +65,12 @@ public static class SnowstormUtility
         //敲击兽
         if (Rand.Chance(0.2f))
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, new IntRange(30000, duration - 30000).RandomInRange);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
+        }
+        //信号塔
+        if (Rand.Chance(0.4f))
+        {
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
         }
     }
     public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
@@ -151,7 +157,7 @@ public static class SnowstormUtility
             return;
         }
         IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
-        int delayTicks = new IntRange(120000, 180000).RandomInRange;
+        int delayTicks = Rand.RangeInclusive(120000, 180000);
         AddNewIncident(incidentDef, mainMap, delayTicks);
     }
 
@@ -269,7 +275,7 @@ public static class SnowstormUtility
 
         if (Rand.Chance(0.4f))
         {
-            delayTicks = new IntRange(10000, 50000).RandomInRange;
+            delayTicks = Rand.RangeInclusive(10000, 50000);
             AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
         }
     }

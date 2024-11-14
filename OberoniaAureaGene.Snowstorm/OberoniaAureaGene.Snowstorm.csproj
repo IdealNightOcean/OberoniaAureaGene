@@ -66,6 +66,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\CommsConsole_FailurePatch.cs" />
+    <Compile Include="Hediff\HediffComp_Protagonist.cs" />
+    <Compile Include="Hediff\HediffComp_SnowstormCultistConvert.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />
+    <Compile Include="Incident\IncidentWorker_CommunicationTowerCollapse.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormCultistArrival.cs" />
     <Compile Include="Incident\IncidentWorker_IsolatedTraderCaravanArrival.cs" />
     <Compile Include="RecipeWorker_RequireFinishStory.cs" />

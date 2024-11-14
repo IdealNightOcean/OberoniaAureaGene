@@ -9,6 +9,7 @@ public static class Snowstrom_MiscDefOf
 {
     public static IsolatedPawnGroupMakerDef OAGene_GroupMaker_SnowstormCultist;
 
+    public static GameConditionDef OAGene_SnowstormPrecursor;
     public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
 
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
@@ -20,6 +21,7 @@ public static class Snowstrom_MiscDefOf
     public static ThingDef OAGene_IceCrystal; //风雪碎晶
     public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
     public static ThingDef OAGene_Plant_IceCrystalFlower; //碎晶花
+    public static ThingDef OAGene_AntiSnowTorch; //风雪火把
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
@@ -53,6 +55,8 @@ public static class Snowstrom_ThoughtDefOf
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
     public static ThoughtDef OAGene_Thought_StarryNightP; //星月夜主角心情
     public static ThoughtDef OAGene_Thought_SnowstromStrugglers; //难民心情
+
+    public static ThoughtDef OAGene_Thought_SnowstormCultistConvert; //难民心情
     static Snowstrom_ThoughtDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThoughtDefOf));
@@ -76,6 +80,8 @@ public static class Snowstrom_IncidentDefOf
     public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者
     public static IncidentDef OAGene_AffectedMerchant; //暴风雪中的遇难商人
     public static IncidentDef OAGene_SnowstornThrumboWanderIn; //暴风雪中的敲击兽
+    public static IncidentDef OAGene_CommunicationTowerCollapse; //通讯塔倒塌
+    public static IncidentDef OAGene_SnowstormPrecursor_AnimalFlee; //动物逃离
 
     public static IncidentDef OAGene_AfterSnowstormTraderCaravanArrival; //暴风雪后的商队
     public static IncidentDef OAGene_SnowstormSurvivorJoins; //风雪后的幸存者

@@ -73,6 +73,7 @@ public class SnowstormCampComp : WorldObjectComp
             text = "OAGene_SnowstormCamp_FirendlyAndGift".Translate();
             diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
+                GiveGifts(caravan);
                 TradeWithCamp(caravan);
             }, "GoBack".Translate(), null);
         }
@@ -100,7 +101,15 @@ public class SnowstormCampComp : WorldObjectComp
         Dialog_NodeTree nodeTree = new(diaNode);
         Find.WindowStack.Add(nodeTree);
     }
+    protected static void GiveGifts(Caravan caravan)
+    {
+        Thing torch = ThingMaker.MakeThing(Snowstrom_MiscDefOf.OAGene_AntiSnowTorch);
+        Thing pemmican = ThingMaker.MakeThing(ThingDefOf.Pemmican);
+        pemmican.stackCount = Rand.RangeInclusive(35, 45);
 
+        CaravanInventoryUtility.GiveThing(caravan, torch);
+        CaravanInventoryUtility.GiveThing(caravan, pemmican);
+    }
     protected void TradeWithCamp(Caravan caravan)
     {
         if (innerTrader == null)

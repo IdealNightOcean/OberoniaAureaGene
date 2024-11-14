@@ -6,6 +6,8 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
 {
+    public bool blockCommsconsole;
+
     protected Map mainMap;
     public Map MainMap
     {
@@ -50,5 +52,6 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     {
         base.ExposeData();
         Scribe_References.Look(ref mainMap, "mainMap");
+        Scribe_Values.Look(ref blockCommsconsole, "blockCommsconsole", defaultValue: false);
     }
 }

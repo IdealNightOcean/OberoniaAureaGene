@@ -6,7 +6,19 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
 {
-
+    public override void Init()
+    {
+        base.Init();
+        Map mainMap = GetMainMap();
+        if (mainMap != null)
+        {
+            IncidentParms parms = new()
+            {
+                target = mainMap,
+            };
+            Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee.Worker.TryExecute(parms);
+        }
+    }
     public override void End()
     {
         Map mainMap = GetMainMap();
@@ -31,4 +43,5 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
 
         return mainMap;
     }
+
 }

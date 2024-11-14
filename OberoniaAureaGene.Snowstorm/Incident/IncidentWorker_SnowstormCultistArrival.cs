@@ -9,6 +9,18 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
 {
     protected override IsolatedPawnGroupMakerDef PawnGroupMakerDef => Snowstrom_MiscDefOf.OAGene_GroupMaker_SnowstormCultist;
 
+    protected override List<Pawn> SpawnTradePawns(IncidentParms parms, PawnGroupMakerParms groupMakerParms, PawnGroupMaker groupMaker)
+    {
+        List<Pawn> pawns = base.SpawnTradePawns(parms, groupMakerParms, groupMaker);
+        foreach (Pawn pawn in pawns)
+        {
+            if (pawn.RaceProps.Humanlike)
+            {
+                pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SnowstormCultist);
+            }
+        }
+        return pawns;
+    }
     protected override void SendLetter(IncidentParms parms, List<Pawn> pawns)
     {
         TaggedString letterLabel = "OAGene_LetterLabelSnowstormCultistArrival".Translate(parms.faction.Name, parms.traderKind.label).CapitalizeFirst();

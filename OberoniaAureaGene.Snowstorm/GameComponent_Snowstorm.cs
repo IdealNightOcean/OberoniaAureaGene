@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using UnityEngine;
+using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -20,8 +21,7 @@ public class GameComponent_Snowstorm : GameComponent
 
     public void Notify_SnowstormEnd()
     {
-        snowstormCount--;
-        snowstormCount = snowstormCount > 0 ? snowstormCount : 0;
+        snowstormCount = Mathf.Max(snowstormCount - 1, 0);
     }
 
     public override void ExposeData()
