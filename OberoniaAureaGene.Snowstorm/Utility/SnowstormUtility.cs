@@ -9,7 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public static class SnowstormUtility
 {
-    private static readonly IntRange IceStormDelay = new(180000, 300000); //3~5天
+    private static readonly IntRange IceOrStarryDelay = new(180000, 300000); //3~5天
 
     private static readonly IntRange RaidCount = new(-1, 2);
     private static readonly IntRange RaidDelay = new(60000, 120000); //1~2天
@@ -48,7 +48,9 @@ public static class SnowstormUtility
         mainMap ??= Find.AnyPlayerHomeMap;
         if (Rand.Bool)
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, mainMap, IceStormDelay.RandomInRange);
+            IncidentDef iceOrStarry = Rand.Chance(0.7f) ? Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm : Snowstrom_IncidentDefOf.OAGene_StarryNight;
+            AddNewIncident(iceOrStarry, mainMap, IceOrStarryDelay.RandomInRange);
+
         }
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);

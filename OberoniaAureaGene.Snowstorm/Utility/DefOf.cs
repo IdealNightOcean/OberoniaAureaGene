@@ -7,6 +7,8 @@ namespace OberoniaAureaGene.Snowstorm;
 [DefOf]
 public static class Snowstrom_MiscDefOf
 {
+    public static DamageDef OAGene_IceStab; //冰晶刺伤
+
     public static IsolatedPawnGroupMakerDef OAGene_GroupMaker_SnowstormCultist;
 
     public static GameConditionDef OAGene_SnowstormPrecursor;
@@ -68,6 +70,7 @@ public static class Snowstrom_ThoughtDefOf
 public static class Snowstrom_IncidentDefOf
 {
     public static IncidentDef OAGene_ExtremeSnowstorm; //极端暴风雪
+    public static IncidentDef OAGene_StarryNight; //星月夜
 
     public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
     public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和

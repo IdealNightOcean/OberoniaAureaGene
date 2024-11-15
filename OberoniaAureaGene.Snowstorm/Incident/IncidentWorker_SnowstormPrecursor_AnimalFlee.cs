@@ -29,6 +29,7 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
                 return false;
             }
             parms.target = map;
+            SendStandardLetter(parms, null);
         }
         return true;
     }

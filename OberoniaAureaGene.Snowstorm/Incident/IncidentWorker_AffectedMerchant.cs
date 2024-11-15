@@ -35,17 +35,11 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
             return false;
         }
         LordMaker.MakeNewLord(parms.faction, CreateLordJob(parms, pawn), map, [pawn]);
-        bool traderExists = false;
-        traderExists = TryConvertOnePawnToSmallTrader(pawn, parms.faction, map);
-        SendLetter(parms, pawn, traderExists);
-        return true;
-    }
 
-    protected virtual void SendLetter(IncidentParms parms, Pawn pawn, bool traderExists)
-    {
-        string letterLabel = "OAGene_LetterLabelAffectedMerchant".Translate();
-        string letterText = "OAGene_LetterTextAffectedMerchant".Translate(pawn.Named("PAWN"));
-        SendStandardLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, parms, pawn);
+        TryConvertOnePawnToSmallTrader(pawn, parms.faction, map);
+        def.letterText.Formatted(pawn.Named("PAWN")).CapitalizeFirst();
+        SendStandardLetter(def.letterLabel, def.letterText, def.letterDef, parms, pawn);
+        return true;
     }
 
     protected override void ResolveParmsPoints(IncidentParms parms)

@@ -1,5 +1,4 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -26,7 +25,7 @@ public class HediffComp_IceStorm : HediffComp
         ticksRemaining--;
         if (ticksRemaining < 0)
         {
-            DamageInfo dinfo = new(DamageDefOf.Stab, Props.damageAmount.RandomInRange, Props.damageArmorPenetration.RandomInRange);
+            DamageInfo dinfo = new(Snowstrom_MiscDefOf.OAGene_IceStab, Props.damageAmount.RandomInRange, Props.damageArmorPenetration.RandomInRange);
             parent.pawn.TakeDamage(dinfo);
             ticksRemaining = Props.damageInterval.RandomInRange;
         }

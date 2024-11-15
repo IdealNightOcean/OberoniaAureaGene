@@ -36,6 +36,7 @@ public class IncidentWorker_CommunicationTowerCollapse : IncidentWorker
         if (snowstorm != null && !snowstorm.blockCommsconsole)
         {
             snowstorm.blockCommsconsole = true;
+            SendStandardLetter(parms, null);
         }
         return true;
     }

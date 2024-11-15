@@ -82,7 +82,10 @@ public class GameCondition_StarryNight : GameCondition
     protected void PostInit()
     {
         Find.MusicManagerPlay.ForceTriggerTransition(Snowstrom_MiscDefOf.OAGene_Transition_StarryNight);
-
+        foreach (Map map in AffectedMaps)
+        {
+            map.weatherManager.TransitionTo(weather);
+        }
         if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
         {
             if (OAFrame_PawnUtility.PawnSleepNow(protagonist))
