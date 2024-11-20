@@ -12,7 +12,7 @@ public class IncidentWorker_ProtagonistDiary : IncidentWorker
             return false;
         }
         GameComponent_SnowstormStory storyComp = Current.Game.GetComponent<GameComponent_SnowstormStory>();
-        if(storyComp == null)
+        if (storyComp == null)
         {
             return false;
         }

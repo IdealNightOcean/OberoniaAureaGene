@@ -46,11 +46,9 @@ public static class SnowstormUtility
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
-        if (Rand.Bool)
+        if (!TryStarryNight(mainMap) && Rand.Bool)
         {
-            IncidentDef iceOrStarry = Rand.Chance(0.7f) ? Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm : Snowstrom_IncidentDefOf.OAGene_StarryNight;
-            AddNewIncident(iceOrStarry, mainMap, IceOrStarryDelay.RandomInRange);
-
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, mainMap, IceOrStarryDelay.RandomInRange);
         }
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
@@ -99,6 +97,19 @@ public static class SnowstormUtility
         TryGiveEndSnowstormHediffAndThought(map);
     }
 
+    public static bool TryStarryNight(Map mainMap)
+    {
+        if (Current.Game.GetComponent<GameComponent_Snowstorm>()?.starryNightTriggered ?? false)
+        {
+            return false;
+        }
+        if (GenDate.YearsPassed < 4)
+        {
+            return false;
+        }
+        AddNewIncident(Snowstrom_IncidentDefOf.OAGene_StarryNight, mainMap, IceOrStarryDelay.RandomInRange);
+        return true;
+    }
     //骤冷丨骤暖事件 (mainMap)
     public static void TryQueueTempChengeIncident(Map mainMap, int duration)
     {

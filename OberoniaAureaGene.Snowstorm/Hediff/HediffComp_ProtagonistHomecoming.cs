@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System.Security.Cryptography;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -47,8 +46,8 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
 
         Pawn protagonist = parent.pawn;
         ThoughtDef homecoming = Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
-        float days = Find.TickManager.TicksGame.TicksToDays();
-        if (!longCherishedTrigged && days > 720)
+        int years = GenDate.YearsPassed;
+        if (!longCherishedTrigged && years >= 12)
         {
             Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
             if (memory == null)
@@ -64,7 +63,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             letterText = "OAGene_LetterProtagonistHomecoming_LongCherished".Translate(protagonist.Named("PAWN"));
             sendLetter = true;
         }
-        else if (!obsessionTrigged && days > 480)
+        else if (!obsessionTrigged && years >= 8)
         {
             Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
             if (memory == null)
@@ -80,7 +79,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             letterText = "OAGene_LetterProtagonistHomecoming_Obsession".Translate(protagonist.Named("PAWN"));
             sendLetter = true;
         }
-        else if (!expectationTrigged && days > 240)
+        else if (!expectationTrigged && years >= 4)
         {
             Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
             if (memory == null)

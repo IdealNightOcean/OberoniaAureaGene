@@ -4,8 +4,25 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class GameCondition_Icestorm : GameCondition_ExtremeSnowstorm
+public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
 {
+    protected override void PostInit()
+    {
+        causeColdSnap = false;
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(Snowstrom_MiscDefOf.OAGene_IceSnowExtreme);
+        }
+    }
+    protected override void PreEnd()
+    {
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            map.weatherManager.TransitionTo(Snowstrom_MiscDefOf.OAGene_SnowExtreme);
+        }
+    }
     public override void DoCellSteadyEffects(IntVec3 c, Map map)
     {
         if (!coldGlowSpawn)
