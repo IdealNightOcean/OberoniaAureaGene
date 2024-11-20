@@ -1,5 +1,4 @@
-﻿using RimWorld;
-using System.Linq;
+﻿using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -18,7 +17,6 @@ public class GameComponent_SnowstormStory : GameComponent
     protected bool storyFinishedOnce;
     public bool StoryFinishedOnce => storyFinishedOnce;
 
-
     public GameComponent_SnowstormStory(Game game) { }
 
     public void Notify_StoryActive()
@@ -27,6 +25,7 @@ public class GameComponent_SnowstormStory : GameComponent
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
+        protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         Log.Message(protagonist.NameShortColored);
     }
     public void Notify_StoryStart()
@@ -34,7 +33,11 @@ public class GameComponent_SnowstormStory : GameComponent
         storyStart = true;
         if (protagonist != null)
         {
-
+            Hediff hediff_homecoming = protagonist.health.hediffSet.GetFirstHediffOfDef(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            if (hediff_homecoming != null)
+            {
+                protagonist.health.RemoveHediff(hediff_homecoming);
+            }
         }
     }
 
@@ -43,7 +46,7 @@ public class GameComponent_SnowstormStory : GameComponent
         base.LoadedGame();
         if (!storyStart && protagonist != null)
         {
-            float days = Find.TickManager.TicksGame.TicksToDays();
+            protagonist.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
     }
 

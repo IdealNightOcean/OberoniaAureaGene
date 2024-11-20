@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\Snowstorm\1.5\Assemblies\</OutputPath>
+    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Scenario - Snowstorm Orphan\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -66,8 +66,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Incident\IncidentWorker_ProtagonistDiary.cs" />
+    <Compile Include="JobDriver_RecallHometown.cs" />
+    <Compile Include="GameCondition\GameCondition_IceRain.cs" />
+    <Compile Include="GameCondition\GameCondition_Icestorm.cs" />
     <Compile Include="HarmonyPatch\CommsConsole_FailurePatch.cs" />
-    <Compile Include="Hediff\HediffComp_Protagonist.cs" />
+    <Compile Include="Hediff\HediffComp_ProtagonistHomecoming.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormCultistConvert.cs" />
     <Compile Include="Incident\IncidentWorker_HuskyMigration.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />

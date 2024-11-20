@@ -37,6 +37,7 @@ public static class OAGene_GeneDefOf
 public static class OAGene_MiscDefOf
 {
     public static FleckDef OAGene_ColdGlow; //暴风雪冰晶特效
+    public static FleckDef OAGene_BigColdGlow; //暴风雪冰晶特效（大）
 
     [MayRequireIdeology]
     public static HistoryEventDef OAGene_ThreatBig;

@@ -9,6 +9,8 @@ public static class Snowstrom_MiscDefOf
 {
     public static DamageDef OAGene_IceStab; //冰晶刺伤
 
+    public static FleckDef OAGene_StarryGlow; //星月夜特效
+
     public static IsolatedPawnGroupMakerDef OAGene_GroupMaker_SnowstormCultist;
 
     public static GameConditionDef OAGene_SnowstormPrecursor;
@@ -38,6 +40,8 @@ public static class Snowstrom_MiscDefOf
 [DefOf]
 public static class Snowstrom_HediffDefOf
 {
+    public static HediffDef OAGene_Hediff_ProtagonistHomecoming; //主角归乡健康状态（用于心情）
+
     public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
@@ -54,6 +58,8 @@ public static class Snowstrom_HediffDefOf
 [DefOf]
 public static class Snowstrom_ThoughtDefOf
 {
+    public static ThoughtDef OAGene_Thought_ProtagonistHomecoming; //主角归乡心情
+
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
     public static ThoughtDef OAGene_Thought_StarryNightP; //星月夜主角心情
     public static ThoughtDef OAGene_Thought_SnowstromStrugglers; //难民心情

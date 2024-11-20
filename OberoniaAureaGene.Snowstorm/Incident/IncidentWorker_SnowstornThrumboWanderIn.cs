@@ -34,7 +34,7 @@ public class IncidentWorker_SnowstornThrumboWanderIn : IncidentWorker
             return false;
         }
         SpawnThrumbo(entryCell, map);
-        SendStandardLetter(parms.customLetterLabel ?? ("OAGene_LetterLabelSnowstornThrumboWanderIn".Translate(PawnKindDefOf.Thrumbo.GetLabelPlural()).CapitalizeFirst()), parms.customLetterText ?? ((string)"OAGene_LetterSnowstornThrumboWanderIn".Translate(PawnKindDefOf.Thrumbo.GetLabelPlural())), LetterDefOf.PositiveEvent, parms, new TargetInfo(entryCell, map));
+        SendStandardLetter(def.letterLabel, def.letterText, def.letterDef, parms, new TargetInfo(entryCell, map));
         return true;
     }
     private void SpawnThrumbo(IntVec3 location, Map map)

@@ -11,6 +11,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     protected static IntRange ColdGlowIntervalRange = new(1200, 1500);
 
     public bool causeColdSnap;
+
     protected int coldGlowSpawnTicks;
     protected bool coldGlowSpawn;
 
@@ -78,8 +79,9 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
         {
             Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
             FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, OAGene_MiscDefOf.OAGene_ColdGlow, FastEffectRandom.Next(200, 300) / 100f);
+            dataStatic.scale = Rand.Chance(0.95f) ? 1f : 3f;
             dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
-            dataStatic.velocitySpeed = 0.04f;
+            dataStatic.velocitySpeed = 0.08f;
             map.flecks.CreateFleck(dataStatic);
         }
     }

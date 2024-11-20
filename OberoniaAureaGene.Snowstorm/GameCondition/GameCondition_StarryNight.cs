@@ -35,6 +35,12 @@ public class GameCondition_StarryNight : GameCondition
     private int prevColorIndex = -1;
     private float curColorTransition;
 
+    protected static IntRange StarryGlowSpawnRange = new(40, 80);
+    protected static IntRange StarryGlowIntervalRange = new(2400, 300);
+
+    protected int starryGlowSpawnTicks;
+    protected bool starryGlowSpawn;
+
     public Color CurrentColor => Color.Lerp(Colors[prevColorIndex], Colors[curColorIndex], curColorTransition);
 
     private int TransitionDurationTicks
@@ -111,23 +117,19 @@ public class GameCondition_StarryNight : GameCondition
     {
         return 8f;
     }
-
     public override float SkyGazeJoyGainFactor(Map map)
     {
         return 5f;
     }
-
     public override float SkyTargetLerpFactor(Map map)
     {
         return GameConditionUtility.LerpInOutValue(this, TransitionTicks);
     }
-
     public override SkyTarget? SkyTarget(Map map)
     {
         Color currentColor = CurrentColor;
         return new SkyTarget(colorSet: new SkyColorSet(Color.Lerp(Color.white, currentColor, SkyColorStrength) * Brightness(map), new Color(0.92f, 0.92f, 0.92f), Color.Lerp(Color.white, currentColor, OverlayColorStrength) * Brightness(map), 1f), glow: Mathf.Max(GenCelestial.CurCelestialSunGlow(map), Glow), lightsourceShineSize: 1f, lightsourceShineIntensity: 1f);
     }
-
     private float Brightness(Map map)
     {
         return Mathf.Max(BaseBrightness, GenCelestial.CurCelestialSunGlow(map));
@@ -142,8 +144,38 @@ public class GameCondition_StarryNight : GameCondition
             curColorIndex = GetNewColorIndex();
             curColorTransition = 0f;
         }
+
+        StarryGlowTick();
     }
 
+    public void StarryGlowTick()
+    {
+        starryGlowSpawnTicks--;
+        if (starryGlowSpawnTicks < 0)
+        {
+            starryGlowSpawn = !starryGlowSpawn;
+            starryGlowSpawnTicks = starryGlowSpawn ? StarryGlowSpawnRange.RandomInRange : StarryGlowIntervalRange.RandomInRange;
+        }
+    }
+    public override void DoCellSteadyEffects(IntVec3 c, Map map)
+    {
+        if (!starryGlowSpawn)
+        {
+            return;
+        }
+        if (Random.value < 0.025f)
+        {
+            if (GenCelestial.CurCelestialSunGlow(map) > MaxSunGlow)
+            {
+                return;
+            }
+            Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
+            FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, Snowstrom_MiscDefOf.OAGene_StarryGlow, FastEffectRandom.Next(200, 300) / 100f);
+            dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
+            dataStatic.velocitySpeed = 0.08f;
+            map.flecks.CreateFleck(dataStatic);
+        }
+    }
     private int GetNewColorIndex()
     {
         return (from x in Enumerable.Range(0, Colors.Length)

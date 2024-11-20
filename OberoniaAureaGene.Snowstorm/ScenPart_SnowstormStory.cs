@@ -15,10 +15,7 @@ public class ScenPart_SnowstormStory : ScenPart
     public override IEnumerable<string> GetSummaryListEntries(string tag)
     {
         yield return "OAGene_SnowstoryStoryActive".Translate();
-        if (tag == "PlayerStartsWith")
-        {
-            yield return Snowstrom_RimWorldDefOf.Husky.label.CapitalizeFirst() + " x" + 2;
-        }
+        yield return "OAGene_SnowstoryPlayerStartsWith".Translate(Snowstrom_RimWorldDefOf.Husky.label, 2);
     }
     public override IEnumerable<Thing> PlayerStartingThings()
     {
