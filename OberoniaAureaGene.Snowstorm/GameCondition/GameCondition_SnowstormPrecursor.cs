@@ -6,6 +6,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
 {
+
     public override void Init()
     {
         base.Init();

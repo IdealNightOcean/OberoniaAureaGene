@@ -46,11 +46,7 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
             LookTargetCells.Add(new TargetInfo(door.Position, map));
             DoorOpenInfo.Invoke(door, parameters: [110]);
             ReflectionUtility.SetFieldValue(door, "holdOpenInt", true);
-            door.HitPoints -= 60;
-            if (door.HitPoints <= 0 && !door.Destroyed)
-            {
-                door.Destroy();
-            }
+            door.TakeDamage(new DamageInfo(DamageDefOf.Crush, 60f));
         }
         Messages.Message("OAGene_MessageSnowstormBreakDoor".Translate(), new LookTargets(LookTargetCells), MessageTypeDefOf.NegativeEvent);
     }

@@ -18,23 +18,14 @@ public class IceCrystalFlower : Plant
     protected int childFlowerCount;
     protected int adjFlowerCount;
 
-    protected int ticksToSpread = 3000;
+    protected int ticksToSpread = 30000;
+    protected int ticksToDieOutdoor = 60000;
 
-    public bool ShouldPushHeatNow
-    {
-        get
-        {
-            if (!this.Spawned)
-            {
-                return false;
-            }
-            return base.AmbientTemperature > -17f;
-        }
-    }
+
 
     public void Notify_FirstSpawn(IceCrystalFlower parentFlower = null)
     {
-        this.growthInt = 0.5f;
+        this.growthInt = 1f;
 
         Map map = base.Map;
         IntVec3 pos = base.Position;
@@ -85,13 +76,35 @@ public class IceCrystalFlower : Plant
     public override void TickLong()
     {
         base.TickLong();
+        if (!base.Spawned)
+        {
+            return;
+        }
+
         ticksToSpread -= 1000;
         if (ticksToSpread <= 0)
         {
             TrySpawnNewFlower();
-            ticksToSpread = 3000;
+            ticksToSpread = 30000;
         }
-        if (ShouldPushHeatNow)
+
+        Room room = base.Position.GetRoom(base.Map);
+        if (room == null || room.UsesOutdoorTemperature)
+        {
+            ticksToDieOutdoor -= 1000;
+            if (ticksToDieOutdoor <= 0)
+            {
+                ticksToDieOutdoor = 60000;
+                Kill();
+                return;
+            }
+        }
+        else
+        {
+            ticksToDieOutdoor = 60000;
+        }
+
+        if (base.AmbientTemperature > -17f)
         {
             GenTemperature.PushHeat(base.Position, base.Map, HeatPerLong);
         }
@@ -120,6 +133,11 @@ public class IceCrystalFlower : Plant
             {
                 continue;
             }
+            if (cell.GetRoof(map)?.isThickRoof ?? false)
+            {
+                validCells.Add(cell);
+                continue;
+            }
             foreach (IntVec3 cell2 in GenRadial.RadialCellsAround(cell, 3.9f, false))
             {
                 if (cell2.InBounds(map) && cell2.GetSnowDepth(map) > 0.1f)
@@ -146,7 +164,8 @@ public class IceCrystalFlower : Plant
             {
                 return false;
             }
-            if (c.GetRoom(map) == null)
+            Room room = c.GetRoom(map);
+            if (room == null || room.UsesOutdoorTemperature)
             {
                 return false;
             }
@@ -162,6 +181,7 @@ public class IceCrystalFlower : Plant
         Scribe_Values.Look(ref childFlowerCount, "childFlowerCount", 0);
         Scribe_Values.Look(ref adjFlowerCount, "adjFlowerCount", 0);
         Scribe_Values.Look(ref ticksToSpread, "ticksToSpread", 0);
+        Scribe_Values.Look(ref ticksToDieOutdoor, "ticksToDieOutdoor", 0);
     }
 
 }

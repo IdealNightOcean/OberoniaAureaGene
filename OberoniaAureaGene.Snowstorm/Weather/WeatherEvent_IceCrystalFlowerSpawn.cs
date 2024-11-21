@@ -61,6 +61,10 @@ public class WeatherEvent_IceCrystalFlowerSpawn : WeatherEvent
             {
                 return false;
             }
+            if (c.GetRoof(map)?.isThickRoof ?? false)
+            {
+                return true;
+            }
             foreach (IntVec3 c1 in GenRadial.RadialCellsAround(c, 3.9f, false))
             {
                 if (c1.InBounds(map) && c1.GetSnowDepth(map) > 0.1f)
