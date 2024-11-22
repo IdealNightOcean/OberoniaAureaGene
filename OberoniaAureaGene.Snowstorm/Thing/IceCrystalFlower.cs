@@ -11,7 +11,7 @@ public class IceCrystalFlower : Plant
     protected const int MaxChildFlowerCount = 4;
     protected const int MaxAdjacentFlowerCount = 6;
 
-    protected const float HeatPerLong = -11f * (1000f / 60f);
+    protected const float HeatPerLong = -550f / 3f;
 
     protected IceCrystalFlower parentFlower;
 
@@ -104,7 +104,7 @@ public class IceCrystalFlower : Plant
             ticksToDieOutdoor = 60000;
         }
 
-        if (base.AmbientTemperature > -17f)
+        if (base.AmbientTemperature > -21f)
         {
             GenTemperature.PushHeat(base.Position, base.Map, HeatPerLong);
         }

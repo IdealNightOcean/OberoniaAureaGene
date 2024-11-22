@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using OberoniaAurea_Frame;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -33,11 +34,7 @@ public class GameComponent_SnowstormStory : GameComponent
         storyStart = true;
         if (protagonist != null)
         {
-            Hediff hediff_homecoming = protagonist.health.hediffSet.GetFirstHediffOfDef(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-            if (hediff_homecoming != null)
-            {
-                protagonist.health.RemoveHediff(hediff_homecoming);
-            }
+            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
     }
 

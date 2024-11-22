@@ -2,6 +2,7 @@
 using RimWorld;
 using Verse;
 
+
 namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffCompProperties_SnowstormAngry : HediffCompProperties
@@ -18,6 +19,8 @@ public class HediffCompProperties_SnowstormAngry : HediffCompProperties
 public class HediffComp_SnowstormAngry : HediffComp
 {
     HediffCompProperties_SnowstormAngry Props => props as HediffCompProperties_SnowstormAngry;
+
+    public override string CompTipStringExtra => "OAGene_SnowstormAngry_NegativeInteractionFactor".Translate(5f.ToStringPercent());
     public override void CompPostTick(ref float severityAdjustment)
     {
         if (parent.pawn.IsHashIntervalTick(1000))

@@ -7,7 +7,8 @@ public class GameComponent_Snowstorm : GameComponent
 {
 
     protected int snowstormCount;
-    public int lastSnowstormMentalTick = -1;
+    public int nextSnowstormMentalTick = -1;
+    public bool CanGetSnowstormMentalNow => Find.TickManager.TicksGame > nextSnowstormMentalTick;
     public bool starryNightTriggered;
 
     public bool SnowstormNow => snowstormCount > 0;
@@ -33,7 +34,7 @@ public class GameComponent_Snowstorm : GameComponent
     {
         base.ExposeData();
         Scribe_Values.Look(ref snowstormCount, "snowstormCount", 0);
-        Scribe_Values.Look(ref lastSnowstormMentalTick, "lastSnowstormMentalTick", -1);
+        Scribe_Values.Look(ref nextSnowstormMentalTick, "nextSnowstormMentalTick", -1);
 
         Scribe_Values.Look(ref starryNightTriggered, "starryNightTriggered", defaultValue: false);
         Scribe_Values.Look(ref totalSnowstormCount, "totalSnowstormCount", 0);

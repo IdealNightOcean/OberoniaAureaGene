@@ -13,7 +13,9 @@ public static class Snowstrom_MiscDefOf
 
     public static IsolatedPawnGroupMakerDef OAGene_GroupMaker_SnowstormCultist;
 
-    public static GameConditionDef OAGene_SnowstormPrecursor;
+    public static GameConditionDef OAGene_SnowstormPrecursor; //气温骤降
+    public static GameConditionDef OAGene_SnowyCrystalTreeCooler; //风晶雪树的降温
+
     public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
 
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
@@ -45,6 +47,8 @@ public static class Snowstrom_HediffDefOf
     public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
+
+    public static HediffDef OAGene_Hediff_SnowstormAngry; //不理想的愤怒
 
     public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态
     public static HediffDef OAGene_Hediff_SnowstromStrugglers; //难民健康状态（用于心情）

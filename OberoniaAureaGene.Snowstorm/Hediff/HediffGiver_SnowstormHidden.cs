@@ -31,20 +31,28 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
-        if (Snowstorm_GC.lastSnowstormMentalTick < Find.TickManager.TicksGame + 30000)
+        if (Rand.Value < 1f / (mtbDays * 1000f))
         {
-            return;
-        }
-        float mtbDays = this.mtbDays;
-        float chance = ChanceFactor(pawn);
-        if (chance > 0f && Rand.Value < 1f / (mtbDays * 60000f))
-        {
-            if (TryApply(pawn))
+            if (cause is not Hediff_SnowExtremePlayerHidden causeSnow || !causeSnow.CanGetHediffNow)
             {
-                Snowstorm_GC.lastSnowstormMentalTick = Find.TickManager.TicksGame;
+                return;
+            }
+            if (!Snowstorm_GC.CanGetSnowstormMentalNow)
+            {
+                return;
+            }
+            if (ChanceFactor(pawn) > 0f)
+            {
+                if (TryApply(pawn))
+                {
+                    int ticksGame = Find.TickManager.TicksGame;
+                    causeSnow.nextGetHediffTick = ticksGame + 180000;
+                    Snowstorm_GC.nextSnowstormMentalTick = ticksGame + 60000;
+                }
             }
         }
     }
+
 
     private static bool IsSpecialTrait(Trait t)
     {
