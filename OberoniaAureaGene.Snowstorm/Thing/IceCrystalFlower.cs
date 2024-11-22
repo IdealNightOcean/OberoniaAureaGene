@@ -111,6 +111,10 @@ public class IceCrystalFlower : Plant
     }
     protected void TrySpawnNewFlower()
     {
+        if (!SnowstormUtility.IsSnowExtremeWeather(base.Map))
+        {
+            return;
+        }
         if (childFlowerCount >= MaxChildFlowerCount || adjFlowerCount >= MaxAdjacentFlowerCount)
         {
             return;

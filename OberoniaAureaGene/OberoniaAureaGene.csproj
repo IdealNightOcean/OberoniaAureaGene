@@ -136,7 +136,7 @@
     <Compile Include="Thought\ThoughtWorker_Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="Genes\Gene_AgriculturalEnthusiasm.cs" />
     <Compile Include="Misc\ModExtension.cs" />
-    <Compile Include="HarmonyPatch\HarmonyPatch.cs" />
+    <Compile Include="HarmonyPatch\ModHarmonyPatch.cs" />
     <Compile Include="Genes\Gene_FrailPhysique.cs" />
     <Compile Include="Genes\Gene_GiveHediff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

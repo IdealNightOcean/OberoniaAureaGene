@@ -17,7 +17,7 @@ public static class CommsConsole_FailurePatch
             GameCondition_ExtremeSnowstorm snowstorm = (GameCondition_ExtremeSnowstorm)myPawn.Map?.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
             if (snowstorm != null && snowstorm.blockCommsconsole)
             {
-                __result = new FloatMenuOption("OAGene_CommunicationTowerCollapse".Translate(), null);
+                __result = new FloatMenuOption("CannotUseReason".Translate("OAGene_CommunicationTowerCollapse".Translate()), null);
             }
         }
     }

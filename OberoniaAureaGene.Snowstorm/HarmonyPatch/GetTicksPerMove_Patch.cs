@@ -20,7 +20,7 @@ public static class GetTicksPerMove_Patch
         }
         if (Snowstorm_MiscUtility.SnowstormGameComp?.SnowstormNow ?? false)
         {
-            __result = (int)(__result * 0.2f);
+            __result = (int)(__result * 5f);
             if (explanation != null)
             {
                 explanation.AppendLine();

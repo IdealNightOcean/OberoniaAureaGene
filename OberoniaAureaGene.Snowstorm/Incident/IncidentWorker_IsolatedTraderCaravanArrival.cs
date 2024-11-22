@@ -77,7 +77,6 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
         List<Pawn> pawns = SpawnTradePawns(parms, groupMakerParms, groupMaker);
         if (pawns.Count == 0)
         {
-            Log.Message("No0");
             return false;
         }
         for (int i = 0; i < pawns.Count; i++)

@@ -11,7 +11,7 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (map == null || !map.gameConditionManager.ConditionIsActive(Snowstrom_MiscDefOf.OAGene_SnowstormPrecursor))
+        if (map == null)
         {
             return false;
         }
@@ -24,12 +24,11 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
         if (map == null)
         {
             map = Find.RandomPlayerHomeMap;
-            if (map == null || !map.gameConditionManager.ConditionIsActive(Snowstrom_MiscDefOf.OAGene_SnowstormPrecursor))
+            if (map == null)
             {
                 return false;
             }
             parms.target = map;
-            SendStandardLetter(parms, null);
         }
         return true;
     }
@@ -41,17 +40,22 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
         }
         Map map = (Map)parms.target;
         Faction ofPlayer = Faction.OfPlayer;
-        IEnumerable<Pawn> animals = map.mapPawns.AllPawnsSpawned.Where(p => p.Faction != ofPlayer && p.RaceProps.Animal);
-        foreach (Pawn animal in animals)
+        List<Pawn> animals = map.mapPawns.AllPawnsSpawned.Where(p => p.Faction != ofPlayer && p.RaceProps.Animal).ToList();
+        for (int i = 0; i < animals.Count; i++)
         {
+            Pawn animal = animals[i];
+            if (animal == null)
+            {
+                continue;
+            }
             Job job = TryGiveExitJob(animal);
             if (job != null)
             {
                 animal.jobs.TryTakeOrderedJob(job, JobTag.Escaping);
             }
         }
+        SendStandardLetter(parms, null);
         return true;
-
     }
 
     protected static Job TryGiveExitJob(Pawn pawn)

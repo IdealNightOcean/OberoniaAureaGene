@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -8,12 +7,10 @@ namespace OberoniaAureaGene.Snowstorm;
 public class OAGene_SnowstormMod : Mod
 {
     public static OAGene_SnowstormSettings _settings;
-    public static Harmony HarmonyInstance;
 
     public OAGene_SnowstormMod(ModContentPack content) : base(content)
     {
         _settings = GetSettings<OAGene_SnowstormSettings>();
-        HarmonyInstance = new Harmony("OberoniaAureaGene_Snowstorm_Hramony");
     }
 
     public override void DoSettingsWindowContents(Rect inRect)

@@ -84,7 +84,7 @@
     <Compile Include="ModExtension.cs" />
     <Compile Include="Gene_Ratkin.cs" />
     <Compile Include="Gene_RatkinTail.cs" />
-    <Compile Include="HarmonyPatch.cs" />
+    <Compile Include="ModHarmonyPatch.cs" />
     <Compile Include="JobDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility.cs" />

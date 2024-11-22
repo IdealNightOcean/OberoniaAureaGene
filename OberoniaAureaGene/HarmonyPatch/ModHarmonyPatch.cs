@@ -1,18 +1,16 @@
 ﻿using HarmonyLib;
-using JetBrains.Annotations;
 using System.Reflection;
 using Verse;
 
 namespace OberoniaAureaGene;
 
 
-[UsedImplicitly]
 [StaticConstructorOnStartup]
 public static class ModHarmonyPatch
 {
-    private static Harmony harmonyInstance;
+    public static Harmony harmonyInstance;
 
-    internal static Harmony HarmonyInstance
+    public static Harmony HarmonyInstance
     {
         get
         {

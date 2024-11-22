@@ -1,21 +1,20 @@
 ﻿using HarmonyLib;
-using JetBrains.Annotations;
 using System.Reflection;
 using Verse;
 
-namespace OberoniaAureaGene.Ratkin;
+namespace OberoniaAureaGene.Snowstorm;
 
-[UsedImplicitly]
+
 [StaticConstructorOnStartup]
 public static class ModHarmonyPatch
 {
-    private static Harmony harmonyInstance;
+    public static Harmony harmonyInstance;
 
-    internal static Harmony HarmonyInstance
+    public static Harmony HarmonyInstance
     {
         get
         {
-            harmonyInstance ??= new Harmony("OberoniaAureaGene_Ratkin_Hramony");
+            harmonyInstance ??= new Harmony("OberoniaAureaGene_Snowstorm_Hramony");
             return harmonyInstance;
         }
     }

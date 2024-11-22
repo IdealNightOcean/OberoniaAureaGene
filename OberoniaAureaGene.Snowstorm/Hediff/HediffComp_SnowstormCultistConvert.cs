@@ -7,6 +7,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffCompProperties_SnowstormCultistConvert : HediffCompProperties
 {
+    public IntRange convertInterval;
     public HediffCompProperties_SnowstormCultistConvert()
     {
         compClass = typeof(HediffComp_SnowstormCultistConvert);
@@ -15,19 +16,30 @@ public class HediffCompProperties_SnowstormCultistConvert : HediffCompProperties
 
 public class HediffComp_SnowstormCultistConvert : HediffComp
 {
-    protected static int NextConvertTick = -1;
-    protected static readonly int ConvertInterval = 5000;
+    public HediffCompProperties_SnowstormCultistConvert Props => props as HediffCompProperties_SnowstormCultistConvert;
+
+    protected int ticksRemaining = 600;
+    protected const int ConvertInterval = 1200;
+
+    [Unsaved]
+    GameComponent_Snowstorm snowstormGameComp;
+    GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
     public override void CompPostTick(ref float severityAdjustment)
     {
-        if (parent.pawn.IsHashIntervalTick(250))
+        ticksRemaining--;
+        if (ticksRemaining < 0)
         {
-            if (Rand.Chance(0.2f) && Find.TickManager.TicksGame > NextConvertTick)
+            GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
+            if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
             {
-                if (TryConvert(parent.pawn))
-                {
-                    NextConvertTick = Find.TickManager.TicksGame + ConvertInterval;
-                }
+                ticksRemaining = Props.convertInterval.RandomInRange;
+                return;
             }
+            if (TryConvert(parent.pawn))
+            {
+                snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
+            }
+            ticksRemaining = Props.convertInterval.RandomInRange;
         }
     }
 
@@ -53,6 +65,6 @@ public class HediffComp_SnowstormCultistConvert : HediffComp
     public override void CompExposeData()
     {
         base.CompExposeData();
-        Scribe_Values.Look(ref NextConvertTick, "NextConvertTick", -1);
+        Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
     }
 }

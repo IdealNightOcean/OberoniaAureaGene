@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameCondition\GameCondition_SnowyCrystalTreeCooler.cs" />
+    <Compile Include="HarmonyPatch\ModHarmonyPatch.cs" />
     <Compile Include="HarmonyPatch\NegativeInteractionChanceFactor_Patch.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormOblivious.cs" />
     <Compile Include="Hediff\Hediff_SnowExtremePlayerHidden.cs" />

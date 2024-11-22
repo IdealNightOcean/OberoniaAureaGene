@@ -17,7 +17,7 @@ public class MapComponent_Snowstorm : MapComponent
         if (!crystalCollectors.Contains(checker))
         {
             RecalculateNearCollector(checker, false);
-            crystalCollectors.Add(checker);      
+            crystalCollectors.Add(checker);
         }
     }
     public void Notyfy_CollectorDespawn(Building_IceCrystalCollector checker)
