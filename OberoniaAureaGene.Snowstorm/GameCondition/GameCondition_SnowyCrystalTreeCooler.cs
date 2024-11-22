@@ -14,7 +14,7 @@ public class GameCondition_SnowyCrystalTreeCooler : GameCondition
 
     public float targetTemp = -30f;
 
-    private int SnowyCrystalTreeCount => SingleMap?.GetComponent<MapComponent_Snowstorm>().SnowyCrystalTreeCount ?? 0;
+    private int SnowyCrystalTreeCount => Snowstorm_MiscUtility.SnowstormMapComp(SingleMap)?.SnowyCrystalTreeCount ?? 0;
     private int TargetTempOffset => SnowyCrystalTreeCount * Comp_SnowyCrystalTree.PreTreeTempCooler;
 
 

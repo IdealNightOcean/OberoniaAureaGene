@@ -1,7 +1,5 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -10,7 +8,6 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class Building_IceCrystalCollector : Building
 {
-    public static List<Building_IceCrystalCollector> CrystalCollectors = [];
     protected enum CurWeather
     {
         Other,
@@ -21,7 +18,7 @@ public class Building_IceCrystalCollector : Building
     protected const int MaxStorge = 20;
 
     [Unsaved]
-    protected int nearCollectorCount;
+    public int nearCollectorCount;
     public bool NearOtherCollector => nearCollectorCount > 0;
     [Unsaved]
     protected bool underRoof;
@@ -37,57 +34,16 @@ public class Building_IceCrystalCollector : Building
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);
-        CrystalCollectors.Add(this);
-        RecalculateNearCollector(this, despawn: false);
-        underRoof = this.Map.roofGrid.Roofed(this.Position);
+        Snowstorm_MiscUtility.SnowstormMapComp(map)?.Notyfy_CollectorSpawn(this);
+
     }
 
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
-        CrystalCollectors.Remove(this);
-        RecalculateNearCollector(this, despawn: true);
+        Snowstorm_MiscUtility.SnowstormMapComp(base.Map)?.Notyfy_CollectorDespawn(this);
         base.DeSpawn(mode);
     }
 
-    protected static void RecalculateNearCollector(Building_IceCrystalCollector parent, bool despawn = false)
-    {
-        Map map = parent.Map;
-        IntVec3 position = parent.Position;
-        IEnumerable<Building_IceCrystalCollector> mapCollectors = CrystalCollectors.Where(mapCollector);
-        if (despawn)
-        {
-            foreach (Building_IceCrystalCollector collector in mapCollectors)
-            {
-                collector.nearCollectorCount = Math.Max(0, collector.nearCollectorCount - 1);
-            }
-            parent.nearCollectorCount = 0;
-        }
-        else
-        {
-            foreach (Building_IceCrystalCollector collector in mapCollectors)
-            {
-                parent.nearCollectorCount++;
-                collector.nearCollectorCount++;
-            }
-        }
-
-        bool mapCollector(Thing t)
-        {
-            if (t == parent || !t.Spawned)
-            {
-                return false;
-            }
-            if (t.Map != map)
-            {
-                return false;
-            }
-            if (t.Position.DistanceTo(position) > 14.9f)
-            {
-                return false;
-            }
-            return true;
-        }
-    }
     public override void TickLong()
     {
         base.TickLong();

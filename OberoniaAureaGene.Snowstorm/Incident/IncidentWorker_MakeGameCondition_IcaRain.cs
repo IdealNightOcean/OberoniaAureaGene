@@ -8,7 +8,7 @@ public class IncidentWorker_MakeGameCondition_IcaRain : IncidentWorker_MakeGameC
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }
@@ -18,7 +18,7 @@ public class IncidentWorker_MakeGameCondition_IcaRain : IncidentWorker_MakeGameC
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return false;
         }

@@ -34,7 +34,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
 
     protected void RecacheThought()
     {
-        if (Current.Game.GetComponent<GameComponent_SnowstormStory>()?.StoryStart ?? true)
+        if (Snowstorm_StoryUtility.StoryGameComp?.StoryStart ?? true)
         {
             parent.pawn.health.RemoveHediff(parent);
             return;

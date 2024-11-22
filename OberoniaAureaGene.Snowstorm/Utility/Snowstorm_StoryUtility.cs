@@ -7,10 +7,12 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public static class Snowstorm_StoryUtility
 {
-    public static bool StoryActive => Current.Game.GetComponent<GameComponent_SnowstormStory>()?.StoryActive ?? false;
+    public static GameComponent_SnowstormStory StoryGameComp => Current.Game.GetComponent<GameComponent_SnowstormStory>();
+
+    public static bool StoryActive => StoryGameComp?.StoryActive ?? false;
     public static bool TryGetActivedStoryComp(out GameComponent_SnowstormStory storyComp)
     {
-        storyComp = Current.Game.GetComponent<GameComponent_SnowstormStory>();
+        storyComp = StoryGameComp;
         return storyComp != null && storyComp.StoryActive;
     }
 

@@ -18,7 +18,7 @@ public static class GetTicksPerMove_Patch
         {
             return;
         }
-        if (Current.Game.GetComponent<GameComponent_Snowstorm>()?.SnowstormNow ?? false)
+        if (Snowstorm_MiscUtility.SnowstormGameComp?.SnowstormNow ?? false)
         {
             __result = (int)(__result * 0.2f);
             if (explanation != null)

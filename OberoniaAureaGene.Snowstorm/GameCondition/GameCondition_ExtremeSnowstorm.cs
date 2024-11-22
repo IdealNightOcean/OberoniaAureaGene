@@ -29,7 +29,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PostInit()
     {
-        Current.Game.GetComponent<GameComponent_Snowstorm>()?.Notify_SnowstormStart();
+        Snowstorm_MiscUtility.SnowstormGameComp?.Notify_SnowstormStart();
         TryAddColdSnap();
         SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, Duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
@@ -40,7 +40,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PreEnd()
     {
-        Current.Game.GetComponent<GameComponent_Snowstorm>()?.Notify_SnowstormEnd();
+        Snowstorm_MiscUtility.SnowstormGameComp?.Notify_SnowstormEnd();
         SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {

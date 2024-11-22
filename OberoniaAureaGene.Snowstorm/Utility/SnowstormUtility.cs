@@ -99,7 +99,7 @@ public static class SnowstormUtility
 
     public static bool TryStarryNight(Map mainMap)
     {
-        if (Current.Game.GetComponent<GameComponent_Snowstorm>()?.starryNightTriggered ?? false)
+        if (Snowstorm_MiscUtility.SnowstormGameComp?.starryNightTriggered ?? false)
         {
             return false;
         }

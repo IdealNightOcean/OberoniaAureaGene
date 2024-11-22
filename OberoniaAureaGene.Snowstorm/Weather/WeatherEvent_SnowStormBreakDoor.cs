@@ -61,7 +61,7 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
         {
             return false;
         }
-        foreach (IntVec3 cell in GenRadial.RadialCellsAround(door.Position, 1.9f, true))
+        foreach (IntVec3 cell in GenAdjFast.AdjacentCells8Way(door.Position))
         {
             if (cell.UsesOutdoorTemperature(map))
             {

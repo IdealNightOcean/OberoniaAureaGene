@@ -26,7 +26,7 @@ public class GameCondition_StarryNight : GameCondition
 
         weather = def.weatherDef;
         tempOffset = def.temperatureOffset;
-        GameComponent_Snowstorm snowstormComp = Current.Game.GetComponent<GameComponent_Snowstorm>();
+        GameComponent_Snowstorm snowstormComp = Snowstorm_MiscUtility.SnowstormGameComp;
         if (snowstormComp != null)
         {
             snowstormComp.starryNightTriggered = true;

@@ -8,9 +8,9 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     public float mtbDays;
 
     [Unsaved]
-    protected GameComponent_Snowstorm snowstorm_GC;
+    protected GameComponent_Snowstorm snowstormGameComp;
 
-    protected GameComponent_Snowstorm Snowstorm_GC => snowstorm_GC ??= Current.Game.GetComponent<GameComponent_Snowstorm>();
+    protected GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
 
     public override float ChanceFactor(Pawn pawn)
     {
@@ -37,7 +37,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             {
                 return;
             }
-            if (!Snowstorm_GC.CanGetSnowstormMentalNow)
+            if (!SnowstormGameComp.CanGetSnowstormMentalNow)
             {
                 return;
             }
@@ -47,7 +47,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
                 {
                     int ticksGame = Find.TickManager.TicksGame;
                     causeSnow.nextGetHediffTick = ticksGame + 180000;
-                    Snowstorm_GC.nextSnowstormMentalTick = ticksGame + 60000;
+                    SnowstormGameComp.nextSnowstormMentalTick = ticksGame + 60000;
                 }
             }
         }

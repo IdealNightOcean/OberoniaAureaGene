@@ -1,6 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using OberoniaAurea_Frame.Utility;
 using RimWorld;
+using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -33,6 +34,7 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
         {
             return false;
         }
+        parms.faction ??= GetTempFaction(FactionDefOf.OutlanderCivil);
         parms.faction ??= OberoniaAureaFrameUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         if (parms.faction == null)
         {
@@ -59,13 +61,23 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
             return false;
         }
         PawnGroupMakerParms groupMakerParms = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDef, parms, ensureCanGenerateAtLeastOnePawn: true);
+        groupMakerParms.tile = Tile.Invalid;
+        PawnGroupMakerDef.pawnGroupMakers.Where((PawnGroupMaker gm) => gm.kindDef == PawnGroupKindDef).TryRandomElementByWeight((PawnGroupMaker gm) => gm.commonality, out PawnGroupMaker groupMaker);
+        if (groupMaker == null)
+        {
+            return false;
+        }
+        /*
         if (!PawnGenerateUtility.TryGetRandomPawnGroupMaker(groupMakerParms, PawnGroupMakerDef, out PawnGroupMaker groupMaker))
         {
             return false;
         }
+        */
+
         List<Pawn> pawns = SpawnTradePawns(parms, groupMakerParms, groupMaker);
         if (pawns.Count == 0)
         {
+            Log.Message("No0");
             return false;
         }
         for (int i = 0; i < pawns.Count; i++)
@@ -112,6 +124,20 @@ public class IncidentWorker_IsolatedTraderCaravanArrival : IncidentWorker_Neutra
         letterText += "\n\n" + "LetterCaravanArrivalCommonWarning".Translate();
         PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
         SendStandardLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, parms, pawns[0]);
+    }
+
+    private static Faction GetTempFaction(FactionDef def)
+    {
+        return Find.FactionManager.AllFactionsListForReading.Where((Faction f) => f.def == def && ValidFaction(f)).RandomElementWithFallback();
+
+        static bool ValidFaction(Faction tf)
+        {
+            if (tf == null || tf.defeated || !tf.temporary)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
 }

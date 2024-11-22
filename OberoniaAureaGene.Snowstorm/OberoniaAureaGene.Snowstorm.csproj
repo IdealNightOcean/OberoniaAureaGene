@@ -88,6 +88,7 @@
     <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
     <Compile Include="Thing\Comp_SnowyCrystalTree.cs" />
     <Compile Include="Thing\IceCrystalFlower.cs" />
+    <Compile Include="Utility\Snowstorm_MiscUtility.cs" />
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />

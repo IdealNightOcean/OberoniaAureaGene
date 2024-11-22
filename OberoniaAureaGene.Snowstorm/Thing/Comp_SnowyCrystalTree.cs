@@ -8,20 +8,20 @@ namespace OberoniaAureaGene.Snowstorm;
 public class Comp_SnowyCrystalTree : CompTempControl
 {
     public const int PreTreeTempCooler = -2;
-    protected const float HeatPerRare = -225f / 2;
+    protected const float HeatPerRare = -225f / 2f;
 
     private GameCondition_SnowyCrystalTreeCooler treeCoolerCondition;
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        parent.Map?.GetComponent<MapComponent_Snowstorm>()?.snowyCrystalTreeComps.Add(this);
+        Snowstorm_MiscUtility.SnowstormMapComp(parent.Map)?.snowyCrystalTreeComps.Add(this);
         treeCoolerCondition = TryInitGameCondiation(parent.Map);
     }
     public override void PostDeSpawn(Map map)
     {
-        map.GetComponent<MapComponent_Snowstorm>()?.snowyCrystalTreeComps.Remove(this);
-        base.PostDeSpawn(map);   
+        Snowstorm_MiscUtility.SnowstormMapComp(map)?.snowyCrystalTreeComps.Remove(this);
+        base.PostDeSpawn(map);
     }
     public override void CompTickRare()
     {

@@ -25,10 +25,13 @@ public class CompIceCrystal : ThingComp
         cyclesToDie++;
         if (cyclesToDie >= Props.disappearHours * 10)
         {
-            Map map = parent.Map;
-            IntVec3 cell = parent.Position;
-            Messages.Message("OAGene_MessageIceCrystalMelted".Translate(), new LookTargets(cell, map), MessageTypeDefOf.NeutralEvent);
-            parent.Kill();
+            if (parent.IsInAnyStorage() && parent.Spawned)
+            {
+                Map map = parent.Map;
+                IntVec3 cell = parent.Position;
+                Messages.Message("OAGene_MessageIceCrystalMelted".Translate(), new LookTargets(cell, map), MessageTypeDefOf.NegativeEvent);
+            }
+            parent.Destroy();
         }
     }
 
