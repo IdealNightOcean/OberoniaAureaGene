@@ -31,6 +31,8 @@ public class OAGene_SnowstormSettings : ModSettings
 {
     private Vector2 scrollPosition;
     private float viewRectHeight;
+    public static bool StoryFinishedOnce;
+
 
     public static bool SnowstormBreakDoor = true;
 
@@ -134,6 +136,8 @@ public class OAGene_SnowstormSettings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref StoryFinishedOnce, "StoryFinishedOnce", defaultValue: false);
+
         Scribe_Values.Look(ref SnowstormBreakDoor, "SnowstormBreakDoor", defaultValue: true);
 
         Scribe_Values.Look(ref IceStormBreakRoof, "IceStormBreakRoof", defaultValue: true);

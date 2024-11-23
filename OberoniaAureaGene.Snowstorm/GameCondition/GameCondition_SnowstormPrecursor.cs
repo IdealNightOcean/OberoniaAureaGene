@@ -31,7 +31,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
                 target = mainMap,
             };
             Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm.Worker.TryExecute(parms);
-        }  
+        }
     }
 
     private Map GetMainMap()

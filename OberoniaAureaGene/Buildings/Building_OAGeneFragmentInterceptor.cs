@@ -20,7 +20,7 @@ public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
         if (containedPawn != null)
         {
             int num = ExtractedGeneorCountRange.RandomInRange;
-            targetGenes.AddRange(containedPawn.genes.GenesListForReading.Select(g => g.def).InRandomOrder().Take(num));
+            targetGenes.AddRange(containedPawn.genes.GenesListForReading.Where(g => g.def.biostatArc <= 0).Select(ng => ng.def).InRandomOrder().Take(num));
             Genepack genepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
             genepack.Initialize(targetGenes);
             GenPlace.TryPlaceThing(genepack, placePos, map, ThingPlaceMode.Near);

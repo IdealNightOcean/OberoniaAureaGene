@@ -1,10 +1,12 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
 public class HediffGiver_SnowstormHidden : HediffGiver
 {
+    public List<HediffDef> hediffs;
     public float mtbDays;
 
     [Unsaved]
@@ -43,7 +45,8 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             }
             if (ChanceFactor(pawn) > 0f)
             {
-                if (TryApply(pawn))
+                HediffDef giverHediff = hediffs.RandomElement();
+                if (TryApplyHediff(pawn, giverHediff))
                 {
                     int ticksGame = Find.TickManager.TicksGame;
                     causeSnow.nextGetHediffTick = ticksGame + 180000;
@@ -52,7 +55,28 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             }
         }
     }
+    public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff, List<Hediff> outAddedHediffs = null)
+    {
+        if (pawn.Faction != Faction.OfPlayer)
+        {
+            return false;
+        }
+        if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby && Find.Storyteller.difficulty.babiesAreHealthy)
+        {
+            return false;
+        }
+        if (pawn.genes != null && !pawn.genes.HediffGiversCanGive(giveHediff))
+        {
+            return false;
+        }
 
+        if (ModsConfig.AnomalyActive && pawn.IsMutant && !pawn.mutant.HediffGiversCanGive(giveHediff))
+        {
+            return false;
+        }
+
+        return HediffGiverUtility.TryApply(pawn, giveHediff, partsToAffect, canAffectAnyLivePart, countToAffect, outAddedHediffs);
+    }
 
     private static bool IsSpecialTrait(Trait t)
     {

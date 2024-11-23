@@ -32,6 +32,8 @@ public static class Snowstrom_MiscDefOf
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
     public static WeatherDef OAGene_IceRain; //冰晶雨
+
+    public static WorldObjectDef OAGene_FixedCaravan_IceCrystalFlowerSea; //冰晶花海
     static Snowstrom_MiscDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));
@@ -69,6 +71,8 @@ public static class Snowstrom_ThoughtDefOf
     public static ThoughtDef OAGene_Thought_SnowstromStrugglers; //难民心情
 
     public static ThoughtDef OAGene_Thought_SnowstormCultistConvert; //难民心情
+
+    public static ThoughtDef OAGene_Thought_IceCrystalFlowerSea; //冰晶花海心情
     static Snowstrom_ThoughtDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThoughtDefOf));

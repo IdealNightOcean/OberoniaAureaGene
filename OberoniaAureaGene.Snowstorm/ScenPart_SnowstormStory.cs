@@ -44,14 +44,14 @@ public class ScenPart_SnowstormStory : ScenPart
             if (animal.training.CanAssignToTrain(TrainableDefOf.Obedience).Accepted)
             {
                 Pawn pawn;
-                if (TrainerValidaor(protagonist, animal))
+                if (TrainerValidator(protagonist, animal))
                 {
                     pawn = protagonist;
                 }
                 else
                 {
                     pawn = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
-                            where TrainerValidaor(p, animal)
+                            where TrainerValidator(p, animal)
                             select p).RandomElementWithFallback();
                 }
                 if (pawn != null)
@@ -69,7 +69,7 @@ public class ScenPart_SnowstormStory : ScenPart
         }
     }
 
-    private static bool TrainerValidaor(Pawn pawn, Pawn animal)
+    private static bool TrainerValidator(Pawn pawn, Pawn animal)
     {
         if (pawn == null)
         {

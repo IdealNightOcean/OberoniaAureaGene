@@ -179,7 +179,7 @@ public static class SnowstormUtility
     {
         FactionManager factionManager = Find.FactionManager;
         Faction playerFaction = Faction.OfPlayer;
-        Faction faction = OberoniaAureaFrameUtility.RandomFactionOfDef(FactionDefOf.Pirate, allowDefeated: false, allowTemporary: true);
+        Faction faction = OAFrame_FactionUtility.RandomFactionOfDef(FactionDefOf.Pirate, allowDefeated: false, allowTemporary: true);
         if (faction != null)
         {
             return faction;

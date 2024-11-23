@@ -16,14 +16,6 @@ public static class Snowstorm_StoryUtility
         return storyComp != null && storyComp.StoryActive;
     }
 
-    public static bool StoryFinishedOnce()
-    {
-        if (TryGetActivedStoryComp(out GameComponent_SnowstormStory storyComp))
-        {
-            return storyComp.StoryFinishedOnce;
-        }
-        return false;
-    }
     public static bool TryGetStoryProtagonist(out Pawn protagonist)
     {
         protagonist = StoryProtagonist();

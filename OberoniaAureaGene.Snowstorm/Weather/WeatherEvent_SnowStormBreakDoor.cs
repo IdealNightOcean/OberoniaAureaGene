@@ -63,7 +63,8 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
         }
         foreach (IntVec3 cell in GenAdjFast.AdjacentCells8Way(door.Position))
         {
-            if (cell.UsesOutdoorTemperature(map))
+            Room room = cell.GetRoom(map);
+            if (room != null && room.UsesOutdoorTemperature)
             {
                 return true;
             }

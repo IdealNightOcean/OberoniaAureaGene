@@ -6,7 +6,7 @@ public class RecipeWorker_RequireFinishStory : RecipeWorker
 {
     public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
     {
-        if (!Snowstorm_StoryUtility.StoryFinishedOnce())
+        if (!OAGene_SnowstormSettings.StoryFinishedOnce)
         {
             return false;
         }

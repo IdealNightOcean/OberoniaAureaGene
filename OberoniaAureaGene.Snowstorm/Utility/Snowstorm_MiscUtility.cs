@@ -1,4 +1,6 @@
-﻿using Verse;
+﻿using RimWorld;
+using System.Linq;
+using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -12,4 +14,5 @@ public static class Snowstorm_MiscUtility
     {
         return map?.GetComponent<MapComponent_Snowstorm>();
     }
+
 }
