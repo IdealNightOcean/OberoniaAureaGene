@@ -48,7 +48,7 @@ public static class OAGeneUtility
         {
             return;
         }
-        List<CompBreakdownable> breakdownableComps = ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
+        List<CompBreakdownable> breakdownableComps = OAFrame_ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
         if (breakdownableComps == null)
         {
             return;

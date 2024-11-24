@@ -1,10 +1,10 @@
-﻿using NewRatkin;
+﻿using OberoniaAurea_Frame;
 using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Grammar;
 
-namespace OberoniaAureaGene.Ratkin;
+namespace OberoniaAureaGene;
 
 public class HediffCompProperties_SnowstormSpeech : HediffCompProperties
 {
@@ -23,7 +23,7 @@ public class HediffComp_SnowstormSpeech : HediffComp
     protected bool humanlike;
 
     [Unsaved]
-    public MoteText tempMote;
+    public MoteAttached_Text tempMote;
 
     HediffCompProperties_SnowstormSpeech Props => props as HediffCompProperties_SnowstormSpeech;
     public override void CompPostPostAdd(DamageInfo? dinfo)
@@ -38,20 +38,25 @@ public class HediffComp_SnowstormSpeech : HediffComp
             ticksRemaining--;
             if (ticksRemaining <= 0)
             {
-                string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
-                ThrowText(parent.pawn.DrawPos + new Vector3(0f, 0f, 0.75f), parent.pawn.Map, speech, Color.white);
+                if(parent.pawn.Spawned)
+                {
+                    string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
+                    ThrowText(speech, Color.white);
+                }
                 ticksRemaining = Props.speechInterval.RandomInRange;
             }
         }
     }
-    protected void ThrowText(Vector3 loc, Map map, string text, Color color, float timeBeforeStartFadeout = -1f)
+    protected void ThrowText(string text, Color color, float timeBeforeStartFadeout = -1f)
     {
         if (tempMote != null && !tempMote.Destroyed)
         {
             tempMote.Destroy(DestroyMode.Vanish);
         }
-        MoteText mote = (MoteText)ThingMaker.MakeThing(ThingDefOf.Mote_Text);
-        mote.exactPosition = loc;
+        Pawn parentPawn = parent.pawn;
+        Map map = parentPawn.Map;
+        IntVec3 position = parentPawn.Position;
+        MoteAttached_Text mote = (MoteAttached_Text)ThingMaker.MakeThing(OAFrameDefOf.OAFrame_Mote_AttachedText);
         mote.text = text;
         mote.textColor = color;
         if (timeBeforeStartFadeout >= 0f)
@@ -59,7 +64,8 @@ public class HediffComp_SnowstormSpeech : HediffComp
             mote.overrideTimeBeforeStartFadeout = timeBeforeStartFadeout;
         }
         tempMote = mote;
-        GenSpawn.Spawn(mote, loc.ToIntVec3(), map);
+        GenSpawn.Spawn(mote, position, map);
+        mote.Attach(parentPawn);
     }
     public override void CompPostPostRemoved()
     {

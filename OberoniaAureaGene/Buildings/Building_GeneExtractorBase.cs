@@ -298,7 +298,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             {
                 defaultLabel = "CommandCancelExtraction".Translate(),
                 defaultDesc = "CommandCancelExtractionDesc".Translate(),
-                icon = IconUtility.CancelIcon,
+                icon = OAFrame_IconUtility.CancelIcon,
                 action = CancelWork,
                 activateSound = SoundDefOf.Designate_Cancel
             };
@@ -320,7 +320,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             {
                 defaultLabel = "CommandCancelLoad".Translate(),
                 defaultDesc = "CommandCancelLoadDesc".Translate(),
-                icon = IconUtility.CancelIcon,
+                icon = OAFrame_IconUtility.CancelIcon,
                 activateSound = SoundDefOf.Designate_Cancel,
                 action = delegate
                 {
@@ -338,7 +338,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         {
             defaultLabel = CommandInsertPersonStr,
             defaultDesc = CommandInsertPersonDescStr,
-            icon = IconUtility.InsertPawnIcon,
+            icon = OAFrame_IconUtility.InsertPawnIcon,
             action = FloatMenu_InsertPerson,
         };
         if (!PowerOn)

@@ -257,7 +257,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
             {
                 defaultLabel = "OAGene_CommandCancelWork".Translate(),
                 defaultDesc = "OAGene_CommandCancelWorkDesc".Translate(),
-                icon = IconUtility.CancelIcon,
+                icon = OAFrame_IconUtility.CancelIcon,
                 action = CancelWork,
                 activateSound = SoundDefOf.Designate_Cancel
             };
@@ -284,7 +284,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 {
                     defaultLabel = "OAGene_CommandLoadDiscriminator".Translate(),
                     defaultDesc = "OAGene_CommandLoadDiscriminatorDesc".Translate(),
-                    icon = IconUtility.RecombineIcon,
+                    icon = OAFrame_IconUtility.RecombineIcon,
                     activateSound = SoundDefOf.Designate_Cancel,
                     action = delegate
                     {
@@ -300,7 +300,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 {
                     defaultLabel = "OAGene_CommandCancelLoad".Translate(),
                     defaultDesc = "OAGene_CommandCancelLoadDesc".Translate(),
-                    icon = IconUtility.CancelIcon,
+                    icon = OAFrame_IconUtility.CancelIcon,
                     activateSound = SoundDefOf.Designate_Cancel,
                     action = CancelWork
                 };

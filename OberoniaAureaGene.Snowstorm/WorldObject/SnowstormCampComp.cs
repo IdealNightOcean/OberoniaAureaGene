@@ -2,6 +2,7 @@
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -16,10 +17,13 @@ public class WorldObjectCompProperties_SnowstormCamp : WorldObjectCompProperties
 
 public class SnowstormCampComp : WorldObjectComp
 {
+    protected const string Postfix = "_SnowstormCamp";
+
+
     private bool active = false;
     protected SiteTrader innerTrader;
 
-    protected const string Postfix = "_SnowstormCamp";
+    protected Site ParentSite => parent as Site;
 
     protected enum SnowstormCampType
     {
@@ -42,20 +46,20 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else if (curType == SnowstormCampType.Firendly)
         {
-            DiaNode diaNode = OAFrame_DiaUtility.ConfirmDiaNode("OAGene_SnowstormCamp_Firendly".Translate(), "OAGene_SnowstormCamp_Trade".Translate(), delegate
+            Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_SnowstormCamp_Firendly".Translate(), "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
                 TradeWithCamp(caravan);
             }, "GoBack".Translate(), null);
-            Dialog_NodeTree nodeTree = new(diaNode);
             Find.WindowStack.Add(nodeTree);
         }
         else if (curType == SnowstormCampType.Hostile)
         {
-            DiaNode diaNode = OAFrame_DiaUtility.ConfirmDiaNode("OAGene_SnowstormCamp_Hostile".Translate(), "Attack".Translate(), delegate
+            Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_SnowstormCamp_Hostile".Translate(), "Attack".Translate(), delegate
             {
-                new CaravanArrivalAction_VisitSite(parent as RimWorld.Planet.Site).Arrived(caravan);
+                parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+                parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+                new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
             }, "GoBack".Translate(), null);
-            Dialog_NodeTree nodeTree = new(diaNode);
             Find.WindowStack.Add(nodeTree);
         }
     }
@@ -63,7 +67,7 @@ public class SnowstormCampComp : WorldObjectComp
     protected void TryInitType(Caravan caravan)
     {
         TaggedString text;
-        DiaNode diaNode;
+        Dialog_NodeTree nodeTree;
 
         float randFlag = Rand.Value;
         if (randFlag < 0.05f)
@@ -71,7 +75,7 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyAndGift".Translate();
-            diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
                 GiveGifts(caravan);
                 TradeWithCamp(caravan);
@@ -82,7 +86,7 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyFirst".Translate();
-            diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
             {
                 TradeWithCamp(caravan);
             }, "GoBack".Translate(), null);
@@ -93,12 +97,13 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Hostile;
             innerTrader = null;
             text = "OAGene_SnowstormCamp_HostileFirst".Translate();
-            diaNode = OAFrame_DiaUtility.ConfirmDiaNode(text, "Attack".Translate(), delegate
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "Attack".Translate(), delegate
             {
-                new CaravanArrivalAction_VisitSite(parent as RimWorld.Planet.Site).Arrived(caravan);
+                parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+                parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+                new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
             }, "GoBack".Translate(), null);
         }
-        Dialog_NodeTree nodeTree = new(diaNode);
         Find.WindowStack.Add(nodeTree);
     }
     protected static void GiveGifts(Caravan caravan)
@@ -109,6 +114,15 @@ public class SnowstormCampComp : WorldObjectComp
 
         CaravanInventoryUtility.GiveThing(caravan, torch);
         CaravanInventoryUtility.GiveThing(caravan, pemmican);
+    }
+    public override void PostMapGenerate()
+    {
+        base.PostMapGenerate();
+        if(parent.Faction != null && parent.Faction.RelationKindWith(Faction.OfPlayer)!= FactionRelationKind.Hostile)
+        {
+            parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+            parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+        }
     }
     protected void TradeWithCamp(Caravan caravan)
     {

@@ -243,7 +243,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             {
                 defaultLabel = "OAGene_CommandCancelWork".Translate(),
                 defaultDesc = "OAGene_CommandCancelWorkDesc".Translate(),
-                icon = IconUtility.CancelIcon,
+                icon = OAFrame_IconUtility.CancelIcon,
                 action = CancelWork,
                 activateSound = SoundDefOf.Designate_Cancel
             };
@@ -268,7 +268,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             {
                 defaultLabel = "OAGene_CommandCancelLoad".Translate(),
                 defaultDesc = "OAGene_CommandCancelLoadDesc".Translate(),
-                icon = IconUtility.CancelIcon,
+                icon = OAFrame_IconUtility.CancelIcon,
                 activateSound = SoundDefOf.Designate_Cancel,
                 action = delegate
                 {
@@ -286,7 +286,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         {
             defaultLabel = "OAGene_InsertPerson".Translate(),
             defaultDesc = "OAGene_InsertPersonDesc".Translate(),
-            icon = IconUtility.InsertPawnIcon,
+            icon = OAFrame_IconUtility.InsertPawnIcon,
             action = FloatMenu_InsertPerson,
         };
         if (!PowerOn)

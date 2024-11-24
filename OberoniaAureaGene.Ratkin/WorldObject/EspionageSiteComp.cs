@@ -126,11 +126,11 @@ public class EspionageSiteComp : WorldObjectComp
 
     public void Espionage(Caravan caravan)
     {
-        if (!FixedCaravanUtility.IsExactTypeCaravan(caravan))
+        if (!OAFrame_CaravanUtility.IsExactTypeCaravan(caravan))
         {
             return;
         }
-        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
+        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, FixCaravan_EspionageSite.ReconnaissanceTicks);
         fixedCaravan.SetEspionageSiteComp(Site);
         Find.WorldObjects.Add(fixedCaravan);
     }
@@ -139,7 +139,7 @@ public class EspionageSiteComp : WorldObjectComp
         if (activeEspionage && !espionageSuccess)
         {
             Site site = parent as Site;
-            bool allEnemiesDefeated = ReflectionUtility.GetFieldValue<bool>(site, "allEnemiesDefeatedSignalSent", fallback: false);
+            bool allEnemiesDefeated = OAFrame_ReflectionUtility.GetFieldValue<bool>(site, "allEnemiesDefeatedSignalSent", fallback: false);
             if (allEnemiesDefeated)
             {
                 QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));

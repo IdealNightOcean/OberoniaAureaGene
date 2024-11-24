@@ -30,7 +30,7 @@ public class FixCaravan_EspionageSite : FixedCaravan
         ticksRemaining--;
         if (ticksRemaining <= 0)
         {
-            Caravan caravan = FixedCaravanUtility.ConvertToCaravan(this);
+            Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(this);
             associateEspionageSiteComp?.TryGetOutCome(caravan);
         }
     }

@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.BaseGen;
 using System.Collections.Generic;
 using Verse;
@@ -54,7 +55,7 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
             int exceededStack = t.stackCount - t.def.stackLimit;
             t.stackCount = t.def.stackLimit;
             outThings.Add(t);
-            outThings.AddRange(OberoniaAurea_Frame.OberoniaAureaFrameUtility.TryGenerateThing(t.def, exceededStack));
+            outThings.AddRange(OAFrame_MiscUtility.TryGenerateThing(t.def, exceededStack));
         }
     }
 }

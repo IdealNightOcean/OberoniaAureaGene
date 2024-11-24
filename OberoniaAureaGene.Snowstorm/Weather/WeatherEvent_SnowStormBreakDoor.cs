@@ -40,12 +40,12 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
         }
         List<Building_Door> targetDoors = potentialDoors.Take(Rand.Bool ? 1 : 2).ToList();
         LookTargetCells.Clear();
-        MethodInfo DoorOpenInfo = typeof(Building_Door).GetMethod("DoorOpen", ReflectionUtility.InstanceAttr);
+        MethodInfo DoorOpenInfo = typeof(Building_Door).GetMethod("DoorOpen", OAFrame_ReflectionUtility.InstanceAttr);
         foreach (Building_Door door in targetDoors)
         {
             LookTargetCells.Add(new TargetInfo(door.Position, map));
             DoorOpenInfo.Invoke(door, parameters: [110]);
-            ReflectionUtility.SetFieldValue(door, "holdOpenInt", true);
+            OAFrame_ReflectionUtility.SetFieldValue(door, "holdOpenInt", true);
             door.TakeDamage(new DamageInfo(DamageDefOf.Crush, 60f));
         }
         Messages.Message("OAGene_MessageSnowstormBreakDoor".Translate(), new LookTargets(LookTargetCells), MessageTypeDefOf.NegativeEvent);

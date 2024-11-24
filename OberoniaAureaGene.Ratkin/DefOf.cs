@@ -18,6 +18,8 @@ public static class OAGene_RatkinDefOf
 
     public static JobDef OAGene_HaulToDiscriminator;
 
+    public static PawnKindDef RatkinVagabond; //鼠族漂泊者
+
     public static ThingDef Ratkin;
     public static ThingDef Ratkin_Su;
 

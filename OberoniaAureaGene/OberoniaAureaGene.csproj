@@ -72,6 +72,7 @@
     <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
     <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
+    <Compile Include="Snowstorm\Hediff\HediffComp_SnowstormSpeech.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_WarmTorch.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_ColdSnow.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_ColdImmersion.cs" />

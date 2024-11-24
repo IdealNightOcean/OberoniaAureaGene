@@ -14,7 +14,7 @@ public static class ColonyThingsWillingToBuy_Patch
     [HarmonyPrefix]
     public static void Prefix(ref Pawn_TraderTracker __instance, out Pawn __state)
     {
-        __state = ReflectionUtility.GetFieldValue<Pawn>(__instance, "pawn", null);
+        __state = OAFrame_ReflectionUtility.GetFieldValue<Pawn>(__instance, "pawn", null);
     }
 
 

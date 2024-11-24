@@ -64,7 +64,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (Find.TickManager.TicksGame - lastSnowTick > 300000 && map.weatherDecider.ForcedWeather == null)
         {
             map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
-            ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
+            OAFrame_ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
             Notify_Snow(60000);
             return;
         }

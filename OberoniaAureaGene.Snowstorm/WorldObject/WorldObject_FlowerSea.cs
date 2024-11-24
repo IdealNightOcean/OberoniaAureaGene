@@ -10,18 +10,19 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractiveBase
 {
     public bool workStart;
     protected const int WeedingTicks = 30000;
+
+    protected override string VisitLabel => "OAGene_Visit_IceCrystalFlowerSea".Translate();
     public override void Notify_CaravanArrived(Caravan caravan)
     {
         if (!workStart)
         {
-            DiaNode startNode = OAFrame_DiaUtility.ConfirmDiaNode
+            Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree
             (
                 "OAGene_IceCrystalFlowerSea_Text".Translate(),
                 "OAGene_IceCrystalFlowerSea_Confirm".Translate(WeedingTicks.ToStringTicksToPeriod(shortForm: true)),
                 delegate { StartWeeding(caravan); },
                 "GoBack".Translate()
             );
-            Dialog_NodeTree nodeTree = new(startNode);
             Find.WindowStack.Add(nodeTree);
         }
         else
@@ -29,21 +30,14 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractiveBase
             Messages.Message("OAGene_Message_IceCrystalFlowerSeaWeeding".Translate(), MessageTypeDefOf.RejectInput, historical: false);
         }
     }
-    public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
-    {
-        foreach (FloatMenuOption floatMenuOption in base.GetFloatMenuOptions(caravan))
-        {
-            yield return floatMenuOption;
-        }
-        yield return new FloatMenuOption("OAGene_WeedingIceCrystalFlowerSea", delegate { Notify_CaravanArrived(caravan); });
-    }
+
     protected void StartWeeding(Caravan caravan)
     {
-        if (!FixedCaravanUtility.IsExactTypeCaravan(caravan))
+        if (!OAFrame_CaravanUtility.IsExactTypeCaravan(caravan))
         {
             return;
         }
-        FixedCaravan_IceCrystalFlowerSea fixedCaravan = (FixedCaravan_IceCrystalFlowerSea)FixedCaravanUtility.CreateFixedCaravan(caravan, Snowstrom_MiscDefOf.OAGene_FixedCaravan_IceCrystalFlowerSea, WeedingTicks);
+        FixedCaravan_IceCrystalFlowerSea fixedCaravan = (FixedCaravan_IceCrystalFlowerSea)OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, Snowstrom_MiscDefOf.OAGene_FixedCaravan_IceCrystalFlowerSea, WeedingTicks);
         fixedCaravan.assoicateFlowerSea = this;
         Find.WorldObjects.Add(fixedCaravan);
         Find.WorldSelector.Select(fixedCaravan);
