@@ -293,7 +293,7 @@ public static class SnowstormUtility
         }
     }
 
-    private static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
+    public static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
     {
         IncidentParms parms = new()
         {

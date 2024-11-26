@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameCondition\GameCondition_EndExtremeSnowstorm.cs" />
     <Compile Include="GameCondition\GameCondition_SnowyCrystalTreeCooler.cs" />
     <Compile Include="HarmonyPatch\ModHarmonyPatch.cs" />
     <Compile Include="HarmonyPatch\NegativeInteractionChanceFactor_Patch.cs" />
@@ -83,6 +84,9 @@
     <Compile Include="Incident\IncidentWorker_SnowstormCultistArrival.cs" />
     <Compile Include="Incident\IncidentWorker_IsolatedTraderCaravanArrival.cs" />
     <Compile Include="MapComponent_Snowstorm.cs" />
+    <Compile Include="Quest\QuestNode_End_GetHometownMap.cs" />
+    <Compile Include="Quest\QuestNode_End_GenerateSnowstormRaids.cs" />
+    <Compile Include="Quest\QuestPart_End_SnowstroemThreatsGenerator.cs" />
     <Compile Include="Quest\QuestNode_SnowstoryEndGame_Validator.cs" />
     <Compile Include="Quest\QuestNode_IsSnowstoryScenario.cs" />
     <Compile Include="Quest\QuestNode_GetSnowstromCampFaction.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />
+    <Compile Include="WorldObject\WorldObject_Hometown.cs" />
     <Compile Include="WorldObject\FixedCaravan_IceCrystalFlowerSea.cs" />
     <Compile Include="WorldObject\WorldObject_FlowerSea.cs" />
     <Compile Include="WorldObject\GenStep_SnowstormPawns.cs" />

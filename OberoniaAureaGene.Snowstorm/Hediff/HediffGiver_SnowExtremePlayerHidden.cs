@@ -14,7 +14,7 @@ public class HediffGiver_SnowExtremePlayerHidden : HediffGiver
 
     public static bool ActiveHediff(Pawn p)
     {
-        if (p.IsMutant)
+        if (ModsConfig.AnomalyActive && p.IsMutant)
         {
             return false;
         }

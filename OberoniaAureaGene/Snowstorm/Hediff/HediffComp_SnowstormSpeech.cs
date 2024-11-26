@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Grammar;
@@ -38,7 +37,7 @@ public class HediffComp_SnowstormSpeech : HediffComp
             ticksRemaining--;
             if (ticksRemaining <= 0)
             {
-                if(parent.pawn.Spawned)
+                if (parent.pawn.Spawned)
                 {
                     string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
                     ThrowText(speech, Color.white);

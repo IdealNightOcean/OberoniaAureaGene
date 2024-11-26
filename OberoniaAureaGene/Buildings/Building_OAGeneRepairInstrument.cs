@@ -97,4 +97,11 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         base.FinishWork();
     }
 
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref autoSelect, "autoSelect", defaultValue: false);
+        Scribe_Values.Look(ref searchTicksRemaining, "searchTicksRemaining", 0);
+    }
+
 }

@@ -57,10 +57,6 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     }
     public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff, List<Hediff> outAddedHediffs = null)
     {
-        if (pawn.Faction != Faction.OfPlayer)
-        {
-            return false;
-        }
         if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby && Find.Storyteller.difficulty.babiesAreHealthy)
         {
             return false;
@@ -69,12 +65,6 @@ public class HediffGiver_SnowstormHidden : HediffGiver
         {
             return false;
         }
-
-        if (ModsConfig.AnomalyActive && pawn.IsMutant && !pawn.mutant.HediffGiversCanGive(giveHediff))
-        {
-            return false;
-        }
-
         return HediffGiverUtility.TryApply(pawn, giveHediff, partsToAffect, canAffectAnyLivePart, countToAffect, outAddedHediffs);
     }
 

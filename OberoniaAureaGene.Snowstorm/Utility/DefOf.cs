@@ -112,6 +112,7 @@ public static class Snowstrom_IncidentDefOf
 public static class Snowstrom_RimWorldDefOf
 {
     public static PawnKindDef Husky; //哈士奇
+    public static RaidStrategyDef ImmediateAttackBreaching; //立即破墙
 
     static Snowstrom_RimWorldDefOf()
     {
