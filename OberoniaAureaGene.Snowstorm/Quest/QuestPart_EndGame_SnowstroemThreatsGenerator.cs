@@ -6,7 +6,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestPart_End_SnowstroemThreatsGenerator : QuestPartActivable, IIncidentMakerQuestPart
+public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, IIncidentMakerQuestPart
 {
     public ThreatsGeneratorParams parms;
 
@@ -36,8 +36,8 @@ public class QuestPart_End_SnowstroemThreatsGenerator : QuestPartActivable, IInc
     }
     public static IEnumerable<FiringIncident> MakeIntervalIncidents(ThreatsGeneratorParams parms, IIncidentTarget target, int startTick)
     {
-        float num = ThreatScaleToCountFactorCurve.Evaluate(Find.Storyteller.difficulty.threatScale);
-        int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, parms.randSeed, (float)GenDate.TickGameToSettled(startTick) / 60000f, parms.onDays, parms.offDays, parms.minSpacingDays, parms.numIncidentsRange.min * num, parms.numIncidentsRange.max * num);
+        float threatScale = ThreatScaleToCountFactorCurve.Evaluate(Find.Storyteller.difficulty.threatScale);
+        int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, parms.randSeed, (float)GenDate.TickGameToSettled(startTick) / 60000f, parms.onDays, parms.offDays, parms.minSpacingDays, parms.numIncidentsRange.min * threatScale, parms.numIncidentsRange.max * threatScale);
         for (int i = 0; i < incCount; i++)
         {
             FiringIncident firingIncident = MakeThreat(parms, target);

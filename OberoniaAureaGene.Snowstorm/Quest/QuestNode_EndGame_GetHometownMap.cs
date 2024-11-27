@@ -4,13 +4,10 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_End_GetHometownMap : QuestNode
+public class QuestNode_EndGame_GetHometownMap : QuestNode
 {
     [NoTranslate]
     public SlateRef<WorldObject> hometown;
-
-    [NoTranslate]
-    public SlateRef<string> storeAs;
 
     protected override bool TestRunInt(Slate slate)
     {
@@ -19,7 +16,7 @@ public class QuestNode_End_GetHometownMap : QuestNode
         {
             return false;
         }
-        slate.Set(storeAs.GetValue(slate), hometown.Map);
+        slate.Set("hometownMap", hometown.Map);
         return true;
     }
     protected override void RunInt()
@@ -30,7 +27,7 @@ public class QuestNode_End_GetHometownMap : QuestNode
         {
             return;
         }
-        slate.Set(storeAs.GetValue(slate), hometown.Map);
+        slate.Set("hometownMap", hometown.Map);
     }
 
 }

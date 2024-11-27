@@ -4,7 +4,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_End_GenerateSnowstormRaids : QuestNode
+public class QuestNode_EndGame_RandomSnowstormRaids : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> inSignalEnable;
@@ -17,7 +17,6 @@ public class QuestNode_End_GenerateSnowstormRaids : QuestNode
 
     public SlateRef<ThreatsGeneratorParams> parms;
 
-    public SlateRef<Map> homeMap;
 
     protected override bool TestRunInt(Slate slate)
     {
@@ -25,14 +24,15 @@ public class QuestNode_End_GenerateSnowstormRaids : QuestNode
         {
             return false;
         }
-        return homeMap.GetValue(slate) != null;
+        Map hometownMap = slate.Get<Map>("hometownMap");
+        return hometownMap != null;
     }
 
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        Map map = homeMap.GetValue(slate);
-        QuestPart_End_SnowstroemThreatsGenerator questPart_SnowstroemThreatsGenerator = new()
+        Map hometownMap = slate.Get<Map>("hometownMap");
+        QuestPart_EndGame_SnowstroemThreatsGenerator questPart_SnowstroemThreatsGenerator = new()
         {
             threatStartTicks = threatStartTicks.GetValue(slate),
             inSignalEnable = QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? slate.Get<string>("inSignal"),
@@ -40,7 +40,7 @@ public class QuestNode_End_GenerateSnowstormRaids : QuestNode
         };
         ThreatsGeneratorParams value = parms.GetValue(slate);
         questPart_SnowstroemThreatsGenerator.parms = value;
-        questPart_SnowstroemThreatsGenerator.mapParent = map.Parent;
+        questPart_SnowstroemThreatsGenerator.mapParent = hometownMap.Parent;
         QuestGen.quest.AddPart(questPart_SnowstroemThreatsGenerator);
     }
 }
