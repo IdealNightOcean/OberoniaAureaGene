@@ -15,7 +15,7 @@ public class QuestNode_SnowstoryEndGame_Validator : QuestNode
         if (SnowstoryEndGame_Validator())
         {
             GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-            if (storyGameComp == null)
+            if (storyGameComp != null)
             {
                 storyGameComp.storyStart = true;
             }

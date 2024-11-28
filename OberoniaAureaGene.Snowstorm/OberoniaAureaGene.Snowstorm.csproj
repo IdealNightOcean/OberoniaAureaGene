@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
+    <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
     <Compile Include="Quest\QuestNode_EndGame_GameCondition.cs" />
     <Compile Include="GameCondition\GameCondition_EndGame_ExtremeSnowstorm.cs" />
     <Compile Include="GameCondition\GameCondition_SnowyCrystalTreeCooler.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />
     <Compile Include="Incident\IncidentWorker_CommunicationTowerCollapse.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormCultistArrival.cs" />
-    <Compile Include="Incident\IncidentWorker_IsolatedTraderCaravanArrival.cs" />
     <Compile Include="MapComponent_Snowstorm.cs" />
     <Compile Include="Quest\QuestNode_EndGame_FixedMechBreachingRaids.cs" />
     <Compile Include="Quest\QuestNode_EndGame_FixedSnowstormBreachingRaids.cs" />

@@ -10,6 +10,7 @@ public class IceCrystalFlower : Plant
 {
     protected const int MaxChildFlowerCount = 4;
     protected const int MaxAdjacentFlowerCount = 6;
+    protected const int SpreadInterval = 15000;
 
     protected const float HeatPerLong = -550f / 3f;
 
@@ -18,7 +19,7 @@ public class IceCrystalFlower : Plant
     protected int childFlowerCount;
     protected int adjFlowerCount;
 
-    protected int ticksToSpread = 30000;
+    protected int ticksToSpread = SpreadInterval;
     protected int ticksToDieOutdoor = 60000;
 
 
@@ -85,7 +86,7 @@ public class IceCrystalFlower : Plant
         if (ticksToSpread <= 0)
         {
             TrySpawnNewFlower();
-            ticksToSpread = 30000;
+            ticksToSpread = SpreadInterval;
         }
 
         Room room = base.Position.GetRoom(base.Map);

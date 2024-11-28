@@ -2,6 +2,7 @@
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -62,16 +63,9 @@ public static class SnowstormUtility
         {
             TryInitSnowstormMalice(mainMap);
         }
-        //敲击兽
-        if (Rand.Chance(0.2f))
-        {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
-        }
-        //信号塔
-        if (Rand.Chance(0.4f))
-        {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
-        }
+        //其它事件
+        TryInitSnowstormIncident(mainMap, duration);
+
     }
     public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
     {
@@ -85,6 +79,7 @@ public static class SnowstormUtility
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
+        mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryInitAfterSnowstormIncident(mainMap);
     }
     public static void EndExtremeSnowstorm_AllMaps(Map map)
@@ -99,7 +94,7 @@ public static class SnowstormUtility
 
     public static bool TryStarryNight(Map mainMap)
     {
-        if (Snowstorm_MiscUtility.SnowstormGameComp?.starryNightTriggered ?? false)
+        if (Snowstorm_MiscUtility.SnowstormGameComp.starryNightTriggered)
         {
             return false;
         }
@@ -129,32 +124,48 @@ public static class SnowstormUtility
     }
 
     //暴风雪中的事件 (mainMap)
-    public static void TryInitSnowstormIncident(Map mainMap)
+    public static void TryInitSnowstormIncident(Map mainMap, int duration)
     {
-        int delayTicks;
-
-        if (Rand.Chance(2f)) //0.4f
+        //挣扎者
+        if (Rand.Chance(0.4f))
         {
-            delayTicks = new IntRange(1200, 2400).RandomInRange;
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, delayTicks);
-
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, Rand.RangeInclusive(120000, 240000));
         }
-        if (Rand.Chance(2f)) //0.6f
+        //遇难商人
+        if (Rand.Chance(0.6f))
         {
-            delayTicks = new IntRange(1800, 3000).RandomInRange;
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, delayTicks);
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, Rand.RangeInclusive(180000, 300000));
         }
-
+        //敲击兽
+        if (Rand.Chance(0.2f))
+        {
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
+        }
+        //信号塔
+        if (Rand.Chance(0.4f))
+        {
+            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
+        }
     }
 
     //暴风雪破墙袭击 (mainMap)
     public static void TryInitSnowstormRaid(Map mainMap)
     {
         int raidCount = RaidCount.RandomInRange;
-        if (GenDate.DaysPassed < 60 || raidCount <= 0)
+        if (GenDate.DaysPassed < 60)
         {
             return;
         }
+        if (GenDate.YearsPassed >= 5)
+        {
+            raidCount = Mathf.Max(raidCount, 1);
+        }
+
+        if (raidCount <= 0)
+        {
+            return;
+        }
+
         int delayTicks = RaidDelay.RandomInRange;
         for (int i = 0; i < raidCount; i++)
         {
@@ -169,7 +180,15 @@ public static class SnowstormUtility
         {
             return;
         }
-        IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
+        IncidentDef incidentDef;
+        if (ModsConfig.RoyaltyActive)
+        {
+            incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
+        }
+        else
+        {
+            incidentDef = Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource;
+        }
         int delayTicks = Rand.RangeInclusive(120000, 180000);
         AddNewIncident(incidentDef, mainMap, delayTicks);
     }
@@ -185,43 +204,13 @@ public static class SnowstormUtility
             return faction;
         }
 
-        //获取可用派系
+        //获取其它可用派系
         (from f in factionManager.GetFactions(allowHidden: true, allowDefeated: false, allowNonHumanlike: false, TechLevel.Undefined, allowTemporary: true)
          where ValidFaction(f)
          select f).TryRandomElement(out faction);
 
         //如果没有，创建临时海盗派系
-        if (faction == null)
-        {
-            FactionGeneratorParms factionParms = new(FactionDefOf.Pirate, default, true);
-            factionParms.ideoGenerationParms = new IdeoGenerationParms(factionParms.factionDef, forceNoExpansionIdeo: false, hidden: true);
-            List<FactionRelation> list = [];
-            foreach (Faction faction1 in Find.FactionManager.AllFactionsListForReading)
-            {
-                if (!faction1.def.PermanentlyHostileTo(factionParms.factionDef))
-                {
-                    if (faction1 == playerFaction)
-                    {
-                        list.Add(new FactionRelation
-                        {
-                            other = faction1,
-                            kind = FactionRelationKind.Hostile
-                        });
-                    }
-                    else
-                    {
-                        list.Add(new FactionRelation
-                        {
-                            other = faction1,
-                            kind = FactionRelationKind.Neutral
-                        });
-                    }
-                }
-            }
-            faction = FactionGenerator.NewGeneratedFactionWithRelations(factionParms, list);
-            faction.temporary = true;
-            Find.FactionManager.Add(faction);
-        }
+        faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.Pirate, FactionRelationKind.Hostile);
 
         return faction;
 

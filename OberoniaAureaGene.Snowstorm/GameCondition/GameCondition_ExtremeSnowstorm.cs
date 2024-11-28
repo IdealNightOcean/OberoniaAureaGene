@@ -22,6 +22,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
                 else
                 {
                     mainMap = AffectedMaps.Where(m => m.IsPlayerHome).RandomElementWithFallback(null);
+                    mainMap ??= Find.AnyPlayerHomeMap;
                 }
             }
             return mainMap;
@@ -29,7 +30,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PostInit()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp?.Notify_SnowstormStart();
+        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
         TryAddColdSnap();
         SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, Duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
@@ -40,7 +41,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PreEnd()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp?.Notify_SnowstormEnd();
+        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
         SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {

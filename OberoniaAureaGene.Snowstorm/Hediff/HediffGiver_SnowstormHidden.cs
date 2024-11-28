@@ -57,9 +57,12 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     }
     public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff, List<Hediff> outAddedHediffs = null)
     {
-        if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby && Find.Storyteller.difficulty.babiesAreHealthy)
+        if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby)
         {
-            return false;
+            if (Find.Storyteller.difficulty.babiesAreHealthy || giveHediff == Snowstrom_HediffDefOf.OAGene_Hediff_SnowstormAngry)
+            {
+                return false;
+            }
         }
         if (pawn.genes != null && !pawn.genes.HediffGiversCanGive(giveHediff))
         {

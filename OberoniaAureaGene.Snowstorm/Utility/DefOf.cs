@@ -92,6 +92,7 @@ public static class Snowstrom_IncidentDefOf
 
     public static IncidentDef OAGene_SnowstormMaliceRaid; //暴风雪破墙袭击
     public static IncidentDef OAGene_SnowstormRaidSource; //暴风雪中的恶意（袭击）
+    [MayRequireRoyalty]
     public static IncidentDef OAGene_SnowstormClimateAdjuster; //暴风雪中的恶意（气候）
 
     public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者

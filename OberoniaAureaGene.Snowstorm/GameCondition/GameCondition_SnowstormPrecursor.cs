@@ -22,16 +22,12 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
     }
     public override void End()
     {
-        Map mainMap = GetMainMap();
         base.End();
-        if (mainMap != null)
+        IncidentParms parms = new()
         {
-            IncidentParms parms = new()
-            {
-                target = mainMap,
-            };
-            Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm.Worker.TryExecute(parms);
-        }
+            target = Find.World,
+        };
+        Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm.Worker.TryExecute(parms);
     }
 
     private Map GetMainMap()
