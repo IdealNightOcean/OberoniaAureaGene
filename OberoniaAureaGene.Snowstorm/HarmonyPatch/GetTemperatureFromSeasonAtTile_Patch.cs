@@ -12,7 +12,7 @@ public static class GetTemperatureFromSeasonAtTile_Patch
     {
         if (Snowstorm_MiscUtility.SnowstormGameComp.SnowstormNow)
         {
-            __result -= 30f;
+            __result -= 10f;
         }
     }
 }

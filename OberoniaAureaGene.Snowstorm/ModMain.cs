@@ -63,6 +63,9 @@ public class OAGene_SnowstormSettings : ModSettings
         {
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakNaturalRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakThickRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakThickRoof);
+
+            OberoniaAureaGene_Settings.ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(OberoniaAureaGene_Settings.ColumnProtectRadiusInt.ToString()), OberoniaAureaGene_Settings.ColumnProtectRadiusInt, 1f, 10f);
+            OberoniaAureaGene_Settings.ColumnProtectRadius = OberoniaAureaGene_Settings.ColumnProtectRadiusInt - 0.1f;
         }
 
         listing_Rect.Gap(6f);
@@ -106,6 +109,7 @@ public class OAGene_SnowstormSettings : ModSettings
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakThickRoof = true;
+
         SnowstormBreakDoor = true;
 
         IceStormBreakRoof = true;
@@ -114,14 +118,15 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowSnowstormMaliciousRaid = true;
         AllowSnowstormMaliciousSite = true;
-
-        IceCrystalFlowerSpawnMessage = false;
     }
     protected void Reset()
     {
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = false;
         OberoniaAureaGene_Settings.SnowstormBreakThickRoof = false;
+        OberoniaAureaGene_Settings.ColumnProtectRadiusInt = 4.0f;
+        OberoniaAureaGene_Settings.ColumnProtectRadius = 3.9f;
+
         SnowstormBreakDoor = true;
 
         IceStormBreakRoof = true;

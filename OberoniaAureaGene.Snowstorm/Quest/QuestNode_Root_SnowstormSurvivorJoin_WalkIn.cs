@@ -42,8 +42,8 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
 
     public override void SendLetter(Quest quest, Pawn pawn)
     {
-        TaggedString title = "OAGene_LetterLabelSnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
-        TaggedString letterText = "OAGene_LetterSnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
+        TaggedString title = "OAGene_LetterLabel_SnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
+        TaggedString letterText = "OAGene_Letter_SnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
         AppendCharityInfoToLetter("JoinerCharityInfo".Translate(pawn), ref letterText);
         PawnRelationUtility.TryAppendRelationsWithColonistsInfo(ref letterText, ref title, pawn);
         if (pawn.DevelopmentalStage.Juvenile())

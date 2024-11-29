@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
     <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
     <Compile Include="Quest\QuestNode_EndGame_GameCondition.cs" />
@@ -128,7 +129,7 @@
     <Compile Include="GameCondition\GameCondition_SuperColdSnap.cs" />
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Hediff\HediffGiver_IceRain.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstornThrumboWanderIn.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormThrumboWanderIn.cs" />
     <Compile Include="LordJob_AssistColony_SnowstormAttackBreaching.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Hediff\HediffComp_UnderDark.cs" />

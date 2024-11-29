@@ -32,6 +32,9 @@ public class OberoniaAureaGene_Settings : ModSettings
     public static bool SnowstormBreakNaturalRoof;
     public static bool SnowstormBreakThickRoof;
 
+    public static float ColumnProtectRadius = 3.9f;
+    public static float ColumnProtectRadiusInt = 4.0f;
+
     public static bool DodgeChancePatch = true;
     public void DoSettingsWindowContents(Rect inRect)
     {
@@ -48,6 +51,9 @@ public class OberoniaAureaGene_Settings : ModSettings
         {
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakNaturalRoof".Translate(), ref SnowstormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakThickRoof".Translate(), ref SnowstormBreakThickRoof);
+
+            ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(ColumnProtectRadiusInt.ToString()), ColumnProtectRadiusInt, 1f, 10f);
+            ColumnProtectRadius = ColumnProtectRadiusInt - 0.1f;
         }
 
         listing_Rect.Gap(6f);
@@ -86,6 +92,9 @@ public class OberoniaAureaGene_Settings : ModSettings
         SnowstormBreakNaturalRoof = false;
         SnowstormBreakThickRoof = false;
 
+        ColumnProtectRadiusInt = 4.0f;
+        ColumnProtectRadius = 3.9f;
+
         DodgeChancePatch = true;
     }
 
@@ -95,6 +104,8 @@ public class OberoniaAureaGene_Settings : ModSettings
         Scribe_Values.Look(ref SnowstormBreakRoof, "SnowstormBreakRoof", defaultValue: true);
         Scribe_Values.Look(ref SnowstormBreakNaturalRoof, "SnowstormBreakNaturalRoof", defaultValue: false);
         Scribe_Values.Look(ref SnowstormBreakThickRoof, "SnowstormBreakThickRoof", defaultValue: false);
+        Scribe_Values.Look(ref ColumnProtectRadiusInt, "ColumnProtectRadiusInt", 4.0f);
+        Scribe_Values.Look(ref ColumnProtectRadius, "ColumnProtectRadius", 3.9f);
 
         Scribe_Values.Look(ref DodgeChancePatch, "DodgeChancePatch", defaultValue: true);
     }

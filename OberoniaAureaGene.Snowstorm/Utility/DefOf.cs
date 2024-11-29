@@ -54,6 +54,7 @@ public static class Snowstrom_HediffDefOf
 
     public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态
     public static HediffDef OAGene_Hediff_SnowstromStrugglers; //难民健康状态（用于心情）
+    public static HediffDef OAGene_Hediff_SpecialThrumbo; //特殊敲击兽
     static Snowstrom_HediffDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_HediffDefOf));
