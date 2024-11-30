@@ -18,10 +18,10 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\Ratkin Faction Gene Expand\Ratkin\1.5\Assemblies\</OutputPath>
+    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Faction Gene Expand\Ratkin\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="DefOf.cs" />
     <Compile Include="GetInheritedGeneSet_Patch.cs" />
-    <Compile Include="HediffComp_SnowstormSpeech.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
     <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
     <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />

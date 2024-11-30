@@ -29,15 +29,18 @@ public class HediffComp_SnowstormCultistConvert : HediffComp
         ticksRemaining--;
         if (ticksRemaining < 0)
         {
-            GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
-            if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
+            if (parent.pawn.Spawned)
             {
-                ticksRemaining = Props.convertInterval.RandomInRange;
-                return;
-            }
-            if (TryConvert(parent.pawn))
-            {
-                snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
+                GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
+                if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
+                {
+                    ticksRemaining = Props.convertInterval.RandomInRange;
+                    return;
+                }
+                if (TryConvert(parent.pawn))
+                {
+                    snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
+                }
             }
             ticksRemaining = Props.convertInterval.RandomInRange;
         }

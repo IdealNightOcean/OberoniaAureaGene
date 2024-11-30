@@ -12,11 +12,11 @@ public class GameComponent_SnowstormStory : GameComponent
     protected Pawn protagonist;
     public Pawn Protagonist => protagonist;
 
-    public bool storyStart;
+    public bool storyInProgress;
     public bool storyFinished;
     public bool storyInProgressNow;
 
-    public bool LongingForHome => !storyStart && !storyFinished;
+    public bool LongingForHome => !storyInProgress && !storyFinished;
 
     public GameComponent_SnowstormStory(Game game) { }
 
@@ -31,11 +31,18 @@ public class GameComponent_SnowstormStory : GameComponent
     }
     public void Notify_StoryStart()
     {
-        storyStart = true;
+        storyInProgress = true;
         if (protagonist != null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
+    }
+
+    public void Notify_StroyFailed()
+    {
+        storyInProgress = false;
+        Hediff hediff = protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheThought(forceNoLetter: true);
     }
 
     public override void LoadedGame()
@@ -54,6 +61,6 @@ public class GameComponent_SnowstormStory : GameComponent
         Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false);
         Scribe_References.Look(ref protagonist, "protagonist");
 
-        Scribe_Values.Look(ref storyStart, "storyStart", defaultValue: false);
+        Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false);
     }
 }

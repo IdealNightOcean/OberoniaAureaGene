@@ -34,4 +34,17 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
     {
         SendStandardLetter(parms, pawns[0]);
     }
+
+    protected override bool TryExecuteWorker(IncidentParms parms)
+    {
+        Map map = (Map)parms.target;
+        GameCondition snowstorm = map?.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
+        if (snowstorm != null)
+        {
+            int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
+            Find.Storyteller.incidentQueue.Add(def, Find.TickManager.TicksGame + delayTicks, parms);
+            return true;
+        }
+        return base.TryExecuteWorker(parms);
+    }
 }

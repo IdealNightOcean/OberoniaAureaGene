@@ -17,7 +17,7 @@ public class QuestNode_SnowstoryEndGame_Validator : QuestNode
             GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
             if (storyGameComp != null)
             {
-                storyGameComp.storyStart = true;
+                storyGameComp.storyInProgress = true;
             }
         }
     }
@@ -33,7 +33,7 @@ public class QuestNode_SnowstoryEndGame_Validator : QuestNode
         {
             return false;
         }
-        if (storyGameComp.storyStart || storyGameComp.storyFinished)
+        if (storyGameComp.storyInProgress || storyGameComp.storyFinished)
         {
             return false;
         }

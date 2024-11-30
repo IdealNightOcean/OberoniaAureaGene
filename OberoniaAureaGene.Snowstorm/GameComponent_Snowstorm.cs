@@ -7,6 +7,9 @@ public class GameComponent_Snowstorm : GameComponent
 {
 
     protected int snowstormCount;
+    public int lastSnowstormStartTick = -1;
+    public int lastSnowstormEndTick = -1;
+
     public int nextSnowstormMentalTick = -1;
     public int nextCultistConvertTick = -1;
     public bool CanGetSnowstormMentalNow => Find.TickManager.TicksGame > nextSnowstormMentalTick;
@@ -24,6 +27,7 @@ public class GameComponent_Snowstorm : GameComponent
     public void Notify_SnowstormStart()
     {
         snowstormCount++;
+        lastSnowstormStartTick = Find.TickManager.TicksGame;
         totalSnowstormCount++;
     }
 
@@ -31,12 +35,16 @@ public class GameComponent_Snowstorm : GameComponent
     public void Notify_SnowstormEnd()
     {
         snowstormCount = Mathf.Max(snowstormCount - 1, 0);
+        lastSnowstormEndTick = Find.TickManager.TicksGame;
     }
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref snowstormCount, "snowstormCount", 0);
+        Scribe_Values.Look(ref lastSnowstormStartTick, "lastSnowstormStartTick", -1);
+        Scribe_Values.Look(ref lastSnowstormEndTick, "lastSnowstormEndTick", -1);
+
         Scribe_Values.Look(ref nextSnowstormMentalTick, "nextSnowstormMentalTick", -1);
         Scribe_Values.Look(ref nextCultistConvertTick, "nextCultistConvertTick", -1);
 

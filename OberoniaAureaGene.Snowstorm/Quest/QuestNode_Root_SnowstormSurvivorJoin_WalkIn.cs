@@ -30,6 +30,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         {
             request.AllowedDevelopmentalStages |= DevelopmentalStage.Child;
         }
+        request.KindDef = OAGene_RatkinDefOf.RatkinVagabond;
         request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];
         Pawn pawn = PawnGenerator.GeneratePawn(request);
         if (!pawn.IsWorldPawn())

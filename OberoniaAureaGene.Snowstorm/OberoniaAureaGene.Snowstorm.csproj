@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
+    <Compile Include="HarmonyPatch\NeutralGroup_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
     <Compile Include="Quest\QuestNode_EndGame_GameCondition.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="JoyGiver_RecallHometown.cs" />
     <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
     <Compile Include="Thing\Comp_SnowyCrystalTree.cs" />
+    <Compile Include="Thing\CompSnowstormGeothermalGenerator.cs" />
     <Compile Include="Thing\IceCrystalFlower.cs" />
+    <Compile Include="Thing\CompPowerPlant_ToxifierSnowstorm.cs" />
     <Compile Include="Utility\Snowstorm_MiscUtility.cs" />
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />

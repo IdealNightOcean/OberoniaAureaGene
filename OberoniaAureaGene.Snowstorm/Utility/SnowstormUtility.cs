@@ -43,14 +43,33 @@ public static class SnowstormUtility
         }
         return map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme || map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceRain;
     }
+    public static void InitExtremeSnowstorm_World(int duration)
+    {
+        if (!TryStarryNight() && Rand.Bool)
+        {
+            AddNewWorldIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, IceOrStarryDelay.RandomInRange);
+        }
+    }
+
+    public static bool TryStarryNight()
+    {
+        if (Snowstorm_MiscUtility.SnowstormGameComp.starryNightTriggered)
+        {
+            return false;
+        }
+        if (GenDate.YearsPassed < 4)
+        {
+            return false;
+        }
+        AddNewWorldIncident(Snowstrom_IncidentDefOf.OAGene_StarryNight, IceOrStarryDelay.RandomInRange);
+        return true;
+    }
 
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
-        if (!TryStarryNight(mainMap) && Rand.Bool)
-        {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, mainMap, IceOrStarryDelay.RandomInRange);
-        }
+        mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
+
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
         //暴风雪破墙袭击
@@ -73,12 +92,14 @@ public static class SnowstormUtility
         {
             return;
         }
+        map.SnowstormMapComp()?.Notify_SnowstromStart();
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         map.GetOAGeneMapComp()?.Notify_Snow(duration);
         OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
+        mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
         mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryInitAfterSnowstormIncident(mainMap);
     }
@@ -88,23 +109,12 @@ public static class SnowstormUtility
         {
             return;
         }
+        map.SnowstormMapComp()?.Notify_SnowstromEnd();
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
         TryGiveEndSnowstormHediffAndThought(map);
     }
 
-    public static bool TryStarryNight(Map mainMap)
-    {
-        if (Snowstorm_MiscUtility.SnowstormGameComp.starryNightTriggered)
-        {
-            return false;
-        }
-        if (GenDate.YearsPassed < 4)
-        {
-            return false;
-        }
-        AddNewIncident(Snowstrom_IncidentDefOf.OAGene_StarryNight, mainMap, IceOrStarryDelay.RandomInRange);
-        return true;
-    }
+
     //骤冷丨骤暖事件 (mainMap)
     public static void TryQueueTempChengeIncident(Map mainMap, int duration)
     {
@@ -280,6 +290,14 @@ public static class SnowstormUtility
             delayTicks = Rand.RangeInclusive(10000, 50000);
             AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
         }
+    }
+    public static void AddNewWorldIncident(IncidentDef incidentDef, int delayTicks)
+    {
+        IncidentParms parms = new()
+        {
+            target = Find.World
+        };
+        Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delayTicks, parms);
     }
 
     public static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)

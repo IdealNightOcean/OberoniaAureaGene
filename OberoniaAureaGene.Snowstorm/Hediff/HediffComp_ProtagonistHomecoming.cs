@@ -32,7 +32,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
         }
     }
 
-    protected void RecacheThought()
+    public void RecacheThought(bool forceNoLetter = false)
     {
         if (!Snowstorm_StoryUtility.StoryGameComp.LongingForHome)
         {
@@ -95,16 +95,12 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             letterText = "OAGene_LetterProtagonistHomecoming_Expectation".Translate(protagonist.Named("PAWN"));
             sendLetter = true;
         }
-        if (sendLetter)
+        if (sendLetter && !forceNoLetter)
         {
             Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NegativeEvent, protagonist);
         }
     }
 
-    public override void CompPostPostAdd(DamageInfo? dinfo)
-    {
-        RecacheThought();
-    }
     public override void CompPostPostRemoved()
     {
         base.CompPostPostRemoved();

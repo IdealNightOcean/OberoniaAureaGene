@@ -52,9 +52,6 @@ public class HediffComp_SnowstormSpeech : HediffComp
         {
             tempMote.Destroy(DestroyMode.Vanish);
         }
-        Pawn parentPawn = parent.pawn;
-        Map map = parentPawn.Map;
-        IntVec3 position = parentPawn.Position;
         MoteAttached_Text mote = (MoteAttached_Text)ThingMaker.MakeThing(OAFrameDefOf.OAFrame_Mote_AttachedText);
         mote.text = text;
         mote.textColor = color;
@@ -63,7 +60,8 @@ public class HediffComp_SnowstormSpeech : HediffComp
             mote.overrideTimeBeforeStartFadeout = timeBeforeStartFadeout;
         }
         tempMote = mote;
-        GenSpawn.Spawn(mote, position, map);
+        Pawn parentPawn = parent.pawn;
+        GenSpawn.Spawn(mote, parentPawn.Position, parentPawn.Map);
         mote.Attach(parentPawn);
     }
     public override void CompPostPostRemoved()

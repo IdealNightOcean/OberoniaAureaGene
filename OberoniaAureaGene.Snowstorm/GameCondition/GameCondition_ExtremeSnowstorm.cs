@@ -30,13 +30,17 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PostInit()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
         TryAddColdSnap();
-        SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, Duration);
+
+        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
+
+        int duration = Duration;
+        SnowstormUtility.InitExtremeSnowstorm_World(duration);
+        SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, duration);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, Duration);
+            SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, duration);
         }
     }
     protected override void PreEnd()

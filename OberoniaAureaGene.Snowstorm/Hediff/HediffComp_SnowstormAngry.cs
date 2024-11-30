@@ -26,7 +26,7 @@ public class HediffComp_SnowstormAngry : HediffComp
         if (parent.pawn.IsHashIntervalTick(1000))
         {
             Pawn pawn = parent.pawn;
-            if (!OAFrame_PawnUtility.PawnSleepNow(pawn))
+            if (!pawn.Spawned || !OAFrame_PawnUtility.PawnSleepNow(pawn))
             {
                 return;
             }
