@@ -33,7 +33,8 @@ public static class Snowstrom_MiscDefOf
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
     public static WeatherDef OAGene_IceRain; //冰晶雨
 
-    public static WorldObjectDef OAGene_FixedCaravan_IceCrystalFlowerSea; //冰晶花海
+    public static WorldObjectDef OAGene_FixedCaravan_IceCrystalFlowerSea; //冰晶花海远行队
+    public static WorldObjectDef OAGene_Hometown_Sealed; //家乡（封存占格子）
     static Snowstrom_MiscDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));

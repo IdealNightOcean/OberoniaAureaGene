@@ -1,0 +1,24 @@
+﻿using RimWorld.Planet;
+using RimWorld.QuestGen;
+using System.Collections.Generic;
+using System.Linq;
+using Verse;
+
+namespace OberoniaAureaGene.Snowstorm;
+
+public class QuestNode_EndGame_SpawnHometown : QuestNode_SpawnWorldObjects
+{
+    protected override void RunInt()
+    {
+        List<WorldObject> sealedHometowns = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstrom_MiscDefOf.OAGene_Hometown_Sealed).ToList();
+        for (int i = 0; i < sealedHometowns.Count; i++)
+        {
+            WorldObject sh = sealedHometowns[i];
+            if (sh != null && !sh.Destroyed)
+            {
+                sh.Destroy();
+            }
+        }
+        base.RunInt();
+    }
+}

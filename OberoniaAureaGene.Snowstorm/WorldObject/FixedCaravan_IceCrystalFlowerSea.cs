@@ -33,7 +33,7 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
         }
         Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(this);
         assoicateFlowerSea?.EndWeeding();
-        Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_IceCrystalFlowerSea_Finished".Translate());
+        Dialog_NodeTree nodeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree("OAGene_IceCrystalFlowerSea_Finished".Translate());
         Find.WindowStack.Add(nodeTree);
     }
 

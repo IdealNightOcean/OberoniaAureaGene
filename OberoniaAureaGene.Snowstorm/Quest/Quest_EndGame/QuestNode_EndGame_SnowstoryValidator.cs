@@ -4,7 +4,7 @@ using RimWorld.QuestGen;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_SnowstoryEndGame_Validator : QuestNode
+public class QuestNode_EndGame_SnowstoryValidator : QuestNode
 {
     protected override bool TestRunInt(Slate slate)
     {
@@ -15,9 +15,10 @@ public class QuestNode_SnowstoryEndGame_Validator : QuestNode
         if (SnowstoryEndGame_Validator())
         {
             GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-            if (storyGameComp != null)
+            if (storyGameComp != null && storyGameComp.Protagonist != null)
             {
-                storyGameComp.storyInProgress = true;
+                Slate slate = QuestGen.slate;
+                slate.Set("protagonist", storyGameComp.Protagonist);
             }
         }
     }
@@ -33,7 +34,11 @@ public class QuestNode_SnowstoryEndGame_Validator : QuestNode
         {
             return false;
         }
-        if (storyGameComp.storyInProgress || storyGameComp.storyFinished)
+        if (storyGameComp.hometownSpawned || storyGameComp.storyInProgress || storyGameComp.storyFinished)
+        {
+            return false;
+        }
+        if (storyGameComp.Protagonist == null || storyGameComp.Protagonist.Dead)
         {
             return false;
         }
