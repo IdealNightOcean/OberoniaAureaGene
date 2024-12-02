@@ -26,7 +26,7 @@ public class QuestNode_EndGame_MakeGameCondition : QuestNode
     {
         Slate slate = QuestGen.slate;
         MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
-        if (hometown == null || hometown.Map == null)
+        if (hometown == null)
         {
             return;
         }

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
 using Verse;
 
@@ -6,6 +7,14 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_EndGame_FixedMechBreachingRaids : QuestNode
 {
+    [NoTranslate]
+    public SlateRef<string> inSignal;
+    [NoTranslate]
+    public SlateRef<string> inSignalDisable;
+
+    public SlateRef<int> delayTicks;
+
+    public SlateRef<IncidentDef> incidentDef;
     public SlateRef<float> currentThreatPointsFactor = 1f;
     protected override bool TestRunInt(Slate slate)
     {
@@ -14,20 +23,23 @@ public class QuestNode_EndGame_FixedMechBreachingRaids : QuestNode
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        if (hometownMap == null)
+        MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
+        if (hometown == null)
         {
             return;
         }
-
         IncidentParms parms = new()
         {
-            target = hometownMap,
             faction = Faction.OfMechanoids,
             raidStrategy = Snowstrom_RimWorldDefOf.ImmediateAttackBreaching,
-            points = StorytellerUtility.DefaultThreatPointsNow(hometownMap) * currentThreatPointsFactor.GetValue(slate)
         };
-        Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, Find.TickManager.TicksGame + Rand.RangeInclusive(0, 60000), parms);
+        QuestPart_EndGame_Incident questPart_EndGame_Incident = new()
+        {
+            inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
+            incident = IncidentDefOf.RaidEnemy,
+            currentThreatPointsFactor = currentThreatPointsFactor.GetValue(slate),
+        };
+        questPart_EndGame_Incident.SetIncidentParmsAndRemoveTarget(parms, hometown);
+        QuestGen.quest.AddPart(questPart_EndGame_Incident);
     }
-
 }

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
 using Verse;
 
@@ -6,6 +7,8 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_EndGame_FixedSnowstormBreachingRaids : QuestNode
 {
+    [NoTranslate]
+    public SlateRef<string> inSignal;
 
     public SlateRef<float> currentThreatPointsFactor = 1f;
     protected override bool TestRunInt(Slate slate)
@@ -15,18 +18,23 @@ public class QuestNode_EndGame_FixedSnowstormBreachingRaids : QuestNode
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        if (hometownMap == null)
+        MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
+        if (hometown == null)
         {
             return;
         }
-
         IncidentParms parms = new()
         {
-            target = hometownMap,
-            points = StorytellerUtility.DefaultThreatPointsNow(hometownMap) * currentThreatPointsFactor.GetValue(slate)
+            forced = true,
         };
-        Find.Storyteller.incidentQueue.Add(Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid, Find.TickManager.TicksGame + Rand.RangeInclusive(0, 60000), parms);
+        QuestPart_EndGame_Incident questPart_EndGame_Incident = new()
+        {
+            inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
+            incident = Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid,
+            currentThreatPointsFactor = currentThreatPointsFactor.GetValue(slate),
+        };
+        questPart_EndGame_Incident.SetIncidentParmsAndRemoveTarget(parms, hometown);
+        QuestGen.quest.AddPart(questPart_EndGame_Incident);
     }
 
 }

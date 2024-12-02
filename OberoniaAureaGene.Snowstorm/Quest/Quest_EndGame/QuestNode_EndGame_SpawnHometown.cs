@@ -10,6 +10,11 @@ public class QuestNode_EndGame_SpawnHometown : QuestNode_SpawnWorldObjects
 {
     protected override void RunInt()
     {
+        Slate slate = QuestGen.slate;
+        if (worldObjects.GetValue(slate) == null)
+        {
+            return;
+        }
         List<WorldObject> sealedHometowns = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstrom_MiscDefOf.OAGene_Hometown_Sealed).ToList();
         for (int i = 0; i < sealedHometowns.Count; i++)
         {

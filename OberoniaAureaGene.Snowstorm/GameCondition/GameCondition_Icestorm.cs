@@ -6,6 +6,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
 {
+    public override int TransitionTicks => 2500;
     protected override void PostInit()
     {
         causeColdSnap = false;
