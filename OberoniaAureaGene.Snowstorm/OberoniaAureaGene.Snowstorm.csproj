@@ -75,8 +75,8 @@
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_CheckThreat.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_GetHometownTile.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_ProtagonistFailed.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryMapValidator.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_GameCondition.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryMapGenerated.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_MakeGameCondition.cs" />
     <Compile Include="GameCondition\GameCondition_EndGame_ExtremeSnowstorm.cs" />
     <Compile Include="GameCondition\GameCondition_SnowyCrystalTreeCooler.cs" />
     <Compile Include="HarmonyPatch\ModHarmonyPatch.cs" />
@@ -96,7 +96,6 @@
     <Compile Include="MapComponent_Snowstorm.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_FixedMechBreachingRaids.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_FixedSnowstormBreachingRaids.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_GetHometownMap.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_RandomSnowstormRaids.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SnowstroemThreatsGenerator.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryValidator.cs" />

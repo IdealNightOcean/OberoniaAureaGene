@@ -1,10 +1,11 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_EndGame_GameCondition : QuestNode
+public class QuestNode_EndGame_MakeGameCondition : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> inSignal;
@@ -18,15 +19,14 @@ public class QuestNode_EndGame_GameCondition : QuestNode
 
     protected override bool TestRunInt(Slate slate)
     {
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        return hometownMap != null;
+        return true;
     }
 
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        if (hometownMap == null)
+        MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
+        if (hometown == null || hometown.Map == null)
         {
             return;
         }
@@ -34,7 +34,7 @@ public class QuestNode_EndGame_GameCondition : QuestNode
         QuestPart_GameCondition questPart_GameCondition = new()
         {
             gameCondition = gameCondition,
-            mapParent = hometownMap.Parent,
+            mapParent = hometown,
             inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal")
         };
         QuestGen.quest.AddPart(questPart_GameCondition);

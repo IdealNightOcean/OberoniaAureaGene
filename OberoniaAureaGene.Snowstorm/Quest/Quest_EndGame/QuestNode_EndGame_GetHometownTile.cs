@@ -8,11 +8,14 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_EndGame_GetHometownTile : QuestNode
 {
+    private const int minDist = 30;
+    private const int maxDist = 800;
+
     [NoTranslate]
     public SlateRef<string> storeAs;
     protected override bool TestRunInt(Slate slate)
     {
-        if(GetHometownTile(out int hometownTile))
+        if (GetHometownTile(out int hometownTile))
         {
             slate.Set(storeAs.GetValue(slate), hometownTile);
             return true;
@@ -28,7 +31,7 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         if (GetHometownTile(out int hometownTile))
         {
             slate.Set(storeAs.GetValue(slate), hometownTile);
-        }     
+        }
     }
 
     protected bool GetHometownTile(out int hometownTile)
@@ -49,14 +52,59 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
             }
             else
             {
-                hometownTile = GetNewHometownTile();
+                return GetNewHometownTile(out hometownTile);
             }
         }
         return true;
     }
 
-    protected static int GetNewHometownTile()
+    protected static bool GetNewHometownTile(out int tile)
     {
-        return -1;
+        tile = Tile.Invalid;
+
+        if (!TryFindRootTile(out int rootTile))
+        {
+            return false;
+        }
+
+        return TryFindDestinationTileActual(rootTile, out tile);
+    }
+
+    private static bool TryFindRootTile(out int rootTile)
+    {
+        return TileFinder.TryFindRandomPlayerTile(out rootTile, allowCaravans: false, (int r) => TryFindDestinationTileActual(r, out int tempTile));
+    }
+    private static bool TryFindDestinationTileActual(int rootTile, out int tile)
+    {
+
+        for (int i = 0; i < 2; i++)
+        {
+            bool canTraverseImpassable = i == 1;
+            if (TileFinder.TryFindPassableTileWithTraversalDistance(rootTile, minDist, maxDist, out tile, TileValidator, ignoreFirstTilePassability: true, TileFinderMode.Near, canTraverseImpassable))
+            {
+                return true;
+            }
+        }
+        tile = -1;
+        return false;
+
+        static bool TileValidator(int t)
+        {
+            if (Find.WorldObjects.AnyWorldObjectAt(t))
+            {
+                return false;
+            }
+            BiomeDef biome = Find.WorldGrid[t].biome;
+            if (!biome.canBuildBase || !biome.canAutoChoose)
+            {
+                return false;
+            }
+            float fongitude = Find.WorldGrid.LongLatOf(t).x;
+            if (fongitude >= 40f || fongitude <= -40f)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

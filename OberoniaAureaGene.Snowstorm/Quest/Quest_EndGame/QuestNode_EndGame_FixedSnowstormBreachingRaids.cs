@@ -10,8 +10,7 @@ public class QuestNode_EndGame_FixedSnowstormBreachingRaids : QuestNode
     public SlateRef<float> currentThreatPointsFactor = 1f;
     protected override bool TestRunInt(Slate slate)
     {
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        return hometownMap != null;
+        return true;
     }
     protected override void RunInt()
     {

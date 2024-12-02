@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
 using Verse;
 
@@ -17,30 +18,30 @@ public class QuestNode_EndGame_RandomSnowstormRaids : QuestNode
 
     public SlateRef<ThreatsGeneratorParams> parms;
 
+    public SlateRef<WorldObject> hometown;
 
     protected override bool TestRunInt(Slate slate)
     {
-        if (!Find.Storyteller.difficulty.allowViolentQuests)
-        {
-            return false;
-        }
-        Map hometownMap = slate.Get<Map>("hometownMap");
-        return hometownMap != null;
+        return true;
     }
 
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        Map hometownMap = slate.Get<Map>("hometownMap");
+        MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
+        if (hometown == null || hometown.Map == null)
+        {
+            return;
+        }
         QuestPart_EndGame_SnowstroemThreatsGenerator questPart_SnowstroemThreatsGenerator = new()
         {
             threatStartTicks = threatStartTicks.GetValue(slate),
             inSignalEnable = QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? slate.Get<string>("inSignal"),
             inSignalDisable = QuestGenUtility.HardcodedSignalWithQuestID(inSignalDisable.GetValue(slate))
         };
-        ThreatsGeneratorParams value = parms.GetValue(slate);
-        questPart_SnowstroemThreatsGenerator.parms = value;
-        questPart_SnowstroemThreatsGenerator.mapParent = hometownMap.Parent;
+        ThreatsGeneratorParams parms = this.parms.GetValue(slate);
+        questPart_SnowstroemThreatsGenerator.parms = parms;
+        questPart_SnowstroemThreatsGenerator.mapParent = hometown;
         QuestGen.quest.AddPart(questPart_SnowstroemThreatsGenerator);
     }
 }
