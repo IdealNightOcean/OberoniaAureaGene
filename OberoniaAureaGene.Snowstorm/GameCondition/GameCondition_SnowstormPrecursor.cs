@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Linq;
 using Verse;
 
@@ -9,6 +10,11 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
     public override void Init()
     {
         base.Init();
+        PostInit();
+    }
+
+    protected virtual void PostInit()
+    {
         Map mainMap = GetMainMap();
         if (mainMap != null)
         {
@@ -16,7 +22,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             {
                 target = mainMap,
             };
-            Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee.Worker.TryExecute(parms);
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
         }
     }
     public void EndSlience()
@@ -28,14 +34,18 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
     public override void End()
     {
         base.End();
+        PostEnd();
+    }
+    protected virtual void PostEnd()
+    {
         IncidentParms parms = new()
         {
             target = Find.World,
         };
-        Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm.Worker.TryExecute(parms);
+        OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
     }
 
-    private Map GetMainMap()
+    protected virtual Map GetMainMap()
     {
         Map mainMap = gameConditionManager.ownerMap;
 

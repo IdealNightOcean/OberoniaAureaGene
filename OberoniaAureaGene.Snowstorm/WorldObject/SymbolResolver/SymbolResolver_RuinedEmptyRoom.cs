@@ -55,7 +55,6 @@ public class SymbolResolver_RuinedEmptyRoom : SymbolResolver
     private Thing TrySpawnWall(IntVec3 c, ResolveParams rp)
     {
         Map map = BaseGen.globalSettings.map;
-        ThingDef wallStuff = rp.wallStuff ?? ThingDefOf.WoodLog;
         List<Thing> thingList = c.GetThingList(map);
         for (int i = 0; i < thingList.Count; i++)
         {
@@ -80,7 +79,8 @@ public class SymbolResolver_RuinedEmptyRoom : SymbolResolver
         {
             return null;
         }
-        ThingDef wallDef = ThingDefOf.WoodLog;
+        ThingDef wallDef = ThingDefOf.Wall;
+        ThingDef wallStuff = rp.wallStuff ?? ThingDefOf.WoodLog;
         Thing wall = ThingMaker.MakeThing(wallDef, wallDef.MadeFromStuff ? wallStuff : null);
         wall.SetFaction(rp.faction);
         if (wall.def.useHitPoints)

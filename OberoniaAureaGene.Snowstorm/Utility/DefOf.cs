@@ -25,11 +25,6 @@ public static class Snowstrom_MiscDefOf
 
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
 
-    public static ThingDef OAGene_IceCrystal; //风雪碎晶
-    public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
-    public static ThingDef OAGene_Plant_IceCrystalFlower; //碎晶花
-    public static ThingDef OAGene_AntiSnowTorch; //风雪火把
-
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
     public static WeatherDef OAGene_IceSnowExtreme; //冰晶暴风雪
     public static WeatherDef OAGene_IceRain; //冰晶雨
@@ -40,6 +35,20 @@ public static class Snowstrom_MiscDefOf
     static Snowstrom_MiscDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));
+    }
+}
+
+[DefOf]
+public static class Snowstrom_ThingDefOf
+{
+    public static ThingDef OAGene_IceCrystal; //风雪碎晶
+    public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
+    public static ThingDef OAGene_Plant_IceCrystalFlower; //碎晶花
+    public static ThingDef OAGene_AntiSnowTorch; //风雪火把
+    public static ThingDef OAGene_Plant_SnowyCrystalTree_Seed; //风雪树种
+    static Snowstrom_ThingDefOf()
+    {
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThingDefOf));
     }
 }
 

@@ -107,7 +107,7 @@ public class SnowstormCampComp : WorldObjectComp
     }
     protected static void GiveGifts(Caravan caravan)
     {
-        Thing torch = ThingMaker.MakeThing(Snowstrom_MiscDefOf.OAGene_AntiSnowTorch);
+        Thing torch = ThingMaker.MakeThing(Snowstrom_ThingDefOf.OAGene_AntiSnowTorch);
         Thing pemmican = ThingMaker.MakeThing(ThingDefOf.Pemmican);
         pemmican.stackCount = Rand.RangeInclusive(35, 45);
 

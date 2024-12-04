@@ -1,5 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -10,7 +11,7 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
     public string outSignalNoThreat;
     private int ticksRemaining = 5000;
 
-    public Map map;
+    public MapParent hometown;
     public override void QuestPartTick()
     {
         base.QuestPartTick();
@@ -18,6 +19,7 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
         ticksRemaining--;
         if (ticksRemaining <= 0)
         {
+            Map map = hometown.Map;
             if (map != null)
             {
                 int curHour = GenLocalDate.HourOfDay(map);
@@ -38,6 +40,6 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
         base.ExposeData();
         Scribe_Values.Look(ref outSignalNoThreat, "outSignalNoThreat");
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 2500);
-        Scribe_References.Look(ref map, "map");
+        Scribe_References.Look(ref hometown, "hometown");
     }
 }

@@ -1,35 +1,27 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
 using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_TemperatureChange
+public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormPrecursor
 {
-    public override void Init()
+    protected override void PostEnd()
     {
-        base.Init();
         Map mainMap = GetMainMap();
         if (mainMap != null)
         {
             IncidentParms parms = new()
             {
-                target = mainMap,
+                target = Find.World,
             };
-            Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee.Worker.TryExecute(parms);
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
         }
     }
 
-    public override void End()
-    {
-        base.End();
-
-        GameCondition gameCondition = GameConditionMaker.MakeCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm);
-        gameConditionManager.RegisterCondition(gameCondition);
-    }
-
-    private Map GetMainMap()
+    protected override Map GetMainMap()
     {
         Map mainMap = gameConditionManager.ownerMap;
 

@@ -5,7 +5,7 @@ using Verse.AI;
 namespace OberoniaAureaGene.Snowstorm;
 public class WorkGiver_TakeIceCrystalOutOfCollector : WorkGiver_Scanner
 {
-    public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(Snowstrom_MiscDefOf.OAGene_IceCrystalCollector);
+    public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(Snowstrom_ThingDefOf.OAGene_IceCrystalCollector);
 
     public override PathEndMode PathEndMode => PathEndMode.Touch;
 

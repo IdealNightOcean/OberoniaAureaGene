@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -9,7 +11,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     public bool blockCommsconsole;
 
     protected Map mainMap;
-    public Map MainMap
+    public virtual Map MainMap
     {
         get
         {
@@ -31,6 +33,12 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     public void EndSlience()
     {
         suppressEndMessage = true;
+        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map, slience: true);
+        }
         base.End();
     }
     protected override void PostInit()
@@ -56,6 +64,33 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
         {
             Map map = AffectedMaps[i];
             SnowstormUtility.EndExtremeSnowstorm_AllMaps(map);
+        }
+    }
+    protected new void TryAddColdSnap()
+    {
+        if (Rand.Chance(0.3f))
+        {
+            if (MainMap != null)
+            {
+                IncidentParms parms = new()
+                {
+                    target = MainMap,
+                };
+                if (OAFrame_MiscUtility.TryFireIncidentNow(OAGene_RimWorldDefOf.ColdSnap, parms))
+                {
+                    Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+                    Find.LetterStack.ReceiveLetter(letter, playSound: false);
+                    Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
+                    causeColdSnap = true;
+                }
+            }
+        }
+    }
+    public void SetMainMap(Map map)
+    {
+        if (map != null)
+        {
+            mainMap = map;
         }
     }
     public override void ExposeData()

@@ -31,20 +31,52 @@ public class SymbolResolver_Hometown : SymbolResolver
         ResolveParams resolveParams2 = rp;
         resolveParams2.rect = rp.rect.ContractedBy(edgeDefenseWidth);
         resolveParams2.faction = faction;
-        resolveParams2.floorOnlyIfTerrainSupports = rp.floorOnlyIfTerrainSupports ?? true;
-        BaseGen.symbolStack.Push("oagene_RuinedOutdoors", resolveParams2);
+        resolveParams2.skipSingleThingIfHasToWipeBuildingOrDoesntFit = false;
+        SpawnSpecialThing(resolveParams2);
         ResolveParams resolveParams3 = rp;
-        resolveParams3.floorDef = TerrainDefOf.Bridge;
+        resolveParams3.rect = rp.rect.ContractedBy(edgeDefenseWidth);
+        resolveParams3.faction = faction;
         resolveParams3.floorOnlyIfTerrainSupports = rp.floorOnlyIfTerrainSupports ?? true;
-        resolveParams3.allowBridgeOnAnyImpassableTerrain = rp.allowBridgeOnAnyImpassableTerrain ?? true;
-        BaseGen.symbolStack.Push("floor", resolveParams3);
+        BaseGen.symbolStack.Push("oagene_RuinedOutdoors", resolveParams3);
+        ResolveParams resolveParams4 = rp;
+        resolveParams4.floorDef = TerrainDefOf.Bridge;
+        resolveParams4.floorOnlyIfTerrainSupports = rp.floorOnlyIfTerrainSupports ?? true;
+        resolveParams4.allowBridgeOnAnyImpassableTerrain = rp.allowBridgeOnAnyImpassableTerrain ?? true;
+        BaseGen.symbolStack.Push("floor", resolveParams4);
 
         if (ModsConfig.BiotechActive)
         {
-            ResolveParams resolveParams4 = rp;
-            resolveParams4.rect = rp.rect.ExpandedBy(Rand.Range(1, 4));
-            resolveParams4.edgeUnpolluteChance = 0.5f;
-            BaseGen.symbolStack.Push("unpollute", resolveParams4);
+            ResolveParams resolveParams5 = rp;
+            resolveParams5.rect = rp.rect.ExpandedBy(Rand.Range(1, 4));
+            resolveParams5.edgeUnpolluteChance = 0.5f;
+            BaseGen.symbolStack.Push("unpollute", resolveParams5);
+        }
+    }
+    private void SpawnSpecialThing(ResolveParams rp)
+    {
+        ResolveParams resolveParams1 = rp;
+        resolveParams1.singleThingDef = Snowstrom_ThingDefOf.OAGene_Plant_SnowyCrystalTree_Seed;
+        BaseGen.symbolStack.Push("thing", resolveParams1);
+        ResolveParams resolveParams2 = rp;
+        resolveParams2.singleThingDef = ThingDefOf.Campfire;
+        resolveParams2.postThingGenerate = SpecialCampfire;
+        BaseGen.symbolStack.Push("thing", resolveParams2);
+
+        ResolveParams resolveParams3 = rp;
+        resolveParams3.singleThingDef = Snowstrom_ThingDefOf.OAGene_AntiSnowTorch;
+        BaseGen.symbolStack.Push("thing", resolveParams3);
+        ResolveParams resolveParams4 = rp;
+        resolveParams4.singleThingDef = Snowstrom_ThingDefOf.OAGene_AntiSnowTorch;
+        BaseGen.symbolStack.Push("thing", resolveParams4);
+
+        static void SpecialCampfire(Thing thing)
+        {
+            if (thing == null || thing.def != ThingDefOf.Campfire)
+            {
+                return;
+            }
+            ThingWithComps campfire = thing as ThingWithComps;
+            campfire.GetComp<CompSpecialCampfire>()?.InitSpecialCampfire();
         }
     }
 }

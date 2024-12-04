@@ -122,7 +122,7 @@ public class IceCrystalFlower : Plant
         }
         if (TryFindNewFlowerCell(base.Map, base.Position, out IntVec3 targetCell))
         {
-            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstrom_MiscDefOf.OAGene_Plant_IceCrystalFlower, targetCell, base.Map);
+            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstrom_ThingDefOf.OAGene_Plant_IceCrystalFlower, targetCell, base.Map);
             flower?.Notify_FirstSpawn(this);
         }
     }

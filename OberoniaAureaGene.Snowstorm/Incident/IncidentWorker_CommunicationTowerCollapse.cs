@@ -32,7 +32,7 @@ public class IncidentWorker_CommunicationTowerCollapse : IncidentWorker
             return false;
         }
         Map map = (Map)parms.target;
-        GameCondition_ExtremeSnowstorm snowstorm = (GameCondition_ExtremeSnowstorm)map.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
+        GameCondition_ExtremeSnowstorm snowstorm = map.gameConditionManager.GetActiveCondition<GameCondition_EndGame_ExtremeSnowstorm>();
         if (snowstorm != null && !snowstorm.blockCommsconsole)
         {
             snowstorm.blockCommsconsole = true;

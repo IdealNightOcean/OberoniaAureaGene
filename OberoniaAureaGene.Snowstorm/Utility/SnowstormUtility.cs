@@ -56,7 +56,11 @@ public static class SnowstormUtility
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
-        mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
+        if (mainMap == null)
+        {
+            return;
+        }
+        // mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
 
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
@@ -87,22 +91,25 @@ public static class SnowstormUtility
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
-        mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
-        mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
+        mainMap ??= Find.AnyPlayerHomeMap;
+        if (mainMap == null)
+        {
+            return;
+        }
+        // mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+        mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         TryInitAfterSnowstormIncident(mainMap);
     }
-    public static void EndExtremeSnowstorm_AllMaps(Map map)
+    public static void EndExtremeSnowstorm_AllMaps(Map map, bool slience = false)
     {
         if (map == null)
         {
             return;
         }
         map.SnowstormMapComp()?.Notify_SnowstromEnd();
-        map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
+        map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         TryGiveEndSnowstormHediffAndThought(map);
     }
-
-
     //骤冷丨骤暖事件 (mainMap)
     public static void TryQueueTempChengeIncident(Map mainMap, int duration)
     {
@@ -290,6 +297,11 @@ public static class SnowstormUtility
 
     public static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
     {
+        if (targetMap == null)
+        {
+            Log.Error("Try add a map incident, but targetMap is NULL");
+            return;
+        }
         IncidentParms parms = new()
         {
             target = targetMap

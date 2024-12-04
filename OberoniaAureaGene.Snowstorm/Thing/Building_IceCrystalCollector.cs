@@ -93,7 +93,7 @@ public class Building_IceCrystalCollector : Building
             return null;
         }
         curStorge -= curStorgeInt;
-        Thing thing = ThingMaker.MakeThing(Snowstrom_MiscDefOf.OAGene_IceCrystal);
+        Thing thing = ThingMaker.MakeThing(Snowstrom_ThingDefOf.OAGene_IceCrystal);
         thing.stackCount = curStorgeInt;
         return thing;
     }
@@ -105,8 +105,8 @@ public class Building_IceCrystalCollector : Building
         }
         Command_Toggle command_Toggle = new()
         {
-            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(Snowstrom_MiscDefOf.OAGene_IceCrystal.label),
-            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this, Snowstrom_MiscDefOf.OAGene_IceCrystal.label),
+            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
+            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this, Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
             icon = ContentFinder<Texture2D>.Get("UI/Commands/BioferriteUnloading"),
             isActive = () => unloadingEnabled,
             toggleAction = delegate
@@ -122,7 +122,7 @@ public class Building_IceCrystalCollector : Building
             Command_Action command_Eject = new()
             {
                 defaultLabel = "OAGene_IceCrystalCollector_CommandEjectContents".Translate(),
-                defaultDesc = "OAGene_IceCrystalCollector_CommandEjectContentsDesc".Translate(Snowstrom_MiscDefOf.OAGene_IceCrystal.label),
+                defaultDesc = "OAGene_IceCrystalCollector_CommandEjectContentsDesc".Translate(Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/EjectBioferrite"),
                 action = EjectContents,
                 Disabled = curStorge == 0f,

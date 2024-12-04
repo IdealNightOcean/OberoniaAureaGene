@@ -115,6 +115,7 @@
     <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
     <Compile Include="Thing\Comp_SnowyCrystalTree.cs" />
     <Compile Include="Thing\CompSnowstormGeothermalGenerator.cs" />
+    <Compile Include="Thing\CompSpecialCampfire.cs" />
     <Compile Include="Thing\IceCrystalFlower.cs" />
     <Compile Include="Thing\CompPowerPlant_ToxifierSnowstorm.cs" />
     <Compile Include="Utility\Snowstorm_MiscUtility.cs" />

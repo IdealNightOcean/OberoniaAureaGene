@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -43,10 +44,10 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker
             return false;
         }
         IncidentParms raidParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, parms.target);
+        raidParms.forced = true;
         raidParms.faction = parms.faction;
         raidParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
-        raidParms.forced = true;
-        IncidentDefOf.RaidEnemy.Worker.TryExecute(raidParms);
-        return true;
+        raidParms.points = Mathf.Max(raidParms.points, parms.points);
+        return OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, raidParms);
     }
 }

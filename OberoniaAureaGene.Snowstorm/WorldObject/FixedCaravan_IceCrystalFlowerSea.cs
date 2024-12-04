@@ -22,7 +22,7 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
     }
     private void FinishedWork()
     {
-        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstrom_MiscDefOf.OAGene_IceCrystal, 600);
+        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstrom_ThingDefOf.OAGene_IceCrystal, 600);
         foreach (Thing reward in rewards)
         {
             OAFrame_FixedCaravanUtility.GiveThing(this, reward);
