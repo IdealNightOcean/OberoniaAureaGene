@@ -21,7 +21,15 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         RCellFinder.TryFindRandomSpotJustOutsideColony(pawn, out var result);
         return new LordJob_VisitColony(parms.faction, result);
     }
-
+    protected override bool TryResolveParmsGeneral(IncidentParms parms)
+    {
+        Map map = (Map)parms.target;
+        if (!SnowstormUtility.IsSnowExtremeWeather(map))
+        {
+            return false;
+        }
+        return base.TryResolveParmsGeneral(parms);
+    }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;

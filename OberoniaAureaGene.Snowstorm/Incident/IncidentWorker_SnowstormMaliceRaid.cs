@@ -16,14 +16,9 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker
     public bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (map == null)
+        if (!SnowstormUtility.IsSnowExtremeWeather(map))
         {
-            map = Find.RandomPlayerHomeMap;
-            if (map == null || !SnowstormUtility.IsSnowExtremeWeather(map))
-            {
-                return false;
-            }
-            parms.target = map;
+            return false;
         }
         if (parms.faction == null)
         {

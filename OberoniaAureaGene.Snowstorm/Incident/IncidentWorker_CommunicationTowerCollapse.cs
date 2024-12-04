@@ -14,16 +14,7 @@ public class IncidentWorker_CommunicationTowerCollapse : IncidentWorker
     public bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (map == null)
-        {
-            map = Find.RandomPlayerHomeMap;
-            if (map == null || !SnowstormUtility.IsSnowExtremeWeather(map))
-            {
-                return false;
-            }
-            parms.target = map;
-        }
-        return true;
+        return SnowstormUtility.IsSnowExtremeWeather(map);
     }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {

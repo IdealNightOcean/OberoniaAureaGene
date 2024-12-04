@@ -9,8 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_TraderCaravanArrival
 {
     protected override bool TryExecuteWorker(IncidentParms parms)
-    {
-        Map map = (Map)parms.target;
+    {    
         if (!TryResolveParms(parms))
         {
             return false;
@@ -19,6 +18,7 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
         {
             return false;
         }
+        Map map = (Map)parms.target;
         List<Pawn> pawns = SpawnPawns(parms);
         if (pawns.Count == 0)
         {

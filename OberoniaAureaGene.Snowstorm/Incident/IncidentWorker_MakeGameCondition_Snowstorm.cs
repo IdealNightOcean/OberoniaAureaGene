@@ -12,4 +12,12 @@ public class IncidentWorker_MakeGameCondition_Snowstorm : IncidentWorker_MakeGam
         }
         return base.CanFireNowSub(parms);
     }
+    protected override bool TryExecuteWorker(IncidentParms parms)
+    {
+        if (Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        {
+            return false;
+        }
+        return base.TryExecuteWorker(parms);
+    }
 }

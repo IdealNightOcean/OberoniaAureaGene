@@ -11,26 +11,13 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (map == null)
-        {
-            return false;
-        }
-        return true;
+        return map != null;
     }
 
     public bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        if (map == null)
-        {
-            map = Find.RandomPlayerHomeMap;
-            if (map == null)
-            {
-                return false;
-            }
-            parms.target = map;
-        }
-        return true;
+        return map != null;
     }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
