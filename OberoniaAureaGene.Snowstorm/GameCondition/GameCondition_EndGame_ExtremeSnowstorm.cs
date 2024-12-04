@@ -37,18 +37,13 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
         SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(18));
 
     }
+    public void Notify_EndGame()
+    {
+        Permanent = false;
+    }
 
     private static int DayToDelaytick(int day)
     {
         return (day - 1) * 60000 + Rand.RangeInclusive(0, 60000);
-    }
-    public static void AddNewSnowstromRaid(IncidentDef incidentDef, Map targetMap, int delayTicks)
-    {
-        IncidentParms parms = new()
-        {
-            target = targetMap,
-            points = Rand.RangeInclusive(8000, 10000)
-        };
-        Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delayTicks, parms);
     }
 }

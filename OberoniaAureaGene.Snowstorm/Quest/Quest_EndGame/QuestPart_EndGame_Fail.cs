@@ -1,9 +1,8 @@
 ﻿using RimWorld;
-using RimWorld.QuestGen;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
-public class QuestPart_EndGame_Failed : QuestPart
+public class QuestPart_EndGame_Fail : QuestPart
 {
     public string inSignal;
 
@@ -11,7 +10,7 @@ public class QuestPart_EndGame_Failed : QuestPart
     {
         if (signal.tag == inSignal)
         {
-            Snowstorm_StoryUtility.StoryGameComp?.Notify_StroyFailed();
+            Snowstorm_StoryUtility.StoryGameComp?.Notify_StroyFail();
         }
     }
 

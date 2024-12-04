@@ -1,12 +1,20 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld.Planet;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
 public class GameComponent_SnowstormStory : GameComponent
 {
+    private const float ScreenFadeSeconds = 6f;
+    private const float SongStartDelay = 2.5f;
+    [Unsaved]
+    protected float timeLeft = -1f;
+    [Unsaved]
+    protected bool onlyProtagonist = false;
+
     protected bool storyActive;
     public bool StoryActive => storyActive;
 
@@ -16,10 +24,10 @@ public class GameComponent_SnowstormStory : GameComponent
     public bool hometownSpawned;
     public bool storyInProgress;
     public bool storyFinished;
+    public bool LongingForHome => !storyInProgress && !storyFinished;
 
     public int hometownTile = Tile.Invalid;
 
-    public bool LongingForHome => !storyInProgress && !storyFinished;
 
     public GameComponent_SnowstormStory(Game game) { }
 
@@ -47,11 +55,37 @@ public class GameComponent_SnowstormStory : GameComponent
         }
     }
 
-    public void Notify_StroyFailed()
+    public void Notify_StroyFail()
     {
         storyInProgress = false;
         Hediff hediff = protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-        hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheThought(forceNoLetter: true);
+        hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
+    }
+
+    public void Notify_StroySuccess(bool onlyProtagonist)
+    {
+        if (!Find.TickManager.Paused)
+        {
+            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+        }
+        OAGene_SnowstormSettings.StoryFinishedOnce = true;
+        storyFinished = true;
+        storyInProgress = false;
+        this.onlyProtagonist = onlyProtagonist;
+
+        ScreenFader.StartFade(Color.white, 6f);
+        timeLeft = ScreenFadeSeconds;
+    }
+    public override void GameComponentUpdate()
+    {
+        if (timeLeft > 0f)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft <= 0f)
+            {
+                Snowstorm_StoryUtility.EndGame(protagonist, onlyProtagonist);
+            }
+        }
     }
 
     public override void LoadedGame()

@@ -7,17 +7,17 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class WorldObject_Hometown : MapParent
 {
+    protected bool mapGenerated;
     public override void SpawnSetup()
     {
         base.SpawnSetup();
         Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownSpawned(this.Tile);
 
     }
-    public void Notify_CaravanArrived(Caravan caravan)
+    public override void PostMapGenerate()
     {
-        SetFaction(Faction.OfPlayer);
-        Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(this.Tile, this.def);
-        CaravanEnterMapUtility.Enter(caravan, orGenerateMap, CaravanEnterMode.Edge, CaravanDropInventoryMode.DoNotDrop, draftColonists: true);
+        base.PostMapGenerate();
+        mapGenerated = true;
     }
 
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
@@ -26,21 +26,35 @@ public class WorldObject_Hometown : MapParent
         {
             yield return option;
         }
+        if (mapGenerated)
+        {
+            yield break;
+        }
+
+        bool hasProtagonist = false;
         if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
         {
             foreach (Pawn p in caravan.PawnsListForReading)
             {
                 if (p == protagonist)
                 {
-                    foreach (FloatMenuOption floatMenuOption in CaravanArrivalAction_VisitSnowstormHometown.GetFloatMenuOptions(caravan, this))
-                    {
-                        yield return floatMenuOption;
-                    }
-                    yield break;
+                    hasProtagonist = true;
+                    break;
                 }
             }
         }
-        yield return new FloatMenuOption("OAGene_Hometown_NoProtagonist".Translate(), null);
+
+        if (hasProtagonist)
+        {
+            foreach (FloatMenuOption floatMenuOption in CaravanArrivalAction_VisitSnowstormHometown.GetFloatMenuOptions(caravan, this))
+            {
+                yield return floatMenuOption;
+            }
+        }
+        else
+        {
+            yield return new FloatMenuOption("OAGene_FloatMenuOption_NoProtagonist".Translate(), null);
+        }
     }
 
     public override void Destroy()
@@ -51,6 +65,12 @@ public class WorldObject_Hometown : MapParent
         WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstrom_MiscDefOf.OAGene_Hometown_Sealed);
         hometown_sealed.Tile = tile;
         Find.WorldObjects.Add(hometown_sealed);
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref mapGenerated, "mapGenerated", defaultValue: false);
     }
 }
 
@@ -68,7 +88,33 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
     }
     public override void Arrived(Caravan caravan)
     {
-        hometown?.Notify_CaravanArrived(caravan);
+        if (hometown == null)
+        {
+            return;
+        }
+        bool hasProtagonist = false;
+        if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
+        {
+            foreach (Pawn p in caravan.PawnsListForReading)
+            {
+                if (p == protagonist)
+                {
+                    hasProtagonist = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasProtagonist)
+        {
+            hometown.SetFaction(Faction.OfPlayer);
+            Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(hometown.Tile, hometown.def);
+            CaravanEnterMapUtility.Enter(caravan, orGenerateMap, CaravanEnterMode.Edge, CaravanDropInventoryMode.DoNotDrop, draftColonists: true);
+        }
+        else
+        {
+            Messages.Message("OAGene_Message_NoProtagonist".Translate(), hometown, MessageTypeDefOf.RejectInput, historical: false);
+        }
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {

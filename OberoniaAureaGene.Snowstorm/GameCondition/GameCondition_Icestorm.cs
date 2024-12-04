@@ -6,6 +6,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
 {
+    protected bool endSlience;
     public override int TransitionTicks => 2500;
     protected override void PostInit()
     {
@@ -16,12 +17,20 @@ public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
             map.weatherManager.TransitionTo(Snowstrom_MiscDefOf.OAGene_IceSnowExtreme);
         }
     }
+    public void EndSlience()
+    {
+        endSlience = true;
+        suppressEndMessage = true;
+        End();
+    }
     protected override void PreEnd()
     {
+        WeatherDef weather = endSlience ? OAGene_RimWorldDefOf.SnowHard : Snowstrom_MiscDefOf.OAGene_SnowExtreme;
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            map.weatherManager.TransitionTo(Snowstrom_MiscDefOf.OAGene_SnowExtreme);
+
+            map.weatherManager.TransitionTo(weather);
         }
     }
     public override void DoCellSteadyEffects(IntVec3 c, Map map)

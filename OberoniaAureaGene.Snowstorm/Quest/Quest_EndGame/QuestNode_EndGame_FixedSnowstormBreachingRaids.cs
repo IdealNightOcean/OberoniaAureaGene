@@ -11,6 +11,7 @@ public class QuestNode_EndGame_FixedSnowstormBreachingRaids : QuestNode
     public SlateRef<string> inSignal;
 
     public SlateRef<float> currentThreatPointsFactor = 1f;
+    public SlateRef<float> minThreatPoints = -1f;
     protected override bool TestRunInt(Slate slate)
     {
         return true;
@@ -32,6 +33,7 @@ public class QuestNode_EndGame_FixedSnowstormBreachingRaids : QuestNode
             inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
             incident = Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid,
             currentThreatPointsFactor = currentThreatPointsFactor.GetValue(slate),
+            minThreatPoints = minThreatPoints.GetValue(slate),
         };
         questPart_EndGame_Incident.SetIncidentParmsAndRemoveTarget(parms, hometown);
         QuestGen.quest.AddPart(questPart_EndGame_Incident);

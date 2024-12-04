@@ -1,4 +1,5 @@
 ﻿
+using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -24,5 +25,12 @@ public static class Snowstorm_StoryUtility
             return false;
         }
         return pawn == StoryGameComp.Protagonist;
+    }
+
+
+    public static void EndGame(Pawn protagonist, bool onlyProtagonist)
+    {
+        GameVictoryUtility.ShowCredits("OAGene_ReturnHome".Translate(protagonist.Named("PAWN")), null);
+
     }
 }

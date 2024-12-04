@@ -5,10 +5,11 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class Need_SnowstormGlow : Need
 {
-    private const float NeedOffset = 0.9f * 0.0025f;
+    private const float ReduceOffset = 5f / 6f * 0.00625f;
+    private const float IncreaseOffset = 5f / 6f * 0.025f;
     public Need_SnowstormGlow(Pawn pawn) : base(pawn)
     {
-        threshPercents = [0.1f];
+        threshPercents = [0.1f, 0.35f, 0.7f];
     }
 
     public override void SetInitialLevel()
@@ -24,11 +25,11 @@ public class Need_SnowstormGlow : Need
         }
         if (pawn.Map.glowGrid.GroundGlowAt(pawn.Position) < 0.5f)
         {
-            CurLevel -= NeedOffset;
+            CurLevel -= ReduceOffset;
         }
         else
         {
-            CurLevel += NeedOffset;
+            CurLevel += IncreaseOffset;
         }
     }
     public override void OnNeedRemoved()

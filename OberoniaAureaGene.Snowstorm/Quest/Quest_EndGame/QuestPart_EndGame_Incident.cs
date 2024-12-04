@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -12,6 +13,7 @@ public class QuestPart_EndGame_Incident : QuestPart
     public IncidentDef incident;
     protected IncidentParms incidentParms;
     public float currentThreatPointsFactor = 1f;
+    public float minThreatPoints = -1f;
     protected MapParent mapParent;
 
 
@@ -38,25 +40,20 @@ public class QuestPart_EndGame_Incident : QuestPart
         }
         incidentParms.forced = true;
         incidentParms.quest = quest;
-        Log.Message("mapParent");
-        Log.Message(mapParent != null);
-        Log.Message("map");
-        Log.Message(mapParent.HasMap);
         if (mapParent != null && mapParent.HasMap)
         {
-            Log.Message("yesMapP");
             Map targetMap = mapParent.Map;
             incidentParms.target = targetMap;
-            if (incidentParms.points < 0f)
+            float points = incidentParms.points;
+            if (points < 0f)
             {
-                incidentParms.points = StorytellerUtility.DefaultThreatPointsNow(targetMap) * currentThreatPointsFactor;
+                points = StorytellerUtility.DefaultThreatPointsNow(targetMap) * currentThreatPointsFactor;
             }
+            incidentParms.points = Mathf.Max(points, minThreatPoints);
             if (incident.Worker.CanFireNow(incidentParms))
             {
-                Log.Message("f");
                 incident.Worker.TryExecute(incidentParms);
             }
-            Log.Message("nf");
             incidentParms.target = null;
         }
     }
@@ -83,6 +80,7 @@ public class QuestPart_EndGame_Incident : QuestPart
         Scribe_Deep.Look(ref incidentParms, "incidentParms");
         Scribe_References.Look(ref mapParent, "mapParent");
         Scribe_Values.Look(ref currentThreatPointsFactor, "currentThreatPointsFactor", 1f);
+        Scribe_Values.Look(ref minThreatPoints, "minThreatPoints", -1f);
     }
 
     public override void AssignDebugData()

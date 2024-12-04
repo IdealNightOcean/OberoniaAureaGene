@@ -11,8 +11,20 @@ public class QuestPart_EndGame_SnowstoryMapGenerated : QuestPart
         base.Notify_QuestSignalReceived(signal);
         if (signal.tag == inSignal)
         {
+
+            EndGameConditions();
+            Find.Storyteller.incidentQueue.Clear();
+
             Snowstorm_StoryUtility.StoryGameComp?.Notify_StoryInProgress();
         }
+    }
+
+    protected static void EndGameConditions()
+    {
+        GameConditionManager gameConditionManager = Find.World.gameConditionManager;
+        gameConditionManager.GetActiveCondition<GameCondition_Icestorm>()?.EndSlience();
+        gameConditionManager.GetActiveCondition<GameCondition_SnowstormPrecursor>()?.EndSlience();
+        gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>()?.EndSlience();
     }
 
     public override void ExposeData()

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -13,114 +14,150 @@ public class HediffCompProperties_ProtagonistHomecoming : HediffCompProperties
 
 public class HediffComp_ProtagonistHomecoming : HediffComp
 {
-    protected bool expectationTrigged;
-    protected bool obsessionTrigged;
-    protected bool longCherishedTrigged;
 
-    protected string labelInBrackets = null;
+    protected int stage;
+    protected int Stage
+    {
+        get { return stage; }
+        set { stage = Mathf.Clamp(value, 0, 6); }
+    }
 
     protected int ticksRemaining = 600000;
 
-    public override string CompLabelInBracketsExtra => labelInBrackets;
+    protected bool longCherishedTrigged;
+
     public override void CompPostTick(ref float severityAdjustment)
     {
         ticksRemaining--;
         if (ticksRemaining < 0)
         {
-            RecacheThought();
+            RecacheDiaryAndThought();
             ticksRemaining = 600000;
         }
     }
 
-    public void RecacheThought(bool forceNoLetter = false)
+    protected void RecacheDiaryAndThought(bool slience = false)
     {
         if (!Snowstorm_StoryUtility.StoryGameComp.LongingForHome)
         {
             parent.pawn.health.RemoveHediff(parent);
             return;
         }
-
-        string letterLabel = string.Empty;
-        string letterText = string.Empty;
-        bool sendLetter = false;
-
         Pawn protagonist = parent.pawn;
-        ThoughtDef homecoming = Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
         int years = GenDate.YearsPassed;
-        if (!longCherishedTrigged && years >= 12)
+        switch (Stage)
         {
-            Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
-            if (memory == null)
-            {
-                memory ??= (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
-                protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
-            }
-            memory.SetForcedStage(2);
-            memory.permanent = true;
-            longCherishedTrigged = true;
-            labelInBrackets = "OAGene_Homecoming_LongCherished".Translate();
-            letterLabel = "OAGene_LetterlabelProtagonistHomecoming_LongCherished".Translate(protagonist.Named("PAWN"));
-            letterText = "OAGene_LetterProtagonistHomecoming_LongCherished".Translate(protagonist.Named("PAWN"));
-            sendLetter = true;
-        }
-        else if (!obsessionTrigged && years >= 8)
-        {
-            Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
-            if (memory == null)
-            {
-                memory ??= (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
-                protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
-            }
-            memory.SetForcedStage(1);
-            memory.durationTicksOverride = 3600000;
-            obsessionTrigged = true;
-            labelInBrackets = "OAGene_Homecoming_Obsession".Translate();
-            letterLabel = "OAGene_LetterlabelProtagonistHomecoming_Obsession".Translate(protagonist.Named("PAWN"));
-            letterText = "OAGene_LetterProtagonistHomecoming_Obsession".Translate(protagonist.Named("PAWN"));
-            sendLetter = true;
-        }
-        else if (!expectationTrigged && years >= 4)
-        {
-            Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
-            if (memory == null)
-            {
-                memory ??= (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
-                protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
-            }
-            memory.SetForcedStage(0);
-            memory.durationTicksOverride = 1200000;
-            expectationTrigged = true;
-            labelInBrackets = "OAGene_Homecoming_Expectation".Translate();
-            letterLabel = "OAGene_LetterlabelProtagonistHomecoming_Expectation".Translate(protagonist.Named("PAWN"));
-            letterText = "OAGene_LetterProtagonistHomecoming_Expectation".Translate(protagonist.Named("PAWN"));
-            sendLetter = true;
-        }
-        if (sendLetter && !forceNoLetter)
-        {
-            Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NegativeEvent, protagonist);
+            case 0:
+                if (years >= 2)
+                {
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 1:
+                if (years >= 4)
+                {
+
+                    RecacheThought(1, 1200000);
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 2:
+                if (years >= 6)
+                {
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 3:
+                if (years >= 8)
+                {
+                    RecacheThought(2, 3600000);
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 4:
+                if (years >= 10)
+                {
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 5:
+                if (years >= 12 && !longCherishedTrigged)
+                {
+                    RecacheThought(3, -1, true);
+                    longCherishedTrigged = true;
+                    Stage++;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
+            case 6:
+            default: break;
         }
     }
 
+    public static void SendDiaryLetter(Pawn protagonist, int stage, bool slience = false)
+    {
+        if (slience)
+        {
+            return;
+        }
+        int curYear = 5500 + GenDate.YearsPassed;
+        string letterLabel = $"OAGene_LetterlabelProtagonistHomecoming_{stage}";
+        string letterText = $"OAGene_LetterProtagonistHomecoming_{stage}".Translate(protagonist.Named("PAWN"), curYear);
+        Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NegativeEvent, protagonist);
+    }
+    public void RecacheThought(int thoughtStage, int durationTicksOverride = -1, bool permanent = false)
+    {
+        Pawn protagonist = parent.pawn;
+        ThoughtDef homecoming = Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
+        Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
+        if (memory == null)
+        {
+            memory ??= (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
+            protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
+        }
+        parent.Severity = thoughtStage;
+        memory.SetForcedStage(thoughtStage);
+        memory.permanent = permanent;
+        if (durationTicksOverride > 0)
+        {
+            memory.durationTicksOverride = durationTicksOverride;
+        }
+    }
+
+    public void RecacheDiaryAndThoughtNow(bool slience)
+    {
+        int years = GenDate.YearsPassed;
+        Stage = years / 2;
+        parent.Severity = years / 4 + 0.1f;
+        if (Stage == 6 && !longCherishedTrigged)
+        {
+            RecacheThought(3, -1, true);
+            longCherishedTrigged = true;
+            SendDiaryLetter(parent.pawn, Stage, slience);
+        }
+        else
+        {
+            RecacheDiaryAndThought(slience);
+        }
+    }
     public override void CompPostPostRemoved()
     {
         base.CompPostPostRemoved();
         parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
     }
 
-    public override bool CompDisallowVisible()
-    {
-        return !expectationTrigged;
-    }
+
 
     public override void CompExposeData()
     {
         base.CompExposeData();
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
-
-        Scribe_Values.Look(ref expectationTrigged, "expectationTrigged", defaultValue: false);
-        Scribe_Values.Look(ref obsessionTrigged, "obsessionTrigged", defaultValue: false);
+        Scribe_Values.Look(ref stage, "stage", 0);
         Scribe_Values.Look(ref longCherishedTrigged, "longCherishedTrigged", defaultValue: false);
-
-        Scribe_Values.Look(ref labelInBrackets, "labelInBrackets", null);
     }
 }

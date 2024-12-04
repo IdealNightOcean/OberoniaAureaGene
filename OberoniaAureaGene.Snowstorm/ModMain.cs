@@ -31,6 +31,7 @@ public class OAGene_SnowstormSettings : ModSettings
 {
     private Vector2 scrollPosition;
     private float viewRectHeight;
+
     public static bool StoryFinishedOnce;
 
 

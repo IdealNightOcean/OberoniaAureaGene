@@ -28,6 +28,11 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
             return mainMap;
         }
     }
+    public void EndSlience()
+    {
+        suppressEndMessage = true;
+        base.End();
+    }
     protected override void PostInit()
     {
         TryAddColdSnap();

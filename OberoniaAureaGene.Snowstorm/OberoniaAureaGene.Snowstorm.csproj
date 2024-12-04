@@ -66,11 +66,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameCondition\GameCondition_EndGame_SnowstormPrecursor.cs" />
     <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
     <Compile Include="HarmonyPatch\NeutralGroup_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Failed.cs" />
+    <Compile Include="Incident\IncidentWorker_MakeGameCondition_Snowstorm.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Success.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Success.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Fail.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SnowstoryMapGenerated.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Incident.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SignalProtagonistFail.cs" />
@@ -78,7 +82,7 @@
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_CheckThreat.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_CheckThreat.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_GetHometownTile.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Failed.cs" />
+    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Fail.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryMapGenerated.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_MakeGameCondition.cs" />
     <Compile Include="GameCondition\GameCondition_EndGame_ExtremeSnowstorm.cs" />
@@ -117,6 +121,17 @@
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
     <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />
+    <Compile Include="WorldObject\GenStep_Hometown.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Division_Grid.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Division_Split.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_Hometown.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_LeafPossiblyDecorated.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Leaf_Building.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedIndoors.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedIndoors_Division_Split.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedEmptyRoom.cs" />
+    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_LeafDecorated_RandomInnerRect.cs" />
     <Compile Include="WorldObject\WorldObject_Hometown.cs" />
     <Compile Include="WorldObject\FixedCaravan_IceCrystalFlowerSea.cs" />
     <Compile Include="WorldObject\WorldObject_FlowerSea.cs" />

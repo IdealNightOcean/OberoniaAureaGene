@@ -56,7 +56,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowGentle);
+            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             OAGeneUtility.TryGiveEndSnowstormThought(map);
         }
     }

@@ -15,6 +15,7 @@ public static class Snowstrom_MiscDefOf
 
     public static GameConditionDef OAGene_SnowstormPrecursor; //气温骤降
     public static GameConditionDef OAGene_SnowyCrystalTreeCooler; //风晶雪树的降温
+    public static GameConditionDef OAGene_EndGame_ExtremeSnowstorm; //终局风雪
 
     public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
 
@@ -34,6 +35,7 @@ public static class Snowstrom_MiscDefOf
     public static WeatherDef OAGene_IceRain; //冰晶雨
 
     public static WorldObjectDef OAGene_FixedCaravan_IceCrystalFlowerSea; //冰晶花海远行队
+    public static WorldObjectDef OAGene_Hometown; //家乡（封存占格子）
     public static WorldObjectDef OAGene_Hometown_Sealed; //家乡（封存占格子）
     static Snowstrom_MiscDefOf()
     {
@@ -116,6 +118,7 @@ public static class Snowstrom_RimWorldDefOf
 {
     public static PawnKindDef Husky; //哈士奇
     public static RaidStrategyDef ImmediateAttackBreaching; //立即破墙
+    public static TerrainDef BurnedWoodPlankFloor;
 
     static Snowstrom_RimWorldDefOf()
     {

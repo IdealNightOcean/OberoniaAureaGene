@@ -1,10 +1,11 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
+public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_TemperatureChange
 {
     public override void Init()
     {
@@ -19,29 +20,27 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee.Worker.TryExecute(parms);
         }
     }
-    public void EndSlience()
-    {
-        suppressEndMessage = true;
-        base.End();
-    }
 
     public override void End()
     {
         base.End();
-        IncidentParms parms = new()
-        {
-            target = Find.World,
-        };
-        Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm.Worker.TryExecute(parms);
+
+        GameCondition gameCondition = GameConditionMaker.MakeCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm);
+        gameConditionManager.RegisterCondition(gameCondition);
     }
 
     private Map GetMainMap()
     {
         Map mainMap = gameConditionManager.ownerMap;
 
-        mainMap ??= AffectedMaps.Where(m => m.IsPlayerHome).RandomElementWithFallback(null);
-
-        mainMap ??= Find.AnyPlayerHomeMap;
+        if (mainMap == null)
+        {
+            MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstrom_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
+            if (hometown != null)
+            {
+                mainMap = hometown.Map;
+            }
+        }
 
         return mainMap;
     }

@@ -13,7 +13,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        return SnowstormUtility.IsIceStormWeather(map);
+        return SnowstormUtility.IsSnowExtremeWeather(map);
     }
 
     protected virtual LordJob_VisitColony CreateLordJob(IncidentParms parms, Pawn pawn)
