@@ -9,7 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_TraderCaravanArrival
 {
     protected override bool TryExecuteWorker(IncidentParms parms)
-    {    
+    {
         if (!TryResolveParms(parms))
         {
             return false;

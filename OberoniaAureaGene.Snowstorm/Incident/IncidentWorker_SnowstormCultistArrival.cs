@@ -42,7 +42,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
         if (snowstorm != null)
         {
             int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
-            Find.Storyteller.incidentQueue.Add(def, Find.TickManager.TicksGame + delayTicks, parms);
+            OAFrame_MiscUtility.AddNewQueuedIncident(def, delayTicks, parms);
             return true;
         }
         return base.TryExecuteWorker(parms);

@@ -73,13 +73,13 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
     public static void AddFixedIncident(Map map)
     {
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, map, DayToDelaytick(3));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, map, DayToDelaytick(3));
 
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(3));
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(6));
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(12));
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(16));
-        SnowstormUtility.AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(18));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(3));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(6));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(12));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(16));
+        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(18));
 
     }
     public void Notify_EndGame()

@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
@@ -34,7 +35,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
             forced = true
         };
         subParms.faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, subParms.faction), out subParms.traderKind);
-        IncidentDefOf.TraderCaravanArrival.Worker.TryExecute(subParms);
+        OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.TraderCaravanArrival, subParms);
         int traderCount = TraderCount.RandomInRange;
         int delayTicks = 0;
         for (int i = 0; i < traderCount - 1; i++)
@@ -58,7 +59,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
             traderKind = traderKind,
             forced = true
         };
-        Find.Storyteller.incidentQueue.Add(IncidentDefOf.TraderCaravanArrival, Find.TickManager.TicksGame + delayTicks, parms);
+        OAFrame_MiscUtility.AddNewQueuedIncident(IncidentDefOf.TraderCaravanArrival, delayTicks, parms);
     }
 
     protected void SendLetter(IncidentParms parms)

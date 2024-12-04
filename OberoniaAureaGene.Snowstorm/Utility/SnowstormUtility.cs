@@ -60,7 +60,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        // mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
+        mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
 
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
@@ -119,7 +119,7 @@ public static class SnowstormUtility
         for (int i = 0; i < count; i++)
         {
             IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormWarm : Snowstrom_IncidentDefOf.OAGene_SnowstormCold;
-            AddNewIncident(incidentDef, mainMap, delayTicks);
+            AddNewMapIncident(incidentDef, mainMap, delayTicks);
             delayTicks += TempChangeInterval.RandomInRange;
             if (delayTicks < duration - 30000)
             {
@@ -134,22 +134,22 @@ public static class SnowstormUtility
         //挣扎者
         if (Rand.Chance(0.4f))
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, Rand.RangeInclusive(120000, 240000));
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, Rand.RangeInclusive(120000, 240000));
         }
         //遇难商人
         if (Rand.Chance(0.6f))
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, Rand.RangeInclusive(180000, 300000));
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, Rand.RangeInclusive(180000, 300000));
         }
         //敲击兽
         if (Rand.Chance(0.2f))
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
         }
         //信号塔
         if (Rand.Chance(0.4f))
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
         }
     }
 
@@ -174,7 +174,7 @@ public static class SnowstormUtility
         int delayTicks = RaidDelay.RandomInRange;
         for (int i = 0; i < raidCount; i++)
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid, mainMap, delayTicks);
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid, mainMap, delayTicks);
             delayTicks += RaidInterval.RandomInRange;
         }
     }
@@ -195,7 +195,7 @@ public static class SnowstormUtility
             incidentDef = Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource;
         }
         int delayTicks = Rand.RangeInclusive(120000, 180000);
-        AddNewIncident(incidentDef, mainMap, delayTicks);
+        AddNewMapIncident(incidentDef, mainMap, delayTicks);
     }
 
     //暴风雪恶意袭击可用的派系
@@ -276,14 +276,14 @@ public static class SnowstormUtility
         delayTicks = TraderDelay.RandomInRange;
         for (int i = 0; i < traderCount; i++)
         {
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
             delayTicks += TraderInterval.RandomInRange;
         }
 
         if (Rand.Chance(0.4f))
         {
             delayTicks = Rand.RangeInclusive(10000, 50000);
-            AddNewIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
         }
     }
     public static void AddNewWorldIncident(IncidentDef incidentDef, int delayTicks)
@@ -292,10 +292,10 @@ public static class SnowstormUtility
         {
             target = Find.World
         };
-        Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delayTicks, parms);
+        OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 
-    public static void AddNewIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
+    public static void AddNewMapIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
     {
         if (targetMap == null)
         {
@@ -306,6 +306,6 @@ public static class SnowstormUtility
         {
             target = targetMap
         };
-        Find.Storyteller.incidentQueue.Add(incidentDef, Find.TickManager.TicksGame + delayTicks, parms);
+        OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 }

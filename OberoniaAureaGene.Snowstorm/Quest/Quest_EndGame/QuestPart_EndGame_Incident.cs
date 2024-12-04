@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,10 +51,7 @@ public class QuestPart_EndGame_Incident : QuestPart
                 points = StorytellerUtility.DefaultThreatPointsNow(targetMap) * currentThreatPointsFactor;
             }
             incidentParms.points = Mathf.Max(points, minThreatPoints);
-            if (incident.Worker.CanFireNow(incidentParms))
-            {
-                incident.Worker.TryExecute(incidentParms);
-            }
+            OAFrame_MiscUtility.TryFireIncidentNow(incident, incidentParms);
             incidentParms.target = null;
         }
     }

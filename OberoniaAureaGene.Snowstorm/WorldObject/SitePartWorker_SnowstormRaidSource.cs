@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -33,9 +34,8 @@ public class SitePartWorker_SnowstormRaidSource : SitePartWorker_Outpost
         incidentParms.faction = sitePart.site.Faction;
         incidentParms.forced = true;
         incidentParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
-        if (IncidentDefOf.RaidEnemy.Worker.CanFireNow(incidentParms))
+        if (OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms))
         {
-            IncidentDefOf.RaidEnemy.Worker.TryExecute(incidentParms);
             sitePart.lastRaidTick = Find.TickManager.TicksGame;
         }
     }

@@ -126,9 +126,10 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             IncidentParms incidentParms = new()
             {
                 target = map,
+                forced = true,
                 faction = Find.FactionManager.RandomRaidableEnemyFaction(allowNonHumanlike: false),
             };
-            IncidentDefOf.RaidEnemy.Worker.TryExecute(incidentParms);
+            OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
         }
     }
     protected void RecacheHegemonicFlagCount()

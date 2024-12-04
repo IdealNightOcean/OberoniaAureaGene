@@ -30,6 +30,10 @@ public class MapComponent_Snowstorm : MapComponent
 
     public void Notify_SnowstromStart()
     {
+        if (snowstormNow)
+        {
+            return;
+        }
         snowstormNow = true;
         geothermalGeneratorWarned = false;
         geothermalGeneratorTicks = 60000;
@@ -40,6 +44,10 @@ public class MapComponent_Snowstorm : MapComponent
 
     public void Notify_SnowstromEnd()
     {
+        if (!snowstormNow)
+        {
+            return;
+        }
         snowstormNow = false;
         Toxifier_NoticeSnowstorm(toxifiers, state: false);
     }
