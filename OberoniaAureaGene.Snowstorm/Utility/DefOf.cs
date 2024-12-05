@@ -98,8 +98,9 @@ public static class Snowstrom_IncidentDefOf
 {
     public static IncidentDef OAGene_ExtremeSnowstorm; //极端暴风雪
     public static IncidentDef OAGene_StarryNight; //星月夜
+    public static IncidentDef OAGene_SnowstormFog; //雪雾弥漫
 
-    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪事件
+    public static IncidentDef OAGene_ExtremeIceStorm; //冰晶暴风雪
     public static IncidentDef OAGene_SnowstormWarm; //暴风雪的暖和
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
 
@@ -110,7 +111,7 @@ public static class Snowstrom_IncidentDefOf
 
     public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者
     public static IncidentDef OAGene_AffectedMerchant; //暴风雪中的遇难商人
-    public static IncidentDef OAGene_SnowstornThrumboWanderIn; //暴风雪中的敲击兽
+    public static IncidentDef OAGene_SnowstormThrumboWanderIn; //暴风雪中的敲击兽
     public static IncidentDef OAGene_CommunicationTowerCollapse; //通讯塔倒塌
     public static IncidentDef OAGene_SnowstormPrecursor_AnimalFlee; //动物逃离
 

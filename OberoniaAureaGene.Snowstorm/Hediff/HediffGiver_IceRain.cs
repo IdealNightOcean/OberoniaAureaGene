@@ -5,14 +5,13 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class HediffGiver_IceRain : HediffGiver
 {
-    public HediffDef iceRainHediff;
 
     //冰晶暴风雪
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         if (ActiveHediff(pawn))
         {
-            pawn.health.AddHediff(iceRainHediff);
+            pawn.health.AddHediff(hediff);
         }
     }
 

@@ -131,6 +131,11 @@ public static class SnowstormUtility
     //暴风雪中的事件 (mainMap)
     public static void TryInitSnowstormIncident(Map mainMap, int duration)
     {
+        //雪雾弥漫
+        if (Rand.Chance(0.25f))
+        {
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormFog, mainMap, Rand.RangeInclusive(180000, 360000));
+        }
         //挣扎者
         if (Rand.Chance(0.4f))
         {
@@ -144,7 +149,7 @@ public static class SnowstormUtility
         //敲击兽
         if (Rand.Chance(0.2f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstornThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
+            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
         }
         //信号塔
         if (Rand.Chance(0.4f))
@@ -308,4 +313,6 @@ public static class SnowstormUtility
         };
         OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
+
+
 }

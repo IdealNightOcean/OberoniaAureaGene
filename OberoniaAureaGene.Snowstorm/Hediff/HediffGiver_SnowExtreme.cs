@@ -17,6 +17,5 @@ public class HediffGiver_SnowExtreme : HediffGiver_SnowExtremeBase
         {
             pawn.health.AddHediff(iceStormHediff);
         }
-
     }
 }

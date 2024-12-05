@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame;
-using RimWorld;
+﻿using RimWorld;
 using System.Linq;
 using Verse;
 
@@ -70,15 +69,16 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     {
         if (Rand.Chance(0.3f))
         {
-            if (MainMap != null)
+            Map mainMap = MainMap;
+            if (mainMap != null)
             {
-                IncidentParms parms = new()
+                if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
                 {
-                    target = MainMap,
-                };
-                if (OAFrame_MiscUtility.TryFireIncidentNow(OAGene_RimWorldDefOf.ColdSnap, parms))
-                {
-                    Letter letter = LetterMaker.MakeLetter("OAGene_ExtremeSnowstormCauseColdSnapTitle".Translate(), "OAGene_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+                    GameConditionManager gameConditionManager = mainMap.GameConditionManager;
+                    GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, Duration);
+                    gameConditionManager.RegisterCondition(gameCondition);
+
+                    Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
                     Find.LetterStack.ReceiveLetter(letter, playSound: false);
                     Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
                     causeColdSnap = true;

@@ -11,6 +11,9 @@ namespace OberoniaAureaGene.Snowstorm;
 public class MapComponent_Snowstorm : MapComponent
 {
     protected bool snowstormNow;
+    protected bool snowstormFogNow;
+    public bool SnowstormFogNow => snowstormFogNow;
+
     public List<Comp_SnowyCrystalTree> snowyCrystalTreeComps = [];
     public int SnowyCrystalTreeCount => snowyCrystalTreeComps.Count;
 
@@ -41,6 +44,10 @@ public class MapComponent_Snowstorm : MapComponent
         toxifierTicks = 60000;
         Toxifier_NoticeSnowstorm(toxifiers, state: true);
     }
+    public void Notify_SnowstromFog(bool state)
+    {
+        snowstormFogNow = state;
+    }
 
     public void Notify_SnowstromEnd()
     {
@@ -49,6 +56,7 @@ public class MapComponent_Snowstorm : MapComponent
             return;
         }
         snowstormNow = false;
+        snowstormFogNow = false;
         Toxifier_NoticeSnowstorm(toxifiers, state: false);
     }
 

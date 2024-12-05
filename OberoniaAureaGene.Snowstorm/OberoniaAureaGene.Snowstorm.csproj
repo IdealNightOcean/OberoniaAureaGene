@@ -66,11 +66,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameCondition\GameCondition_SnowstormFog.cs" />
     <Compile Include="GameCondition\GameCondition_EndGame_SnowstormPrecursor.cs" />
     <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
     <Compile Include="HarmonyPatch\NeutralGroup_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
+    <Compile Include="Hediff\HediffComp_SnowstormFog.cs" />
+    <Compile Include="Hediff\HediffGiver_SnowstormFog.cs" />
+    <Compile Include="Incident\IncidentWorker_MakeGameCondition_SnowstromFog.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_Snowstorm.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Success.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Success.cs" />
@@ -159,7 +163,6 @@
     <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
     <Compile Include="Hediff\HediffGiver_IceRain.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormThrumboWanderIn.cs" />
-    <Compile Include="LordJob_AssistColony_SnowstormAttackBreaching.cs" />
     <Compile Include="ModMain.cs" />
     <Compile Include="Hediff\HediffComp_UnderDark.cs" />
     <Compile Include="ThoughtWorker_UnderDark.cs" />

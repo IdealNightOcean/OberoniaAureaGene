@@ -52,14 +52,7 @@ public class CompPowerPlant_ToxifierSnowstorm : CompPowerPlant
     }
     public void Notify_Snowstorm(bool state)
     {
-        if (state)
-        {
-            snowstormNow = true;
-        }
-        else
-        {
-            snowstormNow = false;
-        }
+        snowstormNow = state;
     }
     public override void PostExposeData()
     {
