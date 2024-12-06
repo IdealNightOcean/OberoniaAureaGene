@@ -12,7 +12,7 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessSites : ThoughtWorker
         {
             return ThoughtState.Inactive;
         }
-        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map?.GetOAGeneMapComp();
+        MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map.OAGeneMapComp();
         if (oaGene_MCOAG == null)
         {
             return ThoughtState.Inactive;

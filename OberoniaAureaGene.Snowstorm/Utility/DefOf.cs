@@ -96,6 +96,8 @@ public static class Snowstrom_ThoughtDefOf
 [DefOf]
 public static class Snowstrom_IncidentDefOf
 {
+    public static IncidentDef OAGene_EndGame_ExtremeSnowstorm; //终局风雪
+
     public static IncidentDef OAGene_ExtremeSnowstorm; //极端暴风雪
     public static IncidentDef OAGene_StarryNight; //星月夜
     public static IncidentDef OAGene_SnowstormFog; //雪雾弥漫

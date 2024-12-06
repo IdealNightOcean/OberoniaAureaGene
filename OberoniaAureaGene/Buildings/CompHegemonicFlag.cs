@@ -17,7 +17,7 @@ public class CompHegemonicFlag : ThingComp
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
-        oaGene_MCOAG = parent.Map?.GetOAGeneMapComp();
+        oaGene_MCOAG = parent.Map.OAGeneMapComp();
         if (oaGene_MCOAG != null && !registed)
         {
             oaGene_MCOAG.HegemonicFlagCount++;

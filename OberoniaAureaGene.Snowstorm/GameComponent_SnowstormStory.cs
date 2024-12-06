@@ -8,7 +8,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class GameComponent_SnowstormStory : GameComponent
 {
-    private const float ScreenFadeSeconds = 6f;
+    private const float ScreenFadeSeconds = 15f;
     private const float SongStartDelay = 2.5f;
     [Unsaved]
     protected float timeLeft = -1f;
@@ -27,6 +27,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public bool LongingForHome => !storyInProgress && !storyFinished;
 
     public int hometownTile = Tile.Invalid;
+    public bool satisfySnowstormCultist;
 
 
     public GameComponent_SnowstormStory(Game game) { }
@@ -73,7 +74,7 @@ public class GameComponent_SnowstormStory : GameComponent
         storyInProgress = false;
         this.onlyProtagonist = onlyProtagonist;
 
-        ScreenFader.StartFade(Color.white, 6f);
+        ScreenFader.StartFade(Color.white, ScreenFadeSeconds);
         timeLeft = ScreenFadeSeconds;
     }
     public override void GameComponentUpdate()
@@ -109,5 +110,6 @@ public class GameComponent_SnowstormStory : GameComponent
         Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false);
 
         Scribe_Values.Look(ref hometownTile, "hometownTile", Tile.Invalid);
+        Scribe_Values.Look(ref satisfySnowstormCultist, "satisfySnowstormCultist", defaultValue: false);
     }
 }

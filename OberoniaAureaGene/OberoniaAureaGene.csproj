@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
+    <Compile Include="Snowstorm\MapComponent_LongSnowstorm.cs" />
     <Compile Include="Snowstorm\CompPowerNormalPlantWind.cs" />
     <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
     <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Misc\GoodwillSituationWorker_HasHegemonicFlag.cs" />
     <Compile Include="HarmonyPatch\GetDodgeChance_Patch.cs" />
     <Compile Include="HarmonyPatch\IncidentWorker_TryExecute_Patch.cs" />
-    <Compile Include="Misc\MapComponent.cs" />
+    <Compile Include="Misc\MapComponent_OberoniaAureaGene.cs" />
     <Compile Include="Genes\Gene_BillInspiration.cs" />
     <Compile Include="Genes\Gene_DeepSleep.cs" />
     <Compile Include="HarmonyPatch\BloodfeederBite_Patch.cs" />

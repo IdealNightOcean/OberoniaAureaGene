@@ -29,7 +29,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
         {
             Map map = AffectedMaps[i];
             map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
-            map.GetOAGeneMapComp()?.Notify_Snow(duration);
+            map.LongSnowstormMapComp()?.Notify_Snow(duration);
             OAGeneUtility.TryBreakPowerPlantWind(map, duration);
         }
     }

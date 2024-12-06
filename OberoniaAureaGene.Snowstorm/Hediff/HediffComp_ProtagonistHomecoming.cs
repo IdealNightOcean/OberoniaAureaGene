@@ -95,6 +95,14 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
                 }
                 break;
             case 6:
+                if (!longCherishedTrigged)
+                {
+                    RecacheThought(3, -1, true);
+                    longCherishedTrigged = true;
+                    Stage = 6;
+                    SendDiaryLetter(protagonist, Stage, slience);
+                }
+                break;
             default: break;
         }
     }
@@ -106,7 +114,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             return;
         }
         int curYear = 5500 + GenDate.YearsPassed;
-        string letterLabel = $"OAGene_LetterlabelProtagonistHomecoming_{stage}";
+        string letterLabel = $"OAGene_LetterlabelProtagonistHomecoming_{stage}".Translate();
         string letterText = $"OAGene_LetterProtagonistHomecoming_{stage}".Translate(protagonist.Named("PAWN"), curYear);
         Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NegativeEvent, protagonist);
     }
@@ -133,25 +141,13 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     {
         int years = GenDate.YearsPassed;
         Stage = years / 2;
-        parent.Severity = years / 4 + 0.1f;
-        if (Stage == 6 && !longCherishedTrigged)
-        {
-            RecacheThought(3, -1, true);
-            longCherishedTrigged = true;
-            SendDiaryLetter(parent.pawn, Stage, slience);
-        }
-        else
-        {
-            RecacheDiaryAndThought(slience);
-        }
+        RecacheDiaryAndThought(slience);
     }
     public override void CompPostPostRemoved()
     {
         base.CompPostPostRemoved();
         parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
     }
-
-
 
     public override void CompExposeData()
     {

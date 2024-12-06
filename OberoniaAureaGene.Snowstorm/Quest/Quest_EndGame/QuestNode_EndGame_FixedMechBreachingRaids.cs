@@ -1,42 +1,18 @@
-﻿using RimWorld;
-using RimWorld.Planet;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.QuestGen;
-using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_EndGame_FixedMechBreachingRaids : QuestNode
+public class QuestNode_EndGame_FixedMechBreachingRaids : QuestNode_FireIncident
 {
-    [NoTranslate]
-    public SlateRef<string> inSignal;
-
-    public SlateRef<float> minThreatPoints = -1f;
-    public SlateRef<float> currentThreatPointsFactor = 1f;
-    protected override bool TestRunInt(Slate slate)
+    protected override IncidentParms ResolveParms(Slate slate)
     {
-        return true;
-    }
-    protected override void RunInt()
-    {
-        Slate slate = QuestGen.slate;
-        MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
-        if (hometown == null)
+        return new()
         {
-            return;
-        }
-        IncidentParms parms = new()
-        {
+            forced = true,
             faction = Faction.OfMechanoids,
             raidStrategy = Snowstrom_RimWorldDefOf.ImmediateAttackBreaching,
         };
-        QuestPart_EndGame_Incident questPart_EndGame_Incident = new()
-        {
-            inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
-            incident = IncidentDefOf.RaidEnemy,
-            currentThreatPointsFactor = currentThreatPointsFactor.GetValue(slate),
-            minThreatPoints = minThreatPoints.GetValue(slate),
-        };
-        questPart_EndGame_Incident.SetIncidentParmsAndRemoveTarget(parms, hometown);
-        QuestGen.quest.AddPart(questPart_EndGame_Incident);
     }
 }

@@ -1,7 +1,5 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
-using RimWorld.Planet;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -15,9 +13,9 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
         {
             IncidentParms parms = new()
             {
-                target = Find.World,
+                target = mainMap,
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
         }
     }
 
@@ -25,14 +23,7 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
     {
         Map mainMap = gameConditionManager.ownerMap;
 
-        if (mainMap == null)
-        {
-            MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstrom_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
-            if (hometown != null)
-            {
-                mainMap = hometown.Map;
-            }
-        }
+        mainMap ??= Snowstorm_StoryUtility.GetHometownMap();
 
         return mainMap;
     }

@@ -9,9 +9,6 @@ namespace OberoniaAureaGene;
 
 public class MapComponent_OberoniaAureaGene : MapComponent
 {
-    protected int lastSnowTick = -1;
-    protected int snowCheckTicks;
-
     protected int enemyCheckTicks;
     public int cachedEnemiesCount;
     protected int cachedHostileSitesCount;
@@ -31,50 +28,11 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     public override void MapComponentTick()
     {
-        SnowCheckTick();
         if (ModsConfig.IdeologyActive)
         {
             EnemyCheckTick();
             RaidCheckTick();
         }
-    }
-
-    //漫长风雪的保底下雪天气
-    protected void SnowCheckTick()
-    {
-        snowCheckTicks--;
-        if (snowCheckTicks <= 0)
-        {
-            CheckSnow();
-        }
-    }
-    protected void CheckSnow()
-    {
-        if (!map.IsPlayerHome || !map.GameConditionManager.ConditionIsActive(OAGene_MiscDefOf.OAGene_Snowstorm))
-        {
-            snowCheckTicks = 60000;
-            return;
-        }
-        WeatherManager weatherManager = map.weatherManager;
-        if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme)
-        {
-            Notify_Snow(60000);
-            return;
-        }
-        if (Find.TickManager.TicksGame - lastSnowTick > 300000 && map.weatherDecider.ForcedWeather == null)
-        {
-            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
-            OAFrame_ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", 60000);
-            Notify_Snow(60000);
-            return;
-        }
-        snowCheckTicks = 15000;
-    }
-
-    public void Notify_Snow(int snowDuration = 60000)
-    {
-        lastSnowTick = Find.TickManager.TicksGame + snowDuration;
-        snowCheckTicks = snowDuration;
     }
 
     //搜索地图上敌人和大地图敌对据点
@@ -141,9 +99,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Values.Look(ref lastSnowTick, "lastSnowTick", -1);
-        Scribe_Values.Look(ref snowCheckTicks, "snowCheckTicks", 0);
-
         Scribe_Values.Look(ref enemyCheckTicks, "enemyCheckTicks", 0);
         Scribe_Values.Look(ref cachedEnemiesCount, "cachedEnemiesCount", 0);
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);

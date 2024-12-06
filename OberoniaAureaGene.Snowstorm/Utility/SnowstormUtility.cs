@@ -60,7 +60,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
+        mainMap.SnowstormMapComp()?.Notify_SnowstromStart(duration);
 
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
@@ -84,9 +84,8 @@ public static class SnowstormUtility
         {
             return;
         }
-        map.SnowstormMapComp()?.Notify_SnowstromStart();
+        map.SnowstormMapComp()?.Notify_SnowstromStart(duration);
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
-        map.GetOAGeneMapComp()?.Notify_Snow(duration);
         OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)

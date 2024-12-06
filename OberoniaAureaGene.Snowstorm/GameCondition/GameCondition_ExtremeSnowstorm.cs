@@ -7,6 +7,9 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
 {
+    [Unsaved]
+    protected bool endSlience;
+
     public bool blockCommsconsole;
 
     protected Map mainMap;
@@ -32,23 +35,21 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     public void EndSlience()
     {
         suppressEndMessage = true;
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
-        for (int i = 0; i < AffectedMaps.Count; i++)
-        {
-            Map map = AffectedMaps[i];
-            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map, slience: true);
-        }
-        base.End();
+        endSlience = true;
+        End();
     }
     protected override void PostInit()
     {
-        TryAddColdSnap();
-
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
 
         int duration = Duration;
         SnowstormUtility.InitExtremeSnowstorm_World(duration);
-        SnowstormUtility.InitExtremeSnowstorm_MainMap(MainMap, duration);
+        Map mainMap = MainMap;
+        if (mainMap != null)
+        {
+            causeColdSnap = TryAddColdSnap(mainMap, duration);
+            SnowstormUtility.InitExtremeSnowstorm_MainMap(mainMap, duration);
+        }
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
@@ -58,33 +59,43 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     protected override void PreEnd()
     {
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
-        SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
-        for (int i = 0; i < AffectedMaps.Count; i++)
-        {
-            Map map = AffectedMaps[i];
-            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map);
-        }
-    }
-    protected new void TryAddColdSnap()
-    {
-        if (Rand.Chance(0.3f))
+        if (endSlience)
         {
             Map mainMap = MainMap;
             if (mainMap != null)
             {
-                if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
-                {
-                    GameConditionManager gameConditionManager = mainMap.GameConditionManager;
-                    GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, Duration);
-                    gameConditionManager.RegisterCondition(gameCondition);
-
-                    Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
-                    Find.LetterStack.ReceiveLetter(letter, playSound: false);
-                    Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
-                    causeColdSnap = true;
-                }
+                mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+                mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             }
         }
+        else
+        {
+            SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
+        }
+
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map, endSlience);
+        }
+    }
+    protected static bool TryAddColdSnap(Map mainMap, int duration)
+    {
+        if (Rand.Chance(0.3f))
+        {
+            if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
+            {
+                GameConditionManager gameConditionManager = mainMap.GameConditionManager;
+                GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, duration);
+                gameConditionManager.RegisterCondition(gameCondition);
+
+                Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+                Find.LetterStack.ReceiveLetter(letter, playSound: false);
+                Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
+                return true;
+            }
+        }
+        return false;
     }
     public void SetMainMap(Map map)
     {

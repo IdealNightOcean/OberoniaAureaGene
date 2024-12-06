@@ -14,15 +14,16 @@ public class QuestPart_EndGame_Success : QuestPart
         if (signal.tag == inSignal)
         {
             Map map = hometown.Map;
-            EndGameConditiona(map);
+            End_EndGameSnowstrom(map);
             bool onlyProtagonist = (map?.mapPawns.FreeColonistsSpawnedCount ?? 0) == 1;
             Snowstorm_StoryUtility.StoryGameComp?.Notify_StroySuccess(onlyProtagonist);
         }
     }
-    protected static void EndGameConditiona(Map map)
+    protected static void End_EndGameSnowstrom(Map map)
     {
-        map?.gameConditionManager.GetActiveCondition<GameCondition_EndGame_ExtremeSnowstorm>()?.Notify_EndGame();
-        Find.World.gameConditionManager.GetActiveCondition<GameCondition_EndGame_ExtremeSnowstorm>()?.Notify_EndGame();
+        GameCondition_EndGame_ExtremeSnowstorm endGameSnowstrom =  map?.gameConditionManager.GetActiveCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
+        endGameSnowstrom ??= Find.World.gameConditionManager.GetActiveCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
+        endGameSnowstrom?.Notify_EndGame();
     }
 
     public override void ExposeData()

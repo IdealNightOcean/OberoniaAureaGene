@@ -31,13 +31,14 @@ public class MapComponent_Snowstorm : MapComponent
 
     public MapComponent_Snowstorm(Map map) : base(map) { }
 
-    public void Notify_SnowstromStart()
+    public void Notify_SnowstromStart(int duration)
     {
         if (snowstormNow)
         {
             return;
         }
         snowstormNow = true;
+        map.LongSnowstormMapComp()?.Notify_Snow(duration);
         geothermalGeneratorWarned = false;
         geothermalGeneratorTicks = 60000;
         toxifierWarned = false;
@@ -268,7 +269,8 @@ public class MapComponent_Snowstorm : MapComponent
     {
         if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
-            Notify_SnowstromStart();
+            int duration = map.gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>()?.TicksLeft ?? (7 * 60000);
+            Notify_SnowstromStart(duration);
         }
     }
     public override void MapRemoved()

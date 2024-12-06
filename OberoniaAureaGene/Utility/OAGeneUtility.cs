@@ -8,9 +8,13 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public static class OAGeneUtility
 {
-    public static MapComponent_OberoniaAureaGene GetOAGeneMapComp(this Map map)
+    public static MapComponent_OberoniaAureaGene OAGeneMapComp(this Map map)
     {
-        return map.GetComponent<MapComponent_OberoniaAureaGene>();
+        return map?.GetComponent<MapComponent_OberoniaAureaGene>();
+    }
+    public static MapComponent_LongSnowstorm LongSnowstormMapComp(this Map map)
+    {
+        return map?.GetComponent<MapComponent_LongSnowstorm>();
     }
     public static float ComfyTemperatureMin(Pawn pawn) //Pawn的最低舒适温度
     {

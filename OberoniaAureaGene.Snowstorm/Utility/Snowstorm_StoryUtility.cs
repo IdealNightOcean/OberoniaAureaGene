@@ -1,5 +1,7 @@
 ﻿
 using RimWorld;
+using RimWorld.Planet;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -27,6 +29,15 @@ public static class Snowstorm_StoryUtility
         return pawn == StoryGameComp.Protagonist;
     }
 
+    public static Map GetHometownMap()
+    {
+        MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstrom_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
+        if (hometown != null && hometown.HasMap)
+        {
+            return hometown.Map;
+        }
+        return null;
+    }
 
     public static void EndGame(Pawn protagonist, bool onlyProtagonist)
     {

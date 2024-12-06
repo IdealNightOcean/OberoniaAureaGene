@@ -14,7 +14,7 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
             IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
             foreach (Map map in playerHomes)
             {
-                MapComponent_OberoniaAureaGene oaGene_MCOAG = map.GetOAGeneMapComp();
+                MapComponent_OberoniaAureaGene oaGene_MCOAG = map.OAGeneMapComp();
                 if (oaGene_MCOAG != null && oaGene_MCOAG.HasHegemonicFlag)
                 {
                     return def.naturalGoodwillOffset;

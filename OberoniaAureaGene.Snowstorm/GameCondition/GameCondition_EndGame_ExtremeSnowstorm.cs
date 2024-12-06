@@ -1,6 +1,4 @@
 ﻿using RimWorld;
-using RimWorld.Planet;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -22,11 +20,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
                 }
                 else
                 {
-                    MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstrom_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
-                    if (hometown != null)
-                    {
-                        mainMap = hometown.Map;
-                    }
+                    mainMap = Snowstorm_StoryUtility.GetHometownMap();
                 }
             }
             return mainMap;
@@ -34,64 +28,73 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
     }
     protected override void PostInit()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
         Duration = DurationTick;
         Permanent = true;
-        AddFixedColdSnap();
+        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
+
         Map mainMap = MainMap;
         if (mainMap != null)
         {
-            mainMap.SnowstormMapComp()?.Notify_SnowstromStart();
-            AddFixedIncident(mainMap);
+            causeColdSnap = TryAddFixedColdSnap(mainMap, DurationTick);
+            InitExtremeSnowstorm_MainMap(mainMap, DurationTick);
+        }
+
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, DurationTick);
         }
     }
 
     protected override void PreEnd()
     {
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
-        MainMap?.SnowstormMapComp()?.Notify_SnowstromEnd();
-    }
-
-    protected void AddFixedColdSnap()
-    {
-        if (MainMap != null)
+        EndExtremeSnowstorm_MainMap(MainMap);
+        for (int i = 0; i < AffectedMaps.Count; i++)
         {
-            Map mainMap = MainMap;
-            if (mainMap != null)
-            {
-                if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
-                {
-                    GameConditionManager gameConditionManager = mainMap.GameConditionManager;
-                    GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, Duration);
-                    gameConditionManager.RegisterCondition(gameCondition);
-
-                    Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
-                    Find.LetterStack.ReceiveLetter(letter, playSound: false);
-                    Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
-                    causeColdSnap = true;
-                }
-            }
+            Map map = AffectedMaps[i];
+            SnowstormUtility.EndExtremeSnowstorm_AllMaps(map, slience: false);
         }
     }
 
-    public static void AddFixedIncident(Map map)
+    protected static bool TryAddFixedColdSnap(Map mainMap, int duration)
     {
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, map, DayToDelaytick(3));
+        if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
+        {
+            GameConditionManager gameConditionManager = mainMap.GameConditionManager;
+            GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, duration);
+            gameConditionManager.RegisterCondition(gameCondition);
 
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(3));
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(6));
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(12));
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(16));
-        SnowstormUtility.AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormCold, map, DayToDelaytick(18));
+            Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+            Find.LetterStack.ReceiveLetter(letter, playSound: false);
+            Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
 
+        }
+        return false;
+    }
+
+    protected static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
+    {
+        mainMap.SnowstormMapComp()?.Notify_SnowstromStart(DurationTick);
+    }
+
+    protected static void EndExtremeSnowstorm_MainMap(Map mainMap)
+    {
+        if (mainMap != null)
+        {
+            mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+            mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
+        }
     }
     public void Notify_EndGame()
     {
         Permanent = false;
     }
 
-    private static int DayToDelaytick(int day)
+    public void Notify_QuestFailed()
     {
-        return (day - 1) * 60000 + Rand.RangeInclusive(0, 60000);
+        Duration = Find.TickManager.TicksGame - startTick + 120000;
+        Permanent = false;
     }
+
 }
