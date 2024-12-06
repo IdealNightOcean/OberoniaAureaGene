@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [DefOf]
-public static class Snowstrom_MiscDefOf
+public static class Snowstorm_MiscDefOf
 {
     public static DamageDef OAGene_IceStab; //冰晶刺伤
 
@@ -32,29 +32,29 @@ public static class Snowstrom_MiscDefOf
     public static WorldObjectDef OAGene_FixedCaravan_IceCrystalFlowerSea; //冰晶花海远行队
     public static WorldObjectDef OAGene_Hometown; //家乡（封存占格子）
     public static WorldObjectDef OAGene_Hometown_Sealed; //家乡（封存占格子）
-    static Snowstrom_MiscDefOf()
+    static Snowstorm_MiscDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_MiscDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_MiscDefOf));
     }
 }
 
 [DefOf]
-public static class Snowstrom_ThingDefOf
+public static class Snowstorm_ThingDefOf
 {
     public static ThingDef OAGene_IceCrystal; //风雪碎晶
     public static ThingDef OAGene_IceCrystalCollector; //风雪碎晶收集器
     public static ThingDef OAGene_Plant_IceCrystalFlower; //碎晶花
     public static ThingDef OAGene_AntiSnowTorch; //风雪火把
     public static ThingDef OAGene_Plant_SnowyCrystalTree_Seed; //风雪树种
-    static Snowstrom_ThingDefOf()
+    static Snowstorm_ThingDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThingDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_ThingDefOf));
     }
 }
 
 
 [DefOf]
-public static class Snowstrom_HediffDefOf
+public static class Snowstorm_HediffDefOf
 {
     public static HediffDef OAGene_Hediff_ProtagonistHomecoming; //主角归乡健康状态（用于心情）
 
@@ -65,36 +65,36 @@ public static class Snowstrom_HediffDefOf
     public static HediffDef OAGene_Hediff_SnowstormAngry; //不理想的愤怒
 
     public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态
-    public static HediffDef OAGene_Hediff_SnowstromStrugglers; //难民健康状态（用于心情）
+    public static HediffDef OAGene_Hediff_SnowstormStrugglers; //难民健康状态（用于心情）
     public static HediffDef OAGene_Hediff_SpecialThrumbo; //特殊敲击兽
-    static Snowstrom_HediffDefOf()
+    static Snowstorm_HediffDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_HediffDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_HediffDefOf));
     }
 }
 
 
 [DefOf]
-public static class Snowstrom_ThoughtDefOf
+public static class Snowstorm_ThoughtDefOf
 {
     public static ThoughtDef OAGene_Thought_ProtagonistHomecoming; //主角归乡心情
 
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
     public static ThoughtDef OAGene_Thought_StarryNightP; //星月夜主角心情
-    public static ThoughtDef OAGene_Thought_SnowstromStrugglers; //难民心情
+    public static ThoughtDef OAGene_Thought_SnowstormStrugglers; //难民心情
 
     public static ThoughtDef OAGene_Thought_SnowstormCultistConvert; //难民心情
 
     public static ThoughtDef OAGene_Thought_IceCrystalFlowerSea; //冰晶花海心情
-    static Snowstrom_ThoughtDefOf()
+    static Snowstorm_ThoughtDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_ThoughtDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_ThoughtDefOf));
     }
 }
 
 
 [DefOf]
-public static class Snowstrom_IncidentDefOf
+public static class Snowstorm_IncidentDefOf
 {
     public static IncidentDef OAGene_EndGame_ExtremeSnowstorm; //终局风雪
 
@@ -107,11 +107,13 @@ public static class Snowstrom_IncidentDefOf
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
 
     public static IncidentDef OAGene_SnowstormMaliceRaid; //暴风雪破墙袭击
+    public static IncidentDef OAGene_SnowstormMaliceRaid_Hard; //暴风雪破墙袭击(困难)
     public static IncidentDef OAGene_SnowstormRaidSource; //暴风雪中的恶意（袭击）
     [MayRequireRoyalty]
     public static IncidentDef OAGene_SnowstormClimateAdjuster; //暴风雪中的恶意（气候）
+    public static IncidentDef OAGene_SnowstormCultistRaid; //暴风雪狂热教徒袭击
 
-    public static IncidentDef OAGene_SnowstromStrugglers; //暴风雪中的挣扎者
+    public static IncidentDef OAGene_SnowstormStrugglers; //暴风雪中的挣扎者
     public static IncidentDef OAGene_AffectedMerchant; //暴风雪中的遇难商人
     public static IncidentDef OAGene_SnowstormThrumboWanderIn; //暴风雪中的敲击兽
     public static IncidentDef OAGene_CommunicationTowerCollapse; //通讯塔倒塌
@@ -119,21 +121,23 @@ public static class Snowstrom_IncidentDefOf
 
     public static IncidentDef OAGene_AfterSnowstormTraderCaravanArrival; //暴风雪后的商队
     public static IncidentDef OAGene_SnowstormSurvivorJoins; //风雪后的幸存者
-    static Snowstrom_IncidentDefOf()
+    static Snowstorm_IncidentDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_IncidentDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_IncidentDefOf));
     }
 }
 
 [DefOf]
-public static class Snowstrom_RimWorldDefOf
+public static class Snowstorm_RimWorldDefOf
 {
     public static PawnKindDef Husky; //哈士奇
     public static RaidStrategyDef ImmediateAttackBreaching; //立即破墙
     public static TerrainDef BurnedWoodPlankFloor;
 
-    static Snowstrom_RimWorldDefOf()
+    public static IncidentCategoryDef AllyAssistance;
+
+    static Snowstorm_RimWorldDefOf()
     {
-        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstrom_RimWorldDefOf));
+        DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_RimWorldDefOf));
     }
 }

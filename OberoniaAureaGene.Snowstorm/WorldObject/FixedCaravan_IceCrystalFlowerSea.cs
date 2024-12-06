@@ -22,14 +22,14 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
     }
     private void FinishedWork()
     {
-        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstrom_ThingDefOf.OAGene_IceCrystal, 600);
+        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, 600);
         foreach (Thing reward in rewards)
         {
             OAFrame_FixedCaravanUtility.GiveThing(this, reward);
         }
         foreach (Pawn pawn in PawnsListForReading)
         {
-            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_IceCrystalFlowerSea);
+            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_IceCrystalFlowerSea);
         }
         Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(this);
         assoicateFlowerSea?.EndWeeding();

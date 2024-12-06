@@ -64,7 +64,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
             Map mainMap = MainMap;
             if (mainMap != null)
             {
-                mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+                mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
                 mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             }
         }

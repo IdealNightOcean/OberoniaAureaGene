@@ -15,12 +15,12 @@ public class GameCondition_SnowstormFog : GameCondition
     public override void Init()
     {
         base.Init();
-        base.SingleMap?.SnowstormMapComp()?.Notify_SnowstromFog(state: true);
+        base.SingleMap?.SnowstormMapComp()?.Notify_SnowstormFog(state: true);
     }
     public override void End()
     {
         base.End();
-        base.SingleMap?.SnowstormMapComp()?.Notify_SnowstromFog(state: false);
+        base.SingleMap?.SnowstormMapComp()?.Notify_SnowstormFog(state: false);
     }
     public override void GameConditionTick()
     {

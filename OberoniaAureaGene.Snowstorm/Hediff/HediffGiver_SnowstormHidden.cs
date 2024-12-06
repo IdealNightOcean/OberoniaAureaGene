@@ -59,7 +59,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     {
         if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby)
         {
-            if (Find.Storyteller.difficulty.babiesAreHealthy || giveHediff == Snowstrom_HediffDefOf.OAGene_Hediff_SnowstormAngry)
+            if (Find.Storyteller.difficulty.babiesAreHealthy || giveHediff == Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormAngry)
             {
                 return false;
             }

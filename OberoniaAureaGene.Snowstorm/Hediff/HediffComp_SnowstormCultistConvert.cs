@@ -5,44 +5,26 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffCompProperties_SnowstormCultistConvert : HediffCompProperties
+public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
 {
-    public IntRange convertInterval;
-    public HediffCompProperties_SnowstormCultistConvert()
-    {
-        compClass = typeof(HediffComp_SnowstormCultistConvert);
-    }
-}
+    public HediffCompProperties_SnowstormSpeech Props => props as HediffCompProperties_SnowstormSpeech;
 
-public class HediffComp_SnowstormCultistConvert : HediffComp
-{
-    public HediffCompProperties_SnowstormCultistConvert Props => props as HediffCompProperties_SnowstormCultistConvert;
-
-    protected int ticksRemaining = 600;
     protected const int ConvertInterval = 1200;
 
     [Unsaved]
     GameComponent_Snowstorm snowstormGameComp;
     GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
-    public override void CompPostTick(ref float severityAdjustment)
+
+    protected override void PostSpeechAction()
     {
-        ticksRemaining--;
-        if (ticksRemaining < 0)
+        GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
+        if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
         {
-            if (parent.pawn.Spawned)
-            {
-                GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
-                if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
-                {
-                    ticksRemaining = Props.convertInterval.RandomInRange;
-                    return;
-                }
-                if (TryConvert(parent.pawn))
-                {
-                    snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
-                }
-            }
-            ticksRemaining = Props.convertInterval.RandomInRange;
+            return;
+        }
+        if (TryConvert(parent.pawn))
+        {
+            snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
         }
     }
 
@@ -55,7 +37,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp
         }
         foreach (Pawn pawn in pawns)
         {
-            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
+            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
             if (ModsConfig.IdeologyActive)
             {
                 float certaintyLoss = pawn.GetStatValue(StatDefOf.CertaintyLossFactor) * 0.025f * -1f;
@@ -63,11 +45,5 @@ public class HediffComp_SnowstormCultistConvert : HediffComp
             }
         }
         return true;
-    }
-
-    public override void CompExposeData()
-    {
-        base.CompExposeData();
-        Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
     }
 }

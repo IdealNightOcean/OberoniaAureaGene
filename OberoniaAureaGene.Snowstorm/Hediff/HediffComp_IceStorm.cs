@@ -25,7 +25,7 @@ public class HediffComp_IceStorm : HediffComp
         ticksRemaining--;
         if (ticksRemaining < 0)
         {
-            DamageInfo dinfo = new(Snowstrom_MiscDefOf.OAGene_IceStab, Props.damageAmount.RandomInRange, Props.damageArmorPenetration.RandomInRange);
+            DamageInfo dinfo = new(Snowstorm_MiscDefOf.OAGene_IceStab, Props.damageAmount.RandomInRange, Props.damageArmorPenetration.RandomInRange);
             parent.pawn.TakeDamage(dinfo);
             ticksRemaining = Props.damageInterval.RandomInRange;
         }

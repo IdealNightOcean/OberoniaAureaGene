@@ -46,6 +46,8 @@ public class OAGene_SnowstormSettings : ModSettings
 
     public static bool IceCrystalFlowerSpawnMessage;
 
+    public static bool AllowDifficultEnemy;
+
     public void DoSettingsWindowContents(Rect inRect)
     {
         Rect outRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
@@ -87,6 +89,9 @@ public class OAGene_SnowstormSettings : ModSettings
         listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_IceCrystalFlowerSpawnMessage".Translate(), ref IceCrystalFlowerSpawnMessage);
 
+        listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_AllowDifficultEnemy".Translate(), ref AllowDifficultEnemy);
+
         listing_Rect.Gap(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
@@ -119,6 +124,8 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowSnowstormMaliciousRaid = true;
         AllowSnowstormMaliciousSite = true;
+
+        AllowDifficultEnemy = true;
     }
     protected void Reset()
     {
@@ -138,6 +145,8 @@ public class OAGene_SnowstormSettings : ModSettings
         AllowSnowstormMaliciousSite = true;
 
         IceCrystalFlowerSpawnMessage = false;
+
+        AllowDifficultEnemy = true;
     }
     public override void ExposeData()
     {
@@ -154,5 +163,7 @@ public class OAGene_SnowstormSettings : ModSettings
         Scribe_Values.Look(ref AllowSnowstormMaliciousSite, "AllowSnowstormMaliciousSite", defaultValue: true);
 
         Scribe_Values.Look(ref IceCrystalFlowerSpawnMessage, "IceCrystalFlowerSpawnMessage", defaultValue: false);
+
+        Scribe_Values.Look(ref AllowDifficultEnemy, "AllowDifficultEnemy", defaultValue: false);
     }
 }

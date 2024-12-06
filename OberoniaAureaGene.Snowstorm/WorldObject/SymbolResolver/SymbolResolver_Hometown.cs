@@ -55,7 +55,7 @@ public class SymbolResolver_Hometown : SymbolResolver
     private void SpawnSpecialThing(ResolveParams rp)
     {
         ResolveParams resolveParams1 = rp;
-        resolveParams1.singleThingDef = Snowstrom_ThingDefOf.OAGene_Plant_SnowyCrystalTree_Seed;
+        resolveParams1.singleThingDef = Snowstorm_ThingDefOf.OAGene_Plant_SnowyCrystalTree_Seed;
         BaseGen.symbolStack.Push("thing", resolveParams1);
         ResolveParams resolveParams2 = rp;
         resolveParams2.singleThingDef = ThingDefOf.Campfire;
@@ -63,10 +63,10 @@ public class SymbolResolver_Hometown : SymbolResolver
         BaseGen.symbolStack.Push("thing", resolveParams2);
 
         ResolveParams resolveParams3 = rp;
-        resolveParams3.singleThingDef = Snowstrom_ThingDefOf.OAGene_AntiSnowTorch;
+        resolveParams3.singleThingDef = Snowstorm_ThingDefOf.OAGene_AntiSnowTorch;
         BaseGen.symbolStack.Push("thing", resolveParams3);
         ResolveParams resolveParams4 = rp;
-        resolveParams4.singleThingDef = Snowstrom_ThingDefOf.OAGene_AntiSnowTorch;
+        resolveParams4.singleThingDef = Snowstorm_ThingDefOf.OAGene_AntiSnowTorch;
         BaseGen.symbolStack.Push("thing", resolveParams4);
 
         static void SpecialCampfire(Thing thing)

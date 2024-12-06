@@ -36,7 +36,7 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractiveBase
         {
             return;
         }
-        FixedCaravan_IceCrystalFlowerSea fixedCaravan = (FixedCaravan_IceCrystalFlowerSea)OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, Snowstrom_MiscDefOf.OAGene_FixedCaravan_IceCrystalFlowerSea, WeedingTicks);
+        FixedCaravan_IceCrystalFlowerSea fixedCaravan = (FixedCaravan_IceCrystalFlowerSea)OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, Snowstorm_MiscDefOf.OAGene_FixedCaravan_IceCrystalFlowerSea, WeedingTicks);
         fixedCaravan.assoicateFlowerSea = this;
         Find.WorldObjects.Add(fixedCaravan);
         Find.WorldSelector.Select(fixedCaravan);

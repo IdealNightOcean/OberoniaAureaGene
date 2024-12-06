@@ -15,7 +15,7 @@ public class ScenPart_SnowstormStory : ScenPart
     public override IEnumerable<string> GetSummaryListEntries(string tag)
     {
         yield return "OAGene_SnowstoryStoryActive".Translate();
-        yield return "OAGene_SnowstoryPlayerStartsWith".Translate(Snowstrom_RimWorldDefOf.Husky.label, 2);
+        yield return "OAGene_SnowstoryPlayerStartsWith".Translate(Snowstorm_RimWorldDefOf.Husky.label, 2);
     }
     public override IEnumerable<Thing> PlayerStartingThings()
     {
@@ -23,7 +23,7 @@ public class ScenPart_SnowstormStory : ScenPart
 
         for (int i = 0; i < 2; i++)
         {
-            Pawn animal = PawnGenerator.GeneratePawn(Snowstrom_RimWorldDefOf.Husky, Faction.OfPlayer);
+            Pawn animal = PawnGenerator.GeneratePawn(Snowstorm_RimWorldDefOf.Husky, Faction.OfPlayer);
             //训练全满
             Pawn_TrainingTracker trainingTracker = animal.training;
             if (trainingTracker != null)

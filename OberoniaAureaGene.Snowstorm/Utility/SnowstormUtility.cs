@@ -29,13 +29,13 @@ public static class SnowstormUtility
         {
             return false;
         }
-        return map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme;
+        return map.weatherManager.curWeather == Snowstorm_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == Snowstorm_MiscDefOf.OAGene_IceSnowExtreme;
     }
     public static void InitExtremeSnowstorm_World(int duration)
     {
         if (!TryStarryNight() && Rand.Bool)
         {
-            AddNewWorldIncident(Snowstrom_IncidentDefOf.OAGene_ExtremeIceStorm, IceOrStarryDelay.RandomInRange);
+            AddNewWorldIncident(Snowstorm_IncidentDefOf.OAGene_ExtremeIceStorm, IceOrStarryDelay.RandomInRange);
         }
     }
 
@@ -49,7 +49,7 @@ public static class SnowstormUtility
         {
             return false;
         }
-        AddNewWorldIncident(Snowstrom_IncidentDefOf.OAGene_StarryNight, IceOrStarryDelay.RandomInRange);
+        AddNewWorldIncident(Snowstorm_IncidentDefOf.OAGene_StarryNight, IceOrStarryDelay.RandomInRange);
         return true;
     }
 
@@ -60,7 +60,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        mainMap.SnowstormMapComp()?.Notify_SnowstromStart(duration);
+        mainMap.SnowstormMapComp()?.Notify_SnowstormStart(duration);
 
         //骤冷丨骤暖
         TryQueueTempChengeIncident(mainMap, duration);
@@ -84,7 +84,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        map.SnowstormMapComp()?.Notify_SnowstromStart(duration);
+        map.SnowstormMapComp()?.Notify_SnowstormStart(duration);
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
@@ -95,7 +95,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        // mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+        // mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
         mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         TryInitAfterSnowstormIncident(mainMap);
     }
@@ -105,7 +105,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        map.SnowstormMapComp()?.Notify_SnowstromEnd();
+        map.SnowstormMapComp()?.Notify_SnowstormEnd();
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         TryGiveEndSnowstormHediffAndThought(map);
     }
@@ -117,7 +117,7 @@ public static class SnowstormUtility
 
         for (int i = 0; i < count; i++)
         {
-            IncidentDef incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormWarm : Snowstrom_IncidentDefOf.OAGene_SnowstormCold;
+            IncidentDef incidentDef = Rand.Bool ? Snowstorm_IncidentDefOf.OAGene_SnowstormWarm : Snowstorm_IncidentDefOf.OAGene_SnowstormCold;
             AddNewMapIncident(incidentDef, mainMap, delayTicks);
             delayTicks += TempChangeInterval.RandomInRange;
             if (delayTicks < duration - 30000)
@@ -130,30 +130,31 @@ public static class SnowstormUtility
     //暴风雪中的事件 (mainMap)
     public static void TryInitSnowstormIncident(Map mainMap, int duration)
     {
+        int years = GenDate.YearsPassed;
         //雪雾弥漫
-        if (Rand.Chance(0.25f))
+        if (years >= 3 && Rand.Chance(0.25f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormFog, mainMap, Rand.RangeInclusive(180000, 360000));
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_SnowstormFog, mainMap, Rand.RangeInclusive(180000, 360000));
         }
         //挣扎者
         if (Rand.Chance(0.4f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstromStrugglers, mainMap, Rand.RangeInclusive(120000, 240000));
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_SnowstormStrugglers, mainMap, Rand.RangeInclusive(120000, 240000));
         }
         //遇难商人
         if (Rand.Chance(0.6f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_AffectedMerchant, mainMap, Rand.RangeInclusive(180000, 300000));
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_AffectedMerchant, mainMap, Rand.RangeInclusive(180000, 300000));
         }
         //敲击兽
         if (Rand.Chance(0.2f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_SnowstormThrumboWanderIn, mainMap, Rand.RangeInclusive(30000, duration - 30000));
         }
         //信号塔
         if (Rand.Chance(0.4f))
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_CommunicationTowerCollapse, mainMap, Rand.RangeInclusive(120000, 180000));
         }
     }
 
@@ -178,7 +179,12 @@ public static class SnowstormUtility
         int delayTicks = RaidDelay.RandomInRange;
         for (int i = 0; i < raidCount; i++)
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid, mainMap, delayTicks);
+            IncidentDef raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid;
+            if (OAGene_SnowstormSettings.AllowDifficultEnemy && Rand.Chance(0.05f))
+            {
+                raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid_Hard;
+            }
+            AddNewMapIncident(raidType, mainMap, delayTicks);
             delayTicks += RaidInterval.RandomInRange;
         }
     }
@@ -192,18 +198,18 @@ public static class SnowstormUtility
         IncidentDef incidentDef;
         if (ModsConfig.RoyaltyActive)
         {
-            incidentDef = Rand.Bool ? Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstrom_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
+            incidentDef = Rand.Bool ? Snowstorm_IncidentDefOf.OAGene_SnowstormRaidSource : Snowstorm_IncidentDefOf.OAGene_SnowstormClimateAdjuster;
         }
         else
         {
-            incidentDef = Snowstrom_IncidentDefOf.OAGene_SnowstormRaidSource;
+            incidentDef = Snowstorm_IncidentDefOf.OAGene_SnowstormRaidSource;
         }
         int delayTicks = Rand.RangeInclusive(120000, 180000);
         AddNewMapIncident(incidentDef, mainMap, delayTicks);
     }
 
     //暴风雪恶意袭击可用的派系
-    public static Faction RandomSnowstromMaliceRaidableFaction(Map map)
+    public static Faction RandomSnowstormMaliceRaidableFaction(Map map)
     {
         FactionManager factionManager = Find.FactionManager;
         Faction playerFaction = Faction.OfPlayer;
@@ -236,7 +242,7 @@ public static class SnowstormUtility
             }
             IncidentParms tempParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
             tempParms.forced = true;
-            tempParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
+            tempParms.raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
             tempParms.faction = fa;
             RaidStrategyDef strategyDef = tempParms.raidStrategy;
             if (strategyDef == null || !strategyDef.Worker.CanUseWith(tempParms, PawnGroupKindDefOf.Combat))
@@ -262,11 +268,11 @@ public static class SnowstormUtility
             }
             if (pawn.needs.mood?.thoughts.memories != null)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
             }
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
+                pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
         }
     }
@@ -280,14 +286,14 @@ public static class SnowstormUtility
         delayTicks = TraderDelay.RandomInRange;
         for (int i = 0; i < traderCount; i++)
         {
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_AfterSnowstormTraderCaravanArrival, mainMap, delayTicks);
             delayTicks += TraderInterval.RandomInRange;
         }
 
         if (Rand.Chance(0.4f))
         {
             delayTicks = Rand.RangeInclusive(10000, 50000);
-            AddNewMapIncident(Snowstrom_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_SnowstormSurvivorJoins, mainMap, delayTicks);
         }
     }
     public static void AddNewWorldIncident(IncidentDef incidentDef, int delayTicks)

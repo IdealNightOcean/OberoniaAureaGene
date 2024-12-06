@@ -41,10 +41,10 @@ public class Comp_SnowyCrystalTree : CompTempControl
     }
     public static GameCondition_SnowyCrystalTreeCooler TryInitGameCondiation(Map map)
     {
-        GameCondition_SnowyCrystalTreeCooler gameCondition_SnowyCrystalTreeCooler = map.gameConditionManager.GetActiveCondition(Snowstrom_MiscDefOf.OAGene_SnowyCrystalTreeCooler) as GameCondition_SnowyCrystalTreeCooler;
+        GameCondition_SnowyCrystalTreeCooler gameCondition_SnowyCrystalTreeCooler = map.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_SnowyCrystalTreeCooler) as GameCondition_SnowyCrystalTreeCooler;
         if (gameCondition_SnowyCrystalTreeCooler == null)
         {
-            gameCondition_SnowyCrystalTreeCooler = (GameCondition_SnowyCrystalTreeCooler)GameConditionMaker.MakeCondition(Snowstrom_MiscDefOf.OAGene_SnowyCrystalTreeCooler);
+            gameCondition_SnowyCrystalTreeCooler = (GameCondition_SnowyCrystalTreeCooler)GameConditionMaker.MakeCondition(Snowstorm_MiscDefOf.OAGene_SnowyCrystalTreeCooler);
             map.GameConditionManager.RegisterCondition(gameCondition_SnowyCrystalTreeCooler);
             gameCondition_SnowyCrystalTreeCooler.Permanent = true;
         }

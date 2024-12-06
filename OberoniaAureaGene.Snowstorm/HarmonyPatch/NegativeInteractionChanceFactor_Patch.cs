@@ -15,7 +15,7 @@ public static class NegativeInteractionChanceFactor_Patch
         {
             return;
         }
-        if (initiator.health.hediffSet.HasHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SnowstormAngry))
+        if (initiator.health.hediffSet.HasHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormAngry))
         {
             __result *= 5f;
         }

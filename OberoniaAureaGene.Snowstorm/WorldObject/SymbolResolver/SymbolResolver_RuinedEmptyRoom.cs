@@ -43,7 +43,7 @@ public class SymbolResolver_RuinedEmptyRoom : SymbolResolver
         }
 
         ResolveParams resolveParams4 = rp;
-        resolveParams4.floorDef = Snowstrom_RimWorldDefOf.BurnedWoodPlankFloor;
+        resolveParams4.floorDef = Snowstorm_RimWorldDefOf.BurnedWoodPlankFloor;
         BaseGen.symbolStack.Push("floor", resolveParams4);
 
         if (rp.addRoomCenterToRootsToUnfog.HasValue && rp.addRoomCenterToRootsToUnfog.Value && Current.ProgramState == ProgramState.MapInitializing)

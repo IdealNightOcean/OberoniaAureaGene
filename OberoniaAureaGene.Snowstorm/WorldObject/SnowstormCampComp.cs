@@ -34,7 +34,7 @@ public class SnowstormCampComp : WorldObjectComp
     protected SnowstormCampType curType = SnowstormCampType.None;
     public void InitInnerTrader()
     {
-        innerTrader = new(Snowstrom_MiscDefOf.OAGene_Trader_SnowstormCamp, parent);
+        innerTrader = new(Snowstorm_MiscDefOf.OAGene_Trader_SnowstormCamp, parent);
         innerTrader.GenerateThings(parent.Tile);
     }
     public void VisitCamp(Caravan caravan)
@@ -107,7 +107,7 @@ public class SnowstormCampComp : WorldObjectComp
     }
     protected static void GiveGifts(Caravan caravan)
     {
-        Thing torch = ThingMaker.MakeThing(Snowstrom_ThingDefOf.OAGene_AntiSnowTorch);
+        Thing torch = ThingMaker.MakeThing(Snowstorm_ThingDefOf.OAGene_AntiSnowTorch);
         Thing pemmican = ThingMaker.MakeThing(ThingDefOf.Pemmican);
         pemmican.stackCount = Rand.RangeInclusive(35, 45);
 

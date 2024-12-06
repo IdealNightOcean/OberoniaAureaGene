@@ -15,7 +15,7 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
             {
                 target = mainMap,
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
         }
     }
 

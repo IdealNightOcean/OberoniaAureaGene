@@ -36,7 +36,7 @@ public class GameCondition_StarryNight : GameCondition
     }
     protected void PostInit()
     {
-        Find.MusicManagerPlay.ForceTriggerTransition(Snowstrom_MiscDefOf.OAGene_Transition_StarryNight);
+        Find.MusicManagerPlay.ForceTriggerTransition(Snowstorm_MiscDefOf.OAGene_Transition_StarryNight);
         foreach (Map map in AffectedMaps)
         {
             map.weatherManager.TransitionTo(weather);
@@ -45,7 +45,7 @@ public class GameCondition_StarryNight : GameCondition
         {
             if (OAFrame_PawnUtility.PawnSleepNow(protagonist))
             {
-                protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstrom_ThoughtDefOf.OAGene_Thought_StarryNightP);
+                protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_StarryNightP);
             }
             InspirationDef inspirationDef = protagonist.mindState.inspirationHandler.GetRandomAvailableInspirationDef();
             if (inspirationDef != null)
@@ -98,7 +98,7 @@ public class GameCondition_StarryNight : GameCondition
                 return;
             }
             Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
-            FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, Snowstrom_MiscDefOf.OAGene_StarryGlow, FastEffectRandom.Next(200, 300) / 100f);
+            FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, Snowstorm_MiscDefOf.OAGene_StarryGlow, FastEffectRandom.Next(200, 300) / 100f);
             dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
             dataStatic.velocitySpeed = 0.08f;
             map.flecks.CreateFleck(dataStatic);

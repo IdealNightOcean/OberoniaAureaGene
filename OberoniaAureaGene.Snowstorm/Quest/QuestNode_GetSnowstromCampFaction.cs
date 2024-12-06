@@ -6,7 +6,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_GetSnowstromCampFaction : QuestNode
+public class QuestNode_GetSnowstormCampFaction : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> storeAs;

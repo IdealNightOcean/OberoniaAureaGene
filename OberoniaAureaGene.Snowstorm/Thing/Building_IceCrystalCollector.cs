@@ -93,7 +93,7 @@ public class Building_IceCrystalCollector : Building
             return null;
         }
         curStorge -= curStorgeInt;
-        Thing thing = ThingMaker.MakeThing(Snowstrom_ThingDefOf.OAGene_IceCrystal);
+        Thing thing = ThingMaker.MakeThing(Snowstorm_ThingDefOf.OAGene_IceCrystal);
         thing.stackCount = curStorgeInt;
         return thing;
     }
@@ -105,8 +105,8 @@ public class Building_IceCrystalCollector : Building
         }
         Command_Toggle command_Toggle = new()
         {
-            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
-            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this, Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
+            defaultLabel = "OAGene_IceCrystalCollector_CommandToggleUnloading".Translate(Snowstorm_ThingDefOf.OAGene_IceCrystal.label),
+            defaultDesc = "OAGene_IceCrystalCollector_CommandToggleUnloadingDesc".Translate(this, Snowstorm_ThingDefOf.OAGene_IceCrystal.label),
             icon = ContentFinder<Texture2D>.Get("UI/Commands/BioferriteUnloading"),
             isActive = () => unloadingEnabled,
             toggleAction = delegate
@@ -122,7 +122,7 @@ public class Building_IceCrystalCollector : Building
             Command_Action command_Eject = new()
             {
                 defaultLabel = "OAGene_IceCrystalCollector_CommandEjectContents".Translate(),
-                defaultDesc = "OAGene_IceCrystalCollector_CommandEjectContentsDesc".Translate(Snowstrom_ThingDefOf.OAGene_IceCrystal.label),
+                defaultDesc = "OAGene_IceCrystalCollector_CommandEjectContentsDesc".Translate(Snowstorm_ThingDefOf.OAGene_IceCrystal.label),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/EjectBioferrite"),
                 action = EjectContents,
                 Disabled = curStorge == 0f,
@@ -176,15 +176,15 @@ public class Building_IceCrystalCollector : Building
         {
             return CurWeather.Other;
         }
-        if (weather == Snowstrom_MiscDefOf.OAGene_SnowExtreme)
+        if (weather == Snowstorm_MiscDefOf.OAGene_SnowExtreme)
         {
             return CurWeather.Snowstorm;
         }
-        if (weather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme)
+        if (weather == Snowstorm_MiscDefOf.OAGene_IceSnowExtreme)
         {
             return CurWeather.IceStorm;
         }
-        if (weather == Snowstrom_MiscDefOf.OAGene_IceRain)
+        if (weather == Snowstorm_MiscDefOf.OAGene_IceRain)
         {
             return CurWeather.IceRain;
         }

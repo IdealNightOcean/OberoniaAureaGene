@@ -49,12 +49,27 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
     }
     private static FiringIncident MakeThreat(ThreatsGeneratorParams parms, IIncidentTarget target)
     {
-        IncidentDef incidentDef = Rand.Chance(0.8f) ? Snowstrom_IncidentDefOf.OAGene_SnowstormMaliceRaid : IncidentDefOf.RaidEnemy;
+        IncidentDef raidType = null;
+        Faction faction = null;
+        RaidStrategyDef raidStrategy = null;
+        if(Rand.Chance(0.8f))
+        {
+            raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid;
+            raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
+        }
+        else
+        {
+            raidType = IncidentDefOf.RaidEnemy;
+            raidStrategy = Snowstorm_RimWorldDefOf.ImmediateAttackBreaching;
+            faction = Faction.OfMechanoids;
+
+        }
         IncidentParms incidentParms = new()
         {
             target = target,
             points = parms.threatPoints ?? (StorytellerUtility.DefaultThreatPointsNow(target) * parms.currentThreatPointsFactor),
-            faction = incidentDef == IncidentDefOf.RaidEnemy ? Faction.OfMechanoids : null
+            faction = faction,
+            raidStrategy = raidStrategy
         };
         if (parms.minThreatPoints.HasValue)
         {
@@ -65,7 +80,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
 
         return new FiringIncident
         {
-            def = incidentDef,
+            def = raidType,
             parms = incidentParms
         };
     }

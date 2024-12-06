@@ -13,7 +13,7 @@ public class HediffGiver_SnowExtreme : HediffGiver_SnowExtremeBase
         {
             pawn.health.AddHediff(smallBodyHediff);
         }
-        if (pawn.Map?.weatherManager.curWeather == Snowstrom_MiscDefOf.OAGene_IceSnowExtreme)
+        if (pawn.Map?.weatherManager.curWeather == Snowstorm_MiscDefOf.OAGene_IceSnowExtreme)
         {
             pawn.health.AddHediff(iceStormHediff);
         }

@@ -13,7 +13,7 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
         CellRect rect = rp.rect;
         CellRect rect2 = rect.ContractedBy(1);
         List<Thing> stockList = [];
-        TraderKindDef traderKindDef = Snowstrom_MiscDefOf.OAGene_Trader_SnowstormCamp;
+        TraderKindDef traderKindDef = Snowstorm_MiscDefOf.OAGene_Trader_SnowstormCamp;
         int forTile = BaseGen.globalSettings.map?.Tile ?? -1;
         for (int i = 0; i < traderKindDef.stockGenerators.Count; i++)
         {

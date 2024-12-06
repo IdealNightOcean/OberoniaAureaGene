@@ -74,6 +74,10 @@
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormFog.cs" />
     <Compile Include="Hediff\HediffGiver_SnowstormFog.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormCultistRaid.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormFanaticalCultis.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid_Hard.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_EndGameSnowstorm.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_SnowstromFog.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_Snowstorm.cs" />
@@ -167,7 +171,6 @@
     <Compile Include="ModMain.cs" />
     <Compile Include="Hediff\HediffComp_UnderDark.cs" />
     <Compile Include="ThoughtWorker_UnderDark.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
     <Compile Include="Need_SnowstormGlow.cs" />
     <Compile Include="Quest\QuestNode_SnowstormRaid.cs" />
     <Compile Include="Quest\QuestNode_GetSnowstromRaidFaction.cs" />
@@ -190,7 +193,6 @@
     <Compile Include="Incident\IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quest\QuestNode_Root_SnowstromStrugglers.cs" />
-    <Compile Include="RaidStrategyWorker_SnowstormImmediateAttackBreaching.cs" />
     <Compile Include="Utility\SnowstormUtility.cs" />
     <Compile Include="Weather\WeatherEvent_IceStormBreakRoof.cs" />
   </ItemGroup>

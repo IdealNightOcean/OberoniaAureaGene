@@ -8,7 +8,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
+public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
 {
     protected override IntRange LodgerCount => new(2, 4);
     private static readonly IntRange FoodCount = new(5, 7);
@@ -36,8 +36,8 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
         {
             foreach (Pawn p in pawns)
             {
-                p.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_HopeForSurvival);
-                p.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SnowstromStrugglers);
+                p.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
+                p.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
                 Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
                 food.stackCount = FoodCount.RandomInRange;
                 p.inventory.innerContainer.TryAdd(food);
@@ -95,7 +95,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
 
         SetAward(faction, quest);
 
-        QuestPart_OARefugeeInteractions questPart_StrugglersInteractions = SnowstromStrugglersInteractions(faction, map.Parent, slate);
+        QuestPart_OARefugeeInteractions questPart_StrugglersInteractions = SnowstormStrugglersInteractions(faction, map.Parent, slate);
         questPart_StrugglersInteractions.inSignalArrested = lodgerArrestedSignal;
         questPart_StrugglersInteractions.inSignalRecruited = lodgerRecruitedSignal;
         questPart_StrugglersInteractions.pawns.AddRange(pawns);
@@ -162,7 +162,7 @@ public class QuestNode_Root_SnowstromStrugglers : QuestNode_Root_RefugeeBase
         questPart_Choice.choices.Add(choice);
 
     }
-    private QuestPart_OARefugeeInteractions SnowstromStrugglersInteractions(Faction faction, MapParent mapParent, Slate slate) => new()
+    private QuestPart_OARefugeeInteractions SnowstormStrugglersInteractions(Faction faction, MapParent mapParent, Slate slate) => new()
     {
         allowAssaultColony = false,
         allowLeave = false,

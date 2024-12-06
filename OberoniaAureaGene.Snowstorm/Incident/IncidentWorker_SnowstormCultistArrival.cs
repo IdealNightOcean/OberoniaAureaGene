@@ -8,7 +8,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTraderCaravanArrival
 {
-    protected override IsolatedPawnGroupMakerDef PawnGroupMakerDef => Snowstrom_MiscDefOf.OAGene_GroupMaker_SnowstormCultist;
+    protected override IsolatedPawnGroupMakerDef PawnGroupMakerDef => Snowstorm_MiscDefOf.OAGene_GroupMaker_SnowstormCultist;
 
     protected override bool TryResolveFaction(IncidentParms parms)
     {
@@ -25,7 +25,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
         {
             if (pawn.RaceProps.Humanlike)
             {
-                pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SnowstormCultist);
+                pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
             }
         }
         return pawns;

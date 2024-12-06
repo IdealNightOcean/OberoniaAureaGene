@@ -20,7 +20,7 @@ public static class DoExecutionByCut_Patch
 
     public static bool IsSpecialThrumbo(Pawn victim)
     {
-        if (victim.def == ThingDefOf.Thrumbo && victim.health.hediffSet.HasHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SpecialThrumbo))
+        if (victim.def == ThingDefOf.Thrumbo && victim.health.hediffSet.HasHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo))
         {
             return true;
         }
@@ -29,7 +29,7 @@ public static class DoExecutionByCut_Patch
 
     private static void ThrumboManhunter(Pawn victim)
     {
-        Hediff hediff = victim.health.hediffSet.GetFirstHediffOfDef(Snowstrom_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
+        Hediff hediff = victim.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
         if (hediff != null)
         {
             hediff.Severity = 2f;

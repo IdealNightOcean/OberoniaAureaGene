@@ -24,7 +24,7 @@ public class WeatherEvent_IceCrystalFlowerSpawn : WeatherEvent
 
         if (TryFindValidatorCell(map, out IntVec3 cell))
         {
-            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstrom_ThingDefOf.OAGene_Plant_IceCrystalFlower, cell, map);
+            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstorm_ThingDefOf.OAGene_Plant_IceCrystalFlower, cell, map);
             flower?.Notify_FirstSpawn();
             if (OAGene_SnowstormSettings.IceCrystalFlowerSpawnMessage)
             {

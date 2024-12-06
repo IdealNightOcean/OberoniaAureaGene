@@ -22,7 +22,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             {
                 target = mainMap,
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
         }
     }
     public void EndSlience()
@@ -42,7 +42,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
         {
             target = Find.World,
         };
-        OAFrame_MiscUtility.TryFireIncidentNow(Snowstrom_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
+        OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
     }
 
     protected virtual Map GetMainMap()

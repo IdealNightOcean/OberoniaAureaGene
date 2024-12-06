@@ -38,7 +38,7 @@ public class GameComponent_SnowstormStory : GameComponent
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
-        protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         Log.Message(protagonist.NameShortColored);
     }
 
@@ -50,16 +50,17 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryInProgress()
     {
         storyInProgress = true;
+        satisfySnowstormCultist = false;
         if (protagonist != null)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
     }
 
     public void Notify_StroyFail()
     {
         storyInProgress = false;
-        Hediff hediff = protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        Hediff hediff = protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
     }
 
@@ -94,7 +95,7 @@ public class GameComponent_SnowstormStory : GameComponent
         base.LoadedGame();
         if (LongingForHome)
         {
-            protagonist?.health.GetOrAddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
     }
 

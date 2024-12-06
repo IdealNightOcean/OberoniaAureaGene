@@ -12,7 +12,7 @@ public class QuestNode_EndGame_FixedMechBreachingRaids : QuestNode_FireIncident
         {
             forced = true,
             faction = Faction.OfMechanoids,
-            raidStrategy = Snowstrom_RimWorldDefOf.ImmediateAttackBreaching,
+            raidStrategy = Snowstorm_RimWorldDefOf.ImmediateAttackBreaching,
         };
     }
 }

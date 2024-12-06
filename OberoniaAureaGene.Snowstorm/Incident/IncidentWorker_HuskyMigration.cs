@@ -25,7 +25,7 @@ public class IncidentWorker_HuskyMigration : IncidentWorker
             return false;
         }
         Rot4 rot = Rot4.FromAngleFlat((map.Center - start).AngleFlat);
-        List<Pawn> animals = GenerateAnimals(Snowstrom_RimWorldDefOf.Husky, map.Tile);
+        List<Pawn> animals = GenerateAnimals(Snowstorm_RimWorldDefOf.Husky, map.Tile);
         for (int i = 0; i < animals.Count; i++)
         {
             Pawn newThing = animals[i];

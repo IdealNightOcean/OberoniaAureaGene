@@ -43,7 +43,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
         Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind: PawnKindDefOf.Thrumbo, faction: null, context: PawnGenerationContext.NonPlayer, tile: -1, forceGenerateNewPawn: false, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true, inhabitant: false, certainlyBeenInCryptosleep: false, forceRedressWorldPawnIfFormerColonist: false, worldPawnFactionDoesntMatter: false, 0f, 0f, null, 1f, null, null, null, null, null, null, null, fixedGender: null));
         GenSpawn.Spawn(pawn, loc, map, Rot4.Random);
         pawn.SetFaction(Faction.OfPlayer);
-        pawn.health.AddHediff(Snowstrom_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
+        pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
         Pawn_TrainingTracker trainingTracker = pawn.training;
         if (trainingTracker != null)
         {

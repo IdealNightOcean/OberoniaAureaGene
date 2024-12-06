@@ -13,15 +13,15 @@ public class QuestPart_EndGame_Fail : QuestPart
     {
         if (signal.tag == inSignal)
         {
-            End_EndGameSnowstrom(hometown.Map);
+            End_EndGameSnowstorm(hometown.Map);
             Snowstorm_StoryUtility.StoryGameComp.Notify_StroyFail();
         }
     }
-    protected static void End_EndGameSnowstrom(Map map)
+    protected static void End_EndGameSnowstorm(Map map)
     {
-        GameCondition_EndGame_ExtremeSnowstorm endGameSnowstrom = map?.gameConditionManager.GetActiveCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
-        endGameSnowstrom ??= Find.World.gameConditionManager.GetActiveCondition(Snowstrom_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
-        endGameSnowstrom?.Notify_QuestFailed();
+        GameCondition_EndGame_ExtremeSnowstorm endGameSnowstorm = map?.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
+        endGameSnowstorm ??= Find.World.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
+        endGameSnowstorm?.Notify_QuestFailed();
     }
 
     public override void ExposeData()

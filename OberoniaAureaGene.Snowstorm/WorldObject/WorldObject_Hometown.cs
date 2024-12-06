@@ -62,7 +62,7 @@ public class WorldObject_Hometown : MapParent
         int tile = this.Tile;
         base.Destroy();
         Snowstorm_StoryUtility.StoryGameComp.hometownSpawned = false;
-        WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstrom_MiscDefOf.OAGene_Hometown_Sealed);
+        WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstorm_MiscDefOf.OAGene_Hometown_Sealed);
         hometown_sealed.Tile = tile;
         Find.WorldObjects.Add(hometown_sealed);
     }

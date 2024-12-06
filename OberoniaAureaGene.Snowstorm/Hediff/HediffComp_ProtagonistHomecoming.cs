@@ -121,7 +121,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     public void RecacheThought(int thoughtStage, int durationTicksOverride = -1, bool permanent = false)
     {
         Pawn protagonist = parent.pawn;
-        ThoughtDef homecoming = Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
+        ThoughtDef homecoming = Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
         if (memory == null)
         {
@@ -146,7 +146,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     public override void CompPostPostRemoved()
     {
         base.CompPostPostRemoved();
-        parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstrom_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
+        parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
     }
 
     public override void CompExposeData()

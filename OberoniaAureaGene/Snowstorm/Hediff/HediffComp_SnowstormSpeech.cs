@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Grammar;
@@ -28,7 +29,6 @@ public class HediffComp_SnowstormSpeech : HediffComp
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         humanlike = parent.pawn.RaceProps.Humanlike && !parent.pawn.IsMutant;
-
     }
     public override void CompPostTick(ref float severityAdjustment)
     {
@@ -37,10 +37,11 @@ public class HediffComp_SnowstormSpeech : HediffComp
             ticksRemaining--;
             if (ticksRemaining <= 0)
             {
-                if (parent.pawn.Spawned)
+                if (parent.pawn.Spawned && parent.pawn.Awake())
                 {
                     string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
                     ThrowText(speech, Color.white);
+                    PostSpeechAction();
                 }
                 ticksRemaining = Props.speechInterval.RandomInRange;
             }
@@ -64,6 +65,8 @@ public class HediffComp_SnowstormSpeech : HediffComp
         GenSpawn.Spawn(mote, parentPawn.Position, parentPawn.Map);
         mote.Attach(parentPawn);
     }
+
+    protected virtual void PostSpeechAction() { }
     public override void CompPostPostRemoved()
     {
         if (tempMote != null && !tempMote.Destroyed)

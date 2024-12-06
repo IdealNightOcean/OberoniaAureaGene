@@ -3,7 +3,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class IncidentWorker_MakeGameCondition_SnowstromFog : IncidentWorker_MakeGameCondition
+public class IncidentWorker_MakeGameCondition_SnowstormFog : IncidentWorker_MakeGameCondition
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {

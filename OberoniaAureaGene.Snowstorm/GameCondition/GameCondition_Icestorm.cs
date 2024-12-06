@@ -15,7 +15,7 @@ public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-            map.weatherManager.TransitionTo(Snowstrom_MiscDefOf.OAGene_IceSnowExtreme);
+            map.weatherManager.TransitionTo(Snowstorm_MiscDefOf.OAGene_IceSnowExtreme);
         }
     }
     public void EndSlience()
@@ -26,7 +26,7 @@ public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PreEnd()
     {
-        WeatherDef weather = endSlience ? OAGene_RimWorldDefOf.SnowHard : Snowstrom_MiscDefOf.OAGene_SnowExtreme;
+        WeatherDef weather = endSlience ? OAGene_RimWorldDefOf.SnowHard : Snowstorm_MiscDefOf.OAGene_SnowExtreme;
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];

@@ -45,7 +45,7 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         hometownTile = storyGameComp.hometownTile;
         if (hometownTile == Tile.Invalid)
         {
-            WorldObject hometown_Sealed = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstrom_MiscDefOf.OAGene_Hometown_Sealed).FirstOrFallback(null);
+            WorldObject hometown_Sealed = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstorm_MiscDefOf.OAGene_Hometown_Sealed).FirstOrFallback(null);
             if (hometown_Sealed != null)
             {
                 hometownTile = hometown_Sealed.Tile;

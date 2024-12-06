@@ -4,7 +4,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class QuestNode_GetSnowstromRaidFaction : QuestNode
+public class QuestNode_GetSnowstormRaidFaction : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> storeAs;
@@ -16,7 +16,7 @@ public class QuestNode_GetSnowstromRaidFaction : QuestNode
         {
             return false;
         }
-        Faction faction = SnowstormUtility.RandomSnowstromMaliceRaidableFaction(map);
+        Faction faction = SnowstormUtility.RandomSnowstormMaliceRaidableFaction(map);
         if (faction != null)
         {
             slate.Set(storeAs.GetValue(slate), faction);
@@ -32,7 +32,7 @@ public class QuestNode_GetSnowstromRaidFaction : QuestNode
         {
             return;
         }
-        Faction faction = SnowstormUtility.RandomSnowstromMaliceRaidableFaction(map);
+        Faction faction = SnowstormUtility.RandomSnowstormMaliceRaidableFaction(map);
         if (faction != null)
         {
             slate.Set(storeAs.GetValue(slate), faction);

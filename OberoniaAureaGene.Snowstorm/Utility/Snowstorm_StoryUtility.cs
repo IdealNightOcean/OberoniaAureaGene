@@ -31,7 +31,7 @@ public static class Snowstorm_StoryUtility
 
     public static Map GetHometownMap()
     {
-        MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstrom_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
+        MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstorm_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
         if (hometown != null && hometown.HasMap)
         {
             return hometown.Map;

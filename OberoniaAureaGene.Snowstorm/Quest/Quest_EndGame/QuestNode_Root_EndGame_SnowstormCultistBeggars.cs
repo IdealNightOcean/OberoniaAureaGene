@@ -9,7 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
 {
-    private const int VisitDuration = 60000;
+    private const int VisitDuration = 30000;
     private const int RequestedThingCount = 100;
 
     protected Faction TryResolveFaction()
@@ -19,7 +19,6 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         faction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
         return faction;
-
     }
 
     protected Pawn GeneratePawn(Quest quest, Faction faction)
@@ -34,23 +33,26 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             MustBeCapableOfViolence = true,
             ColonistRelationChanceFactor = 0f,
             ForceAddFreeWarmLayerIfNeeded = true,
+            ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor],
         };
         Pawn pawn = quest.GeneratePawn(request);
+        if (pawn.RaceProps.Humanlike)
+        {
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
+        }
 
-
-        return quest.GeneratePawn(request);
+        return pawn;
     }
 
     protected override void RunInt()
     {
-
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
-        Map map = QuestGen_Get.GetMap();
+        Map map = Snowstorm_StoryUtility.GetHometownMap();
         float points = slate.Get("points", 0f);
         slate.Set("visitDurationTicks", VisitDuration);
-        ThingDef thingDef = Snowstrom_ThingDefOf.OAGene_IceCrystal;
 
+        ThingDef thingDef = Snowstorm_ThingDefOf.OAGene_IceCrystal;
         slate.Set("requestedThing", thingDef);
         slate.Set("requestedThingDefName", thingDef.defName);
         slate.Set("requestedThingCount", RequestedThingCount);
@@ -88,7 +90,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         slate.Set("beggars", pawns);
         slate.Set("beggarCount", beggarCount);
         quest.SetFactionHidden(faction);
-        quest.PawnsArrive(pawns, null, map.Parent, null, joinPlayer: false, null, null, null, null, null, isSingleReward: false, rewardDetailsHidden: false, sendStandardLetter: false);
+        quest.PawnsArrive(pawns, null, map.Parent, null, joinPlayer: false, isSingleReward: false, rewardDetailsHidden: false, sendStandardLetter: false);
         string itemsReceivedSignal = QuestGen.GenerateNewSignal("ItemsReceived");
         QuestPart_BegForItems questPart_BegForItems = new()
         {
@@ -103,15 +105,18 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         questPart_BegForItems.pawns.AddRange(pawns);
         quest.AddPart(questPart_BegForItems);
         string pawnLabelSingleOrPlural = (beggarCount > 1) ? faction.def.pawnsPlural : faction.def.pawnSingular;
-        quest.Delay(60000, delegate
-        {
-            quest.Leave(pawns, null, sendStandardLetter: false, leaveOnCleanup: false);
-            quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_Beggars);
-            quest.AnyColonistWithCharityPrecept(delegate
+        quest.Delay(60000, 
+            delegate
             {
-                quest.Message(string.Format("{0}: {1}", "MessageCharityEventRefused".Translate(), "MessageBeggarsLeavingWithNoItems".Translate(pawnLabelSingleOrPlural)), MessageTypeDefOf.NegativeEvent, getLookTargetsFromSignal: false, null, pawns);
-            });
-        }, null, inSignalDisable: itemsReceivedSignal);
+                quest.Leave(pawns, null, sendStandardLetter: false, leaveOnCleanup: false);
+                quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_Beggars);
+                quest.AnyColonistWithCharityPrecept(delegate
+                {
+                    quest.Message(string.Format("{0}: {1}", "MessageCharityEventRefused".Translate(), "MessageBeggarsLeavingWithNoItems".Translate(pawnLabelSingleOrPlural)), MessageTypeDefOf.NegativeEvent, getLookTargetsFromSignal: false, null, pawns);
+                });
+            }, 
+            null, inSignalDisable: itemsReceivedSignal
+        );
 
         string arrestedSignal = QuestGenUtility.HardcodedSignalWithQuestID("beggars.Arrested");
         string killedSignal = QuestGenUtility.HardcodedSignalWithQuestID("beggars.Killed");
@@ -130,27 +135,34 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             inSignal: itemsReceivedSignal
         );
 
-        quest.AnySignal([killedSignal, arrestedSignal], delegate
-        {
-            quest.SignalPassActivable(delegate
+        quest.AnySignal(
+            [killedSignal, arrestedSignal], 
+            delegate
             {
-                quest.AnyColonistWithCharityPrecept(delegate
+                quest.SignalPassActivable(
+                    delegate
+                    {
+                        quest.AnyColonistWithCharityPrecept(delegate
+                        {
+                            quest.Message(string.Format("{0}: {1}", "MessageCharityEventRefused".Translate(), "MessageBeggarsLeavingWithNoItems".Translate(pawnLabelSingleOrPlural)), MessageTypeDefOf.NegativeEvent, getLookTargetsFromSignal: false, null, pawns);
+                        });
+                    }, null, null, null, null, itemsReceivedSignal
+                );
+                quest.Letter(LetterDefOf.NegativeEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, pawns, filterDeadPawnsFromLookTargets: false, "[letterTextBeggarsBetrayed]", null, "[letterLabelBeggarsBetrayed]");
+                QuestPart_FactionRelationChange part = new()
                 {
-                    quest.Message(string.Format("{0}: {1}", "MessageCharityEventRefused".Translate(), "MessageBeggarsLeavingWithNoItems".Translate(pawnLabelSingleOrPlural)), MessageTypeDefOf.NegativeEvent, getLookTargetsFromSignal: false, null, pawns);
-                });
-            }, null, null, null, null, itemsReceivedSignal);
-            quest.Letter(LetterDefOf.NegativeEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, pawns, filterDeadPawnsFromLookTargets: false, "[letterTextBeggarsBetrayed]", null, "[letterLabelBeggarsBetrayed]");
-            QuestPart_FactionRelationChange part = new()
-            {
-                faction = faction,
-                relationKind = FactionRelationKind.Hostile,
-                canSendHostilityLetter = false,
-                inSignal = QuestGen.slate.Get<string>("inSignal")
-            };
-            quest.AddPart(part);
-            quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_Beggars_Betrayed);
-        });
+                    faction = faction,
+                    relationKind = FactionRelationKind.Hostile,
+                    canSendHostilityLetter = false,
+                    inSignal = QuestGen.slate.Get<string>("inSignal")
+                };
+                quest.AddPart(part);
+                quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_Beggars_Betrayed);
+            }
+        );
+
         quest.End(QuestEndOutcome.Fail, 0, null, QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
+        
         quest.AllPawnsDespawned(pawns,
             delegate
             {
@@ -159,7 +171,6 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             },
             null, outSignal: leftMapSignal
         );
-
     }
     protected override bool TestRunInt(Slate slate)
     {
@@ -167,7 +178,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         {
             return false;
         }
-        Map map = QuestGen_Get.GetMap();
+        Map map = Snowstorm_StoryUtility.GetHometownMap();
         if (map == null)
         {
             return false;

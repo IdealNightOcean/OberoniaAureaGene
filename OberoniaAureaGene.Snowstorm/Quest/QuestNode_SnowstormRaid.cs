@@ -83,7 +83,7 @@ public class QuestNode_SnowstormRaid : QuestNode
     {
         IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
         incidentParms.forced = true;
-        incidentParms.raidStrategy = Snowstrom_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
+        incidentParms.raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
         incidentParms.faction = faction;
 
         return incidentParms;

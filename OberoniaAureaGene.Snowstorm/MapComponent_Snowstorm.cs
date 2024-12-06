@@ -31,7 +31,7 @@ public class MapComponent_Snowstorm : MapComponent
 
     public MapComponent_Snowstorm(Map map) : base(map) { }
 
-    public void Notify_SnowstromStart(int duration)
+    public void Notify_SnowstormStart(int duration)
     {
         if (snowstormNow)
         {
@@ -45,12 +45,12 @@ public class MapComponent_Snowstorm : MapComponent
         toxifierTicks = 60000;
         Toxifier_NoticeSnowstorm(toxifiers, state: true);
     }
-    public void Notify_SnowstromFog(bool state)
+    public void Notify_SnowstormFog(bool state)
     {
         snowstormFogNow = state;
     }
 
-    public void Notify_SnowstromEnd()
+    public void Notify_SnowstormEnd()
     {
         if (!snowstormNow)
         {
@@ -270,7 +270,7 @@ public class MapComponent_Snowstorm : MapComponent
         if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
             int duration = map.gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>()?.TicksLeft ?? (7 * 60000);
-            Notify_SnowstromStart(duration);
+            Notify_SnowstormStart(duration);
         }
     }
     public override void MapRemoved()

@@ -18,7 +18,7 @@ public class HediffGiver_IceRain : HediffGiver
     public static bool ActiveHediff(Pawn p)
     {
         Map map = p.Map;
-        if (map?.weatherManager.curWeather != Snowstrom_MiscDefOf.OAGene_IceRain)
+        if (map?.weatherManager.curWeather != Snowstorm_MiscDefOf.OAGene_IceRain)
         {
             return false;
         }

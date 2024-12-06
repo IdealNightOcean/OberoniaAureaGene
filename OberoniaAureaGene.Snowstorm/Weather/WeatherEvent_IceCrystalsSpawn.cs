@@ -27,7 +27,7 @@ public class WeatherEvent_IceCrystalsSpawn : WeatherEvent
         {
             return;
         }
-        List<Thing> spawnThings = OAFrame_MiscUtility.TryGenerateThing(Snowstrom_ThingDefOf.OAGene_IceCrystal, CrystalsCountRange.RandomInRange);
+        List<Thing> spawnThings = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, CrystalsCountRange.RandomInRange);
         for (int i = 0; i < spawnThings.Count; i++)
         {
             Thing t = spawnThings[i];

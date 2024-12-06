@@ -75,14 +75,14 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
     protected static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
-        mainMap.SnowstormMapComp()?.Notify_SnowstromStart(DurationTick);
+        mainMap.SnowstormMapComp()?.Notify_SnowstormStart(DurationTick);
     }
 
     protected static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
         if (mainMap != null)
         {
-            mainMap.SnowstormMapComp()?.Notify_SnowstromEnd();
+            mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
             mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         }
     }
