@@ -52,7 +52,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
         IncidentDef raidType = null;
         Faction faction = null;
         RaidStrategyDef raidStrategy = null;
-        if(Rand.Chance(0.8f))
+        if (Rand.Chance(0.8f))
         {
             raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid;
             raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;

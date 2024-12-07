@@ -19,6 +19,8 @@ public static class Snowstorm_MiscDefOf
 
     public static JobDef OAGene_Job_TakeIceCrystalOutOfCollector;
 
+    public static MentalBreakDef OAGene_LostInMemory; //陷入回忆
+
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
@@ -57,6 +59,7 @@ public static class Snowstorm_ThingDefOf
 public static class Snowstorm_HediffDefOf
 {
     public static HediffDef OAGene_Hediff_ProtagonistHomecoming; //主角归乡健康状态（用于心情）
+    public static HediffDef OAGene_Hediff_ProtagonistHomecomed; //主角回忆健康状态（用于机制)
 
     public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望

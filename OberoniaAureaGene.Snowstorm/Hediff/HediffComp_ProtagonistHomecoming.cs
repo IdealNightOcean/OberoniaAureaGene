@@ -58,7 +58,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
                 if (years >= 4)
                 {
 
-                    RecacheThought(1, 1200000);
+                    RecacheThought(0, 1200000);
                     Stage++;
                     SendDiaryLetter(protagonist, Stage, slience);
                 }
@@ -73,7 +73,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             case 3:
                 if (years >= 8)
                 {
-                    RecacheThought(2, 3600000);
+                    RecacheThought(1, 3600000);
                     Stage++;
                     SendDiaryLetter(protagonist, Stage, slience);
                 }
@@ -88,7 +88,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             case 5:
                 if (years >= 12 && !longCherishedTrigged)
                 {
-                    RecacheThought(3, -1, true);
+                    RecacheThought(2, -1, true);
                     longCherishedTrigged = true;
                     Stage++;
                     SendDiaryLetter(protagonist, Stage, slience);
@@ -97,7 +97,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             case 6:
                 if (!longCherishedTrigged)
                 {
-                    RecacheThought(3, -1, true);
+                    RecacheThought(2, -1, true);
                     longCherishedTrigged = true;
                     Stage = 6;
                     SendDiaryLetter(protagonist, Stage, slience);

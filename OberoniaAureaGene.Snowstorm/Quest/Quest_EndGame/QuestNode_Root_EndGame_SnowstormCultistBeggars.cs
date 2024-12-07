@@ -105,7 +105,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         questPart_BegForItems.pawns.AddRange(pawns);
         quest.AddPart(questPart_BegForItems);
         string pawnLabelSingleOrPlural = (beggarCount > 1) ? faction.def.pawnsPlural : faction.def.pawnSingular;
-        quest.Delay(60000, 
+        quest.Delay(60000,
             delegate
             {
                 quest.Leave(pawns, null, sendStandardLetter: false, leaveOnCleanup: false);
@@ -114,7 +114,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
                 {
                     quest.Message(string.Format("{0}: {1}", "MessageCharityEventRefused".Translate(), "MessageBeggarsLeavingWithNoItems".Translate(pawnLabelSingleOrPlural)), MessageTypeDefOf.NegativeEvent, getLookTargetsFromSignal: false, null, pawns);
                 });
-            }, 
+            },
             null, inSignalDisable: itemsReceivedSignal
         );
 
@@ -136,7 +136,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         );
 
         quest.AnySignal(
-            [killedSignal, arrestedSignal], 
+            [killedSignal, arrestedSignal],
             delegate
             {
                 quest.SignalPassActivable(
@@ -162,7 +162,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         );
 
         quest.End(QuestEndOutcome.Fail, 0, null, QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
-        
+
         quest.AllPawnsDespawned(pawns,
             delegate
             {

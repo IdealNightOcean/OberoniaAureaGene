@@ -54,6 +54,7 @@ public class GameComponent_SnowstormStory : GameComponent
         if (protagonist != null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
         }
     }
 

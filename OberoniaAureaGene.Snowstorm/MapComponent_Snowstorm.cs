@@ -38,6 +38,7 @@ public class MapComponent_Snowstorm : MapComponent
             return;
         }
         snowstormNow = true;
+        map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         map.LongSnowstormMapComp()?.Notify_Snow(duration);
         geothermalGeneratorWarned = false;
         geothermalGeneratorTicks = 60000;
@@ -57,6 +58,7 @@ public class MapComponent_Snowstorm : MapComponent
             return;
         }
         snowstormNow = false;
+        map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         snowstormFogNow = false;
         Toxifier_NoticeSnowstorm(toxifiers, state: false);
     }

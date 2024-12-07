@@ -59,18 +59,14 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     protected override void PreEnd()
     {
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        Map mainMap = MainMap;
         if (endSlience)
         {
-            Map mainMap = MainMap;
-            if (mainMap != null)
-            {
-                mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
-                mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
-            }
+            mainMap?.SnowstormMapComp()?.Notify_SnowstormEnd();
         }
         else
         {
-            SnowstormUtility.EndExtremeSnowstorm_MainMap(MainMap);
+            SnowstormUtility.EndExtremeSnowstorm_MainMap(mainMap);
         }
 
         for (int i = 0; i < AffectedMaps.Count; i++)

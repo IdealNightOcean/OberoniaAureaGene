@@ -68,7 +68,6 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
             Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
             Find.LetterStack.ReceiveLetter(letter, playSound: false);
             Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
-
         }
         return false;
     }
@@ -83,7 +82,6 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
         if (mainMap != null)
         {
             mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
-            mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         }
     }
     public void Notify_EndGame()

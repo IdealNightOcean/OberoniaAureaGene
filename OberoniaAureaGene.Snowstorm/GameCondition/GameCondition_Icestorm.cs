@@ -30,7 +30,6 @@ public class GameCondition_Icestorm : GameCondition_ExtremeSnowstormBase
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
             Map map = AffectedMaps[i];
-
             map.weatherManager.TransitionTo(weather);
         }
     }

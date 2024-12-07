@@ -66,14 +66,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MentalBreakWorker_LostInMemory.cs" />
+    <Compile Include="MentalStateWorker_LostInMemory.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormFog.cs" />
     <Compile Include="GameCondition\GameCondition_EndGame_SnowstormPrecursor.cs" />
     <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
     <Compile Include="HarmonyPatch\NeutralGroup_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
     <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
+    <Compile Include="Hediff\HediffComp_ProtagonistHomecomed.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormFog.cs" />
     <Compile Include="Hediff\HediffGiver_SnowstormFog.cs" />
+    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid_Reinforce.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormCultistRaid.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormFanaticalCultis.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid_Hard.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="Thing\CompSpecialCampfire.cs" />
     <Compile Include="Thing\IceCrystalFlower.cs" />
     <Compile Include="Thing\CompPowerPlant_ToxifierSnowstorm.cs" />
+    <Compile Include="Thought_LostInMemory.cs" />
     <Compile Include="Utility\Snowstorm_MiscUtility.cs" />
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />

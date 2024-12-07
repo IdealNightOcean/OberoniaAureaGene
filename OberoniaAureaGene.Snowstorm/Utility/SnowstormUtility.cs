@@ -85,7 +85,6 @@ public static class SnowstormUtility
             return;
         }
         map.SnowstormMapComp()?.Notify_SnowstormStart(duration);
-        map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
@@ -95,8 +94,7 @@ public static class SnowstormUtility
         {
             return;
         }
-        // mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
-        mainMap.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
+        mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
         TryInitAfterSnowstormIncident(mainMap);
     }
     public static void EndExtremeSnowstorm_AllMaps(Map map, bool slience = false)
