@@ -86,6 +86,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
     }
     public void Notify_EndGame()
     {
+        Duration = Find.TickManager.TicksGame - startTick + 120;
         Permanent = false;
     }
 

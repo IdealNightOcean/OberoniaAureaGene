@@ -38,6 +38,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         Pawn pawn = quest.GeneratePawn(request);
         if (pawn.RaceProps.Humanlike)
         {
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
         }
         Apparel parka = (Apparel)ThingMaker.MakeThing(ThingDefOf.Apparel_Parka, ThingDefOf.Cloth);
@@ -166,12 +167,17 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             }
         );
 
+        quest.SignalPassAll(delegate
+        {
+            Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist = true;
+        },
+        [itemsReceivedSignal, leftMapSignal]);
+
         quest.End(QuestEndOutcome.Fail, 0, null, QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
 
         quest.AllPawnsDespawned(pawns,
             delegate
             {
-                Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist = true;
                 QuestGen_End.End(quest, QuestEndOutcome.Success);
             },
             null, inSignal: leftMapSignal

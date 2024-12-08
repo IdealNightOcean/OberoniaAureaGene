@@ -2,7 +2,7 @@
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class IncidentWorker_MakeGameCondition_Snowstorm : IncidentWorker_MakeGameCondition
+public class IncidentWorker_MakeGameCondition_Snowstorm : IncidentWorker_MakeGameCondition_ForceWorld
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {

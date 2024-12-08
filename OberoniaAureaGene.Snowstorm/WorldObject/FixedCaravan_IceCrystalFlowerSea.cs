@@ -22,13 +22,14 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
     }
     private void FinishedWork()
     {
-        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, 600);
+        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, Rand.RangeInclusive(550, 650));
         foreach (Thing reward in rewards)
         {
             OAFrame_FixedCaravanUtility.GiveThing(this, reward);
         }
         foreach (Pawn pawn in PawnsListForReading)
         {
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_IceCrystalFlowerSea);
             pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_IceCrystalFlowerSea);
         }
         Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(this);
@@ -39,6 +40,10 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
 
     protected override void PreConvertToCaravanByPlayer()
     {
+        foreach (Pawn pawn in PawnsListForReading)
+        {
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_IceCrystalFlowerSea);
+        }
         assoicateFlowerSea?.InterruptWeeding();
         Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_IceCrystalFlowerSea_LeaveHalfway".Translate(), null));
     }

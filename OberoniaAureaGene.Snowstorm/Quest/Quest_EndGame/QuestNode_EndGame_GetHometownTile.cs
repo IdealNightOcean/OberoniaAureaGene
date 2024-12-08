@@ -9,7 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public class QuestNode_EndGame_GetHometownTile : QuestNode
 {
     private const int minDist = 30;
-    private const int maxDist = 800;
+    private const int maxDist = 200;
 
     [NoTranslate]
     public SlateRef<string> storeAs;

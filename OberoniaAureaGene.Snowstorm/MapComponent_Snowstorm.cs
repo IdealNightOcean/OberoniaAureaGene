@@ -39,6 +39,7 @@ public class MapComponent_Snowstorm : MapComponent
         }
         snowstormNow = true;
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
+        OAGeneUtility.TryBreakPowerPlantWind(map, duration);
         map.LongSnowstormMapComp()?.Notify_Snow(duration);
         geothermalGeneratorWarned = false;
         geothermalGeneratorTicks = 60000;

@@ -73,6 +73,8 @@ public static class Snowstorm_HediffDefOf
     public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态
     public static HediffDef OAGene_Hediff_SnowstormStrugglers; //难民健康状态（用于心情）
     public static HediffDef OAGene_Hediff_SpecialThrumbo; //特殊敲击兽
+
+    public static HediffDef OAGene_Hediff_IceCrystalFlowerSea; //冰晶花海
     static Snowstorm_HediffDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(Snowstorm_HediffDefOf));

@@ -2,7 +2,6 @@
 
 namespace OberoniaAureaGene.Snowstorm;
 
-
 [StaticConstructorOnStartup]
 public static class Snowstorm_MiscUtility
 {

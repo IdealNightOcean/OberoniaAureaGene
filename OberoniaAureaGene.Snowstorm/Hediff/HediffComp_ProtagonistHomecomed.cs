@@ -32,12 +32,13 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     {
         ticksRemianing--;
         if (ticksRemianing < 0)
-        {
+        {  
             cyclesRemianing--;
+            ticksRemianing = 10000;
             if (cyclesRemianing <= 0 && TryDoMentalBreak(parent.pawn))
             {
-                cyclesRemianing = 3;
                 triggeredCount++;
+                cyclesRemianing = 3;
                 if (triggeredCount == 3)
                 {
                     RecachePermanentThought(parent.pawn, Props.permanentThought, 0);
@@ -52,8 +53,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
                     parent.pawn.health.RemoveHediff(parent);
                     return;
                 }
-            }
-            ticksRemianing = 10000;
+            }      
         }
     }
 
@@ -79,6 +79,10 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
 
     protected static bool TryDoMentalBreak(Pawn pawn)
     {
+        if(Rand.Chance(0.2f))
+        {
+            return false;
+        }
         if (!pawn.Spawned)
         {
             return false;

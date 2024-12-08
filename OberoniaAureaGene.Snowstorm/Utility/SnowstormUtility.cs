@@ -87,7 +87,6 @@ public static class SnowstormUtility
             return;
         }
         map.SnowstormMapComp()?.Notify_SnowstormStart(duration);
-        OAGeneUtility.TryBreakPowerPlantWind(map, duration);
     }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
@@ -120,7 +119,7 @@ public static class SnowstormUtility
             IncidentDef incidentDef = Rand.Bool ? Snowstorm_IncidentDefOf.OAGene_SnowstormWarm : Snowstorm_IncidentDefOf.OAGene_SnowstormCold;
             AddNewMapIncident(incidentDef, mainMap, delayTicks);
             delayTicks += TempChangeInterval.RandomInRange;
-            if (delayTicks < duration - 30000)
+            if (delayTicks < duration - 90000)
             {
                 return;
             }

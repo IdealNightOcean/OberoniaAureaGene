@@ -4,6 +4,8 @@ using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
+[StaticConstructorOnStartup]
 public class QuestPart_EndGame_Success : QuestPart
 {
     public string inSignal;

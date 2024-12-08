@@ -6,6 +6,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
+[StaticConstructorOnStartup]
 public class GameComponent_SnowstormStory : GameComponent
 {
     private const float ScreenFadeSeconds = 15f;

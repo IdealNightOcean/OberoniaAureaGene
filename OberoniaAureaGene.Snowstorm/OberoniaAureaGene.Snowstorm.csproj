@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Incident\IncidentWorker_MakeGameCondition_ForceWorld.cs" />
     <Compile Include="StorytellerComp_RefiringSnowstormEndGame.cs" />
     <Compile Include="Hediff\HediffComp_HideInSnowstorm.cs" />
     <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameCondition.cs" />

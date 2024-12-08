@@ -1,5 +1,7 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -19,7 +21,34 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     protected override bool TryResolveRaidFaction(IncidentParms parms)
     {
-        return parms.faction != null;
+        if (parms.faction != null)
+        {
+            return true;
+        }
+        else
+        {
+            Faction tempFaction = null;
+            if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
+            {
+                tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+                tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
+                tempFaction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
+            }
+            else
+            {
+                tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+                tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Hostile);
+                tempFaction ??= Find.FactionManager.RandomEnemyFaction(allowNonHumanlike: false);
+            }
+            if (tempFaction == null)
+            {
+                return false;
+            }
+            parms.faction = tempFaction;
+            AdjuestFactionRelation(parms.faction);
+            return true;
+        }
+
     }
     protected override bool CanFireNowSub(IncidentParms parms)
     {
@@ -44,13 +73,9 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             parms.raidStrategy = RaidStrategyDefOf.ImmediateAttack;
         }
         base.ResolveRaidStrategy(parms, groupKind);
+        parms.canTimeoutOrFlee = false;
     }
 
-    protected override bool TryExecuteWorker(IncidentParms parms)
-    {
-        parms.canTimeoutOrFlee = false;
-        return base.TryExecuteWorker(parms);
-    }
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)
     {
         if (pawns != null)
@@ -92,5 +117,30 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     protected override LetterDef GetLetterDef()
     {
         return Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist ? LetterDefOf.PositiveEvent : LetterDefOf.ThreatBig;
+    }
+
+    protected static void AdjuestFactionRelation(Faction faction)
+    {
+        Faction ofPlayer = Faction.OfPlayer;
+        List<FactionRelation> relations = [];
+        foreach (Faction otherF in Find.FactionManager.AllFactionsListForReading)
+        {
+            if (otherF == faction || otherF == ofPlayer)
+            {
+                continue;
+            }
+            if (!otherF.def.PermanentlyHostileTo(faction.def))
+            {
+                relations.Add(new FactionRelation
+                {
+                    other = otherF,
+                    kind = FactionRelationKind.Hostile
+                });
+            }
+        }
+        for (int i = 0; i < relations.Count; i++)
+        {
+            faction.SetRelation(relations[i]);
+        }
     }
 }

@@ -32,19 +32,22 @@ public class MapComponent_LongSnowstorm : MapComponent
             return;
         }
         WeatherManager weatherManager = map.weatherManager;
-        if (weatherManager.curWeather == OAGene_RimWorldDefOf.SnowHard || weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme)
+        WeatherDef curWeather = weatherManager.curWeather;
+        if (curWeather == OAGene_RimWorldDefOf.SnowHard || curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme)
         {
             Notify_Snow(snowDuration: 2500, nextCheckDelay: 60000);
             return;
         }
+
         if (Find.TickManager.TicksGame - lastSnowTick > MaxSnowInterval && map.weatherDecider.ForcedWeather == null)
         {
-            map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
+            weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             int duration = ForeSnowDuration.RandomInRange;
             OAFrame_ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", duration);
             Notify_Snow(duration);
             return;
         }
+
         snowCheckTicks = 30000;
     }
 
@@ -53,7 +56,7 @@ public class MapComponent_LongSnowstorm : MapComponent
         lastSnowTick = Find.TickManager.TicksGame + snowDuration;
         if (nextCheckDelay < 0)
         {
-            nextCheckDelay = snowDuration + 5000;
+            nextCheckDelay = snowDuration + 30000;
         }
         snowCheckTicks = nextCheckDelay;
     }
