@@ -2,7 +2,6 @@
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -12,7 +11,8 @@ public static class SnowstormUtility
 {
     private static readonly IntRange IceOrStarryDelay = new(180000, 300000); //3~5天
 
-    private static readonly IntRange RaidCount = new(-1, 2);
+    private static readonly IntRange RaidCountI = new(-1, 2);
+    private static readonly IntRange RaidCountII = new(1, 2);
     private static readonly IntRange RaidDelay = new(60000, 120000); //1~2天
     private static readonly IntRange RaidInterval = new(90000, 120000); //1~2天
 
@@ -23,6 +23,8 @@ public static class SnowstormUtility
     private static readonly IntRange TraderCount = new(1, 2);
     private static readonly IntRange TraderDelay = new(15000, 30000); //6~12小时
     private static readonly IntRange TraderInterval = new(15000, 30000); //6~12小时
+
+    public static GameCondition_ExtremeSnowstorm SnowstormCondition => Find.World.gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>();
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
         if (map == null)
@@ -67,7 +69,7 @@ public static class SnowstormUtility
         //暴风雪破墙袭击
         if (OAGene_SnowstormSettings.AllowSnowstormMaliciousRaid)
         {
-            TryInitSnowstormRaid(mainMap);
+            TryInitSnowstormRaid(mainMap, duration);
         }
         //暴风雪中的恶意
         if (OAGene_SnowstormSettings.AllowSnowstormMaliciousSite)
@@ -157,18 +159,13 @@ public static class SnowstormUtility
     }
 
     //暴风雪破墙袭击 (mainMap)
-    public static void TryInitSnowstormRaid(Map mainMap)
+    public static void TryInitSnowstormRaid(Map mainMap, int duration)
     {
-        int raidCount = RaidCount.RandomInRange;
         if (GenDate.DaysPassed < 60)
         {
             return;
         }
-        if (GenDate.YearsPassed >= 5)
-        {
-            raidCount = Mathf.Max(raidCount, 1);
-        }
-
+        int raidCount = GenDate.YearsPassed < 5 ? RaidCountI.RandomInRange : RaidCountII.RandomInRange;
         if (raidCount <= 0)
         {
             return;
@@ -177,13 +174,12 @@ public static class SnowstormUtility
         int delayTicks = RaidDelay.RandomInRange;
         for (int i = 0; i < raidCount; i++)
         {
-            IncidentDef raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid;
-            if (OAGene_SnowstormSettings.AllowDifficultEnemy && Rand.Chance(0.05f))
-            {
-                raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid_Hard;
-            }
-            AddNewMapIncident(raidType, mainMap, delayTicks);
+            AddNewMapIncident(Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid, mainMap, delayTicks);
             delayTicks += RaidInterval.RandomInRange;
+            if (delayTicks > duration - 30000)
+            {
+                break;
+            }
         }
     }
     //暴风雪中的恶意 (mainMap)
@@ -254,6 +250,7 @@ public static class SnowstormUtility
             return strategyDef.arriveModes?.Any((PawnsArrivalModeDef x) => x.Worker.CanUseWith(tempParms)) ?? false;
         }
     }
+
     //暴风雪结束后的心情与buff (allMaps) 
     public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {
@@ -264,12 +261,9 @@ public static class SnowstormUtility
             {
                 continue;
             }
-            if (pawn.needs.mood?.thoughts.memories != null)
-            {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
-            }
             if (pawn.Faction != null && pawn.Faction.IsPlayer)
             {
+                pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
                 pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
             }
         }
@@ -298,6 +292,7 @@ public static class SnowstormUtility
     {
         IncidentParms parms = new()
         {
+            forced = true,
             target = Find.World
         };
         OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
@@ -312,6 +307,7 @@ public static class SnowstormUtility
         }
         IncidentParms parms = new()
         {
+            forced = true,
             target = targetMap
         };
         OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);

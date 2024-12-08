@@ -7,6 +7,10 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {
+        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        {
+            return false;
+        }
         Map hometownMap = parms.target as Map;
         hometownMap ??= Snowstorm_StoryUtility.GetHometownMap();
         if (hometownMap == null)
@@ -35,6 +39,10 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
     }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
+        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        {
+            return false;
+        }
         Map hometownMap = parms.target as Map;
         hometownMap ??= Snowstorm_StoryUtility.GetHometownMap();
         if (hometownMap == null)

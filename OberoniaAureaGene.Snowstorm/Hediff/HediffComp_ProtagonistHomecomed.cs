@@ -70,7 +70,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(thoughtDef);
         if (memory == null)
         {
-            memory ??= (Thought_Memory)ThoughtMaker.MakeThought(thoughtDef);
+            memory = (Thought_Memory)ThoughtMaker.MakeThought(thoughtDef);
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
         memory.permanent = true;

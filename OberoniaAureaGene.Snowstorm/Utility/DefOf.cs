@@ -25,6 +25,8 @@ public static class Snowstorm_MiscDefOf
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
+    public static SongDef OAGene_IGiorni2; //终局BGM
+
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
@@ -64,6 +66,7 @@ public static class Snowstorm_HediffDefOf
     public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
+    public static HediffDef OAGene_Hediff_HideInSnowstorm; //隐匿于风雪
 
     public static HediffDef OAGene_Hediff_SnowstormAngry; //不理想的愤怒
 
@@ -110,7 +113,8 @@ public static class Snowstorm_IncidentDefOf
     public static IncidentDef OAGene_SnowstormCold; //暴风雪的骤冷
 
     public static IncidentDef OAGene_SnowstormMaliceRaid; //暴风雪破墙袭击
-    public static IncidentDef OAGene_SnowstormMaliceRaid_Hard; //暴风雪破墙袭击(困难)
+    public static IncidentDef OAGene_SnowstormMaliceRaid_Reinforce; //暴风雪破墙袭击（加强）
+    public static IncidentDef OAGene_SnowstormMaliceRaid_Hard; //暴风雪破墙袭击（困难）
     public static IncidentDef OAGene_SnowstormRaidSource; //暴风雪中的恶意（袭击）
     [MayRequireRoyalty]
     public static IncidentDef OAGene_SnowstormClimateAdjuster; //暴风雪中的恶意（气候）

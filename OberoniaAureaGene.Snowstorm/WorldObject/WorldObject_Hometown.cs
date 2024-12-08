@@ -57,6 +57,21 @@ public class WorldObject_Hometown : MapParent
         }
     }
 
+    public override IEnumerable<IncidentTargetTagDef> IncidentTargetTags()
+    {
+        foreach (IncidentTargetTagDef item in base.IncidentTargetTags())
+        {
+            yield return item;
+        }
+        if (base.Faction == Faction.OfPlayer)
+        {
+            yield return IncidentTargetTagDefOf.Map_PlayerHome;
+        }
+        else
+        {
+            yield return IncidentTargetTagDefOf.Map_Misc;
+        }
+    }
     public override void Destroy()
     {
         int tile = this.Tile;

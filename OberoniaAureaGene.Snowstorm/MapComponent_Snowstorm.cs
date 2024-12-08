@@ -271,7 +271,7 @@ public class MapComponent_Snowstorm : MapComponent
     {
         if (SnowstormUtility.IsSnowExtremeWeather(map))
         {
-            int duration = map.gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>()?.TicksLeft ?? (7 * 60000);
+            int duration = SnowstormUtility.SnowstormCondition?.TicksLeft ?? (7 * 60000);
             Notify_SnowstormStart(duration);
         }
     }

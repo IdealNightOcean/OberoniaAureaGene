@@ -6,6 +6,14 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormMaliceRaid_Reinforce : IncidentWorker_SnowstormMaliceRaid
 {
+    protected override bool CanFireNowSub(IncidentParms parms)
+    {
+        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        {
+            return false;
+        }
+        return base.CanFireNowSub(parms);
+    }
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)
     {
         if (pawns != null)

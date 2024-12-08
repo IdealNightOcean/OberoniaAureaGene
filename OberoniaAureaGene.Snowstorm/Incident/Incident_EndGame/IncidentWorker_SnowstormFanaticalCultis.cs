@@ -15,6 +15,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
             return false;
         }
         Map map = (Map)parms.target;
+        map ??= Snowstorm_StoryUtility.GetHometownMap();
         return map != null;
     }
 
@@ -25,6 +26,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
             return false;
         }
         Map map = (Map)parms.target;
+        map ??= Snowstorm_StoryUtility.GetHometownMap();
         if (map == null)
         {
             return false;

@@ -23,10 +23,8 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
 
     protected Pawn GeneratePawn(Quest quest, Faction faction)
     {
-        PawnGenerationRequest request = new()
+        PawnGenerationRequest request = new(PawnKindDefOf.Beggar, faction)
         {
-            KindDef = PawnKindDefOf.Beggar,
-            Faction = faction,
             Context = PawnGenerationContext.NonPlayer,
             ForceGenerateNewPawn = true,
             CanGeneratePawnRelations = false,
@@ -34,13 +32,19 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             ColonistRelationChanceFactor = 0f,
             ForceAddFreeWarmLayerIfNeeded = true,
             ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor],
+            AllowedDevelopmentalStages = DevelopmentalStage.Adult
         };
+
         Pawn pawn = quest.GeneratePawn(request);
         if (pawn.RaceProps.Humanlike)
         {
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
         }
-
+        Apparel parka = (Apparel)ThingMaker.MakeThing(ThingDefOf.Apparel_Parka, ThingDefOf.Cloth);
+        pawn.apparel.Wear(parka, dropReplacedApparel: false);
+        pawn.equipment.DestroyAllEquipment();
+        ThingWithComps antiSnowTorch = (ThingWithComps)ThingMaker.MakeThing(Snowstorm_ThingDefOf.OAGene_AntiSnowTorch);
+        pawn.equipment.AddEquipment(antiSnowTorch);
         return pawn;
     }
 
@@ -104,8 +108,9 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         };
         questPart_BegForItems.pawns.AddRange(pawns);
         quest.AddPart(questPart_BegForItems);
+
         string pawnLabelSingleOrPlural = (beggarCount > 1) ? faction.def.pawnsPlural : faction.def.pawnSingular;
-        quest.Delay(60000,
+        quest.Delay(VisitDuration,
             delegate
             {
                 quest.Leave(pawns, null, sendStandardLetter: false, leaveOnCleanup: false);
@@ -169,7 +174,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
                 Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist = true;
                 QuestGen_End.End(quest, QuestEndOutcome.Success);
             },
-            null, outSignal: leftMapSignal
+            null, inSignal: leftMapSignal
         );
     }
     protected override bool TestRunInt(Slate slate)

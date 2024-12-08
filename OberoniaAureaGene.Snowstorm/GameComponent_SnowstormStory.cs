@@ -9,11 +9,9 @@ namespace OberoniaAureaGene.Snowstorm;
 public class GameComponent_SnowstormStory : GameComponent
 {
     private const float ScreenFadeSeconds = 15f;
-    private const float SongStartDelay = 2.5f;
+
     [Unsaved]
     protected float timeLeft = -1f;
-    [Unsaved]
-    protected bool onlyProtagonist = false;
 
     protected bool storyActive;
     public bool StoryActive => storyActive;
@@ -65,16 +63,17 @@ public class GameComponent_SnowstormStory : GameComponent
         hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
     }
 
-    public void Notify_StroySuccess(bool onlyProtagonist)
+    public void Notify_StroySuccess()
     {
         if (!Find.TickManager.Paused)
         {
             Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
         }
+        Find.TickManager.slower.SignalForceNormalSpeed();
+        Find.MusicManagerPlay.ForcePlaySong(Snowstorm_MiscDefOf.OAGene_IGiorni2, true);
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
         storyFinished = true;
         storyInProgress = false;
-        this.onlyProtagonist = onlyProtagonist;
 
         ScreenFader.StartFade(Color.white, ScreenFadeSeconds);
         timeLeft = ScreenFadeSeconds;
@@ -86,7 +85,7 @@ public class GameComponent_SnowstormStory : GameComponent
             timeLeft -= Time.deltaTime;
             if (timeLeft <= 0f)
             {
-                Snowstorm_StoryUtility.EndGame(protagonist, onlyProtagonist);
+                Snowstorm_StoryUtility.EndGame(protagonist);
             }
         }
     }
@@ -99,7 +98,6 @@ public class GameComponent_SnowstormStory : GameComponent
             protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
     }
-
 
     public override void ExposeData()
     {

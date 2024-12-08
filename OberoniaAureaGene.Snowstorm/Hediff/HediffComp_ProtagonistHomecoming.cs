@@ -125,7 +125,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
         if (memory == null)
         {
-            memory ??= (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
+            memory = (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
         parent.Severity = thoughtStage;

@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
+using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -15,8 +16,43 @@ public class QuestPart_EndGame_Success : QuestPart
         {
             Map map = hometown.Map;
             End_EndGameSnowstorm();
-            bool onlyProtagonist = (map?.mapPawns.FreeColonistsSpawnedCount ?? 0) == 1;
-            Snowstorm_StoryUtility.StoryGameComp?.Notify_StroySuccess(onlyProtagonist);
+            CheckIfOnlyProtagonist(protagonist, map);
+            Snowstorm_StoryUtility.StoryGameComp?.Notify_StroySuccess();
+        }
+    }
+    protected static void CheckIfOnlyProtagonist(Pawn protagonist, Map map)
+    {
+        if (protagonist == null)
+        {
+            Snowstorm_StoryUtility.TryGetStoryProtagonist(out protagonist);
+        }
+        map ??= Snowstorm_StoryUtility.GetHometownMap();
+        Snowstorm_StoryUtility.OnlyProtagonist = (map?.mapPawns.FreeColonistsSpawnedCount ?? 0) == 1;
+        if (Snowstorm_StoryUtility.OnlyProtagonist)
+        {
+            Snowstorm_StoryUtility.OtherPawn = null;
+        }
+        else
+        {
+            Pawn tempPawn = protagonist.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
+            if (tempPawn == null || tempPawn.Map != map)
+            {
+                tempPawn = protagonist.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
+            }
+            if (tempPawn == null || tempPawn.Map != map)
+            {
+                tempPawn = map.mapPawns.FreeColonistsSpawned.Where(p => p != protagonist).RandomElementWithFallback();
+            }
+
+            if (tempPawn == null)
+            {
+                Snowstorm_StoryUtility.OnlyProtagonist = true;
+                Snowstorm_StoryUtility.OtherPawn = null;
+            }
+            else
+            {
+                Snowstorm_StoryUtility.OtherPawn = tempPawn;
+            }
         }
     }
     protected static void End_EndGameSnowstorm()

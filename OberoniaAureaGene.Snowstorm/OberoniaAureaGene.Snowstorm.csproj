@@ -66,6 +66,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StorytellerComp_RefiringSnowstormEndGame.cs" />
+    <Compile Include="Hediff\HediffComp_HideInSnowstorm.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameCondition.cs" />
     <Compile Include="MentalBreakWorker_LostInMemory.cs" />
     <Compile Include="MentalStateWorker_LostInMemory.cs" />
     <Compile Include="GameCondition\GameCondition_SnowstormFog.cs" />
@@ -77,12 +80,12 @@
     <Compile Include="Hediff\HediffComp_ProtagonistHomecomed.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormFog.cs" />
     <Compile Include="Hediff\HediffGiver_SnowstormFog.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid_Reinforce.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormCultistRaid.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormFanaticalCultis.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid_Hard.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormMaliceRaid_Reinforce.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormCultistRaid.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormFanaticalCultis.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormMaliceRaid_Hard.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
-    <Compile Include="Incident\IncidentWorker_MakeGameCondition_EndGameSnowstorm.cs" />
+    <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameSnowstorm.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_SnowstromFog.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_Snowstorm.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_Root_EndGame_SnowstormCultistBeggars.cs" />
