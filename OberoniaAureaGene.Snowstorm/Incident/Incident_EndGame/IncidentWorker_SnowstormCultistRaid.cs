@@ -64,14 +64,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     public override void ResolveRaidStrategy(IncidentParms parms, PawnGroupKindDef groupKind)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
-        {
-            parms.raidStrategy = RaidStrategyDefOf.ImmediateAttackFriendly;
-        }
-        else
-        {
-            parms.raidStrategy = RaidStrategyDefOf.ImmediateAttack;
-        }
+        parms.raidStrategy = OAFrameDefOf.OAFrame_ImmediateAttack_NeverFlee;
         base.ResolveRaidStrategy(parms, groupKind);
         parms.canTimeoutOrFlee = false;
     }

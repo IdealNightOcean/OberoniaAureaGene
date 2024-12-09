@@ -60,6 +60,7 @@ public class MapComponent_Snowstorm : MapComponent
         }
         snowstormNow = false;
         map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
+        map.gameConditionManager.GetActiveCondition<GameCondition_SnowstormFog>()?.End();
         snowstormFogNow = false;
         Toxifier_NoticeSnowstorm(toxifiers, state: false);
     }

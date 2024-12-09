@@ -169,7 +169,11 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
 
         quest.SignalPassAll(delegate
         {
-            Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist = true;
+            QuestPart_EndGame_SatisfySnowstormCultist part = new()
+            {
+                inSignal = QuestGen.slate.Get<string>("inSignal")
+            };
+            quest.AddPart(part);
         },
         [itemsReceivedSignal, leftMapSignal]);
 

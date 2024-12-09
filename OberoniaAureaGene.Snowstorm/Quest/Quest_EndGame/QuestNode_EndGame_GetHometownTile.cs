@@ -99,8 +99,8 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
             {
                 return false;
             }
-            float fongitude = Find.WorldGrid.LongLatOf(t).x;
-            if (fongitude >= 40f || fongitude <= -40f)
+            float latitude = Find.WorldGrid.LongLatOf(t).y;
+            if (latitude >= 50f || latitude <= -50f)
             {
                 return true;
             }

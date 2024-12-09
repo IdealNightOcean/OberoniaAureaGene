@@ -88,6 +88,10 @@ public static class SnowstormUtility
         }
         map.SnowstormMapComp()?.Notify_SnowstormStart(duration);
     }
+    public static void EndExtremeSnowstorm_World()
+    {
+        Find.World.gameConditionManager.GetActiveCondition<GameCondition_Icestorm>()?.EndSlience();
+    }
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
         mainMap ??= Find.AnyPlayerHomeMap;

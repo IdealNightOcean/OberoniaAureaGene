@@ -35,12 +35,17 @@ public static class Snowstorm_StoryUtility
 
     public static Map GetHometownMap()
     {
-        MapParent hometown = Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstorm_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
-        if (hometown != null && hometown.HasMap)
+        Map hometownMap = StoryGameComp.hometownMap;
+        if (hometownMap == null)
         {
-            return hometown.Map;
+            MapParent hometown = StoryGameComp.hometown;
+            hometown ??= Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstorm_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
+            if (hometown != null && hometown.HasMap)
+            {
+                hometownMap = hometown.Map;
+            }
         }
-        return null;
+        return hometownMap;
     }
     public static bool CanFireSnowstormEndGameNow()
     {

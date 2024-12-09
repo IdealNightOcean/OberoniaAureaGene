@@ -6,7 +6,7 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnowstorm
 {
-    protected const int DurationTick = 20 * 60000;
+    public const int DurationTick = 20 * 60000;
 
     public override Map MainMap
     {
@@ -49,6 +49,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
     protected override void PreEnd()
     {
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        SnowstormUtility.EndExtremeSnowstorm_World();
         EndExtremeSnowstorm_MainMap(MainMap);
         for (int i = 0; i < AffectedMaps.Count; i++)
         {
@@ -59,16 +60,14 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
     protected static bool TryAddFixedColdSnap(Map mainMap, int duration)
     {
-        if (OAGene_RimWorldDefOf.ColdSnap.Worker.CanFireNow(new IncidentParms { target = mainMap }))
-        {
-            GameConditionManager gameConditionManager = mainMap.GameConditionManager;
-            GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, duration);
-            gameConditionManager.RegisterCondition(gameCondition);
+        GameConditionManager gameConditionManager = mainMap.GameConditionManager;
+        GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, duration);
+        gameConditionManager.RegisterCondition(gameCondition);
 
-            Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
-            Find.LetterStack.ReceiveLetter(letter, playSound: false);
-            Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
-        }
+        Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
+        Find.LetterStack.ReceiveLetter(letter, playSound: false);
+        Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
+
         return false;
     }
 
@@ -79,20 +78,17 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
     protected static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
-        if (mainMap != null)
-        {
-            mainMap.SnowstormMapComp()?.Notify_SnowstormEnd();
-        }
+        mainMap?.SnowstormMapComp()?.Notify_SnowstormEnd();
     }
-    public void Notify_EndGame()
+    public void Notify_EndSnowstorm(int endDelay = 5000)
     {
-        Duration = Find.TickManager.TicksGame - startTick + 120;
+        Duration = Find.TickManager.TicksGame - startTick + endDelay;
         Permanent = false;
     }
 
-    public void Notify_QuestFailed()
+    public void Notify_QuestFailed(int endDelay = 120000)
     {
-        Duration = Find.TickManager.TicksGame - startTick + 120000;
+        Duration = Find.TickManager.TicksGame - startTick + endDelay;
         Permanent = false;
     }
 

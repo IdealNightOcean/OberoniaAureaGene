@@ -42,6 +42,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
 
 
         IncidentParms raidParms1 = StorytellerUtility.DefaultParmsNow(raidCategory, parms.target);
+        raidParms1.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
         raidParms1.forced = true;
 
         IncidentParms raidParms2 = StorytellerUtility.DefaultParmsNow(raidCategory, parms.target);

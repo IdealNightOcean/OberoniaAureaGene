@@ -39,7 +39,7 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
     {
         base.ExposeData();
         Scribe_Values.Look(ref outSignalNoThreat, "outSignalNoThreat");
-        Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 2500);
+        Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
         Scribe_References.Look(ref hometown, "hometown");
     }
 }

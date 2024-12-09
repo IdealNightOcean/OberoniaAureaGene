@@ -59,6 +59,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     protected override void PreEnd()
     {
         Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        SnowstormUtility.EndExtremeSnowstorm_World();
         Map mainMap = MainMap;
         if (endSlience)
         {

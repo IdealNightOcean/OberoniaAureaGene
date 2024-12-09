@@ -30,7 +30,7 @@ public class IncidentWorker_MakeGameCondition_SnowstormFog : IncidentWorker_Make
             return false;
         }
         GameConditionDef gameConditionDef = GetGameConditionDef(parms);
-        int duration = snowstorm.TicksLeft;
+        int duration = snowstorm.Permanent ? GameCondition_EndGame_ExtremeSnowstorm.DurationTick : snowstorm.TicksLeft;
         GameCondition gameCondition = GameConditionMaker.MakeCondition(gameConditionDef, duration);
         gameConditionManager.RegisterCondition(gameCondition);
         if (!def.letterLabel.NullOrEmpty() && !gameCondition.def.letterText.NullOrEmpty() && !gameCondition.HiddenByOtherCondition(map))
@@ -41,5 +41,4 @@ public class IncidentWorker_MakeGameCondition_SnowstormFog : IncidentWorker_Make
 
         return true;
     }
-
 }

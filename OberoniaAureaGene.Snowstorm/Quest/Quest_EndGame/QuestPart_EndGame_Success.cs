@@ -17,7 +17,6 @@ public class QuestPart_EndGame_Success : QuestPart
         if (signal.tag == inSignal)
         {
             Map map = hometown.Map;
-            End_EndGameSnowstorm();
             CheckIfOnlyProtagonist(protagonist, map);
             Snowstorm_StoryUtility.StoryGameComp?.Notify_StroySuccess();
         }
@@ -56,11 +55,6 @@ public class QuestPart_EndGame_Success : QuestPart
                 Snowstorm_StoryUtility.OtherPawn = tempPawn;
             }
         }
-    }
-    protected static void End_EndGameSnowstorm()
-    {
-        GameCondition_EndGame_ExtremeSnowstorm endGameSnowstorm = Find.World.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
-        endGameSnowstorm?.Notify_EndGame();
     }
 
     public override void ExposeData()

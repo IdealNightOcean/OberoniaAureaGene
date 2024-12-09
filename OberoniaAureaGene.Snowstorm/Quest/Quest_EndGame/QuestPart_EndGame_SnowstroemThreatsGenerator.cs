@@ -49,9 +49,9 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
     }
     private static FiringIncident MakeThreat(ThreatsGeneratorParams parms, IIncidentTarget target)
     {
-        IncidentDef raidType = null;
         Faction faction = null;
-        RaidStrategyDef raidStrategy = null;
+        IncidentDef raidType;
+        RaidStrategyDef raidStrategy;
         if (Rand.Chance(0.8f))
         {
             raidType = Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid_Reinforce;
@@ -69,14 +69,13 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
             target = target,
             points = parms.threatPoints ?? (StorytellerUtility.DefaultThreatPointsNow(target) * parms.currentThreatPointsFactor),
             faction = faction,
-            raidStrategy = raidStrategy
+            raidStrategy = raidStrategy,
+            forced = true,
         };
         if (parms.minThreatPoints.HasValue)
         {
             incidentParms.points = Mathf.Max(incidentParms.points, parms.minThreatPoints.Value);
         }
-        incidentParms.forced = true;
-
 
         return new FiringIncident
         {

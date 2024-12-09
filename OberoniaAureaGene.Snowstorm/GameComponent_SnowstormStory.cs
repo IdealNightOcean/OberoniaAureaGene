@@ -25,6 +25,8 @@ public class GameComponent_SnowstormStory : GameComponent
     public bool storyFinished;
     public bool LongingForHome => !storyInProgress && !storyFinished;
 
+    public MapParent hometown;
+    public Map hometownMap;
     public int hometownTile = Tile.Invalid;
     public bool satisfySnowstormCultist;
 
@@ -41,10 +43,20 @@ public class GameComponent_SnowstormStory : GameComponent
         Log.Message(protagonist.NameShortColored);
     }
 
-    public void Notify_HometownSpawned(int tile)
+    public void Notify_HometownSpawned(MapParent mapParent, int tile)
     {
         hometownSpawned = true;
+        hometown = mapParent;
         hometownTile = tile;
+    }
+    public void Notify_HometownDestory(bool clearTile = false)
+    {
+        hometownSpawned = false;
+        hometown = null;
+        if (clearTile)
+        {
+            hometownTile = Tile.Invalid;
+        }
     }
     public void Notify_StoryInProgress()
     {
@@ -71,7 +83,7 @@ public class GameComponent_SnowstormStory : GameComponent
             Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
         }
         Find.TickManager.slower.SignalForceNormalSpeed();
-        Find.MusicManagerPlay.ForcePlaySong(Snowstorm_MiscDefOf.OAGene_IGiorni2, true);
+        Find.MusicManagerPlay.ForcePlaySong(Snowstorm_MiscDefOf.OAGene_IGiorni, true);
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
         storyFinished = true;
         storyInProgress = false;
@@ -110,6 +122,8 @@ public class GameComponent_SnowstormStory : GameComponent
         Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false);
         Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false);
 
+        Scribe_References.Look(ref hometown, "hometown");
+        Scribe_References.Look(ref hometownMap, "hometownMap");
         Scribe_Values.Look(ref hometownTile, "hometownTile", Tile.Invalid);
         Scribe_Values.Look(ref satisfySnowstormCultist, "satisfySnowstormCultist", defaultValue: false);
     }

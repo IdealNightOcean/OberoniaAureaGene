@@ -25,7 +25,7 @@ public static class Snowstorm_MiscDefOf
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
 
-    public static SongDef OAGene_IGiorni2; //终局BGM
+    public static SongDef OAGene_IGiorni; //终局BGM
 
     public static TraderKindDef OAGene_Trader_SnowstormCamp;
 

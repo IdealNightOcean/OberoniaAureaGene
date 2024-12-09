@@ -11,13 +11,20 @@ public class WorldObject_Hometown : MapParent
     public override void SpawnSetup()
     {
         base.SpawnSetup();
-        Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownSpawned(this.Tile);
+        Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownSpawned(this, this.Tile);
 
     }
     public override void PostMapGenerate()
     {
         base.PostMapGenerate();
         mapGenerated = true;
+        Snowstorm_StoryUtility.StoryGameComp.hometownMap = this.Map;
+    }
+
+    public override void Notify_MyMapRemoved(Map map)
+    {
+        base.Notify_MyMapRemoved(map);
+        Snowstorm_StoryUtility.StoryGameComp.hometownMap = null;
     }
 
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
@@ -76,7 +83,7 @@ public class WorldObject_Hometown : MapParent
     {
         int tile = this.Tile;
         base.Destroy();
-        Snowstorm_StoryUtility.StoryGameComp.hometownSpawned = false;
+        Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownDestory();
         WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstorm_MiscDefOf.OAGene_Hometown_Sealed);
         hometown_sealed.Tile = tile;
         Find.WorldObjects.Add(hometown_sealed);

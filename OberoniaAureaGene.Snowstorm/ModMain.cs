@@ -46,7 +46,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
     public static bool IceCrystalFlowerSpawnMessage;
 
-    public static bool AllowDifficultEnemy;
+    public static bool AllowDifficultEnemy = true;
 
     public void DoSettingsWindowContents(Rect inRect)
     {

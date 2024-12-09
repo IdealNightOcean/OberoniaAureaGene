@@ -17,14 +17,12 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     public HediffCompProperties_ProtagonistHomecomed Props => props as HediffCompProperties_ProtagonistHomecomed;
 
     protected int ticksRemianing;
-    protected int cyclesRemianing;
     protected int triggeredCount;
 
     public override void CompPostMake()
     {
         base.CompPostMake();
         ticksRemianing = 60000;
-        cyclesRemianing = 0;
         triggeredCount = 0;
     }
 
@@ -32,13 +30,12 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     {
         ticksRemianing--;
         if (ticksRemianing < 0)
-        {  
-            cyclesRemianing--;
+        {
             ticksRemianing = 10000;
-            if (cyclesRemianing <= 0 && TryDoMentalBreak(parent.pawn))
+            if (TryDoMentalBreak(parent.pawn))
             {
+                ticksRemianing = 30000;
                 triggeredCount++;
-                cyclesRemianing = 3;
                 if (triggeredCount == 3)
                 {
                     RecachePermanentThought(parent.pawn, Props.permanentThought, 0);
@@ -53,7 +50,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
                     parent.pawn.health.RemoveHediff(parent);
                     return;
                 }
-            }      
+            }
         }
     }
 
@@ -61,7 +58,6 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     {
         base.CompExposeData();
         Scribe_Values.Look(ref ticksRemianing, "ticksRemianing", 0);
-        Scribe_Values.Look(ref cyclesRemianing, "cyclesRemianing", 0);
         Scribe_Values.Look(ref triggeredCount, "triggeredCount", 0);
     }
 
@@ -79,7 +75,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
 
     protected static bool TryDoMentalBreak(Pawn pawn)
     {
-        if(Rand.Chance(0.2f))
+        if (Rand.Chance(0.8f))
         {
             return false;
         }
