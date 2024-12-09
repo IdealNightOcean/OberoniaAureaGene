@@ -125,12 +125,13 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
         if (memory == null)
         {
-            memory = (Thought_Memory)ThoughtMaker.MakeThought(homecoming);
+            memory = ThoughtMaker.MakeThought(homecoming, thoughtStage);
+            memory.permanent = permanent;
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
         parent.Severity = thoughtStage;
-        memory.SetForcedStage(thoughtStage);
         memory.permanent = permanent;
+        memory.SetForcedStage(thoughtStage);
         if (durationTicksOverride > 0)
         {
             memory.durationTicksOverride = durationTicksOverride;

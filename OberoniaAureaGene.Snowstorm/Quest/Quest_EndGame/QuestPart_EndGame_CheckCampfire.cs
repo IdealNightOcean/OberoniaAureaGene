@@ -23,8 +23,7 @@ public class QuestPart_EndGame_CheckCampfire : QuestPartActivable
             Map map = hometown.Map;
             if (map != null)
             {
-                RoofGrid roofGrid = map.roofGrid;
-                bool flag = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.Campfire).Where(t => !roofGrid.Roofed(t.Position) && (t.TryGetComp<CompRefuelable>()?.HasFuel ?? false)).Any();
+                bool flag = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.Campfire).Where(t => (t.TryGetComp<CompRefuelable>()?.HasFuel ?? false)).Any();
                 if (flag)
                 {
                     secondViolate = false;

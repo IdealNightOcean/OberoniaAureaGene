@@ -66,11 +66,14 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(thoughtDef);
         if (memory == null)
         {
-            memory = (Thought_Memory)ThoughtMaker.MakeThought(thoughtDef);
+            memory = ThoughtMaker.MakeThought(thoughtDef, stage);
+            memory.permanent = true;
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
         memory.permanent = true;
         memory.SetForcedStage(stage);
+
+        Find.LetterStack.ReceiveLetter(memory.CurStage.label + " : " + protagonist.Name.ToStringShort, memory.CurStage.description, LetterDefOf.PositiveEvent, protagonist);
     }
 
     protected static bool TryDoMentalBreak(Pawn pawn)

@@ -37,7 +37,8 @@ public class HediffComp_SnowstormSpeech : HediffComp
             ticksRemaining--;
             if (ticksRemaining <= 0)
             {
-                if (parent.pawn.Spawned && parent.pawn.Awake())
+                Pawn parentPawn = parent.pawn;
+                if (parentPawn.Spawned && parentPawn.Awake() && parentPawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking))
                 {
                     string speech = GenerateGrammarRequest(Props.speechRulePack, Props.speechSection.RandomInRange);
                     ThrowText(speech, Color.white);
