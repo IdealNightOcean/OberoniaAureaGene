@@ -53,11 +53,14 @@ public static class OAGene_MiscDefOf
 
     [MayRequireIdeology]
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
+
     [MayRequire("OARK.RatkinFaction.OberoniaAurea")]
     public static ThingDef OAGene_OAGeneBank; //金鸢尾兰基因储存箱
 
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
 
+    [MayRequire("Solaris.RatkinRaceMod")]
+    public static TraitDef Faith; //信念坚定
     public static TraitDef OAGene_ExtremeSnowSurvivor; //暴风雪幸存者
 
     public static WeatherDef OAGene_SnowExtreme; //极端暴风雪
@@ -79,7 +82,6 @@ public static class OAGene_RimWorldDefOf
 
     public static IncidentDef ColdSnap; //寒潮
 
-    public static TraitDef Faith;
     public static TraitDef Nerves;
 
     public static WeatherDef SnowHard;

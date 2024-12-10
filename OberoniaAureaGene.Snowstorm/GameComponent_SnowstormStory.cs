@@ -72,8 +72,13 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StroyFail()
     {
         storyInProgress = false;
-        Hediff hediff = protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-        hediff?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
+        if (protagonist != null)
+        {
+            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
+            Hediff homecoming = protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            homecoming?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
+        }
+
     }
 
     public void Notify_StroySuccess()
@@ -87,7 +92,11 @@ public class GameComponent_SnowstormStory : GameComponent
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
         storyFinished = true;
         storyInProgress = false;
-
+        if (protagonist != null)
+        {
+            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
+            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        }
         ScreenFader.StartFade(Color.white, ScreenFadeSeconds);
         timeLeft = ScreenFadeSeconds;
     }

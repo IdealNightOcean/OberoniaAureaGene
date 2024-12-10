@@ -73,7 +73,9 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
         memory.permanent = true;
         memory.SetForcedStage(stage);
 
-        Find.LetterStack.ReceiveLetter(memory.CurStage.label + " : " + protagonist.Name.ToStringShort, memory.CurStage.description, LetterDefOf.PositiveEvent, protagonist);
+        TaggedString letterLabel = $"OAGene_LetterlabelProtagonistHomecomed_{stage}".Translate(protagonist.Named("PAWN"));
+        TaggedString letterText = $"OAGene_LetterProtagonistHomecomed_{stage}".Translate(protagonist.Named("PAWN"));
+        Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, protagonist);
     }
 
     protected static bool TryDoMentalBreak(Pawn pawn)

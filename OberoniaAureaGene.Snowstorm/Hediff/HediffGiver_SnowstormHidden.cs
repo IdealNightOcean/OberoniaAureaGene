@@ -77,7 +77,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
         {
             return true;
         }
-        if (t.def == OAGene_RimWorldDefOf.Faith)
+        if (t.def == OAGene_MiscDefOf.Faith)
         {
             return !t.Suppressed;
         }

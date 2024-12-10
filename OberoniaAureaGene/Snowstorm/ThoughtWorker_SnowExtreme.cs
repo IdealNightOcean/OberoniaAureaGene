@@ -29,7 +29,7 @@ public class ThoughtWorker_SnowExtreme : ThoughtWorker
     }
     private static bool IsSpecialTrait(Trait t)
     {
-        if (t.def == OAGene_RimWorldDefOf.Faith)
+        if (t.def == OAGene_MiscDefOf.Faith)
         {
             return !t.Suppressed;
         }

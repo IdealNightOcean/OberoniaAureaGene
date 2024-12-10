@@ -114,8 +114,8 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             return;
         }
         int curYear = 5500 + GenDate.YearsPassed;
-        string letterLabel = $"OAGene_LetterlabelProtagonistHomecoming_{stage}".Translate();
-        string letterText = $"OAGene_LetterProtagonistHomecoming_{stage}".Translate(protagonist.Named("PAWN"), curYear);
+        TaggedString letterLabel = $"OAGene_LetterlabelProtagonistHomecoming_{stage}".Translate();
+        TaggedString letterText = $"OAGene_LetterProtagonistHomecoming_{stage}".Translate(protagonist.Named("PAWN"), curYear);
         Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NegativeEvent, protagonist);
     }
     public void RecacheThought(int thoughtStage, int durationTicksOverride = -1, bool permanent = false)
