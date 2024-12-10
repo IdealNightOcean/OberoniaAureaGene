@@ -92,6 +92,12 @@ public class OAGene_SnowstormSettings : ModSettings
         listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_AllowDifficultEnemy".Translate(), ref AllowDifficultEnemy);
 
+        if (DebugSettings.ShowDevGizmos)
+        {
+            listing_Rect.Gap(12f);
+            listing_Rect.CheckboxLabeled("DEV: Finished Story", ref StoryFinishedOnce);
+        }
+
         listing_Rect.Gap(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
