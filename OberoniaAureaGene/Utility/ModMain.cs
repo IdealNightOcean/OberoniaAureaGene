@@ -52,8 +52,11 @@ public class OberoniaAureaGene_Settings : ModSettings
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakNaturalRoof".Translate(), ref SnowstormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakThickRoof".Translate(), ref SnowstormBreakThickRoof);
 
-            ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(ColumnProtectRadiusInt.ToString()), ColumnProtectRadiusInt, 1f, 10f);
-            ColumnProtectRadius = ColumnProtectRadiusInt - 0.1f;
+            if (DebugSettings.ShowDevGizmos)
+            {
+                ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(ColumnProtectRadiusInt.ToString()), ColumnProtectRadiusInt, 1f, 10f);
+                ColumnProtectRadius = ColumnProtectRadiusInt - 0.1f;
+            }
         }
 
         listing_Rect.Gap(6f);

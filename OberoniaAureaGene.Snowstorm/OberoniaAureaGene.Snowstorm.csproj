@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_ForceWorld.cs" />
+    <Compile Include="PlaceWorker_RoofProtectRadius.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_CheckCampfire.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_CheckCampfire.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_EndEndGameSnowstorm.cs" />

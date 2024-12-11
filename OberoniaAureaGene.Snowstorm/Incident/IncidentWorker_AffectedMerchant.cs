@@ -1,6 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using System.Linq;
+using UnityEngine;
 using Verse;
 using Verse.AI.Group;
 
@@ -8,7 +9,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
 {
-    private static readonly IntRange ItemCount = new(550, 650);
+    private static readonly IntRange MarketValueRange = new(400, 500);
 
     protected override bool CanFireNowSub(IncidentParms parms)
     {
@@ -68,10 +69,13 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         pawn.trader.traderKind = traderKindDef;
         pawn.inventory.DestroyAll();
         PawnInventoryGenerator.GiveRandomFood(pawn);
-        ThingDef thingDef = DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw)).RandomElement();
-        Thing item = ThingMaker.MakeThing(thingDef);
-        item.stackCount = ItemCount.RandomInRange;
-        pawn.inventory.innerContainer.TryAdd(item);
+        ThingDef thingDef = DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d != ThingDefOf.WoodLog && d.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw)).RandomElement();
+        if (thingDef != null)
+        {
+            Thing item = ThingMaker.MakeThing(thingDef);
+            item.stackCount = Mathf.Max(1, (int)(MarketValueRange.RandomInRange / thingDef.BaseMarketValue));
+            pawn.inventory.innerContainer.TryAdd(item);
+        }
         return true;
     }
     protected Pawn SpawnPawn(IncidentParms parms)
