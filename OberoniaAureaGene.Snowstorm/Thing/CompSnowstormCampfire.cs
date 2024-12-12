@@ -22,24 +22,34 @@ public class CompSnowstormCampfire : ThingComp
 {
     public CompProperties_SnowstormCampfire Props => props as CompProperties_SnowstormCampfire;
     protected static readonly List<Pawn> TargetPawns = [];
+    protected CompRefuelable refuelableComp;
+
+    public override void PostSpawnSetup(bool respawningAfterLoad)
+    {
+        base.PostSpawnSetup(respawningAfterLoad);
+        refuelableComp = parent.GetComp<CompRefuelable>();
+    }
     public override void CompTick()
     {
         base.CompTick();
         if (parent.IsHashIntervalTick(250) && parent.Spawned)
         {
-            float sevAdjuest = -(Props.hypothermiaDecreasePreHour * 0.1f);
-            GetPawnsInRadius(parent.Position, parent.Map, Props.affectRadius, TargetPawns);
-            foreach (Pawn p in TargetPawns)
+            if (refuelableComp.HasFuel)
             {
-                HediffDef hediffDef = (p.RaceProps.FleshType == FleshTypeDefOf.Insectoid) ? Props.hediffInsectoid : Props.hediffHuman;
-                HealthUtility.AdjustSeverity(p, hediffDef, sevAdjuest);
+                float sevAdjuest = -(Props.hypothermiaDecreasePreHour * 0.1f);
+                GetPawnsInRadius(parent.Position, parent.Map, Props.affectRadius);
+                foreach (Pawn p in TargetPawns)
+                {
+                    HediffDef hediffDef = (p.RaceProps.FleshType == FleshTypeDefOf.Insectoid) ? Props.hediffInsectoid : Props.hediffHuman;
+                    HealthUtility.AdjustSeverity(p, hediffDef, sevAdjuest);
+                }
+                TargetPawns.Clear();
             }
-            TargetPawns.Clear();
         }
     }
-    protected static void GetPawnsInRadius(IntVec3 ctrPosition, Map map, float radius, List<Pawn> targetPawns, List<Pawn> ignorePawn = null)
+    protected static void GetPawnsInRadius(IntVec3 ctrPosition, Map map, float radius)
     {
-        targetPawns.Clear();
+        TargetPawns.Clear();
         foreach (IntVec3 cell in GenRadial.RadialCellsAround(ctrPosition, radius, useCenter: true))
         {
             List<Thing> thingList = map.thingGrid.ThingsListAt(cell);
@@ -47,15 +57,8 @@ public class CompSnowstormCampfire : ThingComp
             {
                 if (thingList[i] is Pawn pawn)
                 {
-                    targetPawns.Add(pawn);
+                    TargetPawns.Add(pawn);
                 }
-            }
-        }
-        if (ignorePawn != null)
-        {
-            foreach (Pawn pawn in ignorePawn)
-            {
-                targetPawns.Remove(pawn);
             }
         }
     }

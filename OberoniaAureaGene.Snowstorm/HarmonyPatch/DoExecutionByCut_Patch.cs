@@ -12,8 +12,7 @@ public static class DoExecutionByCut_Patch
     {
         if (IsSpecialThrumbo(victim))
         {
-            ThrumboManhunter(victim);
-            return false;
+            return !ThrumboManhunter(victim);
         }
         return true;
     }
@@ -22,7 +21,7 @@ public static class DoExecutionByCut_Patch
     {
         if (victim.def == ThingDefOf.Thrumbo && !victim.Downed && victim.health.hediffSet.HasHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo))
         {
-            return !ThrumboManhunter(victim);
+            return true;
         }
         return false;
     }

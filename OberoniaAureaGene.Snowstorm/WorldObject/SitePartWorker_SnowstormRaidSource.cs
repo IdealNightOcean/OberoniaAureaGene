@@ -33,8 +33,7 @@ public class SitePartWorker_SnowstormRaidSource : SitePartWorker_Outpost
         IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
         incidentParms.faction = sitePart.site.Faction;
         incidentParms.forced = true;
-        incidentParms.raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
-        if (OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms))
+        if (OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid, incidentParms))
         {
             sitePart.lastRaidTick = Find.TickManager.TicksGame;
         }

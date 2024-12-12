@@ -10,7 +10,7 @@ public class ScenPart_SnowstormStory : ScenPart
     public override void PostGameStart()
     {
         base.PostGameStart();
-        Snowstorm_StoryUtility.StoryGameComp?.Notify_StoryActive();
+        Snowstorm_StoryUtility.StoryGameComp.Notify_StoryActive();
     }
     public override IEnumerable<string> GetSummaryListEntries(string tag)
     {

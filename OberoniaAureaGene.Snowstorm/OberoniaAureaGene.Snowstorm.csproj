@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RaidStrategyWorker_SnowstormAttackBreaching.cs" />
+    <Compile Include="RaidStrategyWorker_ImmediateAttack_SnowstormCultist.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_ForceWorld.cs" />
     <Compile Include="PlaceWorker_RoofProtectRadius.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_CheckCampfire.cs" />

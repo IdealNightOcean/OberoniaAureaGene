@@ -36,11 +36,24 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
+        TrySetStoryProtagonist();
+    }
+
+    public bool TrySetStoryProtagonist()
+    {
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
-        protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+
+        if (protagonist == null)
+        {
+            Dialog_NodeTree failNodeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate());
+            Find.WindowStack.Add(failNodeTree);
+            return false;
+        }
+        protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         Log.Message(protagonist.NameShortColored);
+        return true;
     }
 
     public void Notify_HometownSpawned(MapParent mapParent, int tile)
@@ -68,7 +81,6 @@ public class GameComponent_SnowstormStory : GameComponent
             protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
         }
     }
-
     public void Notify_StroyFail()
     {
         storyInProgress = false;
@@ -80,7 +92,6 @@ public class GameComponent_SnowstormStory : GameComponent
         }
 
     }
-
     public void Notify_StroySuccess()
     {
         if (!Find.TickManager.Paused)
@@ -100,6 +111,7 @@ public class GameComponent_SnowstormStory : GameComponent
         ScreenFader.StartFade(Color.white, ScreenFadeSeconds);
         timeLeft = ScreenFadeSeconds;
     }
+
     public override void GameComponentUpdate()
     {
         if (timeLeft > 0f)
@@ -114,7 +126,19 @@ public class GameComponent_SnowstormStory : GameComponent
 
     public override void LoadedGame()
     {
-        base.LoadedGame();
+        if (!storyActive)
+        {
+            return;
+        }
+
+        if (protagonist == null)
+        {
+            if (!TrySetStoryProtagonist())
+            {
+                return;
+            }
+        }
+
         if (LongingForHome)
         {
             protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
@@ -124,8 +148,8 @@ public class GameComponent_SnowstormStory : GameComponent
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false);
-        Scribe_References.Look(ref protagonist, "protagonist");
+        Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false, forceSave: true);
+        Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
 
         Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false);
         Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false);

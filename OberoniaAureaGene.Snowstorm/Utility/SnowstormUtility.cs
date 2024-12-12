@@ -109,7 +109,6 @@ public static class SnowstormUtility
             return;
         }
         map.SnowstormMapComp()?.Notify_SnowstormEnd();
-        map.weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
         TryGiveEndSnowstormHediffAndThought(map);
     }
     //骤冷丨骤暖事件 (mainMap)
@@ -257,18 +256,11 @@ public static class SnowstormUtility
     //暴风雪结束后的心情与buff (allMaps) 
     public static void TryGiveEndSnowstormHediffAndThought(Map map)
     {
-        List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
+        List<Pawn> pawns = map.mapPawns.FreeColonistsSpawned;
         foreach (Pawn pawn in pawns)
         {
-            if (pawn.IsMutant)
-            {
-                continue;
-            }
-            if (pawn.Faction != null && pawn.Faction.IsPlayer)
-            {
-                pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
-                pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
-            }
+            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormEnd);
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ExperienceSnowstorm);
         }
     }
 

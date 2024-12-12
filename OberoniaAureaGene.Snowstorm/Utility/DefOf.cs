@@ -24,6 +24,7 @@ public static class Snowstorm_MiscDefOf
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
+    public static RaidStrategyDef OAGene_ImmediateAttack_SnowstormCultist; //教徒死战不退袭击
 
     public static SongDef OAGene_IGiorni; //终局BGM
 

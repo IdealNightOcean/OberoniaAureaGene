@@ -64,8 +64,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     public override void ResolveRaidStrategy(IncidentParms parms, PawnGroupKindDef groupKind)
     {
-        parms.raidStrategy = OAFrameDefOf.OAFrame_ImmediateAttack_NeverFlee;
-        base.ResolveRaidStrategy(parms, groupKind);
+        parms.raidStrategy = Snowstorm_MiscDefOf.OAGene_ImmediateAttack_SnowstormCultist;
         parms.canTimeoutOrFlee = false;
     }
 
@@ -78,8 +77,8 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
                 if (pawn.RaceProps.Humanlike)
                 {
                     pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
+                    pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
                 }
-                pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
             }
         }
     }

@@ -35,13 +35,13 @@ public class HediffComp_ExperienceSnowstorm : HediffComp
         experienceCount++;
         if (experienceCount >= 5)
         {
-            pawn.story?.traits?.GainTrait(new Trait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor), true);
+            pawn.story?.traits?.GainTrait(new Trait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor, 0), true);
             parent.pawn.health.RemoveHediff(parent);
         }
     }
     public override void CompExposeData()
     {
-        Scribe_Values.Look(ref experienceCount, "experienceCount", 1);
+        Scribe_Values.Look(ref experienceCount, "experienceCount", 0);
     }
 }
 
