@@ -33,7 +33,7 @@ public class ThoughtWorker_SnowExtreme : ThoughtWorker
         {
             return !t.Suppressed;
         }
-        if (t.def == OAGene_RimWorldDefOf.Nerves && (t.Degree == 0 || t.Degree == 1))
+        if (t.def == OAGene_RimWorldDefOf.Nerves && t.Degree >= 1)
         {
             return !t.Suppressed;
         }

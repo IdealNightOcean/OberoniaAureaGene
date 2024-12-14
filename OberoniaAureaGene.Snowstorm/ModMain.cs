@@ -44,6 +44,8 @@ public class OAGene_SnowstormSettings : ModSettings
     public static bool AllowSnowstormMaliciousRaid = true;
     public static bool AllowSnowstormMaliciousSite = true;
 
+    public static bool ShowColumnProtectRadius = true;
+
     public static bool IceCrystalFlowerSpawnMessage;
 
     public static bool AllowDifficultEnemy = true;
@@ -66,11 +68,6 @@ public class OAGene_SnowstormSettings : ModSettings
         {
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakNaturalRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof);
             listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakThickRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakThickRoof);
-            if (DebugSettings.ShowDevGizmos)
-            {
-                OberoniaAureaGene_Settings.ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(OberoniaAureaGene_Settings.ColumnProtectRadiusInt.ToString()), OberoniaAureaGene_Settings.ColumnProtectRadiusInt, 1f, 10f);
-                OberoniaAureaGene_Settings.ColumnProtectRadius = OberoniaAureaGene_Settings.ColumnProtectRadiusInt - 0.1f;
-            }
         }
 
         listing_Rect.Gap(6f);
@@ -85,6 +82,9 @@ public class OAGene_SnowstormSettings : ModSettings
         }
 
         listing_Rect.Gap(6f);
+        listing_Rect.CheckboxLabeled("OAGene_ShowColumnProtectRadius".Translate(), ref ShowColumnProtectRadius);
+
+        listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousRaid".Translate(), ref AllowSnowstormMaliciousRaid);
         listing_Rect.CheckboxLabeled("OAGene_AllowSnowstormMaliciousSite".Translate(), ref AllowSnowstormMaliciousSite);
 
@@ -97,6 +97,9 @@ public class OAGene_SnowstormSettings : ModSettings
         if (DebugSettings.ShowDevGizmos)
         {
             listing_Rect.Gap(12f);
+            OberoniaAureaGene_Settings.ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(OberoniaAureaGene_Settings.ColumnProtectRadiusInt.ToString()), OberoniaAureaGene_Settings.ColumnProtectRadiusInt, 1f, 10f);
+            OberoniaAureaGene_Settings.ColumnProtectRadius = OberoniaAureaGene_Settings.ColumnProtectRadiusInt - 0.1f;
+
             listing_Rect.CheckboxLabeled("DEV: Finished Story", ref StoryFinishedOnce);
         }
 
@@ -118,7 +121,7 @@ public class OAGene_SnowstormSettings : ModSettings
         Widgets.EndScrollView();
     }
 
-    protected void ForMountaintopCave()
+    protected static void ForMountaintopCave()
     {
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = true;
@@ -135,7 +138,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowDifficultEnemy = true;
     }
-    protected void Reset()
+    protected static void Reset()
     {
         OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
         OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = false;
@@ -148,6 +151,8 @@ public class OAGene_SnowstormSettings : ModSettings
         IceStormBreakRoof = true;
         IceStormBreakNaturalRoof = false;
         IceStormBreakThickRoof = false;
+
+        ShowColumnProtectRadius = true;
 
         AllowSnowstormMaliciousRaid = true;
         AllowSnowstormMaliciousSite = true;
@@ -166,6 +171,8 @@ public class OAGene_SnowstormSettings : ModSettings
         Scribe_Values.Look(ref IceStormBreakRoof, "IceStormBreakRoof", defaultValue: true);
         Scribe_Values.Look(ref IceStormBreakNaturalRoof, "IceStormBreakNaturalRoof", defaultValue: false);
         Scribe_Values.Look(ref IceStormBreakThickRoof, "IceStormBreakThickRoof", defaultValue: false);
+
+        Scribe_Values.Look(ref ShowColumnProtectRadius, "ShowColumnProtectRadius", defaultValue: true);
 
         Scribe_Values.Look(ref AllowSnowstormMaliciousRaid, "AllowSnowstormMaliciousRaid", defaultValue: true);
         Scribe_Values.Look(ref AllowSnowstormMaliciousSite, "AllowSnowstormMaliciousSite", defaultValue: true);

@@ -14,23 +14,6 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 
     protected GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
 
-    public override float ChanceFactor(Pawn pawn)
-    {
-        TraitSet traitSet = pawn.story?.traits;
-        if (traitSet != null)
-        {
-            for (int i = 0; i < traitSet.allTraits.Count; i++)
-            {
-                Trait trait = traitSet.allTraits[i];
-                if (IsSpecialTrait(trait))
-                {
-                    return 0f;
-                }
-            }
-        }
-        return 1f;
-    }
-
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         if (Rand.Value < 1f / (mtbDays * 1000f))
@@ -43,7 +26,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             {
                 return;
             }
-            if (ChanceFactor(pawn) > 0f)
+            if (CanApplyHediff(pawn))
             {
                 HediffDef giverHediff = hediffs.RandomElement();
                 if (TryApplyHediff(pawn, giverHediff))
@@ -55,20 +38,38 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             }
         }
     }
-    public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff, List<Hediff> outAddedHediffs = null)
+    protected static bool CanApplyHediff(Pawn pawn)
     {
         if (pawn.ageTracker.CurLifeStage == LifeStageDefOf.HumanlikeBaby)
         {
-            if (Find.Storyteller.difficulty.babiesAreHealthy || giveHediff == Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormAngry)
+            return false;
+        }
+        if (pawn.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormOblivious) != null)
+        {
+            return false;
+        }
+        TraitSet traitSet = pawn.story?.traits;
+        if (traitSet != null)
+        {
+            for (int i = 0; i < traitSet.allTraits.Count; i++)
             {
-                return false;
+                Trait trait = traitSet.allTraits[i];
+                if (IsSpecialTrait(trait))
+                {
+                    return false;
+                }
             }
         }
+        return true;
+    }
+
+    public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff)
+    {
         if (pawn.genes != null && !pawn.genes.HediffGiversCanGive(giveHediff))
         {
             return false;
         }
-        return HediffGiverUtility.TryApply(pawn, giveHediff, partsToAffect, canAffectAnyLivePart, countToAffect, outAddedHediffs);
+        return HediffGiverUtility.TryApply(pawn, giveHediff, partsToAffect, canAffectAnyLivePart, countToAffect, null);
     }
 
     private static bool IsSpecialTrait(Trait t)
@@ -81,7 +82,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
         {
             return !t.Suppressed;
         }
-        if (t.def == OAGene_RimWorldDefOf.Nerves && (t.Degree == 0 || t.Degree == 1))
+        if (t.def == OAGene_RimWorldDefOf.Nerves && t.Degree >= 1)
         {
             return !t.Suppressed;
         }

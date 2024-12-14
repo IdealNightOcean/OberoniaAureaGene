@@ -69,6 +69,7 @@ public static class Snowstorm_HediffDefOf
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
     public static HediffDef OAGene_Hediff_HideInSnowstorm; //隐匿于风雪
 
+    public static HediffDef OAGene_Hediff_SnowstormOblivious; //忘我
     public static HediffDef OAGene_Hediff_SnowstormAngry; //不理想的愤怒
 
     public static HediffDef OAGene_Hediff_SnowstormCultist; //风雪教徒健康状态

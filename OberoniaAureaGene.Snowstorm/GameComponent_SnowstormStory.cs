@@ -20,6 +20,8 @@ public class GameComponent_SnowstormStory : GameComponent
     protected Pawn protagonist;
     public Pawn Protagonist => protagonist;
 
+    protected bool showNoProtagonistWarning;
+
     public bool hometownSpawned;
     public bool storyInProgress;
     public bool storyFinished;
@@ -47,11 +49,24 @@ public class GameComponent_SnowstormStory : GameComponent
 
         if (protagonist == null)
         {
-            Dialog_NodeTree failNodeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate());
-            Find.WindowStack.Add(failNodeTree);
+            if (showNoProtagonistWarning)
+            {
+                Dialog_NodeTree failNodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(),
+                    "Confirm".Translate(),
+                    null,
+                    "OAFrame_DonotShowAgain".Translate(),
+                    delegate
+                    {
+                        showNoProtagonistWarning = false;
+                    });
+                Find.WindowStack.Add(failNodeTree);
+            }
             return false;
         }
-        protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        if (LongingForHome)
+        {
+            protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+        }
         Log.Message(protagonist.NameShortColored);
         return true;
     }
@@ -150,6 +165,7 @@ public class GameComponent_SnowstormStory : GameComponent
         base.ExposeData();
         Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false, forceSave: true);
         Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
+        Scribe_Values.Look(ref showNoProtagonistWarning, "showNoProtagonistWarning", defaultValue: true);
 
         Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false);
         Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false);

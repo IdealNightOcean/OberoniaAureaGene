@@ -5,7 +5,6 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 public class HediffCompProperties_SnowstormOblivious : HediffCompProperties
 {
-    public HediffDef giverHediff;
     public List<HediffDef> removeHediffs;
     public HediffCompProperties_SnowstormOblivious()
     {
@@ -24,11 +23,6 @@ public class HediffComp_SnowstormOblivious : HediffComp
         foreach (HediffDef hediffDef in Props.removeHediffs)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(parent.pawn, hediffDef);
-        }
-        Hediff_SnowExtremePlayerHidden giverHediff = (Hediff_SnowExtremePlayerHidden)healthTracker.hediffSet.GetFirstHediffOfDef(Props.giverHediff);
-        if (giverHediff != null)
-        {
-            giverHediff.obliviousGived = true;
         }
     }
 }
