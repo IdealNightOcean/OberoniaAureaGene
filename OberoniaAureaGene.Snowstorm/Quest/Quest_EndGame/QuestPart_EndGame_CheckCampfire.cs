@@ -18,12 +18,12 @@ public class QuestPart_EndGame_CheckCampfire : QuestPartActivable
         base.QuestPartTick();
 
         ticksRemaining--;
-        if (ticksRemaining <= 0)
+        if (ticksRemaining < 0)
         {
             Map map = hometown.Map;
             if (map != null)
             {
-                bool flag = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.Campfire).Where(t => (t.TryGetComp<CompRefuelable>()?.HasFuel ?? false)).Any();
+                bool flag = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.Campfire).Where(t => (t.TryGetComp<CompRefuelable>()?.HasFuel ?? true)).Any();
                 if (flag)
                 {
                     secondViolate = false;

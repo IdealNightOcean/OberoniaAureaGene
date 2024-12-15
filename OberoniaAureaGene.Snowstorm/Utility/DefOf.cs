@@ -22,6 +22,7 @@ public static class Snowstorm_MiscDefOf
     public static MentalBreakDef OAGene_LostInMemory; //陷入回忆
 
     public static MusicTransitionDef OAGene_Transition_StarryNight; //星月夜BGM
+    public static MusicTransitionDef OAGene_Transition_Liebestraum; //终局风雪BGM
 
     public static RaidStrategyDef OAGene_SnowstormImmediateAttackBreaching; //暴风雪破墙袭击
     public static RaidStrategyDef OAGene_ImmediateAttack_SnowstormCultist; //教徒死战不退袭击

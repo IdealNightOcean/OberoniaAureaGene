@@ -44,6 +44,8 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
             Map map = AffectedMaps[i];
             SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, DurationTick);
         }
+
+        Find.MusicManagerPlay.ForceTriggerTransition(Snowstorm_MiscDefOf.OAGene_Transition_Liebestraum);
     }
 
     protected override void PreEnd()
@@ -66,8 +68,6 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
         Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
         Find.LetterStack.ReceiveLetter(letter, playSound: false);
-        Find.MusicManagerPlay.ForceTriggerTransition(OAGene_MiscDefOf.OAGene_Transition_ClairDeLune);
-
         return false;
     }
 

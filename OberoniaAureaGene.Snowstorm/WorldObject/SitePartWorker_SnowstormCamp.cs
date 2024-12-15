@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -21,11 +20,15 @@ public class SitePartWorker_SnowstormCamp : SitePartWorker_Outpost
         SitePartParams sitePartParams = new()
         {
             randomValue = Rand.Int,
-            threatPoints = def.wantsThreatPoints ? myThreatPoints : 0f
+            threatPoints = 0f
         };
-        sitePartParams.threatPoints = Mathf.Max(sitePartParams.threatPoints, FactionDefOf.OutlanderCivil.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Settlement));
-        sitePartParams.lootMarketValue = ThreatPointsLootMarketValue.Evaluate(sitePartParams.threatPoints);
+        sitePartParams.threatPoints = 0f;
+        sitePartParams.lootMarketValue = 0f;
         return sitePartParams;
+    }
+    public override string GetPostProcessedThreatLabel(Site site, SitePart sitePart)
+    {
+        return def.label + ": " + "KnownSiteThreatEnemyCountAppend".Translate(EnemyCountRange.RandomInRange, "Enemies".Translate());
     }
 }
 

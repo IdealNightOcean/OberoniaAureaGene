@@ -16,7 +16,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
-        if (Rand.Value < 1f / (mtbDays * 1000f))
+        if (Rand.Value < 1f / (mtbDays * 2500f))
         {
             if (cause is not Hediff_SnowExtremePlayerHidden causeSnow || !causeSnow.CanGetHediffNow)
             {

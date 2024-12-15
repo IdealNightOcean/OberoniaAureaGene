@@ -148,15 +148,7 @@ public class GameComponent_SnowstormStory : GameComponent
 
         if (protagonist == null)
         {
-            if (!TrySetStoryProtagonist())
-            {
-                return;
-            }
-        }
-
-        if (LongingForHome)
-        {
-            protagonist?.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            TrySetStoryProtagonist();
         }
     }
 

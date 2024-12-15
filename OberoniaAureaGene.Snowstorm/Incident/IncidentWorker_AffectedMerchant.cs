@@ -86,7 +86,15 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         {
             return null;
         }
-        Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnGroupMaker.traders.RandomElementByWeight((PawnGenOption x) => x.selectionWeight).kind, parms.faction, PawnGenerationContext.NonPlayer, forceGenerateNewPawn: false, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, colonistRelationChanceFactor: 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true));
+        PawnGenerationRequest generationRequest = new(pawnGroupMaker.traders.RandomElementByWeight((PawnGenOption x) => x.selectionWeight).kind, parms.faction)
+        {
+            AllowDead = true,
+            AllowDowned = true,
+            CanGeneratePawnRelations = false,
+            ColonistRelationChanceFactor = 0f,
+            ForceAddFreeWarmLayerIfNeeded = true,
+        };
+        Pawn pawn = PawnGenerator.GeneratePawn(generationRequest);
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
         OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_RimWorldDefOf.Hypothermia, 0.5f);
 

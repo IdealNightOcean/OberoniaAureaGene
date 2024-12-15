@@ -9,6 +9,8 @@ public class QuestNode_EndGame_CheckCampfire : QuestNode
     [NoTranslate]
     public SlateRef<string> inSignal;
     [NoTranslate]
+    public SlateRef<string> inSignalDisable;
+    [NoTranslate]
     public SlateRef<string> outSignalNoValidCampfire;
 
     protected override bool TestRunInt(Slate slate)
@@ -27,6 +29,7 @@ public class QuestNode_EndGame_CheckCampfire : QuestNode
         QuestPart_EndGame_CheckCampfire questPart_EndGame_CheckCampfire = new()
         {
             inSignalEnable = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
+            inSignalDisable = QuestGenUtility.HardcodedSignalWithQuestID(inSignalDisable.GetValue(slate)),
             outSignalNoValidCampfire = QuestGenUtility.HardcodedSignalWithQuestID(outSignalNoValidCampfire.GetValue(slate)),
             hometown = hometown
         };
