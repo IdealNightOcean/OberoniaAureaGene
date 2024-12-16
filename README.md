@@ -3,13 +3,13 @@
 
 该仓库是游戏RimWorld模组 **[OA]鼠族基因扩展** 和 **[OA]鼠族剧本扩展：风雪的遗孤** 的C#源代码文件。
 
-<img src="https://github.com/IdealNightOcean/OberoniaAureaGene/blob/master/img/%5BOA%5DRatkin%20Gene%20Expand.png"  align = "left" width="40%" /><img src="https://github.com/IdealNightOcean/OberoniaAureaGene/blob/master/img/%5BOA%5DRatkin%20Scenario%20-%20Snowstorm%20Orphan.png"  align = "left" width="40%" />
+<img src="img/%5BOA%5DRatkin%20Gene%20Expand.png" alt="interpolate" width="40%" /><img src="img/%5BOA%5DRatkin%20Scenario%20-%20Snowstorm%20Orphan.png" alt="interpolate" width="40%" />
 
 Steam创意工坊链接：
 
-+ [OA]鼠族基因扩展    [![Steam Downloads](https://img.shields.io/steam/downloads/3300291918?style=flat&logo=steam&label=Steam%20Workshop)](https://steamcommunity.com/sharedfiles/filedetails/?id=3300291918)
++ [OA]鼠族基因扩展  [![Steam Downloads](https://img.shields.io/steam/downloads/3300291918?style=flat&logo=steam&label=Steam%20Workshop)](https://steamcommunity.com/sharedfiles/filedetails/?id=3300291918)
 
-+ [OA]鼠族剧本扩展：风雪的遗孤    [![Steam Downloads](https://img.shields.io/steam/downloads/3381392312?style=flat&logo=steam&label=Steam%20Workshop&color=cyan)
++ [OA]鼠族剧本扩展：风雪的遗孤  [![Steam Downloads](https://img.shields.io/steam/downloads/3381392312?style=flat&logo=steam&label=Steam%20Workshop&color=cyan)
 ](https://steamcommunity.com/sharedfiles/filedetails/?id=3381392312)
 
 
