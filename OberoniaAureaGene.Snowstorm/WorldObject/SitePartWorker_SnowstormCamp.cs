@@ -20,15 +20,14 @@ public class SitePartWorker_SnowstormCamp : SitePartWorker_Outpost
         SitePartParams sitePartParams = new()
         {
             randomValue = Rand.Int,
-            threatPoints = 0f
+            threatPoints = faction.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Settlement) + 100f,
+            lootMarketValue = 0f
         };
-        sitePartParams.threatPoints = 0f;
-        sitePartParams.lootMarketValue = 0f;
         return sitePartParams;
     }
     public override string GetPostProcessedThreatLabel(Site site, SitePart sitePart)
     {
-        return def.label + ": " + "KnownSiteThreatEnemyCountAppend".Translate(EnemyCountRange.RandomInRange, "Enemies".Translate());
+        return def.label + ": " + "KnownSiteThreatEnemyCountAppend".Translate(sitePart.expectedEnemyCount, "Enemies".Translate());
     }
 }
 

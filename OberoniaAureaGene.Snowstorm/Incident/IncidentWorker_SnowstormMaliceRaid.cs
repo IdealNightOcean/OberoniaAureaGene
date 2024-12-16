@@ -31,7 +31,8 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
                 return false;
             }
         }
-        parms.points = Mathf.Max(1000, parms.points);
+        float minPoints = GenDate.DaysPassed > 60 ? 500 : 100;
+        parms.points = Mathf.Max(minPoints, parms.points);
         return true;
     }
     protected override bool TryExecuteWorker(IncidentParms parms)

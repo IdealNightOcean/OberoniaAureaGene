@@ -288,7 +288,8 @@ public class MapComponent_Snowstorm : MapComponent
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Values.Look(ref snowstormNow, "snowstormNow", defaultValue: false);
+        Scribe_Values.Look(ref snowstormNow, "snowstormNow", defaultValue: false, forceSave: true);
+        Scribe_Values.Look(ref snowstormFogNow, "snowstormFogNow", defaultValue: false);
 
         Scribe_Values.Look(ref geothermalGeneratorWarned, "geothermalGeneratorWarned", defaultValue: false);
         Scribe_Values.Look(ref geothermalGeneratorTicks, "geothermalGeneratorTicks", 0);

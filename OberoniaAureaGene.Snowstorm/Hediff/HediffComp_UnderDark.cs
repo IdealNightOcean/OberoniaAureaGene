@@ -32,7 +32,7 @@ public class HediffComp_UnderDark : HediffComp
             }
             if (Rand.Value < 250f / (Props.mtbHours * 2500f))
             {
-                parentPawn.mindState?.mentalBreaker.TryDoMentalBreak("OAGene_UnderDarkMentalBreak", OAGene_RimWorldDefOf.Wander_Psychotic);
+                parentPawn.mindState?.mentalBreaker.TryDoMentalBreak(parent.Label.Translate(), OAGene_RimWorldDefOf.Wander_Psychotic);
             }
         }
     }
