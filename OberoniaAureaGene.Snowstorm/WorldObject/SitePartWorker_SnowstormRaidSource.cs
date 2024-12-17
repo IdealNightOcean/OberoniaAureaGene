@@ -10,7 +10,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class SitePartWorker_SnowstormRaidSource : SitePartWorker_Outpost
 {
-    private const int RaidMtbDays = 2;
+    private const int RaidMtbDays = 3;
     public override void SitePartWorkerTick(SitePart sitePart)
     {
         base.SitePartWorkerTick(sitePart);

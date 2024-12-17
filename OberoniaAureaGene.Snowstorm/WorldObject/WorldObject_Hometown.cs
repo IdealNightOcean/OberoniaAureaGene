@@ -24,6 +24,7 @@ public class WorldObject_Hometown : MapParent
     public override void Notify_MyMapRemoved(Map map)
     {
         base.Notify_MyMapRemoved(map);
+        mapGenerated = false;
         Snowstorm_StoryUtility.StoryGameComp.hometownMap = null;
     }
 

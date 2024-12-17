@@ -38,11 +38,13 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
         TrySetStoryProtagonist();
     }
 
     public bool TrySetStoryProtagonist()
     {
+        Log.Message("OAGene_Log_TrySetStoryProtagonist".Translate());
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
@@ -67,7 +69,7 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
-        Log.Message(protagonist.NameShortColored);
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
         return true;
     }
 
@@ -139,10 +141,11 @@ public class GameComponent_SnowstormStory : GameComponent
         }
     }
 
-    public override void LoadedGame()
+    public override void StartedNewGame()
     {
         if (!storyActive)
         {
+            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate());
             return;
         }
 
@@ -150,6 +153,23 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             TrySetStoryProtagonist();
         }
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
+    }
+    public override void LoadedGame()
+    {
+        if (!storyActive)
+        {
+            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate());
+            return;
+        }
+
+        if (protagonist == null)
+        {
+            TrySetStoryProtagonist();
+        }
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
     }
 
     public override void ExposeData()

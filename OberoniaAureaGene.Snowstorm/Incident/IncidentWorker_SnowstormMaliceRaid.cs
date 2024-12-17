@@ -7,6 +7,12 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
 {
+    protected static readonly SimpleCurve MinPoints = [
+        new CurvePoint(0,100),
+        new CurvePoint(3,500),
+        new CurvePoint(5,1000),
+    ];
+
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
@@ -31,7 +37,7 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
                 return false;
             }
         }
-        float minPoints = GenDate.DaysPassed > 60 ? 500 : 100;
+        float minPoints = MinPoints.Evaluate(GenDate.YearsPassed);
         parms.points = Mathf.Max(minPoints, parms.points);
         return true;
     }
