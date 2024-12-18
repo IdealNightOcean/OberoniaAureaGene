@@ -65,7 +65,8 @@ public static class Snowstorm_HediffDefOf
     public static HediffDef OAGene_Hediff_ProtagonistHomecoming; //主角归乡健康状态（用于心情）
     public static HediffDef OAGene_Hediff_ProtagonistHomecomed; //主角回忆健康状态（用于机制)
 
-    public static HediffDef OAGene_Hediff_PreparationWarm; //充足御寒准备
+    public static HediffDef OAGene_Hediff_ColdPreparation_Enemy; //充足御寒准备（敌人）
+    public static HediffDef OAGene_Hediff_ColdPreparation_Neutral; //充足御寒准备（中立）
     public static HediffDef OAGene_Hediff_HopeForSurvival; //求生的希望
     public static HediffDef OAGene_Hediff_ExperienceSnowstorm; //经历暴风雪
     public static HediffDef OAGene_Hediff_HideInSnowstorm; //隐匿于风雪

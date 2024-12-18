@@ -38,8 +38,8 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         Pawn pawn = quest.GeneratePawn(request);
         if (pawn.RaceProps.Humanlike)
         {
-            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
+            Snowstorm_MiscUtility.SetColdPreparation(pawn, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral);
         }
         Apparel parka = (Apparel)ThingMaker.MakeThing(ThingDefOf.Apparel_Parka, ThingDefOf.Cloth);
         pawn.apparel.Wear(parka, dropReplacedApparel: false);

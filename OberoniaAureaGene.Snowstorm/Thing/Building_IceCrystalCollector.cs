@@ -8,14 +8,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class Building_IceCrystalCollector : Building
 {
-    protected enum CurWeather
-    {
-        Other,
-        Snowstorm,
-        IceStorm,
-        IceRain
-    }
-    protected const int MaxStorge = 20;
+    protected const int MaxStorge = 25;
 
     [Unsaved]
     public int nearCollectorCount;
@@ -59,15 +52,7 @@ public class Building_IceCrystalCollector : Building
             return;
         }
         underRoof = false;
-        CurWeather curWeather = GetCurWeather(this.Map.weatherManager.curWeather);
-        float weatherEfficiency = curWeather switch
-        {
-            CurWeather.Other => -1f,
-            CurWeather.Snowstorm => 5f,
-            CurWeather.IceStorm => 25f,
-            CurWeather.IceRain => 10f,
-            _ => -1f,
-        };
+        float weatherEfficiency = GetCurWeatherEfficiency(this.Map.weatherManager.curWeather);
         if (weatherEfficiency < 0f)
         {
             curEfficiency = 0f;
@@ -170,24 +155,24 @@ public class Building_IceCrystalCollector : Building
 
     }
 
-    protected static CurWeather GetCurWeather(WeatherDef weather)
+    protected static float GetCurWeatherEfficiency(WeatherDef weather)
     {
         if (weather == null)
         {
-            return CurWeather.Other;
+            return -1f;
         }
         if (weather == Snowstorm_MiscDefOf.OAGene_SnowExtreme)
         {
-            return CurWeather.Snowstorm;
+            return 8f;
         }
         if (weather == Snowstorm_MiscDefOf.OAGene_IceSnowExtreme)
         {
-            return CurWeather.IceStorm;
+            return 30f;
         }
         if (weather == Snowstorm_MiscDefOf.OAGene_IceRain)
         {
-            return CurWeather.IceRain;
+            return 20f;
         }
-        return CurWeather.Other;
+        return -1f;
     }
 }

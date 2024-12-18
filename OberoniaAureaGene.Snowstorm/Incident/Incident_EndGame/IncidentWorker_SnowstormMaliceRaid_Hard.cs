@@ -32,8 +32,8 @@ public class IncidentWorker_SnowstormMaliceRaid_Hard : IncidentWorker_SnowstormM
                 if (pawn.RaceProps.Humanlike)
                 {
                     pawn.story?.traits?.GainTrait(new Trait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor, 1, forced: true), suppressConflicts: true);
-                    pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
                     pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HideInSnowstorm);
+                    Snowstorm_MiscUtility.SetColdPreparation(pawn, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Enemy);
                 }
             }
         }

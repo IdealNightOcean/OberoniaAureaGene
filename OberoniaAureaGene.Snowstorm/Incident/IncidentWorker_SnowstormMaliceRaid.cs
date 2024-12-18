@@ -62,7 +62,7 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
             {
                 if (pawn.RaceProps.Humanlike)
                 {
-                    pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_PreparationWarm);
+                    Snowstorm_MiscUtility.SetColdPreparation(pawn, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Enemy);
                 }
             }
         }

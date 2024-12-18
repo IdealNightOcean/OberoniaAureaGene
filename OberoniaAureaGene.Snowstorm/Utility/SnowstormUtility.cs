@@ -187,7 +187,7 @@ public static class SnowstormUtility
     //暴风雪中的恶意 (mainMap)
     public static void TryInitSnowstormMalice(Map mainMap)
     {
-        if (GenDate.DaysPassed < 60 || Rand.Chance(0.66f))
+        if (GenDate.YearsPassed < 4 || Rand.Chance(0.66f))
         {
             return;
         }
@@ -307,6 +307,4 @@ public static class SnowstormUtility
         };
         OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
-
-
 }

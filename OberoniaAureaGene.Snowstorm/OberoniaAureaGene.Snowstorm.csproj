@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hediff\HediffComp_ColdPreparation.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormAttackBreaching.cs" />
     <Compile Include="RaidStrategyWorker_ImmediateAttack_SnowstormCultist.cs" />
     <Compile Include="Incident\IncidentWorker_MakeGameCondition_ForceWorld.cs" />
