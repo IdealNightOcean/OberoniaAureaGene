@@ -6,7 +6,7 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCaravanArrival
 {
-    protected static readonly IntRange TraderCount = new(5, 6);
+    protected static readonly IntRange TraderCount = new(4, 5);
     protected static readonly IntRange DelayTicks = new(20000, 24000);
 
     protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
@@ -20,28 +20,30 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;
+       
         if (!TryResolveParms(parms))
         {
             return false;
         }
-        if (parms.faction.HostileTo(Faction.OfPlayer))
+        Faction faction = parms.faction;
+        if (faction.HostileTo(Faction.OfPlayer))
         {
             return false;
         }
         IncidentParms subParms = new()
         {
             target = map,
-            faction = parms.faction,
+            faction = faction,
             forced = true
         };
-        subParms.faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, subParms.faction), out subParms.traderKind);
+        faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, faction), out subParms.traderKind);
         OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.TraderCaravanArrival, subParms);
         int traderCount = TraderCount.RandomInRange;
         int delayTicks = 0;
         for (int i = 0; i < traderCount - 1; i++)
         {
             delayTicks += DelayTicks.RandomInRange;
-            TraderCaravanArrival(map, parms.faction, delayTicks);
+            TraderCaravanArrival(map, faction, delayTicks);
         }
 
         SendLetter(parms);

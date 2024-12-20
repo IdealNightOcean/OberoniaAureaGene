@@ -79,7 +79,7 @@ public static class OAGeneUtility
                     Building edifice = c2.GetEdifice(map);
                     if (edifice != null && edifice.def.holdsRoof)
                     {
-                        if ((!edifice.def.building?.supportsWallAttachments) ?? true)
+                        if (edifice.def.building == null || !edifice.def.building.supportsWallAttachments)
                         {
                             connected = true;
                             return connected;
