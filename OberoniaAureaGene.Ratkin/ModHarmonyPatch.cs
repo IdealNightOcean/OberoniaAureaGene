@@ -13,7 +13,7 @@ public static class ModHarmonyPatch
     {
         get
         {
-            harmonyInstance ??= new Harmony("OberoniaAureaGene_Ratkin_Hramony");
+            harmonyInstance ??= new Harmony("OberoniaAureaGene.Ratkin.Hramony");
             return harmonyInstance;
         }
     }

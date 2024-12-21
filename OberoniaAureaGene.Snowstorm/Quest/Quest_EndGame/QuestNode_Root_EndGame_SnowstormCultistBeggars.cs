@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -23,17 +24,10 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
 
     protected Pawn GeneratePawn(Quest quest, Faction faction)
     {
-        PawnGenerationRequest request = new(PawnKindDefOf.Beggar, faction)
-        {
-            Context = PawnGenerationContext.NonPlayer,
-            ForceGenerateNewPawn = true,
-            CanGeneratePawnRelations = false,
-            MustBeCapableOfViolence = true,
-            ColonistRelationChanceFactor = 0f,
-            ForceAddFreeWarmLayerIfNeeded = true,
-            ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor],
-            AllowedDevelopmentalStages = DevelopmentalStage.Adult
-        };
+        PawnGenerationRequest request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Beggar, faction, forceNew: true);
+        request.MustBeCapableOfViolence = true;
+        request.ForceAddFreeWarmLayerIfNeeded = true;
+        request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];
 
         Pawn pawn = quest.GeneratePawn(request);
         if (pawn.RaceProps.Humanlike)

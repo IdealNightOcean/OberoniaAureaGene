@@ -1,4 +1,5 @@
-﻿using OberoniaAureaGene.Ratkin;
+﻿using OberoniaAurea_Frame.Utility;
+using OberoniaAureaGene.Ratkin;
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
@@ -21,17 +22,19 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
     public override Pawn GeneratePawn()
     {
         Slate slate = QuestGen.slate;
-        Gender? fixedGender = null;
         if (!slate.TryGet("overridePawnGenParams", out PawnGenerationRequest request))
         {
-            request = new PawnGenerationRequest(OAGene_RatkinDefOf.RatkinVagabond, null, PawnGenerationContext.NonPlayer, -1, forceGenerateNewPawn: true, allowDead: false, allowDowned: false, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, 20f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: true, allowFood: true, allowAddictions: true, inhabitant: false, certainlyBeenInCryptosleep: false, forceRedressWorldPawnIfFormerColonist: false, worldPawnFactionDoesntMatter: false, 0f, 0f, null, 1f, null, null, null, null, null, null, null, fixedGender, null, null, null, null, forceNoIdeo: false, forceNoBackstory: false, forbidAnyTitle: false, forceDead: false, null, null, null, null, null, 0f, DevelopmentalStage.Adult, null, null, null, forceRecruitable: true);
+            request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(OAGene_RatkinDefOf.RatkinVagabond);
         }
+        request.KindDef = OAGene_RatkinDefOf.RatkinVagabond;
+        request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];
+        request.CanGeneratePawnRelations = false;
+        request.ForceAddFreeWarmLayerIfNeeded = true;
         if (Find.Storyteller.difficulty.ChildrenAllowed)
         {
             request.AllowedDevelopmentalStages |= DevelopmentalStage.Child;
         }
-        request.KindDef = OAGene_RatkinDefOf.RatkinVagabond;
-        request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];
+
         Pawn pawn = PawnGenerator.GeneratePawn(request);
         if (!pawn.IsWorldPawn())
         {

@@ -63,12 +63,12 @@ public class IncidentWorker_HuskyMigration : IncidentWorker
     {
         int randomInRange = AnimalsCount.RandomInRange;
         randomInRange = Mathf.Max(randomInRange, Mathf.CeilToInt(4f / animalKind.RaceProps.baseBodySize));
-        List<Pawn> list = [];
+        List<Pawn> animals = [];
         for (int i = 0; i < randomInRange; i++)
         {
-            Pawn item = PawnGenerator.GeneratePawn(new PawnGenerationRequest(animalKind, null, PawnGenerationContext.NonPlayer, tile));
-            list.Add(item);
+            Pawn animal = PawnGenerator.GeneratePawn(new PawnGenerationRequest(animalKind, null, PawnGenerationContext.NonPlayer, tile));
+            animals.Add(animal);
         }
-        return list;
+        return animals;
     }
 }

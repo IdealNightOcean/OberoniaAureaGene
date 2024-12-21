@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
@@ -31,18 +32,33 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
     }
     protected override List<Pawn> GeneratePawns(int lodgerCount, int childCount, Faction faction, Map map, Quest quest, string lodgerRecruitedSignal = null)
     {
-        List<Pawn> pawns = base.GeneratePawns(lodgerCount, childCount, faction, map, quest, lodgerRecruitedSignal);
-        if (pawns != null)
+        List<Pawn> pawns = [];
+        for (int i = 0; i < lodgerCount; i++)
         {
-            foreach (Pawn p in pawns)
+            DevelopmentalStage developmentalStages = (i > 0 && i >= lodgerCount - childCount) ? DevelopmentalStage.Child : DevelopmentalStage.Adult;
+            PawnGenerationRequest request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Refugee, faction, forceNew: true);
+            request.ForceAddFreeWarmLayerIfNeeded = true;
+            request.AllowedDevelopmentalStages = developmentalStages;
+
+            Pawn pawn = quest.GeneratePawn(request);
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
+            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
+            Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
+            food.stackCount = FoodCount.RandomInRange;
+            pawn.inventory.innerContainer.TryAdd(food);
+
+            pawns.Add(pawn);
+            quest.PawnJoinOffer(pawn, "LetterJoinOfferLabel".Translate(pawn.Named("PAWN")), "LetterJoinOfferTitle".Translate(pawn.Named("PAWN")), "LetterJoinOfferText".Translate(pawn.Named("PAWN"), map.Parent.Named("MAP")), delegate
             {
-                p.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
-                p.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
-                Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
-                food.stackCount = FoodCount.RandomInRange;
-                p.inventory.innerContainer.TryAdd(food);
-            }
+                quest.JoinPlayer(map.Parent, Gen.YieldSingle(pawn), joinPlayer: true);
+                quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, label: "LetterLabelMessageRecruitSuccess".Translate() + ": " + pawn.LabelShortCap, text: "MessageRecruitJoinOfferAccepted".Translate(pawn.Named("RECRUITEE")));
+                quest.SignalPass(null, null, lodgerRecruitedSignal);
+            }, delegate
+            {
+                quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_ThreatReward_Joiner);
+            }, charity: true);
         }
+
         return pawns;
     }
     protected override void RunInt()

@@ -20,7 +20,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-       
+
         if (!TryResolveParms(parms))
         {
             return false;
