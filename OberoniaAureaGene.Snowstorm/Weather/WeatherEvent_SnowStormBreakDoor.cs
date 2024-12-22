@@ -53,7 +53,7 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
 
     protected static bool ValidDoor(Building_Door door, Map map)
     {
-        if (door.HitPoints > 250)
+        if (door.HitPoints >= 250)
         {
             return false;
         }
