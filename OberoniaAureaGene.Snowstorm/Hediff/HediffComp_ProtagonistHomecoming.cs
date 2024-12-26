@@ -57,7 +57,6 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             case 1:
                 if (years >= 4)
                 {
-
                     RecacheThought(0, 1200000);
                     Stage++;
                     SendDiaryLetter(protagonist, Stage, slience);
@@ -130,8 +129,9 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
         parent.Severity = thoughtStage;
-        memory.permanent = permanent;
+
         memory.SetForcedStage(thoughtStage);
+        memory.permanent = permanent;
         if (durationTicksOverride > 0)
         {
             memory.durationTicksOverride = durationTicksOverride;
