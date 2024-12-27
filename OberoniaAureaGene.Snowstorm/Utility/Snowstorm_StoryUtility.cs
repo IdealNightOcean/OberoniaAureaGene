@@ -2,6 +2,7 @@
 using RimWorld;
 using RimWorld.Planet;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -56,16 +57,20 @@ public static class Snowstorm_StoryUtility
         GameComponent_SnowstormStory storyGameComp = StoryGameComp;
         if (storyGameComp == null || !storyGameComp.StoryActive)
         {
+            Log.Message("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.".Colorize(Color.cyan));
             return false;
         }
         if (storyGameComp.hometownSpawned || storyGameComp.storyInProgress || storyGameComp.storyFinished)
         {
+            Log.Message("Try fire snowstorm end-game quest but end-game quest is already ongoing or has been accomplished.".Colorize(Color.cyan));
             return false;
         }
         if (storyGameComp.Protagonist == null || storyGameComp.Protagonist.Dead)
         {
+            Log.Message("Try fire snowstorm end-game quest but story protagonist is NULL or unavailable.".Colorize(Color.cyan));
             return false;
         }
+        Log.Message("The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.cyan));
         return true;
     }
 

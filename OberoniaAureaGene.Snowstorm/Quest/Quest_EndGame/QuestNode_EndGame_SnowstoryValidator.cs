@@ -11,14 +11,11 @@ public class QuestNode_EndGame_SnowstoryValidator : QuestNode
     }
     protected override void RunInt()
     {
-        if (Snowstorm_StoryUtility.CanFireSnowstormEndGameNow())
+        GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
+        if (storyGameComp != null && storyGameComp.Protagonist != null)
         {
-            GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-            if (storyGameComp != null && storyGameComp.Protagonist != null)
-            {
-                Slate slate = QuestGen.slate;
-                slate.Set("protagonist", storyGameComp.Protagonist);
-            }
+            Slate slate = QuestGen.slate;
+            slate.Set("protagonist", storyGameComp.Protagonist);
         }
     }
 }

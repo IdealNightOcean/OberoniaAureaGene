@@ -11,8 +11,7 @@ public class WorldObject_Hometown : MapParent
     public override void SpawnSetup()
     {
         base.SpawnSetup();
-        Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownSpawned(this, this.Tile);
-
+        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownSpawned(this, this.Tile);
     }
     public override void PostMapGenerate()
     {
@@ -84,7 +83,7 @@ public class WorldObject_Hometown : MapParent
     {
         int tile = this.Tile;
         base.Destroy();
-        Snowstorm_StoryUtility.StoryGameComp?.Notify_HometownDestory();
+        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownDestory();
         WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstorm_MiscDefOf.OAGene_Hometown_Sealed);
         hometown_sealed.Tile = tile;
         Find.WorldObjects.Add(hometown_sealed);

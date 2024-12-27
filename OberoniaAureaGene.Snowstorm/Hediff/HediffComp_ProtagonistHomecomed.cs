@@ -68,8 +68,8 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
         {
             memory = ThoughtMaker.MakeThought(thoughtDef, stage);
             memory.permanent = true;
-            protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);      
-        } 
+            protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
+        }
         memory.SetForcedStage(stage);
         memory.permanent = true;
 

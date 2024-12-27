@@ -38,13 +38,13 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
         TrySetStoryProtagonist();
     }
 
     public bool TrySetStoryProtagonist()
     {
-        Log.Message("OAGene_Log_TrySetStoryProtagonist".Translate());
+        Log.Warning("OAGene_Log_TrySetStoryProtagonist".Translate());
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
@@ -69,7 +69,7 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
         return true;
     }
 
@@ -145,7 +145,7 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         if (!storyActive)
         {
-            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate());
+            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
             return;
         }
 
@@ -153,14 +153,14 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             TrySetStoryProtagonist();
         }
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
     }
     public override void LoadedGame()
     {
         if (!storyActive)
         {
-            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate());
+            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
             return;
         }
 
@@ -168,8 +168,8 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             TrySetStoryProtagonist();
         }
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate());
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
     }
 
     public override void ExposeData()
