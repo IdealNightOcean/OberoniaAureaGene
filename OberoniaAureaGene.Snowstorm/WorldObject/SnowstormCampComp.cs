@@ -116,11 +116,13 @@ public class SnowstormCampComp : WorldObjectComp
     }
     public override void PostMapGenerate()
     {
-        base.PostMapGenerate();
-        if (parent.Faction != null && parent.Faction.RelationKindWith(Faction.OfPlayer) != FactionRelationKind.Hostile)
+        if(active)
         {
-            parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
-            parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+            if (parent.Faction != null && parent.Faction.RelationKindWith(Faction.OfPlayer) != FactionRelationKind.Hostile)
+            {
+                parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+                parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+            }
         }
     }
     protected void TradeWithCamp(Caravan caravan)
