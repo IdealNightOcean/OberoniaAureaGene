@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -17,12 +18,24 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
 
     protected override void PostSpeechAction()
     {
+        Pawn preacher = parent.pawn;
+        if (preacher.Faction.IsPlayerFaction())
+        {
+            preacher.health.RemoveHediff(parent);
+            return;
+        }
         GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
-        if (snowstormGameComp == null || !snowstormGameComp.CanCultistConvertNow)
+        if (snowstormGameComp == null)
+        {
+            preacher.health.RemoveHediff(parent);
+            return;
+        }
+        if (!snowstormGameComp.CanCultistConvertNow)
         {
             return;
         }
-        if (TryConvert(parent.pawn))
+
+        if (TryConvert(preacher))
         {
             snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
         }
