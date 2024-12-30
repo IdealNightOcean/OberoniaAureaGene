@@ -32,7 +32,14 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             {
                 tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
-                tempFaction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
+                if (tempFaction != null)
+                {
+                    tempFaction.factionHostileOnHarmByPlayer = false;
+                }
+                else
+                {
+                    tempFaction = Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
+                }
             }
             else
             {

@@ -38,13 +38,12 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
         TrySetStoryProtagonist();
     }
 
     public bool TrySetStoryProtagonist()
     {
-        Log.Warning("OAGene_Log_TrySetStoryProtagonist".Translate());
         protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
                        where p.IsColonist
                        select p).RandomElementWithFallback(null);
@@ -69,7 +68,7 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
         return true;
     }
 
@@ -153,8 +152,8 @@ public class GameComponent_SnowstormStory : GameComponent
         {
             TrySetStoryProtagonist();
         }
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
     }
     public override void LoadedGame()
     {
@@ -166,10 +165,11 @@ public class GameComponent_SnowstormStory : GameComponent
 
         if (protagonist == null)
         {
+            Log.Error("OAGene_Log_TryResetStoryProtagonist".Translate());
             TrySetStoryProtagonist();
         }
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.cyan));
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.cyan));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
     }
 
     public override void ExposeData()

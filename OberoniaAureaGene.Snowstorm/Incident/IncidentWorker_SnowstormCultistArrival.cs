@@ -14,7 +14,14 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
     {
         parms.faction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
         parms.faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
-        parms.faction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
+        if (parms.faction != null)
+        {
+            parms.faction.factionHostileOnHarmByPlayer = true;
+        }
+        else
+        {
+            parms.faction = Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
+        }
         return parms.faction != null;
     }
 

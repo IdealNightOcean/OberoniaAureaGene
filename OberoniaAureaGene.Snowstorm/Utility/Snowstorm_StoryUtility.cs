@@ -70,7 +70,7 @@ public static class Snowstorm_StoryUtility
             Log.Message("Try fire snowstorm end-game quest but story protagonist is NULL or unavailable.".Colorize(Color.cyan));
             return false;
         }
-        Log.Message("The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.cyan));
+        Log.Message("The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.green));
         return true;
     }
 
