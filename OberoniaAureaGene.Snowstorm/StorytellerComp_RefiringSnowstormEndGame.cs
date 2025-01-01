@@ -7,7 +7,7 @@ public class StorytellerComp_RefiringSnowstormEndGame : StorytellerComp_Refiring
 {
     public override IEnumerable<FiringIncident> MakeIntervalIncidents(IIncidentTarget target)
     {
-        if (!Snowstorm_StoryUtility.CanFireSnowstormEndGameNow())
+        if (!Snowstorm_StoryUtility.CanFireSnowstormEndGameNow(logFailMessage: false))
         {
             yield break;
         }
@@ -16,6 +16,4 @@ public class StorytellerComp_RefiringSnowstormEndGame : StorytellerComp_Refiring
             yield return firingIncident;
         }
     }
-
-
 }

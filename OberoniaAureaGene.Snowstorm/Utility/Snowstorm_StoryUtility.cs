@@ -48,7 +48,7 @@ public static class Snowstorm_StoryUtility
         }
         return hometownMap;
     }
-    public static bool CanFireSnowstormEndGameNow()
+    public static bool CanFireSnowstormEndGameNow(bool logFailMessage = true)
     {
         if (GenDate.DaysPassed < 10)
         {
@@ -57,21 +57,35 @@ public static class Snowstorm_StoryUtility
         GameComponent_SnowstormStory storyGameComp = StoryGameComp;
         if (storyGameComp == null || !storyGameComp.StoryActive)
         {
-            Log.Message("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.".Colorize(Color.cyan));
+            TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
         }
-        if (storyGameComp.hometownSpawned || storyGameComp.storyInProgress || storyGameComp.storyFinished)
+        if (storyGameComp.hometownSpawned || storyGameComp.storyInProgress)
         {
-            Log.Message("Try fire snowstorm end-game quest but end-game quest is already ongoing or has been accomplished.".Colorize(Color.cyan));
+            TryLogFailMessage("Try fire snowstorm end-game quest but end-game quest is already ongoing.");
+            return false;
+        }
+        if (storyGameComp.storyFinished)
+        {
+            TryLogFailMessage("Try fire snowstorm end-game quest but end-game quest has been accomplished.");
             return false;
         }
         if (storyGameComp.Protagonist == null || storyGameComp.Protagonist.Dead)
         {
-            Log.Message("Try fire snowstorm end-game quest but story protagonist is NULL or unavailable.".Colorize(Color.cyan));
+            TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
         }
+
         Log.Message("The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.green));
         return true;
+
+        void TryLogFailMessage(string failMessage)
+        {
+            if (logFailMessage)
+            {
+                Log.Message(failMessage.Colorize(Color.cyan));
+            }
+        }
     }
 
     public static void EndGame(Pawn protagonist)

@@ -20,6 +20,19 @@ public class GameCondition_IceRain : GameCondition_ForceWeatherWithTempChange
             coldGlowSpawnTicks = coldGlowSpawn ? ColdGlowSpawnRange.RandomInRange : ColdGlowIntervalRange.RandomInRange;
         }
     }
+    public override void End()
+    {
+        base.End();
+        for (int i = 0; i < AffectedMaps.Count; i++)
+        {
+            Map map = AffectedMaps[i];
+            if (map.weatherManager.curWeather == Snowstorm_MiscDefOf.OAGene_IceRain)
+            {
+                map.weatherDecider.StartNextWeather();
+            }
+        }
+    }
+
     public override void DoCellSteadyEffects(IntVec3 c, Map map)
     {
         if (!coldGlowSpawn)
