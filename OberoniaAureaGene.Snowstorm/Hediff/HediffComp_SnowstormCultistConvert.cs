@@ -35,28 +35,56 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
             return;
         }
 
-        if (TryConvert(preacher))
+        if (TryConvert(preacher.Map, preacher.Faction))
         {
             snowstormGameComp.nextCultistConvertTick = Find.TickManager.TicksGame + ConvertInterval;
         }
     }
 
-    protected static bool TryConvert(Pawn preacher)
+    protected static bool TryConvert(Map map, Faction faction)
     {
-        IEnumerable<Pawn> pawns = preacher.Map?.mapPawns.FreeColonistsSpawned.Where(p => p.Awake());
-        if (pawns == null || !pawns.Any())
+        if (map == null)
         {
             return false;
         }
-        foreach (Pawn pawn in pawns)
+        bool convert = false;
+        IEnumerable<Pawn> pawns = map.mapPawns.FreeColonistsSpawned.Where(p => p.Awake());
+        if (pawns.Any())
         {
-            pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
-            if (ModsConfig.IdeologyActive)
+            foreach (Pawn pawn in pawns)
             {
-                float certaintyLoss = pawn.GetStatValue(StatDefOf.CertaintyLossFactor) * 0.025f * -1f;
-                pawn.ideo?.Reassure(certaintyLoss);
+                pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
+                if (ModsConfig.IdeologyActive)
+                {
+                    float certaintyLoss = pawn.GetStatValue(StatDefOf.CertaintyLossFactor) * 0.025f * -1f;
+                    pawn.ideo?.Reassure(certaintyLoss);
+                }
             }
         }
-        return true;
+       
+        if (faction == null)
+        {
+            pawns = map.mapPawns.PrisonersOfColonySpawned.Where(p => p.Awake());
+        }
+        else
+        {
+            pawns = map.mapPawns.PrisonersOfColonySpawned.Where(p => p.Faction != faction && p.Awake());
+        }
+
+        if (pawns.Any())
+        {
+            convert = true;
+            foreach (Pawn pawn in pawns)
+            {
+                pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
+                if (ModsConfig.IdeologyActive)
+                {
+                    float certaintyLoss = pawn.GetStatValue(StatDefOf.CertaintyLossFactor) * 0.025f * -1f;
+                    pawn.ideo?.Reassure(certaintyLoss);
+                }
+            }
+        }
+
+        return convert;
     }
 }
