@@ -20,7 +20,7 @@ public class GameComponent_SnowstormStory : GameComponent
     protected Pawn protagonist;
     public Pawn Protagonist => protagonist;
 
-    protected bool showNoProtagonistWarning;
+    protected bool showNoProtagonistWarning = true;
 
     public bool hometownSpawned;
     public bool storyInProgress;
@@ -39,19 +39,22 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         storyActive = true;
         Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
-        TrySetStoryProtagonist();
+        protagonist = Find.GameInitData.startingAndOptionalPawns.Where(p => p.IsColonist).Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
+        ProtagonistValidator();
     }
 
-    public bool TrySetStoryProtagonist()
+    public void ProtagonistValidator()
     {
-        protagonist = (from p in Find.GameInitData.startingAndOptionalPawns.Take(Find.GameInitData.startingPawnCount)
-                       where p.IsColonist
-                       select p).RandomElementWithFallback(null);
-
-        if (protagonist == null)
+        if (protagonist != null)
         {
+            Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
+        }
+        else
+        {
+            Log.Message("OAGene_Log_NoStoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.red));
             if (showNoProtagonistWarning)
             {
+                Log.Error("Snowstorm Story is active but lacks a definitive protagonist.");
                 Dialog_NodeTree failNodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(),
                     "Confirm".Translate(),
                     null,
@@ -59,19 +62,12 @@ public class GameComponent_SnowstormStory : GameComponent
                     delegate
                     {
                         showNoProtagonistWarning = false;
-                    });
+                    }
+                );
                 Find.WindowStack.Add(failNodeTree);
             }
-            return false;
         }
-        if (LongingForHome)
-        {
-            protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-        }
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
-        return true;
     }
-
     public void Notify_HometownSpawned(MapParent mapParent, int tile)
     {
         hometownSpawned = true;
@@ -148,12 +144,8 @@ public class GameComponent_SnowstormStory : GameComponent
             return;
         }
 
-        if (protagonist == null)
-        {
-            TrySetStoryProtagonist();
-        }
         Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
+        ProtagonistValidator();
     }
     public override void LoadedGame()
     {
@@ -163,13 +155,8 @@ public class GameComponent_SnowstormStory : GameComponent
             return;
         }
 
-        if (protagonist == null)
-        {
-            Log.Error("OAGene_Log_TryResetStoryProtagonist".Translate());
-            TrySetStoryProtagonist();
-        }
         Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
-        Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
+        ProtagonistValidator();
     }
 
     public override void ExposeData()
@@ -179,9 +166,9 @@ public class GameComponent_SnowstormStory : GameComponent
         Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
         Scribe_Values.Look(ref showNoProtagonistWarning, "showNoProtagonistWarning", defaultValue: true);
 
-        Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false);
-        Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false);
-        Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false);
+        Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false, forceSave: true);
+        Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false, forceSave: true);
+        Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false, forceSave: true);
 
         Scribe_References.Look(ref hometown, "hometown");
         Scribe_References.Look(ref hometownMap, "hometownMap");

@@ -51,6 +51,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
         IEnumerable<Pawn> pawns = map.mapPawns.FreeColonistsSpawned.Where(p => p.Awake());
         if (pawns.Any())
         {
+            convert = true;
             foreach (Pawn pawn in pawns)
             {
                 pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_SnowstormCultistConvert);
@@ -61,7 +62,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
                 }
             }
         }
-       
+
         if (faction == null)
         {
             pawns = map.mapPawns.PrisonersOfColonySpawned.Where(p => p.Awake());
