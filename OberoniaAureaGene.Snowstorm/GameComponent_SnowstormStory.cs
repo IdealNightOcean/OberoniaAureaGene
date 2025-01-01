@@ -43,7 +43,7 @@ public class GameComponent_SnowstormStory : GameComponent
         ProtagonistValidator();
     }
 
-    public void ProtagonistValidator()
+    protected void ProtagonistValidator()
     {
         if (protagonist != null)
         {
@@ -51,23 +51,67 @@ public class GameComponent_SnowstormStory : GameComponent
         }
         else
         {
-            Log.Message("OAGene_Log_NoStoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.red));
+            Log.Message("OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
             if (showNoProtagonistWarning)
             {
                 Log.Error("Snowstorm Story is active but lacks a definitive protagonist.");
-                Dialog_NodeTree failNodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(),
-                    "Confirm".Translate(),
-                    null,
-                    "OAFrame_DonotShowAgain".Translate(),
-                    delegate
-                    {
-                        showNoProtagonistWarning = false;
-                    }
-                );
-                Find.WindowStack.Add(failNodeTree);
+                DiaResetProtagonist();
             }
         }
     }
+    protected void DiaResetProtagonist()
+    {
+        DiaNode rootNode = new("OAGene_HasNoProtagonist".Translate());
+        DiaOption resetOpt = new("OAGene_ResetProtagonist".Translate())
+        {
+            resolveTree = true,
+            action = delegate
+            {
+                bool forceReset = false;
+                protagonist = Find.GameInitData?.startingAndOptionalPawns.Where(p => p.IsColonist)?.Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
+                if (protagonist == null)
+                {
+                    forceReset = true;
+                    protagonist = Find.AnyPlayerHomeMap?.mapPawns.FreeColonistsSpawned.RandomElementWithFallback(null);
+                }
+                Dialog_NodeTree outcomeTree;
+                if (protagonist == null)
+                {
+                    outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
+                }
+                else
+                {
+                    string successText = forceReset ? "OAGene_ResetProtagonistSuccessForce" : "OAGene_ResetProtagonistSuccess";
+                    outcomeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree(successText.Translate(protagonist.Named("PAWN")));
+                    if (LongingForHome)
+                    {
+                        protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+                    }
+                }
+                Find.WindowStack.Add(outcomeTree);
+            }
+        };
+
+        DiaOption backOpt = new("GoBack".Translate())
+        {
+            resolveTree = true,
+        };
+
+        DiaOption neverShowOpt = new("OAFrame_DonotShowAgain".Translate())
+        {
+            resolveTree = true,
+            action = delegate
+            {
+                showNoProtagonistWarning = false;
+            }
+        };
+        rootNode.options.Add(resetOpt);
+        rootNode.options.Add(backOpt);
+        rootNode.options.Add(neverShowOpt);
+        Dialog_NodeTree failNodeTree = new(rootNode);
+        Find.WindowStack.Add(failNodeTree);
+    }
+
     public void Notify_HometownSpawned(MapParent mapParent, int tile)
     {
         hometownSpawned = true;
