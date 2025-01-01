@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LordJob_SnowstormCultistTradeWithColony.cs" />
     <Compile Include="Hediff\HediffComp_ColdPreparation.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormAttackBreaching.cs" />
     <Compile Include="RaidStrategyWorker_ImmediateAttack_SnowstormCultist.cs" />

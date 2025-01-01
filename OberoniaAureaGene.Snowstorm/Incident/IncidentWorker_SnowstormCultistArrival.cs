@@ -1,8 +1,12 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
+using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -37,6 +41,8 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
         }
         return pawns;
     }
+
+
     protected override void SendLetter(IncidentParms parms, List<Pawn> pawns)
     {
         SendStandardLetter(parms, pawns[0]);
@@ -44,14 +50,61 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
 
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
-        Map map = (Map)parms.target;
-        GameCondition snowstorm = map?.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
+        GameCondition snowstorm = SnowstormUtility.SnowstormCondition;
         if (snowstorm != null)
         {
-            int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
-            OAFrame_MiscUtility.AddNewQueuedIncident(def, delayTicks, parms);
-            return true;
+            if (snowstorm.Permanent)
+            {
+                return false;
+            }
+            else
+            {
+                int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
+                OAFrame_MiscUtility.AddNewQueuedIncident(def, delayTicks, parms);
+                return true;
+            }
         }
-        return base.TryExecuteWorker(parms);
+        if (!TryResolveParms(parms))
+        {
+            return false;
+        }
+        if (parms.faction.HostileTo(Faction.OfPlayer))
+        {
+            return false;
+        }
+        Map map = (Map)parms.target;
+        PawnGroupMakerParms groupMakerParms = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDef, parms, ensureCanGenerateAtLeastOnePawn: true);
+        groupMakerParms.tile = Tile.Invalid;
+        if (!OAFrame_PawnGenerateUtility.TryGetRandomPawnGroupMaker(PawnGroupKindDef, PawnGroupMakerDef, out PawnGroupMaker groupMaker))
+        {
+            return false;
+        }
+        List<Pawn> pawns = SpawnTradePawns(parms, groupMakerParms, groupMaker);
+        if (pawns.Count == 0)
+        {
+            return false;
+        }
+        for (int i = 0; i < pawns.Count; i++)
+        {
+            if (pawns[i].needs != null && pawns[i].needs.food != null)
+            {
+                pawns[i].needs.food.CurLevel = pawns[i].needs.food.MaxLevel;
+            }
+        }
+        SendLetter(parms, pawns);
+        RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out IntVec3 result, delegate (IntVec3 c)
+        {
+            for (int k = 0; k < pawns.Count; k++)
+            {
+                if (!pawns[k].CanReach(c, PathEndMode.OnCell, Danger.Deadly))
+                {
+                    return false;
+                }
+            }
+            return true;
+        });
+        LordJob_SnowstormCultistTradeWithColony lordJob = new(parms.faction, result);
+        LordMaker.MakeNewLord(parms.faction, lordJob, map, pawns);
+        return true;
     }
 }
