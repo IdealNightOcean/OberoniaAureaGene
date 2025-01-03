@@ -20,7 +20,7 @@ public class OAGene_SnowstormMod : Mod
     }
     public override void WriteSettings()
     {
-        LoadedModManager.GetMod<OAGene_SnowstormMod>().WriteSettings();
+        LoadedModManager.GetMod<OberoniaAureaGene_Mod>()?.WriteSettings();
         base.WriteSettings();
     }
     public override string SettingsCategory()
