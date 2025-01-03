@@ -8,6 +8,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public class QuestPart_EndGame_CheckCampfire : QuestPartActivable
 {
     public const int CheckInterval = 15000;
+
     public string outSignalNoValidCampfire;
     private int ticksRemaining = 15000;
     private bool secondViolate;
@@ -45,6 +46,11 @@ public class QuestPart_EndGame_CheckCampfire : QuestPartActivable
     public void SetFirstCheckDelay(int delay)
     {
         ticksRemaining = delay;
+    }
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        hometown = null;
     }
     public override void ExposeData()
     {

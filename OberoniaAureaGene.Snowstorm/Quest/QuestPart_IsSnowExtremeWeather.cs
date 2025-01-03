@@ -40,7 +40,11 @@ public class QuestPart_IsSnowExtremeWeather : QuestPartActivable
             ticksRemaining = checkInterval;
         }
     }
-
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        map = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();

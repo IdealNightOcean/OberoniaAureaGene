@@ -15,16 +15,20 @@ public class OAGene_SnowstormMod : Mod
 
     public override void DoSettingsWindowContents(Rect inRect)
     {
-
         _settings.DoSettingsWindowContents(inRect);
         base.DoSettingsWindowContents(inRect);
     }
-
+    public override void WriteSettings()
+    {
+        LoadedModManager.GetMod<OAGene_SnowstormMod>().WriteSettings();
+        base.WriteSettings();
+    }
     public override string SettingsCategory()
     {
         return "OAGene_SnowstormExpanded".Translate();
     }
 }
+
 
 [StaticConstructorOnStartup]
 public class OAGene_SnowstormSettings : ModSettings
@@ -97,10 +101,10 @@ public class OAGene_SnowstormSettings : ModSettings
         if (DebugSettings.ShowDevGizmos)
         {
             listing_Rect.Gap(12f);
-            OberoniaAureaGene_Settings.ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(OberoniaAureaGene_Settings.ColumnProtectRadiusInt.ToString()), OberoniaAureaGene_Settings.ColumnProtectRadiusInt, 1f, 10f);
+            OberoniaAureaGene_Settings.ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(OberoniaAureaGene_Settings.ColumnProtectRadiusInt.ToString()), OberoniaAureaGene_Settings.ColumnProtectRadiusInt, 1f, 7f);
             OberoniaAureaGene_Settings.ColumnProtectRadius = OberoniaAureaGene_Settings.ColumnProtectRadiusInt - 0.1f;
 
-            listing_Rect.CheckboxLabeled("DEV: Finished Story", ref StoryFinishedOnce);
+            listing_Rect.CheckboxLabeled("DEV: Story Finished", ref StoryFinishedOnce);
         }
 
         listing_Rect.Gap(12f);
@@ -123,9 +127,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
     protected static void ForMountaintopCave()
     {
-        OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
-        OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = true;
-        OberoniaAureaGene_Settings.SnowstormBreakThickRoof = true;
+        OberoniaAureaGene_Settings.SnowstormForMountaintopCave();
 
         SnowstormBreakDoor = true;
 
@@ -140,11 +142,7 @@ public class OAGene_SnowstormSettings : ModSettings
     }
     protected static void Reset()
     {
-        OberoniaAureaGene_Settings.SnowstormBreakRoof = true;
-        OberoniaAureaGene_Settings.SnowstormBreakNaturalRoof = false;
-        OberoniaAureaGene_Settings.SnowstormBreakThickRoof = false;
-        OberoniaAureaGene_Settings.ColumnProtectRadiusInt = 4.0f;
-        OberoniaAureaGene_Settings.ColumnProtectRadius = 3.9f;
+        OberoniaAureaGene_Settings.SnowstormReset();
 
         SnowstormBreakDoor = true;
 
@@ -164,7 +162,7 @@ public class OAGene_SnowstormSettings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Values.Look(ref StoryFinishedOnce, "StoryFinishedOnce", defaultValue: false);
+        Scribe_Values.Look(ref StoryFinishedOnce, "StoryFinishedOnce", defaultValue: false, forceSave: true);
 
         Scribe_Values.Look(ref SnowstormBreakDoor, "SnowstormBreakDoor", defaultValue: true);
 

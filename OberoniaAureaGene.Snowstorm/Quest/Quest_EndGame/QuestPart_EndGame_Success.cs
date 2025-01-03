@@ -2,6 +2,7 @@
 using RimWorld.Planet;
 using System.Linq;
 using Verse;
+using Verse.Noise;
 
 namespace OberoniaAureaGene.Snowstorm;
 
@@ -56,7 +57,12 @@ public class QuestPart_EndGame_Success : QuestPart
             }
         }
     }
-
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        protagonist = null;
+        hometown = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();

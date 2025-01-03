@@ -54,7 +54,7 @@ public class OberoniaAureaGene_Settings : ModSettings
 
             if (DebugSettings.ShowDevGizmos)
             {
-                ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(ColumnProtectRadiusInt.ToString()), ColumnProtectRadiusInt, 1f, 10f);
+                ColumnProtectRadiusInt = (int)listing_Rect.SliderLabeled("OAGene_ColumnProtectRadius".Translate(ColumnProtectRadiusInt.ToString()), ColumnProtectRadiusInt, 1f, 7f);
                 ColumnProtectRadius = ColumnProtectRadiusInt - 0.1f;
             }
         }
@@ -69,7 +69,7 @@ public class OberoniaAureaGene_Settings : ModSettings
         listing_Rect.Gap(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
-            ForMountaintopCave();
+            SnowstormForMountaintopCave();
         }
 
         listing_Rect.Gap(6f);
@@ -82,14 +82,20 @@ public class OberoniaAureaGene_Settings : ModSettings
 
     }
 
-    protected void ForMountaintopCave()
+    public static void SnowstormForMountaintopCave()
     {
         SnowstormBreakRoof = true;
         SnowstormBreakNaturalRoof = true;
         SnowstormBreakThickRoof = true;
     }
 
-    protected void Reset()
+    protected static void Reset()
+    {
+        SnowstormReset();
+        DodgeChancePatch = true;
+    }
+
+    public static void SnowstormReset()
     {
         SnowstormBreakRoof = true;
         SnowstormBreakNaturalRoof = false;
@@ -97,8 +103,6 @@ public class OberoniaAureaGene_Settings : ModSettings
 
         ColumnProtectRadiusInt = 4.0f;
         ColumnProtectRadius = 3.9f;
-
-        DodgeChancePatch = true;
     }
 
     public override void ExposeData()

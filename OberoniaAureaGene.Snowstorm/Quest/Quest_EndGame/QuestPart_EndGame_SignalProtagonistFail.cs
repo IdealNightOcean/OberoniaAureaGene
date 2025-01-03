@@ -30,7 +30,12 @@ public class QuestPart_EndGame_SignalProtagonistFail : QuestPartActivable
             }
         }
     }
-
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        protagonist = null;
+        hometown = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();

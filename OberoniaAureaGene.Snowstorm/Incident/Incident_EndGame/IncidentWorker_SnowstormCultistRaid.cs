@@ -73,6 +73,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     {
         parms.raidStrategy = Snowstorm_MiscDefOf.OAGene_ImmediateAttack_SnowstormCultist;
         parms.canTimeoutOrFlee = false;
+        parms.raidNeverFleeIndividual = true;
     }
 
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)

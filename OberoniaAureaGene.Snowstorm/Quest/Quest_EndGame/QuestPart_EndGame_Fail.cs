@@ -23,7 +23,11 @@ public class QuestPart_EndGame_Fail : QuestPart
         GameCondition_EndGame_ExtremeSnowstorm endGameSnowstorm = Find.World.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_EndGame_ExtremeSnowstorm) as GameCondition_EndGame_ExtremeSnowstorm;
         endGameSnowstorm?.Notify_QuestFailed(snowstormEndDelay);
     }
-
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        hometown = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();

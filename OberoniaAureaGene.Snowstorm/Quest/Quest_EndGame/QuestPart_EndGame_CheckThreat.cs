@@ -35,6 +35,11 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
             ticksRemaining = CheckInterval;
         }
     }
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        hometown = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();

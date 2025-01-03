@@ -6,6 +6,8 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
+//记得之后用showNoProtagonistWarning代替showNoProtagonistWarningTemp
+
 [StaticConstructorOnStartup]
 public class GameComponent_SnowstormStory : GameComponent
 {
@@ -21,6 +23,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public Pawn Protagonist => protagonist;
 
     protected bool showNoProtagonistWarning = true;
+    protected bool showNoProtagonistWarningTemp = true;
 
     public bool hometownSpawned;
     public bool storyInProgress;
@@ -52,7 +55,7 @@ public class GameComponent_SnowstormStory : GameComponent
         else
         {
             Log.Message("OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
-            if (showNoProtagonistWarning)
+            if (showNoProtagonistWarningTemp)
             {
                 Log.Error("Snowstorm Story is active but lacks a definitive protagonist.");
                 DiaResetProtagonist();
@@ -77,7 +80,7 @@ public class GameComponent_SnowstormStory : GameComponent
                 Dialog_NodeTree outcomeTree;
                 if (protagonist == null)
                 {
-                    outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
+                    outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarningTemp = false; });
                 }
                 else
                 {
@@ -102,7 +105,7 @@ public class GameComponent_SnowstormStory : GameComponent
             resolveTree = true,
             action = delegate
             {
-                showNoProtagonistWarning = false;
+                showNoProtagonistWarningTemp = false;
             }
         };
         rootNode.options.Add(resetOpt);
@@ -150,12 +153,6 @@ public class GameComponent_SnowstormStory : GameComponent
     }
     public void Notify_StroySuccess()
     {
-        if (!Find.TickManager.Paused)
-        {
-            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
-        }
-        Find.TickManager.slower.SignalForceNormalSpeed();
-        Find.MusicManagerPlay.ForcePlaySong(Snowstorm_MiscDefOf.OAGene_IGiorni, true);
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
         storyFinished = true;
         storyInProgress = false;
@@ -164,6 +161,9 @@ public class GameComponent_SnowstormStory : GameComponent
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
+        Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+        Find.TickManager.slower.SignalForceNormalSpeed();
+        Find.MusicManagerPlay.ForcePlaySong(Snowstorm_MiscDefOf.OAGene_IGiorni, true);
         ScreenFader.StartFade(Color.white, ScreenFadeSeconds);
         timeLeft = ScreenFadeSeconds;
     }
@@ -209,6 +209,7 @@ public class GameComponent_SnowstormStory : GameComponent
         Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false, forceSave: true);
         Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
         Scribe_Values.Look(ref showNoProtagonistWarning, "showNoProtagonistWarning", defaultValue: true);
+        Scribe_Values.Look(ref showNoProtagonistWarningTemp, "showNoProtagonistWarningTemp", defaultValue: true);
 
         Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false, forceSave: true);
         Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false, forceSave: true);

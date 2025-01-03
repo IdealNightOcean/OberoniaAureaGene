@@ -97,7 +97,12 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
             curY += rect.height + 4f;
         }
     }
-
+    public override void Cleanup()
+    {
+        base.Cleanup();
+        parms = null;
+        mapParent = null;
+    }
     public override void ExposeData()
     {
         base.ExposeData();
