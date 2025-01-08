@@ -107,7 +107,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
 
         QuestPart_ExtraFaction questPart_ExtraFaction = quest.ExtraFaction(faction, pawns, ExtraFactionType.MiniFaction, areHelpers: false, [lodgerRecruitedSignal, lodgerBecameMutantSignal]);
         quest.PawnsArrive(pawns, null, map.Parent, null, joinPlayer: true, null, "[lodgersArriveLetterLabel]", "[lodgersArriveLetterText]");
-        quest.SetAllApparelLocked(pawns);
+        //quest.SetAllApparelLocked(pawns);
 
         SetAward(faction, quest);
 

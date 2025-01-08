@@ -2,7 +2,6 @@
 using RimWorld.Planet;
 using System.Linq;
 using Verse;
-using Verse.Noise;
 
 namespace OberoniaAureaGene.Snowstorm;
 
