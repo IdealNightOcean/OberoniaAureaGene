@@ -87,7 +87,14 @@ public class MapComponent_OberoniaAureaGene : MapComponent
                 forced = true,
                 faction = Find.FactionManager.RandomRaidableEnemyFaction(allowNonHumanlike: false),
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
+            try
+            {
+                OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
+            }
+            catch
+            {
+                Log.Error("Attempt to trigger hegemonic flag raid failed.");
+            }
         }
     }
     protected void RecacheHegemonicFlagCount()

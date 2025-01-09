@@ -15,7 +15,14 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
             {
                 target = mainMap,
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
+            try
+            {
+                OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
+            }
+            catch
+            {
+                Log.Error("Attempt to trigger end-game extreme snowstorm failed.");
+            }
         }
     }
 

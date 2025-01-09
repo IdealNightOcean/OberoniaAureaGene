@@ -22,7 +22,14 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             {
                 target = mainMap,
             };
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
+            try
+            {
+                OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
+            }
+            catch
+            {
+                Log.Error("Attempt to initialize snowstorm precursor failed.");
+            }
         }
     }
     public void EndSlience()
@@ -42,7 +49,15 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
         {
             target = Find.World,
         };
-        OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
+        try
+        {
+            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
+        }
+        catch
+        {
+            Log.Error("Attempt to trigger extreme snowstorm failed.");
+        }
+
     }
 
     protected virtual Map GetMainMap()

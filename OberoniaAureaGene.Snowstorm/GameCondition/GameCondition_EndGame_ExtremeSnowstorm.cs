@@ -30,22 +30,29 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
     {
         Duration = DurationTick;
         Permanent = true;
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
-
-        Map mainMap = MainMap;
-        if (mainMap != null)
+        try
         {
-            causeColdSnap = TryAddFixedColdSnap(mainMap, DurationTick);
-            InitExtremeSnowstorm_MainMap(mainMap, DurationTick);
-        }
+            Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
 
-        for (int i = 0; i < AffectedMaps.Count; i++)
+            Map mainMap = MainMap;
+            if (mainMap != null)
+            {
+                causeColdSnap = TryAddFixedColdSnap(mainMap, DurationTick);
+                InitExtremeSnowstorm_MainMap(mainMap, DurationTick);
+            }
+
+            for (int i = 0; i < AffectedMaps.Count; i++)
+            {
+                Map map = AffectedMaps[i];
+                SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, DurationTick);
+            }
+
+            Find.MusicManagerPlay.ForceTriggerTransition(Snowstorm_MiscDefOf.OAGene_Transition_Liebestraum);
+        }
+        catch
         {
-            Map map = AffectedMaps[i];
-            SnowstormUtility.InitExtremeSnowstorm_AllMaps(map, DurationTick);
+            Log.Error("Attempt to initialize end-game extreme snowstorm failed.");
         }
-
-        Find.MusicManagerPlay.ForceTriggerTransition(Snowstorm_MiscDefOf.OAGene_Transition_Liebestraum);
     }
 
     protected override void PreEnd()
