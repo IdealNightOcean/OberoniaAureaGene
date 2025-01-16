@@ -16,14 +16,14 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     protected int ticksToExtract;
     protected List<GeneDef> targetGenes = [];
 
-    [Unsaved(false)]
+    [Unsaved]
     protected CompPowerTrader compPower;
     protected IntVec3 placePos;
 
-    [Unsaved(false)]
+    [Unsaved]
     protected Sustainer sustainerWorking;
 
-    [Unsaved(false)]
+    [Unsaved]
     protected Effecter progressBar;
 
     protected virtual int TicksToExtract => 30000;
@@ -421,7 +421,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     {
         base.ExposeData();
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
-        Scribe_Values.Look(ref powerCutTicks, "power;CutTicks", 0);
+        Scribe_Values.Look(ref powerCutTicks, "powerCutTicks", 0);
         Scribe_Values.Look(ref ticksToExtract, "ticksToExtract", 0);
         Scribe_Collections.Look(ref targetGenes, "targetGenes", LookMode.Def);
     }
