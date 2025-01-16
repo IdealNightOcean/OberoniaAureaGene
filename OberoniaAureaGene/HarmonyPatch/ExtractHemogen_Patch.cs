@@ -4,7 +4,7 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-//特异血原相关
+//特异血原提取血原质
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(Recipe_ExtractHemogen), "AvailableOnNow")]
 public static class ExtractHemogen_Patch

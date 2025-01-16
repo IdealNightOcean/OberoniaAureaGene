@@ -151,6 +151,14 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StroySuccess()
     {
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
+        try
+        {
+            LoadedModManager.GetMod<OAGene_SnowstormMod>()?.WriteSettings();
+        }
+        catch
+        {
+            Log.Error("OAGene_SnowstormMod write setting failed.");
+        }
         storyFinished = true;
         storyInProgress = false;
         if (protagonist != null)
