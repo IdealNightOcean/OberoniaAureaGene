@@ -34,6 +34,11 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         {
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
             Snowstorm_MiscUtility.SetColdPreparation(pawn, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral);
+            HediffComp_Disappears hediffComp_Disappears = pawn.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral)?.TryGetComp<HediffComp_Disappears>();
+            if (hediffComp_Disappears != null)
+            {
+                hediffComp_Disappears.ticksToDisappear = 60000;
+            }
         }
         Apparel parka = (Apparel)ThingMaker.MakeThing(ThingDefOf.Apparel_Parka, ThingDefOf.Cloth);
         pawn.apparel.Wear(parka, dropReplacedApparel: false);

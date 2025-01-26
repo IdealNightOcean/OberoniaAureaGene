@@ -7,15 +7,24 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class ScenPart_SnowstormStory : ScenPart
 {
+    public const string SnowstormStoryTag = "OAGene_SnowstormStory";
     public override void PostGameStart()
     {
         base.PostGameStart();
         Snowstorm_StoryUtility.StoryGameComp.Notify_StoryActive();
     }
+    public override string Summary(Scenario scen)
+    {
+        string intro = SnowstormStoryTag + "_ScenPart";
+        return ScenSummaryList.SummaryWithList(scen, SnowstormStoryTag, intro.Translate()) + "\n";
+    }
     public override IEnumerable<string> GetSummaryListEntries(string tag)
     {
-        yield return "OAGene_SnowstoryStoryActive".Translate();
-        yield return "OAGene_SnowstoryPlayerStartsWith".Translate(Snowstorm_RimWorldDefOf.Husky.label, 2);
+        if (tag == SnowstormStoryTag)
+        {
+            yield return "OAGene_SnowstoryStoryActive".Translate();
+            yield return "OAGene_SnowstoryPlayerStartsWith".Translate(Snowstorm_RimWorldDefOf.Husky.label, 2);
+        }
     }
     public override IEnumerable<Thing> PlayerStartingThings()
     {
