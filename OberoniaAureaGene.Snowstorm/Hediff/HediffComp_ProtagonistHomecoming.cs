@@ -150,6 +150,16 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
         parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
     }
 
+    public override void CompPostMerged(Hediff other)
+    {
+        base.CompPostMerged(other);
+        HediffComp_ProtagonistHomecoming otherHomecomingComp = other.TryGetComp<HediffComp_ProtagonistHomecoming>();
+        if (otherHomecomingComp != null)
+        {
+            stage = Mathf.Max(stage, otherHomecomingComp.stage);
+            longCherishedTrigged |= otherHomecomingComp.longCherishedTrigged;
+        }
+    }
     public override void CompExposeData()
     {
         base.CompExposeData();

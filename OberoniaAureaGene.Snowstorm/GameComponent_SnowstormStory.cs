@@ -47,6 +47,10 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         if (protagonist != null)
         {
+            if (LongingForHome)
+            {
+                protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            }
             Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
         }
         else
