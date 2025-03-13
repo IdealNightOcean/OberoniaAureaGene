@@ -163,7 +163,7 @@
     <Compile Include="WorldObject\WorldObject_Hometown.cs" />
     <Compile Include="WorldObject\FixedCaravan_IceCrystalFlowerSea.cs" />
     <Compile Include="WorldObject\WorldObject_FlowerSea.cs" />
-    <Compile Include="WorldObject\GenStep_SnowstormPawns.cs" />
+    <Compile Include="WorldObject\GenStep_SnowstormCampPawns.cs" />
     <Compile Include="WorldObject\SitePartWorker_SnowstormCamp.cs" />
     <Compile Include="WorldObject\SymbolResolver\SymbolResolver_Site_SnowstormCamp.cs" />
     <Compile Include="WorldObject\SnowstormCampComp.cs" />

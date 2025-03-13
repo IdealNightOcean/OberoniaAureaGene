@@ -5,7 +5,7 @@ using Verse.AI.Group;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class GenStep_SnowstormPawns : GenStep
+public class GenStep_SnowstormCampPawns : GenStep
 {
     public override int SeedPart => 228239291;
     public override void Generate(Map map, GenStepParams parms)
@@ -14,7 +14,7 @@ public class GenStep_SnowstormPawns : GenStep
         if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out CellRect interestRect))
         {
             baseCenter = interestRect.CenterCell;
-            Log.Error("No rect of interest set when running GenStep_WorkSitePawns!");
+            Log.Error("No rect of interest set when running GenStep_SnowstormPawns!");
         }
         else
         {
