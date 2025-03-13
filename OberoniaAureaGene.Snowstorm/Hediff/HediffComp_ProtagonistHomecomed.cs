@@ -1,5 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -18,6 +19,8 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
 
     protected int ticksRemianing;
     protected int triggeredCount;
+
+    public override string CompLabelInBracketsExtra => triggeredCount.ToString();
 
     public override void CompPostMake()
     {
@@ -53,7 +56,15 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
             }
         }
     }
-
+    public override void CompPostMerged(Hediff other)
+    {
+        base.CompPostMerged(other);
+        HediffComp_ProtagonistHomecomed otherHomecomedComp = other.TryGetComp<HediffComp_ProtagonistHomecomed>();
+        if (otherHomecomedComp != null)
+        {
+            triggeredCount = Mathf.Max(triggeredCount, otherHomecomedComp.triggeredCount);
+        }
+    }
     public override void CompExposeData()
     {
         base.CompExposeData();

@@ -26,6 +26,8 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
 
     protected bool longCherishedTrigged;
 
+    public override string CompLabelInBracketsExtra => stage.ToString();
+
     public override void CompPostTick(ref float severityAdjustment)
     {
         ticksRemaining--;

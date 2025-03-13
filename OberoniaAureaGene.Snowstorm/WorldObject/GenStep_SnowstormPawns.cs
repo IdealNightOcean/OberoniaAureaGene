@@ -11,9 +11,9 @@ public class GenStep_SnowstormPawns : GenStep
     public override void Generate(Map map, GenStepParams parms)
     {
         IntVec3 baseCenter;
-        if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out var var))
+        if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out CellRect interestRect))
         {
-            baseCenter = var.CenterCell;
+            baseCenter = interestRect.CenterCell;
             Log.Error("No rect of interest set when running GenStep_WorkSitePawns!");
         }
         else
@@ -23,21 +23,28 @@ public class GenStep_SnowstormPawns : GenStep
         Faction faction = parms.sitePart.site.Faction;
         Lord singlePawnLord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter), map);
         TraverseParms traverseParms = TraverseParms.For(TraverseMode.PassDoors);
-        ResolveParams resolveParams = default;
-        resolveParams.rect = var;
-        resolveParams.faction = faction;
-        resolveParams.singlePawnLord = singlePawnLord;
-        resolveParams.singlePawnSpawnCellExtraPredicate = (IntVec3 x) => map.reachability.CanReachMapEdge(x, traverseParms);
-        int pawnCount = SitePartWorker_SnowstormCamp.EnemyCountRange.RandomInRange;
         PawnKindDef pawnKind = ModsConfig.IdeologyActive ? PawnKindDefOf.WellEquippedTraveler : PawnKindDefOf.Villager;
-        for (int i = 0; i < pawnCount; i++)
+
+
+        for (int i = 0; i < SitePartWorker_SnowstormCamp.EnemyCountRange.RandomInRange; i++)
         {
             Pawn pawn = PawnGenerator.GeneratePawn(pawnKind, faction);
-            ResolveParams pawneParams = resolveParams;
-            resolveParams.singlePawnToSpawn = pawn;
-            BaseGen.symbolStack.Push("pawn", pawneParams);
+            BaseGen.symbolStack.Push("pawn", SinglePawnResolveParams(pawn));
         }
         BaseGen.globalSettings.map = map;
         BaseGen.Generate();
+
+
+        ResolveParams SinglePawnResolveParams(Pawn p)
+        {
+            ResolveParams resolveParams = default;
+            resolveParams.rect = interestRect;
+            resolveParams.faction = faction;
+            resolveParams.singlePawnLord = singlePawnLord;
+            resolveParams.singlePawnSpawnCellExtraPredicate = (IntVec3 x) => map.reachability.CanReachMapEdge(x, traverseParms);
+            resolveParams.singlePawnToSpawn = p;
+            return resolveParams;
+        }
+
     }
 }

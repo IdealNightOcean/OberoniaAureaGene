@@ -15,7 +15,7 @@ public static class PreFinalizeInjury_Patch
     public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         MethodInfo geneFactor = AccessTools.Method(typeof(PreFinalizeInjury_Patch), "GeneFactor");
-        List<CodeInstruction> codes = new(instructions);
+        List<CodeInstruction> codes = [.. instructions];
         for (int i = 0; i < codes.Count; i++)
         {
             CodeInstruction instruction = codes[i];
