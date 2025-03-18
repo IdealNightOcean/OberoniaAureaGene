@@ -12,7 +12,8 @@ public class RaidStrategyWorker_ImmediateAttack_SnowstormCultist : RaidStrategyW
         if (storyGameComp == null || !storyGameComp.StoryActive || !storyGameComp.storyInProgress)
         {
             return false;
-        };
+        }
+        ;
         return base.CanUseWith(parms, groupKind);
     }
 

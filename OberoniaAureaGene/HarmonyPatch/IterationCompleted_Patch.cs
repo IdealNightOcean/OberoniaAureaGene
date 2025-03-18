@@ -11,19 +11,15 @@ public static class IterationCompleted_Patch
     [HarmonyPostfix]
     public static void Postfix(ref Bill_Production __instance, Pawn billDoer)
     {
-        WorkTypeDef workType = __instance.billStack.billGiver.GetWorkgiver()?.workType;
-        if (workType == WorkTypeDefOf.Smithing || workType == OAGene_RimWorldDefOf.Tailoring)
-        {
-            TryGetBillInspiration(billDoer);
-        }
-    }
-    private static void TryGetBillInspiration(Pawn pawn)
-    {
-        if (pawn?.genes == null)
+        if (billDoer == null || billDoer.genes == null)
         {
             return;
         }
-        Gene_BillInspiration gene = (Gene_BillInspiration)pawn.genes.GetGene(OAGene_GeneDefOf.OAGene_BillInspiration);
-        gene?.TryGetBillInspiration();
+        WorkTypeDef workType = __instance.billStack?.billGiver?.GetWorkgiver()?.workType;
+        if (workType == WorkTypeDefOf.Smithing || workType == OAGene_RimWorldDefOf.Tailoring)
+        {
+            Gene_BillInspiration gene = (Gene_BillInspiration)billDoer.genes.GetGene(OAGene_GeneDefOf.OAGene_BillInspiration);
+            gene?.TryGetBillInspiration();
+        }
     }
 }

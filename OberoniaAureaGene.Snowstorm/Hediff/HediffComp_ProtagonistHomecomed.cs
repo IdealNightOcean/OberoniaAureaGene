@@ -102,7 +102,8 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
         if (!Snowstorm_MiscDefOf.OAGene_LostInMemory.Worker.BreakCanOccur(pawn))
         {
             return false;
-        };
+        }
+        ;
         if (OAFrame_MapUtility.ThreatsCountOfPlayerOnMap(pawn.Map) > 0)
         {
             return false;

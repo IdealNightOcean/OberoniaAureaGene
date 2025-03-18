@@ -11,7 +11,8 @@ public class RaidStrategyWorker_SnowstormAttackBreaching : RaidStrategyWorker_Im
         if (storyGameComp == null || !storyGameComp.StoryActive)
         {
             return false;
-        };
+        }
+        ;
         return base.CanUseWith(parms, groupKind);
     }
 
