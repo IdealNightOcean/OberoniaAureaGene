@@ -24,6 +24,19 @@ public class GameComponent_Snowstorm : GameComponent
     public GameComponent_Snowstorm(Game game) { }
 
 
+    public override void StartedNewGame()
+    {
+        GameStart();
+    }
+    public override void LoadedGame()
+    {
+        GameStart();
+    }
+    private void GameStart()
+    {
+        Snowstorm_MiscUtility.SnowstormGameComp = this;
+    }
+
     public void Notify_SnowstormStart()
     {
         snowstormCount++;

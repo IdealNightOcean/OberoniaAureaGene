@@ -26,8 +26,8 @@ public class CompSpecialCampfire : ThingComp
             firstRefueled = false;
             if (parent.Spawned && parent.Map.Parent != null)
             {
-                MapParent hometowm = parent.Map.Parent;
-                QuestUtility.SendQuestTargetSignals(hometowm.questTags, RefueledQuestSignal, hometowm.Named("SUBJECT"));
+                MapParent hometown = parent.Map.Parent;
+                QuestUtility.SendQuestTargetSignals(hometown.questTags, RefueledQuestSignal, hometown.Named("SUBJECT"));
             }
         }
     }

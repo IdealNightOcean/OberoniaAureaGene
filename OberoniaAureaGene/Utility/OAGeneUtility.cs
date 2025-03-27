@@ -18,7 +18,7 @@ public static class OAGeneUtility
     }
     public static float ComfyTemperatureMin(Pawn pawn) //Pawn的最低舒适温度
     {
-        return pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, applyPostProcess: true, 1);
+        return pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, applyPostProcess: true);
     }
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
