@@ -21,18 +21,7 @@ public class GameComponent_Snowstorm : GameComponent
 
     protected int totalSnowstormCount;
 
-    public GameComponent_Snowstorm(Game game) { }
-
-
-    public override void StartedNewGame()
-    {
-        GameStart();
-    }
-    public override void LoadedGame()
-    {
-        GameStart();
-    }
-    private void GameStart()
+    public GameComponent_Snowstorm(Game game) 
     {
         Snowstorm_MiscUtility.SnowstormGameComp = this;
     }
@@ -43,7 +32,6 @@ public class GameComponent_Snowstorm : GameComponent
         lastSnowstormStartTick = Find.TickManager.TicksGame;
         totalSnowstormCount++;
     }
-
 
     public void Notify_SnowstormEnd()
     {

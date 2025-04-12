@@ -11,8 +11,7 @@ public class GameComponent_SnowstormStory : GameComponent
 {
     private const float ScreenFadeSeconds = 15f;
 
-    [Unsaved]
-    protected float timeLeft = -1f;
+    [Unsaved] protected float timeLeft = -1f;
 
     protected bool storyActive;
     public bool StoryActive => storyActive;
@@ -33,7 +32,10 @@ public class GameComponent_SnowstormStory : GameComponent
     public bool satisfySnowstormCultist;
 
 
-    public GameComponent_SnowstormStory(Game game) { }
+    public GameComponent_SnowstormStory(Game game) 
+    {
+        Snowstorm_StoryUtility.StoryGameComp = this;
+    }
 
     public void Notify_StoryActive()
     {
@@ -127,8 +129,6 @@ public class GameComponent_SnowstormStory : GameComponent
 
     private void GameStart()
     {
-        Snowstorm_StoryUtility.StoryGameComp = this;
-
         if (!storyActive)
         {
             Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
