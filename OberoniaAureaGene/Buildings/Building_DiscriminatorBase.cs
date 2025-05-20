@@ -205,9 +205,19 @@ public abstract class Building_GeneDiscriminatorBase : Building
         ticksRemaining = TicksToDiscriminat;
         targetGenepack = genepack;
         targetGeneDef = geneDef;
-        if (targetGenepack != null)
+        if (targetGenepack is not null)
         {
-            targetGenepack.targetContainer = this;
+            if (targetGenepack.targetContainer is null)
+            {
+                targetGenepack.targetContainer = this;
+            }
+            else
+            {
+                CancelWork();
+                Messages.Message("OAGene_GenepackUsedByOther".Translate(), targetGenepack, MessageTypeDefOf.RejectInput, historical: false);
+                return;
+            }
+
         }
         compGeneDiscriminat.leftToLoad.Add(targetGenepack);
         compGeneDiscriminat.autoLoad = false;
@@ -219,7 +229,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
-        if (targetGenepack != null)
+        if (targetGenepack is not null && targetGenepack.targetContainer == this)
         {
             targetGenepack.targetContainer = null;
         }

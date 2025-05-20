@@ -6,7 +6,7 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCaravanArrival
 {
-    protected static readonly IntRange TraderCount = new(4, 5);
+    protected static readonly IntRange TraderCount = new(3, 4);
     protected static readonly IntRange DelayTicks = new(20000, 24000);
 
     protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
