@@ -35,7 +35,7 @@ public static class PreFinalizeInjury_Patch
     public static float GeneFactor(Pawn pawn)
     {
         float geneFactor = 1f;
-        if (pawn.genes != null)
+        if (pawn.genes is not null)
         {
             foreach (Gene_PermanentChance gene in pawn.genes.GenesListForReading.OfType<Gene_PermanentChance>())
             {

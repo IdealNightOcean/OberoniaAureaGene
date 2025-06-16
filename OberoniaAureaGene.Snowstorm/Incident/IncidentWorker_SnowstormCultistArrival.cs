@@ -18,7 +18,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
     {
         parms.faction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
         parms.faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
-        if (parms.faction != null)
+        if (parms.faction is not null)
         {
             parms.faction.factionHostileOnHarmByPlayer = true;
         }
@@ -26,7 +26,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
         {
             parms.faction = Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
         }
-        return parms.faction != null;
+        return parms.faction is not null;
     }
 
     protected override List<Pawn> SpawnTradePawns(IncidentParms parms, PawnGroupMakerParms groupMakerParms, PawnGroupMaker groupMaker)
@@ -51,7 +51,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         GameCondition snowstorm = SnowstormUtility.SnowstormCondition;
-        if (snowstorm != null)
+        if (snowstorm is not null)
         {
             if (snowstorm.Permanent)
             {
@@ -86,7 +86,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
         }
         for (int i = 0; i < pawns.Count; i++)
         {
-            if (pawns[i].needs != null && pawns[i].needs.food != null)
+            if (pawns[i].needs is not null && pawns[i].needs.food is not null)
             {
                 pawns[i].needs.food.CurLevel = pawns[i].needs.food.MaxLevel;
             }

@@ -23,7 +23,7 @@ public static class ImplantXenogermItem_Patch
     private static void RatkinImplantXenogermItem(Pawn pawn, Xenogerm xenogerm)
     {
         GeneUtility.UpdateXenogermReplication(pawn);
-        if (xenogerm.GeneSet == null || pawn.genes == null)
+        if (xenogerm.GeneSet is null || pawn.genes is null)
         {
             return;
         }

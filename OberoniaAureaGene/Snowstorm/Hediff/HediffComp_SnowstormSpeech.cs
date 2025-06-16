@@ -50,7 +50,7 @@ public class HediffComp_SnowstormSpeech : HediffComp
     }
     protected void ThrowText(string text, Color color, float timeBeforeStartFadeout = -1f)
     {
-        if (tempMote != null && !tempMote.Destroyed)
+        if (tempMote is not null && !tempMote.Destroyed)
         {
             tempMote.Destroy(DestroyMode.Vanish);
         }
@@ -70,7 +70,7 @@ public class HediffComp_SnowstormSpeech : HediffComp
     protected virtual void PostSpeechAction() { }
     public override void CompPostPostRemoved()
     {
-        if (tempMote != null && !tempMote.Destroyed)
+        if (tempMote is not null && !tempMote.Destroyed)
         {
             tempMote.Destroy(DestroyMode.Vanish);
         }

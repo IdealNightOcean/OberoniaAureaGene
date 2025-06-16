@@ -71,7 +71,7 @@ public class SymbolResolver_Hometown : SymbolResolver
 
         static void SpecialCampfire(Thing thing)
         {
-            if (thing == null || thing.def != ThingDefOf.Campfire)
+            if (thing is null || thing.def != ThingDefOf.Campfire)
             {
                 return;
             }

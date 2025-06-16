@@ -57,7 +57,7 @@ public class WeatherEvent_IceCrystalFlowerSpawn : WeatherEvent
                 return false;
             }
             Room room = c.GetRoom(map);
-            if (room == null || room.UsesOutdoorTemperature)
+            if (room is null || room.UsesOutdoorTemperature)
             {
                 return false;
             }

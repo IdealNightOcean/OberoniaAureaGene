@@ -21,7 +21,7 @@ public class HediffComp_UnderDark : HediffComp
         if (parentPawn.IsHashIntervalTick(250))
         {
             Need_SnowstormGlow need_SnowstormGlow = parentPawn.needs?.TryGetNeed<Need_SnowstormGlow>();
-            if (need_SnowstormGlow == null)
+            if (need_SnowstormGlow is null)
             {
                 parentPawn.health.RemoveHediff(parent);
                 return;

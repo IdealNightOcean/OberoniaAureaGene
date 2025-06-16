@@ -18,7 +18,7 @@ public static class DiseaseContractChanceFactor_Patch
             return;
         }
         Pawn pawn = __instance.pawn;
-        if (pawn.genes == null)
+        if (pawn.genes is null)
         {
             return;
         }

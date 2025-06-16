@@ -16,7 +16,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
     protected override bool TestRunInt(Slate slate)
     {
         Map map = QuestGen_Get.GetMap();
-        if (map == null)
+        if (map is null)
         {
             return false;
         }
@@ -24,7 +24,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         {
             return false;
         }
-        return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false) != null;
+        return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false) is not null;
     }
     protected override Faction GetOrGenerateFaction()
     {
@@ -66,12 +66,12 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
         Map map = QuestGen_Get.GetMap();
-        if (map == null || !SnowstormUtility.IsSnowExtremeWeather(map))
+        if (map is null || !SnowstormUtility.IsSnowExtremeWeather(map))
         {
             return;
         }
         Faction faction = GetOrGenerateFaction();
-        if (faction == null)
+        if (faction is null)
         {
             return;
         }
@@ -171,7 +171,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
                 },
             }
         };
-        if (ModsConfig.IdeologyActive && Faction.OfPlayer.ideos.FluidIdeo != null)
+        if (ModsConfig.IdeologyActive && Faction.OfPlayer.ideos.FluidIdeo is not null)
         {
             choice.rewards.Add(new Reward_DevelopmentPoints(quest));
         }

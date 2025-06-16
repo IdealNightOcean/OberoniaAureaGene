@@ -25,7 +25,7 @@ public static class ColonyThingsWillingToBuy_Patch
         {
             yield return t;
         }
-        if (__state == null)
+        if (__state is null)
         {
             yield break;
         }
@@ -38,7 +38,7 @@ public static class ColonyThingsWillingToBuy_Patch
                 continue;
             }
             CompGenepackContainer compGenepackContainer = bank.TryGetComp<CompGenepackContainer>();
-            if (compGenepackContainer == null)
+            if (compGenepackContainer is null)
             {
                 continue;
             }

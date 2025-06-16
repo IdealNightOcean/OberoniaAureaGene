@@ -43,7 +43,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     }
     protected void TryAutoStartNewWork()
     {
-        if (!autoSelect || base.Working || selectedPawn != null || !PowerOn)
+        if (!autoSelect || base.Working || selectedPawn is not null || !PowerOn)
         {
             return;
         }
@@ -79,16 +79,16 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     protected override void FinishWork()
     {
         Pawn containedPawn = ContainedPawn;
-        if (containedPawn != null)
+        if (containedPawn is not null)
         {
             HediffComp_Disappears disappearsComp = containedPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermReplicating)?.TryGetComp<HediffComp_Disappears>();
-            if (disappearsComp != null)
+            if (disappearsComp is not null)
             {
                 int num = Mathf.Max((int)(disappearsComp.ticksToDisappear * 0.2f), 120000);
                 disappearsComp.ticksToDisappear -= num;
             }
             Hediff hediff = containedPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermLossShock);
-            if (hediff != null)
+            if (hediff is not null)
             {
                 containedPawn.health.RemoveHediff(hediff);
             }

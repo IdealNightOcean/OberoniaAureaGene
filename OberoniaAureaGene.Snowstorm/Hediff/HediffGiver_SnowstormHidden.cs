@@ -44,12 +44,12 @@ public class HediffGiver_SnowstormHidden : HediffGiver
         {
             return false;
         }
-        if (pawn.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormOblivious) != null)
+        if (pawn.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormOblivious) is not null)
         {
             return false;
         }
         TraitSet traitSet = pawn.story?.traits;
-        if (traitSet != null)
+        if (traitSet is not null)
         {
             for (int i = 0; i < traitSet.allTraits.Count; i++)
             {
@@ -65,7 +65,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
 
     public bool TryApplyHediff(Pawn pawn, HediffDef giveHediff)
     {
-        if (pawn.genes != null && !pawn.genes.HediffGiversCanGive(giveHediff))
+        if (pawn.genes is not null && !pawn.genes.HediffGiversCanGive(giveHediff))
         {
             return false;
         }

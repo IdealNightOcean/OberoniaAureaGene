@@ -27,7 +27,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
 
     public IEnumerable<FiringIncident> MakeIntervalIncidents()
     {
-        if (mapParent != null && mapParent.HasMap)
+        if (mapParent is not null && mapParent.HasMap)
         {
             return MakeIntervalIncidents(parms, mapParent.Map, base.EnableTick + threatStartTicks);
         }
@@ -41,7 +41,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
         for (int i = 0; i < incCount; i++)
         {
             FiringIncident firingIncident = MakeThreat(parms, target);
-            if (firingIncident != null)
+            if (firingIncident is not null)
             {
                 yield return firingIncident;
             }

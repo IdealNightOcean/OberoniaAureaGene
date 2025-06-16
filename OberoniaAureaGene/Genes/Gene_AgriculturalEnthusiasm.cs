@@ -16,7 +16,7 @@ public class Gene_AgriculturalEnthusiasm : Gene
     private void CheckPawnWork()
     {
         WorkTypeDef workType = pawn.CurJob?.workGiverDef?.workType;
-        if (workType == null)
+        if (workType is null)
         {
             noAgriculturalTicks += 250;
         }

@@ -25,7 +25,7 @@ public class IncidentWorker_MakeGameCondition_SnowstormFog : IncidentWorker_Make
         }
         GameConditionManager gameConditionManager = parms.target.GameConditionManager;
         GameCondition_ExtremeSnowstorm snowstorm = gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>();
-        if (snowstorm == null)
+        if (snowstorm is null)
         {
             return false;
         }

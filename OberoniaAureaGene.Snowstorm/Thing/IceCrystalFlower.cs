@@ -30,7 +30,7 @@ public class IceCrystalFlower : Plant
 
         Map map = base.Map;
         IntVec3 pos = base.Position;
-        if (parentFlower != null)
+        if (parentFlower is not null)
         {
             this.parentFlower = parentFlower;
             this.parentFlower.childFlowerCount++;
@@ -51,7 +51,7 @@ public class IceCrystalFlower : Plant
     {
         Map map = base.Map;
         IntVec3 pos = base.Position;
-        if (parentFlower != null)
+        if (parentFlower is not null)
         {
             parentFlower.childFlowerCount = Mathf.Max(childFlowerCount - 1, 0);
         }
@@ -90,7 +90,7 @@ public class IceCrystalFlower : Plant
         }
 
         Room room = base.Position.GetRoom(base.Map);
-        if (room == null || room.UsesOutdoorTemperature)
+        if (room is null || room.UsesOutdoorTemperature)
         {
             ticksToDieOutdoor -= 1000;
             if (ticksToDieOutdoor <= 0)
@@ -170,7 +170,7 @@ public class IceCrystalFlower : Plant
                 return false;
             }
             Room room = c.GetRoom(map);
-            if (room == null || room.UsesOutdoorTemperature)
+            if (room is null || room.UsesOutdoorTemperature)
             {
                 return false;
             }

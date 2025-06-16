@@ -35,7 +35,7 @@ public class ScenPart_SnowstormStory : ScenPart
             Pawn animal = PawnGenerator.GeneratePawn(Snowstorm_RimWorldDefOf.Husky, Faction.OfPlayer);
             //训练全满
             Pawn_TrainingTracker trainingTracker = animal.training;
-            if (trainingTracker != null)
+            if (trainingTracker is not null)
             {
                 IEnumerable<TrainableDef> trainableDefs = DefDatabase<TrainableDef>.AllDefsListForReading.Where(d => trainingTracker.CanAssignToTrain(d));
                 foreach (TrainableDef trainableDef in trainableDefs)
@@ -45,7 +45,7 @@ public class ScenPart_SnowstormStory : ScenPart
                 }
             }
             //动物命名
-            if (animal.Name == null || animal.Name.Numerical)
+            if (animal.Name is null || animal.Name.Numerical)
             {
                 animal.Name = PawnBioAndNameGenerator.GeneratePawnName(animal);
             }
@@ -63,12 +63,12 @@ public class ScenPart_SnowstormStory : ScenPart
                             where TrainerValidator(p, animal)
                             select p).RandomElementWithFallback();
                 }
-                if (pawn != null)
+                if (pawn is not null)
                 {
                     animal.training.Train(TrainableDefOf.Obedience, null, complete: true);
                     animal.training.SetWantedRecursive(TrainableDefOf.Obedience, checkOn: true);
                     animal.playerSettings.Master = pawn;
-                    if (pawn.Ideo == null || pawn.Ideo.MemberWillingToDo(new HistoryEvent(HistoryEventDefOf.Bonded, pawn.Named(HistoryEventArgsNames.Doer))))
+                    if (pawn.Ideo is null || pawn.Ideo.MemberWillingToDo(new HistoryEvent(HistoryEventDefOf.Bonded, pawn.Named(HistoryEventArgsNames.Doer))))
                     {
                         pawn.relations.AddDirectRelation(PawnRelationDefOf.Bond, animal);
                     }
@@ -80,7 +80,7 @@ public class ScenPart_SnowstormStory : ScenPart
 
     private static bool TrainerValidator(Pawn pawn, Pawn animal)
     {
-        if (pawn == null)
+        if (pawn is null)
         {
             return false;
         }

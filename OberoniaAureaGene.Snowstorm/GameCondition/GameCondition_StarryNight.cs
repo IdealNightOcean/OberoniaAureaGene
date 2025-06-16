@@ -27,7 +27,7 @@ public class GameCondition_StarryNight : GameCondition
         weather = def.weatherDef;
         tempOffset = def.temperatureOffset;
         GameComponent_Snowstorm snowstormComp = Snowstorm_MiscUtility.SnowstormGameComp;
-        if (snowstormComp != null)
+        if (snowstormComp is not null)
         {
             snowstormComp.starryNightTriggered = true;
         }
@@ -48,7 +48,7 @@ public class GameCondition_StarryNight : GameCondition
                 protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_StarryNightP);
             }
             InspirationDef inspirationDef = protagonist.mindState.inspirationHandler.GetRandomAvailableInspirationDef();
-            if (inspirationDef != null)
+            if (inspirationDef is not null)
             {
                 protagonist.mindState.inspirationHandler.TryStartInspiration(inspirationDef);
             }

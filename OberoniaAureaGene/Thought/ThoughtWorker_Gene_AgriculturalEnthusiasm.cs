@@ -7,7 +7,7 @@ public class ThoughtWorker_Gene_AgriculturalEnthusiasm : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
-        if (p.genes == null)
+        if (p.genes is null)
         {
             return ThoughtState.Inactive;
         }

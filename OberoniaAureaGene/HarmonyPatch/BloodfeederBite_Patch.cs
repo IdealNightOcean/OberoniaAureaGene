@@ -15,7 +15,7 @@ public static class BloodfeederBite_Patch
         if (__result)
         {
             Pawn pawn = target.Pawn;
-            if (pawn.genes != null && pawn.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_SpecificHemogen))
+            if (pawn.genes is not null && pawn.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_SpecificHemogen))
             {
                 __result = false;
             }

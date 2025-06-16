@@ -180,7 +180,7 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     }
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, PlanetTile destinationTile)
     {
-        if (site == null)
+        if (site is null)
         {
             return false;
         }
@@ -198,12 +198,12 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
 
     public static FloatMenuAcceptanceReport CanVisit(WorldObject site)
     {
-        if (site == null || !site.Spawned)
+        if (site is null || !site.Spawned)
         {
             return false;
         }
         EspionageSiteComp espionageSiteComp = site.GetComponent<EspionageSiteComp>();
-        if (espionageSiteComp == null)
+        if (espionageSiteComp is null)
         {
             return false;
         }

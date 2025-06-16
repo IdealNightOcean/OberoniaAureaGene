@@ -24,7 +24,7 @@ public class HediffComp_SnowstormFog : HediffComp
         else if (pawn.RaceProps.Humanlike)
         {
             TraitSet traitSet = parent.pawn.story?.traits;
-            if (traitSet != null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
+            if (traitSet is not null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
             {
                 parent.Severity = 2f;
             }
@@ -48,7 +48,7 @@ public class HediffComp_SnowstormFog : HediffComp
         else if (pawn.RaceProps.Humanlike)
         {
             TraitSet traitSet = parent.pawn.story?.traits;
-            if (traitSet != null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
+            if (traitSet is not null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
             {
                 parent.Severity = 2f;
             }
@@ -57,7 +57,7 @@ public class HediffComp_SnowstormFog : HediffComp
     }
     private void TryAddMemory()
     {
-        if (parent.pawn.needs?.mood?.thoughts?.memories?.GetFirstMemoryOfDef(Props.thought) == null)
+        if (parent.pawn.needs?.mood?.thoughts?.memories?.GetFirstMemoryOfDef(Props.thought) is null)
         {
             int stage = parent.Severity > 1f ? 0 : 1;
             Thought_Memory thought_Memory = (Thought_Memory)ThoughtMaker.MakeThought(Props.thought);

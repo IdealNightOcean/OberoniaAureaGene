@@ -71,7 +71,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
         bool ValidRoof(IntVec3 c)
         {
             RoofDef roofDef = roofGrid.RoofAt(c);
-            if (roofDef == null)
+            if (roofDef is null)
             {
                 return false;
             }

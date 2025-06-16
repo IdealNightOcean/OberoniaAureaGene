@@ -8,7 +8,7 @@ internal class MentalBreakWorker_LostInMemory : MentalBreakWorker
 {
     public override bool TryStart(Pawn pawn, string reason, bool causedByMood)
     {
-        if (pawn.mindState?.mentalStateHandler == null)
+        if (pawn.mindState?.mentalStateHandler is null)
         {
             return false;
         }

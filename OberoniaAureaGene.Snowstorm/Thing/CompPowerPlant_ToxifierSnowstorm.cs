@@ -25,7 +25,7 @@ public class CompPowerPlant_ToxifierSnowstorm : CompPowerPlant
     {
         base.PostSpawnSetup(respawningAfterLoad);
         MapComponent_Snowstorm snowstormMapComp = parent.Map.SnowstormMapComp();
-        if (snowstormMapComp != null)
+        if (snowstormMapComp is not null)
         {
             if (!snowstormMapComp.toxifiers.Contains(this))
             {
@@ -41,7 +41,7 @@ public class CompPowerPlant_ToxifierSnowstorm : CompPowerPlant
     {
         Notify_Snowstorm(state: false);
         MapComponent_Snowstorm snowstormMapComp = map.SnowstormMapComp();
-        if (snowstormMapComp != null)
+        if (snowstormMapComp is not null)
         {
             if (snowstormMapComp.toxifiers.Contains(this))
             {

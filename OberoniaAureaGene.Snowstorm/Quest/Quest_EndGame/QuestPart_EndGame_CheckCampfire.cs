@@ -22,7 +22,7 @@ public class QuestPart_EndGame_CheckCampfire : QuestPartActivable
         if (ticksRemaining < 0)
         {
             Map map = hometown.Map;
-            if (map != null)
+            if (map is not null)
             {
                 bool flag = map.listerBuildings.AllBuildingsColonistOfDef(ThingDefOf.Campfire).Where(t => (t.TryGetComp<CompRefuelable>()?.HasFuel ?? true)).Any();
                 if (flag)

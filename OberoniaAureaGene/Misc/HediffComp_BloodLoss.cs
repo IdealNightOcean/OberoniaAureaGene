@@ -26,7 +26,7 @@ public class HediffComp_BloodLoss : HediffComp
     protected static void TryAdjuestBleed(Pawn pawn, float bleedRate)
     {
         pawn.health.hediffSet.TryGetHediff(HediffDefOf.BloodLoss, out var bloodLoss);
-        if (bloodLoss == null)
+        if (bloodLoss is null)
         {
             bloodLoss = pawn.health.AddHediff(HediffDefOf.BloodLoss);
             bloodLoss.Severity = 0.01f;

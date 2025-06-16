@@ -64,7 +64,7 @@ public class Building_IceCrystalCollector : Building
     private void EjectContents()
     {
         Thing thing = TakeOutBioferrite();
-        if (thing != null)
+        if (thing is not null)
         {
             GenPlace.TryPlaceThing(thing, base.Position, base.Map, ThingPlaceMode.Near);
         }
@@ -157,7 +157,7 @@ public class Building_IceCrystalCollector : Building
 
     protected static float GetCurWeatherEfficiency(WeatherDef weather)
     {
-        if (weather == null)
+        if (weather is null)
         {
             return -1f;
         }

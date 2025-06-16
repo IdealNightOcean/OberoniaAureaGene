@@ -18,7 +18,7 @@ public class CompSnowstormGeothermalGenerator : ThingComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         MapComponent_Snowstorm snowstormMapComp = parent.Map.SnowstormMapComp();
-        if (snowstormMapComp != null)
+        if (snowstormMapComp is not null)
         {
             if (!snowstormMapComp.geothermalGenerators.Contains(parent))
             {
@@ -29,7 +29,7 @@ public class CompSnowstormGeothermalGenerator : ThingComp
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         MapComponent_Snowstorm snowstormMapComp = map.SnowstormMapComp();
-        if (snowstormMapComp != null)
+        if (snowstormMapComp is not null)
         {
             if (snowstormMapComp.geothermalGenerators.Contains(parent))
             {

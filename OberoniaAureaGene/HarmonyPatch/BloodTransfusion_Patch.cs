@@ -12,7 +12,7 @@ public static class BloodTransfusion_Patch
     [HarmonyPostfix]
     public static void Postfix(ref bool __result, Thing thing)
     {
-        if (__result && thing is Pawn pawn && pawn.genes != null)
+        if (__result && thing is Pawn pawn && pawn.genes is not null)
         {
             if (pawn.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_SpecificHemogen))
             {

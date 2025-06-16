@@ -13,7 +13,7 @@ public class ThoughtWorker_Precept_TerritorialConsciousnessEnemies : ThoughtWork
             return ThoughtState.Inactive;
         }
         MapComponent_OberoniaAureaGene oaGene_MCOAG = p.Map.OAGeneMapComp();
-        if (oaGene_MCOAG == null)
+        if (oaGene_MCOAG is null)
         {
             return ThoughtState.Inactive;
         }

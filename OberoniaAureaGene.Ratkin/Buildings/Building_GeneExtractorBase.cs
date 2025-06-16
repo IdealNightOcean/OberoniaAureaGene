@@ -63,7 +63,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
         sustainerWorking = null;
-        if (progressBar != null)
+        if (progressBar is not null)
         {
             progressBar.Cleanup();
             progressBar = null;
@@ -81,7 +81,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         }
         if (base.Working)
         {
-            if (ContainedPawn == null)
+            if (ContainedPawn is null)
             {
                 CancelWork();
                 return;
@@ -102,7 +102,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 if (powerCutTicks >= 60000)
                 {
                     Pawn containedPawn = ContainedPawn;
-                    if (containedPawn != null)
+                    if (containedPawn is not null)
                     {
                         Messages.Message("GeneExtractorNoPowerEjectedMessage".Translate(containedPawn.Named("PAWN")), containedPawn, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
@@ -110,14 +110,14 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 }
             }
         }
-        else if (selectedPawn != null && selectedPawn.Dead)
+        else if (selectedPawn is not null && selectedPawn.Dead)
         {
             CancelWork();
         }
     }
     protected void TickEffects()
     {
-        if (sustainerWorking == null || sustainerWorking.Ended)
+        if (sustainerWorking is null || sustainerWorking.Ended)
         {
             sustainerWorking = SoundDefOf.GeneExtractor_Working.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
         }
@@ -128,7 +128,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         progressBar ??= EffecterDefOf.ProgressBarAlwaysVisible.Spawn();
         progressBar.EffectTick(this, TargetInfo.Invalid);
         MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBar.children[0]).mote;
-        if (mote != null)
+        if (mote is not null)
         {
             mote.progress = 1f - Mathf.Clamp01((float)ticksRemaining / ticksToExtract);
             mote.offsetZ = ProgressBarOffsetZ;
@@ -147,7 +147,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         {
             return false;
         }
-        if (selectedPawn != null && selectedPawn != pawn)
+        if (selectedPawn is not null && selectedPawn != pawn)
         {
             return false;
         }
@@ -163,7 +163,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         {
             return "Occupied".Translate();
         }
-        if (pawn.genes == null || !pawn.genes.GenesListForReading.Any((Gene x) => x.def.passOnDirectly))
+        if (pawn.genes is null || !pawn.genes.GenesListForReading.Any((Gene x) => x.def.passOnDirectly))
         {
             return "PawnHasNoGenes".Translate(pawn.Named("PAWN"));
         }
@@ -257,7 +257,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             yield break;
         }
         FloatMenuOption fOpt = FloatMenuOption_InsertPerson(selPawn);
-        if (fOpt != null)
+        if (fOpt is not null)
         {
             yield return fOpt;
         }
@@ -314,7 +314,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             }
             yield break;
         }
-        if (selectedPawn != null)
+        if (selectedPawn is not null)
         {
             Command_Action command_Action3 = new()
             {
@@ -352,7 +352,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         List<FloatMenuOption> list = [];
         foreach (Pawn pawn in base.Map.mapPawns.AllPawnsSpawned)
         {
-            if (pawn.genes != null)
+            if (pawn.genes is not null)
             {
                 AcceptanceReport acceptanceReport = CanAcceptPawn(pawn);
                 string text = pawn.LabelShortCap + ", " + pawn.genes.XenotypeLabelCap;
@@ -366,7 +366,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 else
                 {
                     Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermReplicating);
-                    if (firstHediffOfDef != null)
+                    if (firstHediffOfDef is not null)
                     {
                         text = text + " (" + firstHediffOfDef.LabelBase + ", " + firstHediffOfDef.TryGetComp<HediffComp_Disappears>().ticksToDisappear.ToStringTicksToPeriod(allowSeconds: true, shortForm: true).Colorize(ColoredText.SubtleGrayColor) + ")";
                     }
@@ -388,7 +388,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
     {
         base.DynamicDrawPhaseAt(phase, drawLoc, flip);
-        if (base.Working && ContainedPawn != null)
+        if (base.Working && ContainedPawn is not null)
         {
             ContainedPawn.Drawer.renderer.DynamicDrawPhaseAt(phase, drawLoc + PawnDrawOffset, null, neverAimWeapon: true);
         }
@@ -397,7 +397,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     public override string GetInspectString()
     {
         string text = base.GetInspectString();
-        if (selectedPawn != null && innerContainer.Count == 0)
+        if (selectedPawn is not null && innerContainer.Count == 0)
         {
             if (!text.NullOrEmpty())
             {
@@ -405,7 +405,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             }
             text += "WaitingForPawn".Translate(selectedPawn.Named("PAWN")).Resolve();
         }
-        else if (base.Working && ContainedPawn != null)
+        else if (base.Working && ContainedPawn is not null)
         {
             if (!text.NullOrEmpty())
             {

@@ -14,7 +14,7 @@ public class CompPowerNormalPlantWind : CompPowerPlantWind
     {
         base.PostSpawnSetup(respawningAfterLoad);
         GameCondition snowstorm = parent.Map?.gameConditionManager.GetActiveCondition(OAGene_MiscDefOf.OAGene_ExtremeSnowstorm);
-        if (snowstorm != null)
+        if (snowstorm is not null)
         {
             int duration = snowstorm.startTick + snowstorm.Duration - Find.TickManager.TicksGame;
             Notify_ExtremeSnowstorm(duration);

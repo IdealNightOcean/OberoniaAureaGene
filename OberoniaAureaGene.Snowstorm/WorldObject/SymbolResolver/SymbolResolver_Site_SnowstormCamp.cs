@@ -30,7 +30,7 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
         foreach (Thing item2 in stockList)
         {
             CompForbiddable compForbiddable = item2.TryGetComp<CompForbiddable>();
-            if (compForbiddable != null)
+            if (compForbiddable is not null)
             {
                 compForbiddable.Forbidden = true;
             }

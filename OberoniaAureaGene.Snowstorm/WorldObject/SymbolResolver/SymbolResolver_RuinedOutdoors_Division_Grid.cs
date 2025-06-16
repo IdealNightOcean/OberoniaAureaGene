@@ -134,7 +134,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Grid : SymbolResolver
         ThingDef thingDef = null;
         if (pathwayWidthX >= 3)
         {
-            thingDef = ((rp.faction != null && (int)rp.faction.def.techLevel < 4) ? ThingDefOf.TorchLamp : ThingDefOf.StandingLamp);
+            thingDef = ((rp.faction is not null && (int)rp.faction.def.techLevel < 4) ? ThingDefOf.TorchLamp : ThingDefOf.StandingLamp);
         }
         TerrainDef floorDef = rp.pathwayFloorDef ?? BaseGenUtility.RandomBasicFloorDef(rp.faction);
         int num = roomSize;
@@ -182,7 +182,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Grid : SymbolResolver
         children.Shuffle();
         for (int m = 0; m < children.Count; m++)
         {
-            if (thingDef != null)
+            if (thingDef is not null)
             {
                 IntVec3 c = new(children[m].rect.maxX + 1, 0, children[m].rect.maxZ);
                 if (rp.rect.Contains(c) && c.Standable(map))
@@ -209,10 +209,10 @@ public class SymbolResolver_RuinedOutdoors_Division_Grid : SymbolResolver
         for (int i = 0; i < num; i++)
         {
             Child child = children.Find((Child x) => !x.merged);
-            if (child != null)
+            if (child is not null)
             {
                 Child child2 = children.Find((Child x) => x != child && ((Mathf.Abs(x.gridX - child.gridX) == 1 && x.gridY == child.gridY) || (Mathf.Abs(x.gridY - child.gridY) == 1 && x.gridX == child.gridX)));
-                if (child2 != null)
+                if (child2 is not null)
                 {
                     children.Remove(child);
                     children.Remove(child2);

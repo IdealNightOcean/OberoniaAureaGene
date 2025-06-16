@@ -23,7 +23,7 @@ public class QuestPart_EndGame_Success : QuestPart
     }
     protected static void CheckIfOnlyProtagonist(Pawn protagonist, Map map)
     {
-        if (protagonist == null)
+        if (protagonist is null)
         {
             Snowstorm_StoryUtility.TryGetStoryProtagonist(out protagonist);
         }
@@ -36,16 +36,16 @@ public class QuestPart_EndGame_Success : QuestPart
         else
         {
             Pawn tempPawn = protagonist.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
-            if (tempPawn == null || tempPawn.Map != map)
+            if (tempPawn is null || tempPawn.Map != map)
             {
                 tempPawn = protagonist.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
             }
-            if (tempPawn == null || tempPawn.Map != map)
+            if (tempPawn is null || tempPawn.Map != map)
             {
                 tempPawn = map.mapPawns.FreeColonistsSpawned.Where(p => p != protagonist).RandomElementWithFallback();
             }
 
-            if (tempPawn == null)
+            if (tempPawn is null)
             {
                 Snowstorm_StoryUtility.OnlyProtagonist = true;
                 Snowstorm_StoryUtility.OtherPawn = null;

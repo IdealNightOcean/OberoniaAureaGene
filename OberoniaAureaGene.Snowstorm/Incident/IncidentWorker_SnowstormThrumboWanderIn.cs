@@ -46,7 +46,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
         pawn.SetFaction(Faction.OfPlayer);
         pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
         Pawn_TrainingTracker trainingTracker = pawn.training;
-        if (trainingTracker != null)
+        if (trainingTracker is not null)
         {
             IEnumerable<TrainableDef> trainableDefs = DefDatabase<TrainableDef>.AllDefsListForReading.Where(d => trainingTracker.CanAssignToTrain(d));
             foreach (TrainableDef trainableDef in trainableDefs)

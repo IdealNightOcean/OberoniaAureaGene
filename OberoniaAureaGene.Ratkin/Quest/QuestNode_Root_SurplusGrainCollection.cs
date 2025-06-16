@@ -111,12 +111,12 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     protected override void RunInt()
     {
         Faction questFaction = GetQuestFaction();
-        if (questFaction == null)
+        if (questFaction is null)
         {
             return;
         }
         Faction originalFation = GetOriginalFaction(questFaction);
-        if (originalFation == null)
+        if (originalFation is null)
         {
             return;
         }
@@ -205,6 +205,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             return false;
         }
         Map map = QuestGen_Get.GetMap();
-        return map != null;
+        return map is not null;
     }
 }

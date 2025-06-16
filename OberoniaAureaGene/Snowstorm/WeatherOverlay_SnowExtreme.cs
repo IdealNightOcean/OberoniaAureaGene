@@ -42,7 +42,7 @@ public class WeatherOverlay_SnowExtreme : SkyOverlay
 
     public override void TickOverlay(Map map)
     {
-        if (worldOverlayMat == null)
+        if (worldOverlayMat is null)
         {
             Log.Message("Creating new worldOverlayMat");
             Texture2D mainTex = MainTex.Texture;

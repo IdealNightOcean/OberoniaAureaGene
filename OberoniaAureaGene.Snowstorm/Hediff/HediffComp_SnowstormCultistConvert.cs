@@ -25,7 +25,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
             return;
         }
         GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
-        if (snowstormGameComp == null)
+        if (snowstormGameComp is null)
         {
             preacher.health.RemoveHediff(parent);
             return;
@@ -43,7 +43,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
 
     protected static bool TryConvert(Map map, Faction faction)
     {
-        if (map == null)
+        if (map is null)
         {
             return false;
         }
@@ -63,7 +63,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
             }
         }
 
-        if (faction == null)
+        if (faction is null)
         {
             pawns = map.mapPawns.PrisonersOfColonySpawned.Where(p => p.Awake());
         }

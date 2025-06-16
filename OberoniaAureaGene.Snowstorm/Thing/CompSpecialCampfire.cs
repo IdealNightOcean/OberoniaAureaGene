@@ -24,7 +24,7 @@ public class CompSpecialCampfire : ThingComp
         if (specialCampfire && firstRefueled && signal == CompRefuelable.RefueledSignal)
         {
             firstRefueled = false;
-            if (parent.Spawned && parent.Map.Parent != null)
+            if (parent.Spawned && parent.Map.Parent is not null)
             {
                 MapParent hometown = parent.Map.Parent;
                 QuestUtility.SendQuestTargetSignals(hometown.questTags, RefueledQuestSignal, hometown.Named("SUBJECT"));
@@ -35,7 +35,7 @@ public class CompSpecialCampfire : ThingComp
     public void InitSpecialCampfire()
     {
         CompRefuelable refuelable = parent.GetComp<CompRefuelable>();
-        if (refuelable != null)
+        if (refuelable is not null)
         {
             refuelable.allowAutoRefuel = false;
             OAFrame_ReflectionUtility.SetFieldValue(refuelable, "fuel", 0f);

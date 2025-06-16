@@ -149,7 +149,7 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
     protected bool DrawGeneDef(GeneDef gene, ref float curX, float curY, float packWidth, Rect containingRect)
     {
         bool result = false;
-        if (gene == null)
+        if (gene is null)
         {
             return result;
         }

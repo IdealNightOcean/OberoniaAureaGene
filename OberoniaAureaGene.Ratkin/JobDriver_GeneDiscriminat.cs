@@ -50,7 +50,7 @@ public class JobDriver_GeneDiscriminat : JobDriver
         this.FailOn(delegate
         {
             CompGeneDiscriminat containerComp = ContainerComp;
-            if (containerComp == null || containerComp.Full)
+            if (containerComp is null || containerComp.Full)
             {
                 return true;
             }

@@ -16,7 +16,7 @@ public class HediffComp_SnowExtreme : HediffComp
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         TraitSet traitSet = parent.pawn.story?.traits;
-        if (traitSet != null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
+        if (traitSet is not null && traitSet.HasTrait(OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor))
         {
             parent.Severity = 2f;
         }

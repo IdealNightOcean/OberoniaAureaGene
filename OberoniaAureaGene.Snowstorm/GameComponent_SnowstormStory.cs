@@ -64,7 +64,7 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         storyInProgress = true;
         satisfySnowstormCultist = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
@@ -73,7 +73,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StroyFail()
     {
         storyInProgress = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
             Hediff homecoming = protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
@@ -94,7 +94,7 @@ public class GameComponent_SnowstormStory : GameComponent
         }
         storyFinished = true;
         storyInProgress = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
@@ -141,7 +141,7 @@ public class GameComponent_SnowstormStory : GameComponent
 
     private void ProtagonistValidator()
     {
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             if (LongingForHome)
             {
@@ -170,13 +170,13 @@ public class GameComponent_SnowstormStory : GameComponent
             {
                 bool forceReset = false;
                 protagonist = Find.GameInitData?.startingAndOptionalPawns.Where(p => p.IsColonist)?.Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
-                if (protagonist == null)
+                if (protagonist is null)
                 {
                     forceReset = true;
                     protagonist = Find.AnyPlayerHomeMap?.mapPawns.FreeColonistsSpawned.RandomElementWithFallback(null);
                 }
                 Dialog_NodeTree outcomeTree;
-                if (protagonist == null)
+                if (protagonist is null)
                 {
                     outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
                 }

@@ -124,7 +124,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
         Pawn protagonist = parent.pawn;
         ThoughtDef homecoming = Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
-        if (memory == null)
+        if (memory is null)
         {
             memory = ThoughtMaker.MakeThought(homecoming, thoughtStage);
             memory.permanent = permanent;
@@ -156,7 +156,7 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     {
         base.CompPostMerged(other);
         HediffComp_ProtagonistHomecoming otherHomecomingComp = other.TryGetComp<HediffComp_ProtagonistHomecoming>();
-        if (otherHomecomingComp != null)
+        if (otherHomecomingComp is not null)
         {
             stage = Mathf.Max(stage, otherHomecomingComp.stage);
             longCherishedTrigged |= otherHomecomingComp.longCherishedTrigged;

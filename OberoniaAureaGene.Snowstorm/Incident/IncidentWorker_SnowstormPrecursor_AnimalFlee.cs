@@ -11,13 +11,13 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
     protected override bool CanFireNowSub(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        return map != null;
+        return map is not null;
     }
 
     public bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
-        return map != null;
+        return map is not null;
     }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
@@ -31,12 +31,12 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
         for (int i = 0; i < animals.Count; i++)
         {
             Pawn animal = animals[i];
-            if (animal == null)
+            if (animal is null)
             {
                 continue;
             }
             Job job = TryGiveExitJob(animal);
-            if (job != null)
+            if (job is not null)
             {
                 animal.jobs.TryTakeOrderedJob(job, JobTag.Escaping);
             }

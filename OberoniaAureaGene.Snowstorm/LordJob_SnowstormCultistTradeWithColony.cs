@@ -12,7 +12,7 @@ public class LordJob_SnowstormCultistTradeWithColony : LordJob_TradeWithColony
         base.Notify_PawnLost(p, condition);
         if (condition == PawnLostCondition.MadePrisoner)
         {
-            if (p.Faction != null && !p.Faction.HostileTo(Faction.OfPlayer))
+            if (p.Faction is not null && !p.Faction.HostileTo(Faction.OfPlayer))
             {
                 p.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile);
             }

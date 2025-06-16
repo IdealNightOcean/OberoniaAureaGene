@@ -40,7 +40,7 @@ public class Gene_SurivalInstic : Gene
         TempTargets.AddRange(pawn.Map.attackTargetsCache.GetPotentialTargetsFor(pawn));
         TempTargets.RemoveAll(t => !ValidTarget(t));
         Thing closestThing = GenClosest.ClosestThing_Global(pawn.Position, TempTargets, 30f);
-        if (closestThing != null)
+        if (closestThing is not null)
         {
             return pawn.Position.DistanceTo(closestThing.Position);
         }

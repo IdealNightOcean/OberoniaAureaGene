@@ -16,7 +16,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
     protected virtual void PostInit()
     {
         Map mainMap = GetMainMap();
-        if (mainMap != null)
+        if (mainMap is not null)
         {
             IncidentParms parms = new()
             {

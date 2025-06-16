@@ -16,7 +16,7 @@ public class IncidentWorker_SnowstormMaliceRaid_Reinforce : IncidentWorker_Snows
     }
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)
     {
-        if (pawns != null)
+        if (pawns is not null)
         {
             foreach (Pawn pawn in pawns)
             {

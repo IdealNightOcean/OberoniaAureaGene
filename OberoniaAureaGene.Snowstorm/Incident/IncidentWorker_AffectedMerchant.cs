@@ -39,7 +39,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
             return false;
         }
         Pawn pawn = SpawnPawn(parms);
-        if (pawn == null)
+        if (pawn is null)
         {
             return false;
         }
@@ -70,7 +70,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         pawn.inventory.DestroyAll();
         PawnInventoryGenerator.GiveRandomFood(pawn);
         ThingDef thingDef = DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d != ThingDefOf.WoodLog && d.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw)).RandomElement();
-        if (thingDef != null)
+        if (thingDef is not null)
         {
             Thing item = ThingMaker.MakeThing(thingDef);
             item.stackCount = Mathf.Max(1, (int)(MarketValueRange.RandomInRange / thingDef.BaseMarketValue));
@@ -82,7 +82,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
     {
         Map map = (Map)parms.target;
         PawnGroupMaker pawnGroupMaker = parms.faction.def.pawnGroupMakers.Where(p => p.kindDef == PawnGroupKindDefOf.Trader).RandomElementWithFallback(null);
-        if (pawnGroupMaker == null)
+        if (pawnGroupMaker is null)
         {
             return null;
         }

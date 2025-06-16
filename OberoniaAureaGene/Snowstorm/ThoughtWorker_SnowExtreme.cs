@@ -13,7 +13,7 @@ public class ThoughtWorker_SnowExtreme : ThoughtWorker
         }
 
         TraitSet traitSet = p.story.traits;
-        if (traitSet != null)
+        if (traitSet is not null)
         {
             for (int i = 0; i < traitSet.allTraits.Count; i++)
             {

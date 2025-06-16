@@ -60,7 +60,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     {
         base.CompPostMerged(other);
         HediffComp_ProtagonistHomecomed otherHomecomedComp = other.TryGetComp<HediffComp_ProtagonistHomecomed>();
-        if (otherHomecomedComp != null)
+        if (otherHomecomedComp is not null)
         {
             triggeredCount = Mathf.Max(triggeredCount, otherHomecomedComp.triggeredCount);
         }
@@ -75,7 +75,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
     protected static void RecachePermanentThought(Pawn protagonist, ThoughtDef thoughtDef, int stage)
     {
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(thoughtDef);
-        if (memory == null)
+        if (memory is null)
         {
             memory = ThoughtMaker.MakeThought(thoughtDef, stage);
             memory.permanent = true;

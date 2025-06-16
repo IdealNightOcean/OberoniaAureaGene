@@ -154,7 +154,7 @@ public class MapComponent_Snowstorm : MapComponent
         for (int i = 0; i < geothermalGenerators.Count; i++)
         {
             ThingWithComps generator = geothermalGenerators[i];
-            if (generator == null)
+            if (generator is null)
             {
                 continue;
             }
@@ -215,7 +215,7 @@ public class MapComponent_Snowstorm : MapComponent
         for (int i = 0; i < toxifiers.Count; i++)
         {
             CompPowerPlant_ToxifierSnowstorm toxifierComp = toxifiers[i];
-            if (toxifierComp == null)
+            if (toxifierComp is null)
             {
                 continue;
             }

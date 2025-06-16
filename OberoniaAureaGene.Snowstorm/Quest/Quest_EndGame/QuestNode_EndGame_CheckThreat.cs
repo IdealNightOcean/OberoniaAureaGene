@@ -20,7 +20,7 @@ public class QuestNode_EndGame_CheckThreat : QuestNode
     {
         Slate slate = QuestGen.slate;
         MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
-        if (hometown == null)
+        if (hometown is null)
         {
             return;
         }

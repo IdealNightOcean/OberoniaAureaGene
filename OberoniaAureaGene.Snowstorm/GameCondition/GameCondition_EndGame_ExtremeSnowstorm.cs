@@ -12,9 +12,9 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
     {
         get
         {
-            if (mainMap == null)
+            if (mainMap is null)
             {
-                if (gameConditionManager.ownerMap != null)
+                if (gameConditionManager.ownerMap is not null)
                 {
                     mainMap = gameConditionManager.ownerMap;
                 }
@@ -35,7 +35,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
             Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
 
             Map mainMap = MainMap;
-            if (mainMap != null)
+            if (mainMap is not null)
             {
                 causeColdSnap = TryAddFixedColdSnap(mainMap, DurationTick);
                 InitExtremeSnowstorm_MainMap(mainMap, DurationTick);

@@ -65,7 +65,7 @@ public class CompPawnGeneDamageModified : ThingComp, IPawnPreApplyDamage
         {
             return;
         }
-        if (dinfo.HitPart == null)
+        if (dinfo.HitPart is null)
         {
             BodyPartDepth bodyPartDepth = (dinfo.Depth == BodyPartDepth.Undefined) ? (Rand.Chance(0.75f) ? BodyPartDepth.Outside : BodyPartDepth.Inside) : dinfo.Depth;
             BodyPartRecord bodyPart = parentPawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, bodyPartDepth);

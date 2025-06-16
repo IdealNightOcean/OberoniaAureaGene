@@ -29,10 +29,10 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
         {
             return false;
         }
-        if (parms.faction == null)
+        if (parms.faction is null)
         {
             parms.faction = SnowstormUtility.RandomSnowstormMaliceRaidableFaction(map);
-            if (parms.faction == null)
+            if (parms.faction is null)
             {
                 return false;
             }
@@ -56,7 +56,7 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
     }
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)
     {
-        if (pawns != null)
+        if (pawns is not null)
         {
             foreach (Pawn pawn in pawns)
             {

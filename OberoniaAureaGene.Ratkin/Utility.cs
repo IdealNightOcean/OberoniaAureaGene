@@ -13,7 +13,7 @@ public static class OAGene_RatkinUtility
 
     public static bool IsRatkinKindomFaction(this Faction faction)
     {
-        if (faction == null || faction.def == null)
+        if (faction is null || faction.def is null)
         {
             return false;
         }

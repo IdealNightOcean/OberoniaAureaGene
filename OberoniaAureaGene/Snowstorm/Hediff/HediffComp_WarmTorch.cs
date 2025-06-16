@@ -33,7 +33,7 @@ public class HediffComp_WarmTorch : HediffComp
     {
         warmTorch = torch;
         CompWarmTorch torchComp = WarmTorchComp;
-        if (torchComp == null || torchComp.Holder != parent.pawn)
+        if (torchComp is null || torchComp.Holder != parent.pawn)
         {
             parent.pawn.health.RemoveHediff(parent);
         }
@@ -42,7 +42,7 @@ public class HediffComp_WarmTorch : HediffComp
     {
         Pawn holder = parent.pawn;
         CompWarmTorch torchComp = WarmTorchComp;
-        if (torchComp == null || torchComp.Holder != holder)
+        if (torchComp is null || torchComp.Holder != holder)
         {
             holder.health.RemoveHediff(parent);
             return;

@@ -32,7 +32,7 @@ public class WeatherEvent_IceCrystalsSpawn : WeatherEvent
         {
             Thing t = spawnThings[i];
             CompForbiddable forbiddable = t.TryGetComp<CompForbiddable>();
-            if (forbiddable != null)
+            if (forbiddable is not null)
             {
                 forbiddable.Forbidden = true;
             }

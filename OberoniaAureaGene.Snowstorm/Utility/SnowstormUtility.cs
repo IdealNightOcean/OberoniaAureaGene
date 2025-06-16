@@ -27,7 +27,7 @@ public static class SnowstormUtility
     public static GameCondition_ExtremeSnowstorm SnowstormCondition => Find.World.gameConditionManager.GetActiveCondition<GameCondition_ExtremeSnowstorm>();
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
-        if (map == null)
+        if (map is null)
         {
             return false;
         }
@@ -58,7 +58,7 @@ public static class SnowstormUtility
     public static void InitExtremeSnowstorm_MainMap(Map mainMap, int duration)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
-        if (mainMap == null)
+        if (mainMap is null)
         {
             return;
         }
@@ -82,7 +82,7 @@ public static class SnowstormUtility
     }
     public static void InitExtremeSnowstorm_AllMaps(Map map, int duration)
     {
-        if (map == null)
+        if (map is null)
         {
             return;
         }
@@ -95,7 +95,7 @@ public static class SnowstormUtility
     public static void EndExtremeSnowstorm_MainMap(Map mainMap)
     {
         mainMap ??= Find.AnyPlayerHomeMap;
-        if (mainMap == null)
+        if (mainMap is null)
         {
             return;
         }
@@ -104,7 +104,7 @@ public static class SnowstormUtility
     }
     public static void EndExtremeSnowstorm_AllMaps(Map map, bool slience = false)
     {
-        if (map == null)
+        if (map is null)
         {
             return;
         }
@@ -210,7 +210,7 @@ public static class SnowstormUtility
         FactionManager factionManager = Find.FactionManager;
         Faction playerFaction = Faction.OfPlayer;
         Faction faction = OAFrame_FactionUtility.RandomFactionOfDef(FactionDefOf.Pirate, allowDefeated: false, allowTemporary: true);
-        if (faction != null)
+        if (faction is not null)
         {
             return faction;
         }
@@ -241,11 +241,11 @@ public static class SnowstormUtility
             tempParms.raidStrategy = Snowstorm_MiscDefOf.OAGene_SnowstormImmediateAttackBreaching;
             tempParms.faction = fa;
             RaidStrategyDef strategyDef = tempParms.raidStrategy;
-            if (strategyDef == null || !strategyDef.Worker.CanUseWith(tempParms, PawnGroupKindDefOf.Combat))
+            if (strategyDef is null || !strategyDef.Worker.CanUseWith(tempParms, PawnGroupKindDefOf.Combat))
             {
                 return false;
             }
-            if (tempParms.raidArrivalMode != null)
+            if (tempParms.raidArrivalMode is not null)
             {
                 return true;
             }
@@ -295,7 +295,7 @@ public static class SnowstormUtility
 
     public static void AddNewMapIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
     {
-        if (targetMap == null)
+        if (targetMap is null)
         {
             Log.Error("Try add a map incident, but targetMap is NULL");
             return;

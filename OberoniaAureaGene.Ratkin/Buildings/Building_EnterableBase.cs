@@ -63,7 +63,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         }
         if (base.Working)
         {
-            if (ContainedPawn == null)
+            if (ContainedPawn is null)
             {
                 CancelWork();
                 return;
@@ -84,7 +84,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                 if (powerCutTicks >= 60000)
                 {
                     Pawn containedPawn = ContainedPawn;
-                    if (containedPawn != null)
+                    if (containedPawn is not null)
                     {
                         Messages.Message("GeneExtractorNoPowerEjectedMessage".Translate(containedPawn.Named("PAWN")), containedPawn, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
@@ -93,14 +93,14 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                 }
             }
         }
-        else if (selectedPawn != null && selectedPawn.Dead)
+        else if (selectedPawn is not null && selectedPawn.Dead)
         {
             CancelWork();
         }
     }
     protected void TickEffects()
     {
-        if (sustainerWorking == null || sustainerWorking.Ended)
+        if (sustainerWorking is null || sustainerWorking.Ended)
         {
             sustainerWorking = SoundDefOf.GeneExtractor_Working.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
         }
@@ -111,7 +111,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         progressBar ??= EffecterDefOf.ProgressBarAlwaysVisible.Spawn();
         progressBar.EffectTick(new TargetInfo(base.Position + IntVec3.North.RotatedBy(base.Rotation), base.Map), TargetInfo.Invalid);
         MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBar.children[0]).mote;
-        if (mote != null)
+        if (mote is not null)
         {
             mote.progress = 1f - Mathf.Clamp01((float)ticksRemaining / allTicks);
             mote.offsetZ = ((base.Rotation == Rot4.North) ? 0.5f : (-0.5f));
@@ -129,7 +129,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         {
             return false;
         }
-        if (selectedPawn != null && selectedPawn != pawn)
+        if (selectedPawn is not null && selectedPawn != pawn)
         {
             return false;
         }
@@ -202,7 +202,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             yield break;
         }
         FloatMenuOption fOpt = FloatMenuOption_InsertPerson(selPawn);
-        if (fOpt != null)
+        if (fOpt is not null)
         {
             yield return fOpt;
         }
@@ -262,7 +262,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             }
             yield break;
         }
-        if (selectedPawn != null)
+        if (selectedPawn is not null)
         {
             Command_Action command_Action3 = new()
             {
@@ -327,7 +327,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
     {
         base.DynamicDrawPhaseAt(phase, drawLoc, flip);
-        if (base.Working && ContainedPawn != null)
+        if (base.Working && ContainedPawn is not null)
         {
             ContainedPawn.Drawer.renderer.DynamicDrawPhaseAt(phase, drawLoc + PawnDrawOffset, null, neverAimWeapon: true);
         }
@@ -342,11 +342,11 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     protected virtual string PostGetInspectString()
     {
         StringBuilder text = new();
-        if (selectedPawn != null && innerContainer.Count == 0)
+        if (selectedPawn is not null && innerContainer.Count == 0)
         {
             text.AppendInNewLine("WaitingForPawn".Translate(selectedPawn.Named("PAWN")).Resolve());
         }
-        else if (base.Working && ContainedPawn != null)
+        else if (base.Working && ContainedPawn is not null)
         {
             if (PowerOn)
             {

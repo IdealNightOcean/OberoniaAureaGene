@@ -27,7 +27,7 @@ public static class AllLaunchableThingsForTrade_Patch
                 foreach (Thing bank in geneBanks)
                 {
                     CompGenepackContainer compGenepackContainer = bank.TryGetComp<CompGenepackContainer>();
-                    if (compGenepackContainer == null)
+                    if (compGenepackContainer is null)
                     {
                         continue;
                     }

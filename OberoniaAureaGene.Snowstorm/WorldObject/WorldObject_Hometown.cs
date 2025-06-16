@@ -110,7 +110,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
     }
     public override void Arrived(Caravan caravan)
     {
-        if (hometown == null)
+        if (hometown is null)
         {
             return;
         }
@@ -145,7 +145,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
         {
             return floatMenuAcceptanceReport;
         }
-        if (hometown == null || hometown.Tile != destinationTile)
+        if (hometown is null || hometown.Tile != destinationTile)
         {
             return false;
         }
@@ -160,7 +160,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
 
     public static FloatMenuAcceptanceReport CanVisit(WorldObject_Hometown hometown)
     {
-        if (hometown == null || !hometown.Spawned)
+        if (hometown is null || !hometown.Spawned)
         {
             return false;
         }
