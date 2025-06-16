@@ -37,7 +37,7 @@ public class CompPowerPlant_ToxifierSnowstorm : CompPowerPlant
             }
         }
     }
-    public override void PostDeSpawn(Map map)
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         Notify_Snowstorm(state: false);
         MapComponent_Snowstorm snowstormMapComp = map.SnowstormMapComp();
@@ -48,7 +48,7 @@ public class CompPowerPlant_ToxifierSnowstorm : CompPowerPlant
                 snowstormMapComp.toxifiers.Remove(this);
             }
         }
-        base.PostDeSpawn(map);
+        base.PostDeSpawn(map, mode);
     }
     public void Notify_Snowstorm(bool state)
     {

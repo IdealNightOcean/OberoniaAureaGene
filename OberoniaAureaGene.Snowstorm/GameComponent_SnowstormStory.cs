@@ -28,11 +28,11 @@ public class GameComponent_SnowstormStory : GameComponent
 
     public MapParent hometown;
     public Map hometownMap;
-    public int hometownTile = Tile.Invalid;
+    public PlanetTile hometownTile = PlanetTile.Invalid;
     public bool satisfySnowstormCultist;
 
 
-    public GameComponent_SnowstormStory(Game game) 
+    public GameComponent_SnowstormStory(Game game)
     {
         Snowstorm_StoryUtility.StoryGameComp = this;
     }
@@ -57,7 +57,7 @@ public class GameComponent_SnowstormStory : GameComponent
         hometown = null;
         if (clearTile)
         {
-            hometownTile = Tile.Invalid;
+            hometownTile = PlanetTile.Invalid;
         }
     }
     public void Notify_StoryInProgress()
@@ -226,7 +226,7 @@ public class GameComponent_SnowstormStory : GameComponent
 
         Scribe_References.Look(ref hometown, "hometown");
         Scribe_References.Look(ref hometownMap, "hometownMap");
-        Scribe_Values.Look(ref hometownTile, "hometownTile", Tile.Invalid);
+        Scribe_Values.Look(ref hometownTile, "hometownTile", PlanetTile.Invalid);
         Scribe_Values.Look(ref satisfySnowstormCultist, "satisfySnowstormCultist", defaultValue: false);
     }
 }

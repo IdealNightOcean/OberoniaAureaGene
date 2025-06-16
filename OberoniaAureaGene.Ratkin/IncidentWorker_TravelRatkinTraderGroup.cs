@@ -9,14 +9,15 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
     protected static readonly IntRange TraderCount = new(3, 4);
     protected static readonly IntRange DelayTicks = new(20000, 24000);
 
-    protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+    public override bool FactionCanBeGroupSource(Faction f, IncidentParms parms, bool desperate = false)
     {
         if (f.def != OAGene_RatkinDefOf.Rakinia_TravelRatkin)
         {
             return false;
         }
-        return base.FactionCanBeGroupSource(f, map, desperate);
+        return base.FactionCanBeGroupSource(f, parms, desperate);
     }
+
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;

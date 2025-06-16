@@ -136,7 +136,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         base.DeSpawn(mode);
     }
 
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
         if (this.IsHashIntervalTick(250))

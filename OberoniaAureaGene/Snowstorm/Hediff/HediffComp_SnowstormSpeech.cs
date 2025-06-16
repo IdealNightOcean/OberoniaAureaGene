@@ -9,7 +9,7 @@ namespace OberoniaAureaGene;
 public class HediffCompProperties_SnowstormSpeech : HediffCompProperties
 {
     public RulePackDef speechRulePack;
-    public IntRange speechSection = IntRange.one;
+    public IntRange speechSection = IntRange.One;
     public IntRange speechInterval = new(2500, 5000);
     public HediffCompProperties_SnowstormSpeech()
     {

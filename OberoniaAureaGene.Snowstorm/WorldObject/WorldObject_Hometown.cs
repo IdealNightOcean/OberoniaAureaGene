@@ -138,7 +138,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
             Messages.Message("OAGene_Message_NoProtagonist".Translate(), hometown, MessageTypeDefOf.RejectInput, historical: false);
         }
     }
-    public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
+    public override FloatMenuAcceptanceReport StillValid(Caravan caravan, PlanetTile destinationTile)
     {
         FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(caravan, destinationTile);
         if (!floatMenuAcceptanceReport)

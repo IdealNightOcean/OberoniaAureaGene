@@ -33,7 +33,7 @@ public class WeatherEvent_SnowStormBreakRoof : WeatherEvent
         {
             return;
         }
-        List<Room> potentialRooms = map.regionGrid.allRooms.Where(r => !r.IsDoorway).InRandomOrder().Take(AfftectRoomRange.RandomInRange).ToList();
+        List<Room> potentialRooms = map.regionGrid.AllRooms.Where(r => !r.IsDoorway).InRandomOrder().Take(AfftectRoomRange.RandomInRange).ToList();
         if (!potentialRooms.Any())
         {
             return;

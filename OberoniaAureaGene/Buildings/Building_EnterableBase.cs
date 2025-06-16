@@ -53,10 +53,10 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         base.DeSpawn(mode);
     }
 
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
-        innerContainer.ThingOwnerTick();
+        innerContainer.DoTick();
         if (this.IsHashIntervalTick(250))
         {
             compPower.PowerOutput = (base.Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
@@ -125,7 +125,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
 
     public override AcceptanceReport CanAcceptPawn(Pawn pawn)
     {
-        if (!pawn.IsColonist && !pawn.IsSlaveOfColony && !pawn.IsPrisonerOfColony && (!pawn.IsColonyMutant || !pawn.IsGhoul))
+        if (!pawn.IsColonist && !pawn.IsSlaveOfColony && !pawn.IsPrisonerOfColony && (!pawn.IsColonySubhuman || !pawn.IsGhoul))
         {
             return false;
         }

@@ -24,7 +24,7 @@ public class FixCaravan_EspionageSite : FixedCaravan
         return stringBuilder.ToString();
     }
 
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
         ticksRemaining--;

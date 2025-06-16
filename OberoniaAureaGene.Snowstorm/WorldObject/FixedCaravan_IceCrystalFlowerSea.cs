@@ -12,7 +12,7 @@ public class FixedCaravan_IceCrystalFlowerSea : FixedCaravan
 {
     public WorldObject_IceCrystalFlowerSea assoicateFlowerSea;
 
-    public override void Tick()
+    protected override void Tick()
     {
         ticksRemaining--;
         if (ticksRemaining < 0)

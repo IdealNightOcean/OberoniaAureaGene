@@ -15,7 +15,7 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
     public SlateRef<string> storeAs;
     protected override bool TestRunInt(Slate slate)
     {
-        if (GetHometownTile(out int hometownTile))
+        if (GetHometownTile(out PlanetTile hometownTile))
         {
             slate.Set(storeAs.GetValue(slate), hometownTile);
             return true;
@@ -28,22 +28,22 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        if (GetHometownTile(out int hometownTile))
+        if (GetHometownTile(out PlanetTile hometownTile))
         {
             slate.Set(storeAs.GetValue(slate), hometownTile);
         }
     }
 
-    protected bool GetHometownTile(out int hometownTile)
+    protected bool GetHometownTile(out PlanetTile hometownTile)
     {
-        hometownTile = Tile.Invalid;
+        hometownTile = PlanetTile.Invalid;
         GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
         if (storyGameComp == null)
         {
             return false;
         }
         hometownTile = storyGameComp.hometownTile;
-        if (hometownTile == Tile.Invalid)
+        if (!hometownTile.Valid)
         {
             WorldObject hometown_Sealed = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstorm_MiscDefOf.OAGene_Hometown_Sealed).FirstOrFallback(null);
             if (hometown_Sealed != null)
@@ -58,11 +58,11 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         return true;
     }
 
-    protected static bool GetNewHometownTile(out int tile)
+    protected static bool GetNewHometownTile(out PlanetTile tile)
     {
-        tile = Tile.Invalid;
+        tile = PlanetTile.Invalid;
 
-        if (!TryFindRootTile(out int rootTile))
+        if (!TryFindRootTile(out PlanetTile rootTile))
         {
             return false;
         }
@@ -70,11 +70,11 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         return TryFindDestinationTileActual(rootTile, out tile);
     }
 
-    private static bool TryFindRootTile(out int rootTile)
+    private static bool TryFindRootTile(out PlanetTile rootTile)
     {
-        return TileFinder.TryFindRandomPlayerTile(out rootTile, allowCaravans: false, (int r) => TryFindDestinationTileActual(r, out int tempTile));
+        return TileFinder.TryFindRandomPlayerTile(out rootTile, allowCaravans: false, (PlanetTile r) => TryFindDestinationTileActual(r, out PlanetTile tempTile));
     }
-    private static bool TryFindDestinationTileActual(int rootTile, out int tile)
+    private static bool TryFindDestinationTileActual(PlanetTile rootTile, out PlanetTile tile)
     {
 
         for (int i = 0; i < 2; i++)
@@ -88,13 +88,13 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         tile = -1;
         return false;
 
-        static bool TileValidator(int t)
+        static bool TileValidator(PlanetTile t)
         {
             if (Find.WorldObjects.AnyWorldObjectAt(t))
             {
                 return false;
             }
-            BiomeDef biome = Find.WorldGrid[t].biome;
+            BiomeDef biome = Find.WorldGrid[t].PrimaryBiome;
             if (!biome.canBuildBase || !biome.canAutoChoose)
             {
                 return false;

@@ -3,7 +3,7 @@ using Verse;
 
 namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
-public class WeatherOverlay_SnowExtreme : SkyOverlay
+public class WeatherOverlay_SnowExtreme : WeatherOverlayDualPanner
 {
     private static readonly Material SnowOverlayWorld = MatLoader.LoadMat("Weather/SnowOverlayWorld");
 
@@ -16,8 +16,7 @@ public class WeatherOverlay_SnowExtreme : SkyOverlay
         worldOverlayPanSpeed2 = 0.018f;
         worldPanDir2 = new Vector2(-0.72f, -1f);
         worldPanDir2.Normalize();
-        forceOverlayColor = true;
-        forcedColor = new Color(0.6f, 1f, 1f);
+        ForcedOverlayColor = new Color(0.6f, 1f, 1f);
     }
 }
 

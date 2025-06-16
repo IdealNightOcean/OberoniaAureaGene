@@ -12,41 +12,12 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 {
     private struct SiteSpawnCandidate
     {
-        public int tile;
+        public PlanetTile tile;
 
         public SitePartDef sitePart;
     }
 
-    private const int SpawnRange = 9;
-
-    private const int MinSpawnDist = 3;
-
-    private const float MinPointsForSurpriseReinforcements = 400f;
-
-    private const float SurpriseReinforcementChance = 0.35f;
-
-    private static readonly SimpleCurve ExistingCampsAppearanceFrequencyMultiplier =
-    [
-        new CurvePoint(0f, 1f),
-        new CurvePoint(2f, 1f),
-        new CurvePoint(3f, 0.3f),
-        new CurvePoint(4f, 0.1f)
-    ];
-
-    private const float MinPoints = 40f;
-
-    private const string SitePartTag = "WorkSite";
-
     private static readonly FloatRange RewardValue = new(9000f, 12000f);
-
-    private static bool AnySpawnCandidate(int aroundTile)
-    {
-        if (Find.WorldGrid[GetCandidates(aroundTile).tile].biome.campSelectionWeight > 0f)
-        {
-            return true;
-        }
-        return false;
-    }
 
     private static Faction GetQuestFaction()
     {
@@ -57,17 +28,17 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     {
         return Find.FactionManager.AllFactionsListForReading.Where(f => !f.defeated && !f.temporary && f != questFaction && f.IsRatkinKindomFaction()).RandomElementWithFallback();
     }
-    private static SiteSpawnCandidate GetCandidates(int aroundTile)
+    private static SiteSpawnCandidate GetCandidates(PlanetTile aroundTile)
     {
         SitePartDef sitePart = OAGene_RimWorldDefOf.WorkSite_Farming;
         SitePartWorker_WorkSite worker = (SitePartWorker_WorkSite)sitePart.Worker;
-        List<int> potentialTiles = PotentialSiteTiles(aroundTile);
+        List<PlanetTile> potentialTiles = PotentialSiteTiles(aroundTile);
         SiteSpawnCandidate candidate = new()
         {
             sitePart = sitePart,
-            tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(-1)
+            tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(PlanetTile.Invalid)
         };
-        if (candidate.tile == -1)
+        if (!candidate.tile.Valid)
         {
             candidate.tile = potentialTiles.RandomElement();
         }
@@ -124,10 +95,10 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         return site;
     }
 
-    public static List<int> PotentialSiteTiles(int root)
+    public static List<PlanetTile> PotentialSiteTiles(PlanetTile root)
     {
-        List<int> tiles = [];
-        Find.WorldFloodFiller.FloodFill(root, (int p) => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, root) <= 9f, delegate (int p)
+        List<PlanetTile> tiles = [];
+        root.Layer.Filler.FloodFill(root, (PlanetTile p) => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, root) <= 9f, delegate (PlanetTile p)
         {
             if (Find.WorldGrid.ApproxDistanceInTiles(p, root) >= 3f)
             {

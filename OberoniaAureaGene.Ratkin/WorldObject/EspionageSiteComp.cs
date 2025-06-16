@@ -178,7 +178,7 @@ public class CaravanArrivalAction_EspionageSiteComp : CaravanArrivalAction
     {
         site.GetComponent<EspionageSiteComp>()?.Espionage(caravan);
     }
-    public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
+    public override FloatMenuAcceptanceReport StillValid(Caravan caravan, PlanetTile destinationTile)
     {
         if (site == null)
         {

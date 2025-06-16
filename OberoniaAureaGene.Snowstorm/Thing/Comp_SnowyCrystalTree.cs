@@ -18,11 +18,13 @@ public class Comp_SnowyCrystalTree : CompTempControl
         Snowstorm_MiscUtility.SnowstormMapComp(parent.Map)?.snowyCrystalTreeComps.Add(this);
         treeCoolerCondition = TryInitGameCondiation(parent.Map);
     }
-    public override void PostDeSpawn(Map map)
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         Snowstorm_MiscUtility.SnowstormMapComp(map)?.snowyCrystalTreeComps.Remove(this);
-        base.PostDeSpawn(map);
+        base.PostDeSpawn(map, mode);
     }
+
     public override void CompTickRare()
     {
         base.CompTickRare();

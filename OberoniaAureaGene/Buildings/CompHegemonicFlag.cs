@@ -25,7 +25,7 @@ public class CompHegemonicFlag : ThingComp
         }
     }
 
-    public override void PostDeSpawn(Map map)
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         if (oaGene_MCOAG != null && registed)
         {

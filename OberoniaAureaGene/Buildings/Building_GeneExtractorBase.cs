@@ -71,10 +71,10 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         base.DeSpawn(mode);
     }
 
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
-        innerContainer.ThingOwnerTick();
+        innerContainer.DoTick();
         if (this.IsHashIntervalTick(250))
         {
             compPower.PowerOutput = (base.Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
@@ -143,7 +143,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
 
     public override AcceptanceReport CanAcceptPawn(Pawn pawn)
     {
-        if (!pawn.IsColonist && !pawn.IsSlaveOfColony && !pawn.IsPrisonerOfColony && (!pawn.IsColonyMutant || !pawn.IsGhoul))
+        if (!pawn.IsColonist && !pawn.IsSlaveOfColony && !pawn.IsPrisonerOfColony && (!pawn.IsColonySubhuman || !pawn.IsGhoul))
         {
             return false;
         }

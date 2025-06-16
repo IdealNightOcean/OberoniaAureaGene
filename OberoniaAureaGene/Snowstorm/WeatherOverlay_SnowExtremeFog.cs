@@ -4,7 +4,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-public class WeatherOverlay_SnowExtremeFog : SkyOverlay
+public class WeatherOverlay_SnowExtremeFog : WeatherOverlayDualPanner
 {
     private static readonly Material FogOverlayWorld = MatLoader.LoadMat("Weather/BloodFogOverlayWorld");
 
@@ -17,7 +17,6 @@ public class WeatherOverlay_SnowExtremeFog : SkyOverlay
         worldPanDir1.Normalize();
         worldPanDir2 = new Vector2(0.5f, -0.1f);
         worldPanDir2.Normalize();
-        forceOverlayColor = true;
-        forcedColor = new Color(0.6f, 1f, 1f);
+        ForcedOverlayColor = new Color(0.6f, 1f, 1f);
     }
 }

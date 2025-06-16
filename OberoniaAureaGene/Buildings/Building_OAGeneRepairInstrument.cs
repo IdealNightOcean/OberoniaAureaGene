@@ -31,7 +31,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         }
         return true;
     }
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
         searchTicksRemaining--;

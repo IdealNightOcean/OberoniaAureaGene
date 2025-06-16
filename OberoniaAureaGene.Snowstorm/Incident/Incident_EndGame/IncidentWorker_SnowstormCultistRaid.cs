@@ -8,7 +8,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
 {
-    protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+    public override bool FactionCanBeGroupSource(Faction f, IncidentParms parms, bool desperate = false)
     {
         if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
         {

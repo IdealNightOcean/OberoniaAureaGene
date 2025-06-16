@@ -15,7 +15,7 @@ public class SitePartWorker_SnowstormCamp : SitePartWorker_Outpost
         sitePart.expectedEnemyCount = EnemyCountRange.RandomInRange;
     }
 
-    public override SitePartParams GenerateDefaultParams(float myThreatPoints, int tile, Faction faction)
+    public override SitePartParams GenerateDefaultParams(float myThreatPoints, PlanetTile tile, Faction faction)
     {
         SitePartParams sitePartParams = new()
         {
