@@ -66,12 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
-    <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="Snowstorm\MapComponent_LongSnowstorm.cs" />
     <Compile Include="Snowstorm\CompPowerNormalPlantWind.cs" />
-    <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
-    <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_SnowstormSpeech.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_WarmTorch.cs" />
@@ -82,10 +78,7 @@
     <Compile Include="Utility\ModMain.cs" />
     <Compile Include="Utility\DefOf.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_MonarchyBased.cs" />
-    <Compile Include="Misc\Dialog_CreateDiscriminatGene.cs" />
-    <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_OurTerritory.cs" />
-    <Compile Include="Buildings\CompHegemonicFlag.cs" />
     <Compile Include="Snowstorm\Hediff\HediffGiver_SnowExtremeMechanoidBase.cs" />
     <Compile Include="Snowstorm\Hediff\HediffComp_SnowExtreme.cs" />
     <Compile Include="Snowstorm\Hediff\HediffGiver_SnowExtremeBase.cs" />
@@ -117,13 +110,6 @@
     <Compile Include="Genes\Gene_PermanentChance.cs" />
     <Compile Include="HarmonyPatch\CompBiosculpterPod_Patch.cs" />
     <Compile Include="ConditionalStatAffecter\ConditionalStatAffecter_TemperatureRange.cs" />
-    <Compile Include="Buildings\Building_GeneExtractorBase.cs" />
-    <Compile Include="Misc\Dialog_CreateExtractGenes.cs" />
-    <Compile Include="Buildings\Building_RatkinGeneDiscriminator.cs" />
-    <Compile Include="Buildings\Building_OARatkinGeneDiscriminator.cs" />
-    <Compile Include="Buildings\Building_RatkinDestructiveGeneExtractor.cs" />
-    <Compile Include="Buildings\Building_OAGeneFragmentInterceptor.cs" />
-    <Compile Include="Buildings\Building_EnterableBase.cs" />
     <Compile Include="Genes\Gene_PartIncomingDamageFactor.cs" />
     <Compile Include="Genes\Gene_SurivalInstic.cs" />
     <Compile Include="HarmonyPatch\DiseaseContractChanceFactor_Patch.cs" />

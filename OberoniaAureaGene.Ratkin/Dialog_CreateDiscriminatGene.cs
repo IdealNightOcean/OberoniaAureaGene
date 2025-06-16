@@ -5,7 +5,8 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
+
 public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
 {
     private readonly Building_GeneDiscriminatorBase geneDiscriminator;

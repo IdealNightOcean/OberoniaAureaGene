@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Verse;
 using Verse.AI;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(Pawn_TraderTracker), "ColonyThingsWillingToBuy")]
@@ -30,7 +30,7 @@ public static class ColonyThingsWillingToBuy_Patch
             yield break;
         }
         Pawn pawn = __state;
-        List<Building> geneBanks = pawn.Map.listerBuildings.AllBuildingsColonistOfDef(OAGene_MiscDefOf.OAGene_OAGeneBank);
+        List<Building> geneBanks = pawn.Map.listerBuildings.AllBuildingsColonistOfDef(OAGene_RatkinDefOf.OAGene_OAGeneBank);
         foreach (Building bank in geneBanks)
         {
             if (!ReachableForTrade(pawn, bank))

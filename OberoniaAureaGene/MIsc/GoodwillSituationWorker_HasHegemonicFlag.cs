@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -14,8 +15,7 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
             IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
             foreach (Map map in playerHomes)
             {
-                MapComponent_OberoniaAureaGene oaGene_MCOAG = map.OAGeneMapComp();
-                if (oaGene_MCOAG != null && oaGene_MCOAG.HasHegemonicFlag)
+                if (OAFrame_MapUtility.GetSpecialBuildingManager(map)?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false)
                 {
                     return def.naturalGoodwillOffset;
                 }

@@ -1,18 +1,18 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
-public class Building_RatkinGeneDiscriminator : Building_GeneDiscriminatorBase
+public class Building_OARatkinGeneDiscriminator : Building_GeneDiscriminatorBase
 {
     protected override int TicksToDiscriminat => 180000;
     protected static readonly SimpleCurve FailChanceCurve =
     [
         new CurvePoint(1f, 0f),
-        new CurvePoint(2f, 0.4f),
-        new CurvePoint(3f, 0.6f),
-        new CurvePoint(4f, 0.8f)
+        new CurvePoint(2f, 0.25f),
+        new CurvePoint(3f, 0.4f),
+        new CurvePoint(4f, 0.55f)
     ];
 
     protected override void FinishWork()

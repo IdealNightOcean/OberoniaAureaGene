@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
 {

@@ -6,7 +6,7 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 public abstract class Building_GeneDiscriminatorBase : Building
 {

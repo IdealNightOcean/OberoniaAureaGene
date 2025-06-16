@@ -5,7 +5,7 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 public class Dialog_ExtractGenes : GeneCreationDialogBase
 {

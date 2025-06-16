@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
+
 public class CompProperties_GeneDiscriminat : CompProperties_GenepackContainer
 {
     public CompProperties_GeneDiscriminat()

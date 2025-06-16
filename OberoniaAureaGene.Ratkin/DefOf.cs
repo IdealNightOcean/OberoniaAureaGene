@@ -23,6 +23,9 @@ public static class OAGene_RatkinDefOf
     public static ThingDef Ratkin;
     public static ThingDef Ratkin_Su;
 
+    [MayRequire("OARK.RatkinFaction.OberoniaAurea")]
+    public static ThingDef OAGene_OAGeneBank; //金鸢尾兰基因储存箱
+
     public static WorldObjectDef OAGene_FixedCaravan_Espionage;
 
     public static XenotypeDef OAGene_RatkinBase;

@@ -66,8 +66,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
+    <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
+    <Compile Include="Buildings\Building_EnterableBase.cs" />
+    <Compile Include="Buildings\Building_GeneExtractorBase.cs" />
+    <Compile Include="Buildings\Building_OAGeneFragmentInterceptor.cs" />
+    <Compile Include="Buildings\Building_OAGeneRepairInstrument.cs" />
+    <Compile Include="Buildings\Building_OARatkinGeneDiscriminator.cs" />
+    <Compile Include="Buildings\Building_RatkinDestructiveGeneExtractor.cs" />
+    <Compile Include="Buildings\Building_RatkinGeneDiscriminator.cs" />
+    <Compile Include="Buildings\CompGeneDiscriminat.cs" />
     <Compile Include="DefOf.cs" />
-    <Compile Include="GetInheritedGeneSet_Patch.cs" />
+    <Compile Include="Dialog_CreateDiscriminatGene.cs" />
+    <Compile Include="Dialog_CreateExtractGenes.cs" />
+    <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
+    <Compile Include="HarmonyPatch\GetInheritedGeneSet_Patch.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
     <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
     <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />
@@ -75,7 +88,7 @@
     <Compile Include="Quest\QuestNode_GetRatKinKindomFaction.cs" />
     <Compile Include="Quest\QuestPart_InitiateEspionage.cs" />
     <Compile Include="WorldObject\EspionageSiteComp.cs" />
-    <Compile Include="ImplantXenogermItem_Patch.cs" />
+    <Compile Include="HarmonyPatch\ImplantXenogermItem_Patch.cs" />
     <Compile Include="ModExtension.cs" />
     <Compile Include="Gene_Ratkin.cs" />
     <Compile Include="Gene_RatkinTail.cs" />

@@ -8,7 +8,7 @@ using Verse;
 using Verse.AI;
 using Verse.Sound;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 public abstract class Building_EnterableBase : Building_Enterable, IThingHolderWithDrawnPawn, IThingHolder
 {

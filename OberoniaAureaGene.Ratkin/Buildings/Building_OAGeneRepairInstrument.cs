@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
 public class Building_OAGeneRepairInstrument : Building_EnterableBase
