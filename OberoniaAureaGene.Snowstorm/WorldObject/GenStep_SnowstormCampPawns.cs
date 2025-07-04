@@ -21,7 +21,7 @@ public class GenStep_SnowstormCampPawns : GenStep
             baseCenter = map.Center;
         }
         Faction faction = parms.sitePart.site.Faction;
-        Lord singlePawnLord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter), map);
+        Lord singlePawnLord = LordMaker.MakeNewLord(faction, new LordJob_DefendBase(faction, baseCenter, 25000), map);
         TraverseParms traverseParms = TraverseParms.For(TraverseMode.PassDoors);
         PawnKindDef pawnKind = ModsConfig.IdeologyActive ? PawnKindDefOf.WellEquippedTraveler : PawnKindDefOf.Villager;
 

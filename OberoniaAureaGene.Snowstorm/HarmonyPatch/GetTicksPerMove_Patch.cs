@@ -8,13 +8,13 @@ namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(CaravanTicksPerMoveUtility), "GetTicksPerMove",
-    [typeof(List<Pawn>), typeof(float), typeof(float), typeof(StringBuilder)])]
+    [typeof(List<Pawn>), typeof(float), typeof(float), typeof(bool), typeof(StringBuilder)])]
 public static class GetTicksPerMove_Patch
 {
     [HarmonyPostfix]
-    public static void Postfix(ref int __result, List<Pawn> pawns, float massUsage, float massCapacity, StringBuilder explanation = null)
+    public static void Postfix(ref int __result, List<Pawn> pawns, float massUsage, float massCapacity, bool isShuttle = false, StringBuilder explanation = null)
     {
-        if (__result == 3300)
+        if (isShuttle || __result == 3300)
         {
             return;
         }
