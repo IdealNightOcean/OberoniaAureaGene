@@ -76,8 +76,8 @@ public class GameComponent_SnowstormStory : GameComponent
         if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
-            Hediff homecoming = protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-            homecoming?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
+            Hediff_ProtagonistHomecoming homecoming = (Hediff_ProtagonistHomecoming)protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            homecoming?.RecacheDiaryAndThoughtNow(slience: true);
         }
 
     }

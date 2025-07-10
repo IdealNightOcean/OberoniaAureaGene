@@ -121,7 +121,7 @@
     <Compile Include="GameCondition\GameCondition_IceRain.cs" />
     <Compile Include="GameCondition\GameCondition_Icestorm.cs" />
     <Compile Include="HarmonyPatch\CommsConsole_FailurePatch.cs" />
-    <Compile Include="Hediff\HediffComp_ProtagonistHomecoming.cs" />
+    <Compile Include="Hediff\Hediff_ProtagonistHomecoming.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormCultistConvert.cs" />
     <Compile Include="Incident\IncidentWorker_HuskyMigration.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />
