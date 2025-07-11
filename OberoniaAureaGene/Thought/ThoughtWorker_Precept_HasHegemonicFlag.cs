@@ -11,7 +11,7 @@ public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
     private static SimpleMapCahce<bool> mapCache = new(cacheInterval: 30000, defaultValue: false, onlyPlayerHome: true, HasHegemonicFlag);
     protected override ThoughtState ShouldHaveThought(Pawn p)
     {
-        if (!ModsConfig.IdeologyActive || !p.Faction.IsPlayerFaction())
+        if (!ModsConfig.IdeologyActive || !p.Faction.IsPlayerSafe())
         {
             return ThoughtState.Inactive;
         }

@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -19,7 +18,7 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
     protected override void PostSpeechAction()
     {
         Pawn preacher = parent.pawn;
-        if (preacher.Faction.IsPlayerFaction())
+        if (preacher.Faction.IsPlayerSafe())
         {
             preacher.health.RemoveHediff(parent);
             return;
