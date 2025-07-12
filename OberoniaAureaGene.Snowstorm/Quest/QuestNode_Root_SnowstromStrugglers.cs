@@ -1,17 +1,13 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
-using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
 public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
 {
-    protected override IntRange LodgerCount => new(2, 4);
     private static readonly IntRange FoodCount = new(5, 7);
     protected override bool TestRunInt(Slate slate)
     {
@@ -26,96 +22,39 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         }
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false) is not null;
     }
+    protected override QuestParameter InitQuestParameter(Faction faction)
+    {
+        return new QuestParameter(faction, QuestGen_Get.GetMap())
+        {
+            allowAssaultColony = false,
+            allowLeave = false,
+            allowBadThought = false,
+            LodgerCount = Rand.RangeInclusive(2, 4),
+            ChildCount = 0,
+            questDurationTicks = Rand.RangeInclusive(5, 10) * 60000,
+            goodwillSuccess = 25,
+            goodwillFailure = -25
+        };
+    }
+
     protected override Faction GetOrGenerateFaction()
     {
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false);
     }
-    protected override List<Pawn> GeneratePawns(int lodgerCount, int childCount, Faction faction, Map map, Quest quest, string lodgerRecruitedSignal = null)
+
+    protected override void PostPawnGenerated(Pawn pawn)
     {
-        List<Pawn> pawns = [];
-        for (int i = 0; i < lodgerCount; i++)
-        {
-            DevelopmentalStage developmentalStages = (i > 0 && i >= lodgerCount - childCount) ? DevelopmentalStage.Child : DevelopmentalStage.Adult;
-            PawnGenerationRequest request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Refugee, faction, forceNew: true);
-            request.ForceAddFreeWarmLayerIfNeeded = true;
-            request.AllowedDevelopmentalStages = developmentalStages;
-
-            Pawn pawn = quest.GeneratePawn(request);
-            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
-            pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
-            Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
-            food.stackCount = FoodCount.RandomInRange;
-            pawn.inventory.innerContainer.TryAdd(food);
-
-            pawns.Add(pawn);
-            quest.PawnJoinOffer(pawn, "LetterJoinOfferLabel".Translate(pawn.Named("PAWN")), "LetterJoinOfferTitle".Translate(pawn.Named("PAWN")), "LetterJoinOfferText".Translate(pawn.Named("PAWN"), map.Parent.Named("MAP")), delegate
-            {
-                quest.JoinPlayer(map.Parent, Gen.YieldSingle(pawn), joinPlayer: true);
-                quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, label: "LetterLabelMessageRecruitSuccess".Translate() + ": " + pawn.LabelShortCap, text: "MessageRecruitJoinOfferAccepted".Translate(pawn.Named("RECRUITEE")));
-                quest.SignalPass(null, null, lodgerRecruitedSignal);
-            }, delegate
-            {
-                quest.RecordHistoryEvent(HistoryEventDefOf.CharityRefused_ThreatReward_Joiner);
-            }, charity: true);
-        }
-
-        return pawns;
+        pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
+        pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
+        Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
+        food.stackCount = FoodCount.RandomInRange;
+        pawn.inventory.innerContainer.TryAdd(food);
     }
-    protected override void RunInt()
+
+    protected override void SetPawnsLeaveComp(QuestParameter questParameter, List<Pawn> pawns, string inSignalEnable, string inSignalRemovePawn)
     {
-        Quest quest = QuestGen.quest;
-        Slate slate = QuestGen.slate;
-        Map map = QuestGen_Get.GetMap();
-        if (map is null || !SnowstormUtility.IsSnowExtremeWeather(map))
-        {
-            return;
-        }
-        Faction faction = GetOrGenerateFaction();
-        if (faction is null)
-        {
-            return;
-        }
-
-        string lodgerRecruitedSignal = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.Recruited");
-        string lodgerArrestedSignal = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.Arrested");
-        string lodgerBecameMutantSignal = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.BecameMutant");
-
-        string lodgerArrestedOrRecruited = QuestGen.GenerateNewSignal("Lodger_ArrestedOrRecruited");
-        quest.AnySignal([lodgerRecruitedSignal, lodgerArrestedSignal], null, [lodgerArrestedOrRecruited]);
-
-        int lodgerCount = LodgerCount.RandomInRange;
-        int childCount = 0;
-        if (Find.Storyteller.difficulty.ChildrenAllowed && lodgerCount >= 2)
-        {
-            new List<(int, float)>
-            {
-                (0, 0.7f),
-                (Rand.Range(1, lodgerCount / 2), 0.2f),
-                (lodgerCount - 1, 0.1f)
-            }.TryRandomElementByWeight(((int, float) p) => p.Item2, out (int, float) result);
-            childCount = result.Item1;
-            slate.Set("childCount", childCount);
-            if (childCount == lodgerCount - 1)
-            {
-                slate.Set("allButOneChildren", true);
-            }
-        }
-        List<Pawn> pawns = GeneratePawns(lodgerCount, childCount, faction, map, quest, lodgerRecruitedSignal);
-        Pawn asker = pawns.First();
-        slate.Set("lodgers", pawns);
-        slate.Set("asker", asker);
-
-        QuestPart_ExtraFaction questPart_ExtraFaction = quest.ExtraFaction(faction, pawns, ExtraFactionType.MiniFaction, areHelpers: false, [lodgerRecruitedSignal, lodgerBecameMutantSignal]);
-        quest.PawnsArrive(pawns, null, map.Parent, null, joinPlayer: true, null, "[lodgersArriveLetterLabel]", "[lodgersArriveLetterText]");
-        //quest.SetAllApparelLocked(pawns);
-
-        SetAward(faction, quest);
-
-        QuestPart_OARefugeeInteractions questPart_StrugglersInteractions = SnowstormStrugglersInteractions(faction, map.Parent, slate);
-        questPart_StrugglersInteractions.inSignalArrested = lodgerArrestedSignal;
-        questPart_StrugglersInteractions.inSignalRecruited = lodgerRecruitedSignal;
-        questPart_StrugglersInteractions.pawns.AddRange(pawns);
-        quest.AddPart(questPart_StrugglersInteractions);
+        Quest quest = questParameter.quest;
+        Faction faction = questParameter.faction;
 
         string outSignalNotSnowstorm = QuestGenUtility.HardcodedSignalWithQuestID("snowstormEnd");
         QuestPart_IsSnowExtremeWeather questPart_IsSnowExtremeWeather = new()
@@ -125,105 +64,17 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
             snowstormOutSignal = false,
             notSnowstormOutSignal = true,
             checkInterval = 2500,
-            map = map,
+            map = questParameter.map,
         };
-        quest.AddPart(questPart_IsSnowExtremeWeather);
+        questParameter.quest.AddPart(questPart_IsSnowExtremeWeather);
 
         //暴风雪结束时离开
         quest.SignalPassWithFaction(faction, null, delegate
         {
             quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersLeavingLetterText]", null, "[lodgersLeavingLetterLabel]");
         }, inSignal: outSignalNotSnowstorm);
-        quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, lodgerArrestedOrRecruited, wakeUp: true);
+        quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
 
-        SetQuestEndComp(quest, questPart_StrugglersInteractions, pawns, faction);
-        quest.SignalPassAny(delegate
-        {
-            if (Rand.Chance(0.5f))
-            {
-                float num2 = lodgerCount * QuestDurationDaysRange.RandomInRange * 55f;
-                FloatRange marketValueRange = new FloatRange(0.7f, 1.3f) * num2 * Find.Storyteller.difficulty.EffectiveQuestRewardValueFactor;
-                quest.AddQuestRefugeeDelayedReward(quest.AccepterPawn, faction, pawns, marketValueRange);
-            }
-            quest.End(QuestEndOutcome.Success, 25, faction, null, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
-        }, [questPart_StrugglersInteractions.outSignalLast_LeftMapAllHealthy, questPart_StrugglersInteractions.outSignalLast_LeftMapAllNotHealthy]);
-
-        slate.Set("map", map);
-        slate.Set("faction", faction);
-        slate.Set("lodgerCount", lodgerCount);
-        slate.Set("lodgersCountMinusOne", lodgerCount - 1);
-        slate.Set("childCount", childCount);
-
-    }
-    private void SetAward(Faction faction, Quest quest)
-    {
-        QuestPart_Choice questPart_Choice = quest.RewardChoice();
-        QuestPart_Choice.Choice choice = new()
-        {
-            rewards =
-            {
-                new Reward_VisitorsHelp(),
-                new Reward_PossibleFutureReward(),
-                new Reward_Goodwill()
-                {
-                    amount = 25,
-                    faction = faction
-                },
-            }
-        };
-        if (ModsConfig.IdeologyActive && Faction.OfPlayer.ideos.FluidIdeo is not null)
-        {
-            choice.rewards.Add(new Reward_DevelopmentPoints(quest));
-        }
-        questPart_Choice.choices.Add(choice);
-
-    }
-    private QuestPart_OARefugeeInteractions SnowstormStrugglersInteractions(Faction faction, MapParent mapParent, Slate slate) => new()
-    {
-        allowAssaultColony = false,
-        allowLeave = false,
-        allowBadThought = true,
-        inSignalEnable = slate.Get<string>("inSignal"),
-
-        inSignalSurgeryViolation = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.SurgeryViolation"),
-        inSignalPsychicRitualTarget = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.PsychicRitualTarget"),
-        inSignalDestroyed = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.Destroyed"),
-        inSignalKidnapped = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.Kidnapped"),
-        inSignalLeftMap = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.LeftMap"),
-        inSignalBanished = QuestGenUtility.HardcodedSignalWithQuestID("lodgers.Banished"),
-        outSignalDestroyed_BadThought = QuestGen.GenerateNewSignal("LodgerDestroyed_BadThought"),
-        outSignalArrested_BadThought = QuestGen.GenerateNewSignal("LodgerArrested_BadThought"),
-        outSignalSurgeryViolation_BadThought = QuestGen.GenerateNewSignal("LodgerSurgeryViolation_BadThought"),
-        outSignalPsychicRitualTarget_BadThought = QuestGen.GenerateNewSignal("LodgerPsychicRitualTarget_BadThought"),
-        outSignalLast_Destroyed = QuestGen.GenerateNewSignal("LastLodger_Destroyed"),
-        outSignalLast_Arrested = QuestGen.GenerateNewSignal("LastLodger_Arrested"),
-        outSignalLast_Kidnapped = QuestGen.GenerateNewSignal("LastLodger_Kidnapped"),
-        outSignalLast_Recruited = QuestGen.GenerateNewSignal("LastLodger_Recruited"),
-        outSignalLast_LeftMapAllHealthy = QuestGen.GenerateNewSignal("LastLodger_LeftMapAllHealthy"),
-        outSignalLast_LeftMapAllNotHealthy = QuestGen.GenerateNewSignal("LastLodger_LeftMapAllNotHealthy"),
-        outSignalLast_Banished = QuestGen.GenerateNewSignal("LastLodger_Banished"),
-
-        faction = faction,
-        mapParent = mapParent,
-        signalListenMode = QuestPart.SignalListenMode.Always
-    };
-    private void SetQuestEndComp(Quest quest, QuestPart_OARefugeeInteractions questPart_StrugglersInteractions, List<Pawn> pawns, Faction faction)
-    {
-        int failGoodwill = -25;
-
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalDestroyed_BadThought, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgerDiedMemoryThoughtLetterText]", null, "[lodgerDiedMemoryThoughtLetterLabel]");
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalLast_Destroyed, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersAllDiedLetterText]", null, "[lodgersAllDiedLetterLabel]");
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalArrested_BadThought, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgerArrestedMemoryThoughtLetterText]", null, "[lodgerArrestedMemoryThoughtLetterLabel]");
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalLast_Arrested, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersAllArrestedLetterText]", null, "[lodgersAllArrestedLetterLabel]");
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalSurgeryViolation_BadThought, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgerViolatedMemoryThoughtLetterText]", null, "[lodgerViolatedMemoryThoughtLetterLabel]");
-        quest.Letter(LetterDefOf.NegativeEvent, questPart_StrugglersInteractions.outSignalPsychicRitualTarget_BadThought, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgerPsychicRitualTargetMemoryThoughtLetterText]", null, "[lodgerPsychicRitualTargetMemoryThoughtLetterLabel]");
-        quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerDied, questPart_StrugglersInteractions.outSignalDestroyed_BadThought);
-        quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerArrested, questPart_StrugglersInteractions.outSignalArrested_BadThought);
-        quest.AddMemoryThought(pawns, ThoughtDefOf.OtherTravelerSurgicallyViolated, questPart_StrugglersInteractions.outSignalSurgeryViolation_BadThought);
-        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Destroyed);
-        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Arrested);
-        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Kidnapped, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
-        quest.End(QuestEndOutcome.Fail, failGoodwill, faction, questPart_StrugglersInteractions.outSignalLast_Banished, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
-        quest.End(QuestEndOutcome.Success, 25, faction, questPart_StrugglersInteractions.outSignalLast_Recruited, QuestPart.SignalListenMode.OngoingOnly, sendStandardLetter: true);
+        base.SetPawnsLeaveComp(questParameter, pawns, inSignalEnable, inSignalRemovePawn);
     }
 }
