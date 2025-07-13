@@ -64,4 +64,3 @@ public static class ColonyThingsWillingToBuy_Patch
     }
 
 }
-

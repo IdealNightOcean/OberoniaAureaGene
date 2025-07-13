@@ -132,7 +132,7 @@ public class Hediff_ProtagonistHomecoming : HediffWithComps
             memory.permanent = permanent;
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
-        this.Severity = thoughtStage;
+        Severity = thoughtStage;
 
         memory.SetForcedStage(thoughtStage);
         memory.permanent = permanent;

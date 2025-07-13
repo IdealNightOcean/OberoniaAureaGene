@@ -29,7 +29,7 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
         closeOnAccept = false;
         forcePause = true;
         absorbInputAroundWindow = true;
-        searchWidgetOffsetX = GeneCreationDialogBase.ButSize.x * 2f + 4f;
+        searchWidgetOffsetX = ButSize.x * 2f + 4f;
         pawnGenes.SortBy(g => 0f - g.displayCategory.displayPriorityInXenotype, g => g.displayCategory.label, g => g.displayOrderInCategory);
     }
 
@@ -112,15 +112,15 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
                 {
                     continue;
                 }
-                float num2 = 34f + GeneCreationDialogBase.GeneSize.x + 12f;
+                float num2 = 34f + GeneSize.x + 12f;
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;
-                    curY += GeneCreationDialogBase.GeneSize.y + 8f + 14f;
+                    curY += GeneSize.y + 8f + 14f;
                 }
                 if (adding && selectedGenes.Contains(gene))
                 {
-                    Widgets.DrawLightHighlight(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f));
+                    Widgets.DrawLightHighlight(new Rect(curX, curY, num2, GeneSize.y + 8f));
                     curX += num2 + 14f;
                 }
                 else if (DrawGeneDef(gene, ref curX, curY, num2, containingRect))
@@ -139,7 +139,7 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
                 }
             }
         }
-        curY += GeneCreationDialogBase.GeneSize.y + 12f;
+        curY += GeneSize.y + 12f;
         if (Event.current.type == EventType.Layout)
         {
             sectionHeight = curY - num;
@@ -153,22 +153,22 @@ public class Dialog_ExtractGenes : GeneCreationDialogBase
         {
             return result;
         }
-        Rect rect = new(curX, curY, packWidth, GeneCreationDialogBase.GeneSize.y + 8f);
+        Rect rect = new(curX, curY, packWidth, GeneSize.y + 8f);
         if (!containingRect.Overlaps(rect))
         {
             curX = rect.xMax + 14f;
             return false;
         }
         Widgets.DrawHighlight(rect);
-        GUI.color = GeneCreationDialogBase.OutlineColorUnselected;
+        GUI.color = OutlineColorUnselected;
         Widgets.DrawBox(rect);
         GUI.color = Color.white;
         curX += 4f;
         GeneUIUtility.DrawBiostats(gene.biostatCpx, gene.biostatMet, gene.biostatArc, ref curX, curY, 4f);
 
-        Rect geneRect = new(curX, curY + 4f, GeneCreationDialogBase.GeneSize.x, GeneCreationDialogBase.GeneSize.y);
+        Rect geneRect = new(curX, curY + 4f, GeneSize.x, GeneSize.y);
         GeneUIUtility.DrawGeneDef(gene, geneRect, GeneType.Xenogene, null, doBackground: false, clickable: false);
-        curX += GeneCreationDialogBase.GeneSize.x + 4f;
+        curX += GeneSize.x + 4f;
         if (Mouse.IsOver(rect))
         {
             Widgets.DrawHighlight(rect);

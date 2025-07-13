@@ -33,14 +33,17 @@ public class Comp_SnowyCrystalTree : CompTempControl
             GenTemperature.PushHeat(parent.Position, parent.Map, HeatPerRare);
         }
     }
+
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         return [];
     }
+
     public override string CompInspectStringExtra()
     {
         return Props.inspectString;
     }
+
     public static GameCondition_SnowyCrystalTreeCooler TryInitGameCondiation(Map map)
     {
         GameCondition_SnowyCrystalTreeCooler gameCondition_SnowyCrystalTreeCooler = map.gameConditionManager.GetActiveCondition(Snowstorm_MiscDefOf.OAGene_SnowyCrystalTreeCooler) as GameCondition_SnowyCrystalTreeCooler;

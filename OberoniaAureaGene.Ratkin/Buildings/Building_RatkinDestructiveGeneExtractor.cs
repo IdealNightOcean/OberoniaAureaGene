@@ -35,7 +35,7 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
 
     protected override void FinishWork()
     {
-        Map map = base.Map;
+        Map map = Map;
         Pawn containedPawn = ContainedPawn;
         if (containedPawn is not null)
         {

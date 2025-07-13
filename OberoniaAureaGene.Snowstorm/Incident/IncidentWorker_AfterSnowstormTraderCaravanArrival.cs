@@ -44,7 +44,7 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
             }
         }
         SendLetter(parms, pawns, traderKind);
-        RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out var result, delegate (IntVec3 c)
+        RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out IntVec3 result, delegate (IntVec3 c)
         {
             for (int k = 0; k < pawns.Count; k++)
             {

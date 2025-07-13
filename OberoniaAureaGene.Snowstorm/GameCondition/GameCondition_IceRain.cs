@@ -39,7 +39,7 @@ public class GameCondition_IceRain : GameCondition_ForceWeatherWithTempChange
         {
             return;
         }
-        if (UnityEngine.Random.value < 0.025f)
+        if (Random.value < 0.025f)
         {
             Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
             FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, OAGene_MiscDefOf.OAGene_ColdGlow, FastEffectRandom.Next(200, 300) / 100f);

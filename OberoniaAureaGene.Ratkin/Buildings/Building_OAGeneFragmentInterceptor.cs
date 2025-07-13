@@ -15,7 +15,7 @@ public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
     }
     protected override void FinishWork()
     {
-        Map map = base.Map;
+        Map map = Map;
         Pawn containedPawn = ContainedPawn;
         if (containedPawn is not null)
         {

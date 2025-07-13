@@ -33,26 +33,26 @@ public class Building_IceCrystalCollector : Building
 
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
-        Snowstorm_MiscUtility.SnowstormMapComp(base.Map)?.Notyfy_CollectorDespawn(this);
+        Snowstorm_MiscUtility.SnowstormMapComp(Map)?.Notyfy_CollectorDespawn(this);
         base.DeSpawn(mode);
     }
 
     public override void TickLong()
     {
         base.TickLong();
-        if (!this.Spawned)
+        if (!Spawned)
         {
             curEfficiency = 0f;
             return;
         }
-        if (this.Map.roofGrid.Roofed(this.Position))
+        if (Map.roofGrid.Roofed(Position))
         {
             underRoof = true;
             curEfficiency = 0f;
             return;
         }
         underRoof = false;
-        float weatherEfficiency = GetCurWeatherEfficiency(this.Map.weatherManager.curWeather);
+        float weatherEfficiency = GetCurWeatherEfficiency(Map.weatherManager.curWeather);
         if (weatherEfficiency < 0f)
         {
             curEfficiency = 0f;
@@ -66,7 +66,7 @@ public class Building_IceCrystalCollector : Building
         Thing thing = TakeOutBioferrite();
         if (thing is not null)
         {
-            GenPlace.TryPlaceThing(thing, base.Position, base.Map, ThingPlaceMode.Near);
+            GenPlace.TryPlaceThing(thing, Position, Map, ThingPlaceMode.Near);
         }
     }
 

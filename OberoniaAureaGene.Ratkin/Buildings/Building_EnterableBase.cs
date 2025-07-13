@@ -34,9 +34,9 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
 
     public override bool IsContentsSuspended => false;
     public float HeldPawnDrawPos_Y => DrawPos.y + 1f / 26f;
-    public float HeldPawnBodyAngle => base.Rotation.Opposite.AsAngle;
+    public float HeldPawnBodyAngle => Rotation.Opposite.AsAngle;
     public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
-    public override Vector3 PawnDrawOffset => IntVec3.West.RotatedBy(base.Rotation).ToVector3() / def.size.x;
+    public override Vector3 PawnDrawOffset => IntVec3.West.RotatedBy(Rotation).ToVector3() / def.size.x;
 
     protected virtual string CommandInsertPersonStr => "OAGene_InsertPerson".Translate();
     protected virtual string CommandInsertPersonDescStr => "OAGene_InsertPersonDesc".Translate();
@@ -45,7 +45,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         base.SpawnSetup(map, respawningAfterLoad);
         compPower = this.TryGetComp<CompPowerTrader>();
-        placePos = base.def.hasInteractionCell ? InteractionCell : base.Position;
+        placePos = def.hasInteractionCell ? InteractionCell : Position;
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
@@ -59,9 +59,9 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         innerContainer.DoTick();
         if (this.IsHashIntervalTick(250))
         {
-            compPower.PowerOutput = (base.Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
+            compPower.PowerOutput = (Working ? (0f - PowerComp.Props.PowerConsumption) : (0f - PowerComp.Props.idlePowerDraw));
         }
-        if (base.Working)
+        if (Working)
         {
             if (ContainedPawn is null)
             {
@@ -109,12 +109,12 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             sustainerWorking.Maintain();
         }
         progressBar ??= EffecterDefOf.ProgressBarAlwaysVisible.Spawn();
-        progressBar.EffectTick(new TargetInfo(base.Position + IntVec3.North.RotatedBy(base.Rotation), base.Map), TargetInfo.Invalid);
+        progressBar.EffectTick(new TargetInfo(Position + IntVec3.North.RotatedBy(Rotation), Map), TargetInfo.Invalid);
         MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBar.children[0]).mote;
         if (mote is not null)
         {
             mote.progress = 1f - Mathf.Clamp01((float)ticksRemaining / allTicks);
-            mote.offsetZ = ((base.Rotation == Rot4.North) ? 0.5f : (-0.5f));
+            mote.offsetZ = ((Rotation == Rot4.North) ? 0.5f : (-0.5f));
         }
     }
     protected virtual void ClearEffects() //清理特效
@@ -159,12 +159,12 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
-        innerContainer.TryDropAll(def.hasInteractionCell ? InteractionCell : base.Position, base.Map, ThingPlaceMode.Near);
+        innerContainer.TryDropAll(def.hasInteractionCell ? InteractionCell : Position, Map, ThingPlaceMode.Near);
     }
 
     protected virtual void FinishWork()
     {
-        innerContainer.TryDropAll(placePos, base.Map, ThingPlaceMode.Near);
+        innerContainer.TryDropAll(placePos, Map, ThingPlaceMode.Near);
         selectedPawn = null;
         sustainerWorking = null;
         ClearEffects();
@@ -217,7 +217,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                 TryStartWork(selPawn);
             }), selPawn, this);
         }
-        else if (base.SelectedPawn == selPawn && !selPawn.IsPrisonerOfColony)
+        else if (SelectedPawn == selPawn && !selPawn.IsPrisonerOfColony)
         {
             return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption("EnterBuilding".Translate(this), delegate
             {
@@ -237,7 +237,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         {
             yield return gizmo;
         }
-        if (base.Working)
+        if (Working)
         {
             Command_Action command_Action = new()
             {
@@ -298,7 +298,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     protected virtual void FloatMenu_InsertPerson()
     {
         List<FloatMenuOption> list = [];
-        foreach (Pawn pawn in base.Map.mapPawns.AllPawnsSpawned)
+        foreach (Pawn pawn in Map.mapPawns.AllPawnsSpawned)
         {
             AcceptanceReport acceptanceReport = CanAcceptPawn(pawn);
             if (!acceptanceReport.Accepted)
@@ -327,7 +327,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
     {
         base.DynamicDrawPhaseAt(phase, drawLoc, flip);
-        if (base.Working && ContainedPawn is not null)
+        if (Working && ContainedPawn is not null)
         {
             ContainedPawn.Drawer.renderer.DynamicDrawPhaseAt(phase, drawLoc + PawnDrawOffset, null, neverAimWeapon: true);
         }
@@ -346,7 +346,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
         {
             text.AppendInNewLine("WaitingForPawn".Translate(selectedPawn.Named("PAWN")).Resolve());
         }
-        else if (base.Working && ContainedPawn is not null)
+        else if (Working && ContainedPawn is not null)
         {
             if (PowerOn)
             {

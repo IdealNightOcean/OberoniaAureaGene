@@ -41,7 +41,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         closeOnAccept = false;
         forcePause = true;
         absorbInputAroundWindow = true;
-        searchWidgetOffsetX = GeneCreationDialogBase.ButSize.x * 2f + 4f;
+        searchWidgetOffsetX = ButSize.x * 2f + 4f;
         libraryGenepacks.SortGenepacks();
         unpoweredGenepacks.SortGenepacks();
     }
@@ -134,15 +134,15 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 {
                     continue;
                 }
-                float num2 = 34f + GeneCreationDialogBase.GeneSize.x + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
+                float num2 = 34f + GeneSize.x + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;
-                    curY += GeneCreationDialogBase.GeneSize.y + 8f + 14f;
+                    curY += GeneSize.y + 8f + 14f;
                 }
                 if (selectedGene == gene)
                 {
-                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f), 2);
+                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneSize.y + 8f), 2);
                 }
                 if (DrawSelectedGene(gene, ref curX, curY, num2, containingRect))
                 {
@@ -151,7 +151,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 }
             }
         }
-        curY += GeneCreationDialogBase.GeneSize.y + 12f;
+        curY += GeneSize.y + 12f;
         if (Event.current.type == EventType.Layout)
         {
             sectionHeight = curY - num;
@@ -190,15 +190,15 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 {
                     continue;
                 }
-                float num2 = 34f + GeneCreationDialogBase.GeneSize.x * (float)genepack.GeneSet.GenesListForReading.Count + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
+                float num2 = 34f + GeneSize.x * (float)genepack.GeneSet.GenesListForReading.Count + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;
-                    curY += GeneCreationDialogBase.GeneSize.y + 8f + 14f;
+                    curY += GeneSize.y + 8f + 14f;
                 }
                 if (selectedGenepack == genepack)
                 {
-                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneCreationDialogBase.GeneSize.y + 8f), 2);
+                    Widgets.DrawBox(new Rect(curX, curY, num2, GeneSize.y + 8f), 2);
                 }
                 if (DrawGenepack(genepack, ref curX, curY, num2, containingRect))
                 {
@@ -216,7 +216,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 }
             }
         }
-        curY += GeneCreationDialogBase.GeneSize.y + 12f;
+        curY += GeneSize.y + 12f;
         if (Event.current.type == EventType.Layout)
         {
             sectionHeight = curY - num;
@@ -230,14 +230,14 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         {
             return result;
         }
-        Rect rect = new(curX, curY, packWidth, GeneCreationDialogBase.GeneSize.y + 8f);
+        Rect rect = new(curX, curY, packWidth, GeneSize.y + 8f);
         if (!containingRect.Overlaps(rect))
         {
             curX = rect.xMax + 14f;
             return false;
         }
         Widgets.DrawHighlight(rect);
-        GUI.color = GeneCreationDialogBase.OutlineColorUnselected;
+        GUI.color = OutlineColorUnselected;
         Widgets.DrawBox(rect);
         GUI.color = Color.white;
         curX += 4f;
@@ -253,7 +253,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             else
                 _ = 0;
             bool overridden = leftChosenGroups.Any((GeneLeftChosenGroup x) => x.overriddenGenes.Contains(gene));
-            Rect geneRect = new(curX, curY + 4f, GeneCreationDialogBase.GeneSize.x, GeneCreationDialogBase.GeneSize.y);
+            Rect geneRect = new(curX, curY + 4f, GeneSize.x, GeneSize.y);
             string extraTooltip = null;
             if (leftChosenGroups.Any((GeneLeftChosenGroup x) => x.leftChosen == gene))
             {
@@ -268,7 +268,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 extraTooltip = ("GeneWillBeRandomChosen".Translate() + ":\n" + randomChosenGroups[gene].Select((GeneDef x) => x.label).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
             }
             GeneUIUtility.DrawGeneDef(genesListForReading[i], geneRect, GeneType.Xenogene, () => extraTooltip, doBackground: false, clickable: false, overridden);
-            curX += GeneCreationDialogBase.GeneSize.x + 4f;
+            curX += GeneSize.x + 4f;
         }
         Widgets.InfoCardButton(rect.xMax - 24f, rect.y + 2f, genepack);
         if (unpoweredGenepacks.Contains(genepack))
@@ -289,7 +289,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 if (geneBankHoldingPack is not null)
                 {
                     ThingWithComps parent = geneBankHoldingPack.parent;
-                    if (geneBankHoldingPack.innerContainer.TryDrop(genepack, parent.def.hasInteractionCell ? parent.InteractionCell : parent.Position, parent.Map, ThingPlaceMode.Near, 1, out var _))
+                    if (geneBankHoldingPack.innerContainer.TryDrop(genepack, parent.def.hasInteractionCell ? parent.InteractionCell : parent.Position, parent.Map, ThingPlaceMode.Near, 1, out Thing _))
                     {
                         if (selectedGenepack == genepack)
                         {
@@ -331,22 +331,22 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
         {
             return result;
         }
-        Rect rect = new(curX, curY, packWidth, GeneCreationDialogBase.GeneSize.y + 8f);
+        Rect rect = new(curX, curY, packWidth, GeneSize.y + 8f);
         if (!containingRect.Overlaps(rect))
         {
             curX = rect.xMax + 14f;
             return false;
         }
         Widgets.DrawHighlight(rect);
-        GUI.color = GeneCreationDialogBase.OutlineColorUnselected;
+        GUI.color = OutlineColorUnselected;
         Widgets.DrawBox(rect);
         GUI.color = Color.white;
         curX += 4f;
         GeneUIUtility.DrawBiostats(gene.biostatCpx, gene.biostatMet, gene.biostatArc, ref curX, curY, 4f);
 
-        Rect geneRect = new(curX, curY + 4f, GeneCreationDialogBase.GeneSize.x, GeneCreationDialogBase.GeneSize.y);
+        Rect geneRect = new(curX, curY + 4f, GeneSize.x, GeneSize.y);
         GeneUIUtility.DrawGeneDef(gene, geneRect, GeneType.Xenogene, null, doBackground: false, clickable: false);
-        curX += GeneCreationDialogBase.GeneSize.x + 4f;
+        curX += GeneSize.x + 4f;
         if (Mouse.IsOver(rect))
         {
             Widgets.DrawHighlight(rect);

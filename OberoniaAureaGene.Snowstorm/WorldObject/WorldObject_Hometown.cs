@@ -11,13 +11,13 @@ public class WorldObject_Hometown : MapParent
     public override void SpawnSetup()
     {
         base.SpawnSetup();
-        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownSpawned(this, this.Tile);
+        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownSpawned(this, Tile);
     }
     public override void PostMapGenerate()
     {
         base.PostMapGenerate();
         mapGenerated = true;
-        Snowstorm_StoryUtility.StoryGameComp.hometownMap = this.Map;
+        Snowstorm_StoryUtility.StoryGameComp.hometownMap = Map;
     }
 
     public override void Notify_MyMapRemoved(Map map)
@@ -70,7 +70,7 @@ public class WorldObject_Hometown : MapParent
         {
             yield return item;
         }
-        if (base.Faction == Faction.OfPlayer)
+        if (Faction == Faction.OfPlayer)
         {
             yield return IncidentTargetTagDefOf.Map_PlayerHome;
         }
@@ -81,7 +81,7 @@ public class WorldObject_Hometown : MapParent
     }
     public override void Destroy()
     {
-        int tile = this.Tile;
+        int tile = Tile;
         base.Destroy();
         Snowstorm_StoryUtility.StoryGameComp.Notify_HometownDestory();
         WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstorm_MiscDefOf.OAGene_Hometown_Sealed);
@@ -101,8 +101,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
     private WorldObject_Hometown hometown;
     public override string Label => "OAGene_VisitHometown".Translate(hometown.Label);
     public override string ReportString => "CaravanVisiting".Translate(hometown.Label);
-    public CaravanArrivalAction_VisitSnowstormHometown()
-    { }
+    public CaravanArrivalAction_VisitSnowstormHometown() { }
 
     public CaravanArrivalAction_VisitSnowstormHometown(WorldObject_Hometown hometown)
     {
@@ -138,6 +137,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
             Messages.Message("OAGene_Message_NoProtagonist".Translate(), hometown, MessageTypeDefOf.RejectInput, historical: false);
         }
     }
+
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, PlanetTile destinationTile)
     {
         FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(caravan, destinationTile);

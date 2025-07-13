@@ -51,6 +51,7 @@ public class GameComponent_SnowstormStory : GameComponent
         hometown = mapParent;
         hometownTile = tile;
     }
+
     public void Notify_HometownDestory(bool clearTile = false)
     {
         hometownSpawned = false;
@@ -60,6 +61,7 @@ public class GameComponent_SnowstormStory : GameComponent
             hometownTile = PlanetTile.Invalid;
         }
     }
+
     public void Notify_StoryInProgress()
     {
         storyInProgress = true;
@@ -70,6 +72,7 @@ public class GameComponent_SnowstormStory : GameComponent
             protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
         }
     }
+
     public void Notify_StroyFail()
     {
         storyInProgress = false;
@@ -79,8 +82,8 @@ public class GameComponent_SnowstormStory : GameComponent
             Hediff_ProtagonistHomecoming homecoming = (Hediff_ProtagonistHomecoming)protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             homecoming?.RecacheDiaryAndThoughtNow(slience: true);
         }
-
     }
+
     public void Notify_StroySuccess()
     {
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
@@ -122,6 +125,7 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         GameStart();
     }
+
     public override void LoadedGame()
     {
         GameStart();

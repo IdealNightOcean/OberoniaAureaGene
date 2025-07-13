@@ -19,7 +19,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
 
     protected virtual LordJob_VisitColony CreateLordJob(IncidentParms parms, Pawn pawn)
     {
-        RCellFinder.TryFindRandomSpotJustOutsideColony(pawn, out var result);
+        RCellFinder.TryFindRandomSpotJustOutsideColony(pawn, out IntVec3 result);
         return new LordJob_VisitColony(parms.faction, result);
     }
     protected override bool TryResolveParmsGeneral(IncidentParms parms)

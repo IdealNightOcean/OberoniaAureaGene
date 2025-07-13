@@ -43,11 +43,11 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     }
     protected void TryAutoStartNewWork()
     {
-        if (!autoSelect || base.Working || selectedPawn is not null || !PowerOn)
+        if (!autoSelect || Working || selectedPawn is not null || !PowerOn)
         {
             return;
         }
-        foreach (Pawn pawn in base.Map.mapPawns.FreeColonistsAndPrisonersSpawned)
+        foreach (Pawn pawn in Map.mapPawns.FreeColonistsAndPrisonersSpawned)
         {
             AcceptanceReport acceptanceReport = CanAcceptPawn(pawn);
             if (acceptanceReport.Accepted)
@@ -66,7 +66,7 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
         Command_Action command_ContinueWork = new()
         {
             defaultLabel = "OAGene_CommandAutoSelect".Translate(),
-            defaultDesc = "OAGene_CommandAutoSelectDesc".Translate(this.Label),
+            defaultDesc = "OAGene_CommandAutoSelectDesc".Translate(Label),
             icon = autoSelect ? CommandContinueWorkTrue : CommandContinueWorkFalse,
             action = delegate
             {

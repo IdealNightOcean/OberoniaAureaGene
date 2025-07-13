@@ -128,7 +128,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         base.SpawnSetup(map, respawningAfterLoad);
         compPower = this.TryGetComp<CompPowerTrader>();
         compGeneDiscriminat = this.TryGetComp<CompGeneDiscriminat>();
-        placePos = base.def.hasInteractionCell ? InteractionCell : base.Position;
+        placePos = def.hasInteractionCell ? InteractionCell : Position;
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
@@ -141,7 +141,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         base.Tick();
         if (this.IsHashIntervalTick(250))
         {
-            compPower.PowerOutput = (Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
+            compPower.PowerOutput = (Working ? (0f - PowerComp.Props.PowerConsumption) : (0f - PowerComp.Props.idlePowerDraw));
         }
         if (Working)
         {
@@ -182,12 +182,12 @@ public abstract class Building_GeneDiscriminatorBase : Building
             sustainerWorking.Maintain();
         }
         progressBar ??= EffecterDefOf.ProgressBarAlwaysVisible.Spawn();
-        progressBar.EffectTick(new TargetInfo(base.Position + IntVec3.North.RotatedBy(base.Rotation), base.Map), TargetInfo.Invalid);
+        progressBar.EffectTick(new TargetInfo(Position + IntVec3.North.RotatedBy(Rotation), Map), TargetInfo.Invalid);
         MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBar.children[0]).mote;
         if (mote is not null)
         {
             mote.progress = 1f - Mathf.Clamp01((float)ticksRemaining / TicksToDiscriminat);
-            mote.offsetZ = ((base.Rotation == Rot4.North) ? 0.5f : (-0.5f));
+            mote.offsetZ = ((Rotation == Rot4.North) ? 0.5f : (-0.5f));
         }
     }
     protected virtual void ClearEffects() //清理特效
@@ -201,7 +201,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
     }
     public virtual void TryStartWork(Genepack genepack, GeneDef geneDef)
     {
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         ticksRemaining = TicksToDiscriminat;
         targetGenepack = genepack;
         targetGeneDef = geneDef;
@@ -235,13 +235,13 @@ public abstract class Building_GeneDiscriminatorBase : Building
         }
         targetGenepack = null;
         targetGeneDef = null;
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         compGeneDiscriminat.autoLoad = false;
     }
 
     protected virtual void FinishWork()
     {
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         compGeneDiscriminat.autoLoad = false;
         if (targetGenepack is not null)
         {

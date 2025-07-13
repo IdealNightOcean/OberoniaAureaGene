@@ -44,7 +44,7 @@ public class JobDriver_GeneDiscriminat : JobDriver
         yield return Toils_General.WaitWhileExtractingContents(TargetIndex.A, TargetIndex.C, 120);
         yield return Toils_General.Do(delegate
         {
-            base.TargetThingA.TryGetInnerInteractableThingOwner().TryDrop(TargetThingC, pawn.Position, pawn.Map, ThingPlaceMode.Near, 1, out Thing dropPack);
+            TargetThingA.TryGetInnerInteractableThingOwner().TryDrop(TargetThingC, pawn.Position, pawn.Map, ThingPlaceMode.Near, 1, out Thing dropPack);
         });
         yield return Toils_Reserve.Reserve(TargetIndex.C);
         this.FailOn(delegate

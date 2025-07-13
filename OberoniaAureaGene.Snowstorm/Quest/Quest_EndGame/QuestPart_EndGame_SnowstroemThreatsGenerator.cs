@@ -29,7 +29,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
     {
         if (mapParent is not null && mapParent.HasMap)
         {
-            return MakeIntervalIncidents(parms, mapParent.Map, base.EnableTick + threatStartTicks);
+            return MakeIntervalIncidents(parms, mapParent.Map, EnableTick + threatStartTicks);
         }
 
         return [];
@@ -86,7 +86,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
 
     public override void DoDebugWindowContents(Rect innerRect, ref float curY)
     {
-        if (base.State == QuestPartState.Enabled)
+        if (State == QuestPartState.Enabled)
         {
             Rect rect = new(innerRect.x, curY, 500f, 25f);
             if (Widgets.ButtonText(rect, "Log future incidents from " + GetType().Name))

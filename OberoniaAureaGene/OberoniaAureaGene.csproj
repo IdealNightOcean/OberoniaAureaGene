@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\ResetStaticDataPre_Patch.cs" />
     <Compile Include="Snowstorm\MapComponent_LongSnowstorm.cs" />
     <Compile Include="Snowstorm\CompPowerNormalPlantWind.cs" />
     <Compile Include="HarmonyPatch\ThrumboPasses_Patch.cs" />

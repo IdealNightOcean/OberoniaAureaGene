@@ -55,11 +55,11 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
     {
         Quest quest = questParameter.quest;
         Faction faction = questParameter.faction;
-
         string outSignalNotSnowstorm = QuestGenUtility.HardcodedSignalWithQuestID("snowstormEnd");
+
         QuestPart_IsSnowExtremeWeather questPart_IsSnowExtremeWeather = new()
         {
-            inSignalEnable = QuestGen.slate.Get<string>("inSignal"),
+            inSignalEnable = questParameter.slate.Get<string>("inSignal"),
             outSignalNotSnowstorm = outSignalNotSnowstorm,
             snowstormOutSignal = false,
             notSnowstormOutSignal = true,
@@ -75,6 +75,6 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         }, inSignal: outSignalNotSnowstorm);
         quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
 
-        base.SetPawnsLeaveComp(questParameter, pawns, inSignalEnable, inSignalRemovePawn);
+        DefaultDelayLeaveComp(questParameter, pawns, inSignalEnable, outSignalNotSnowstorm, inSignalRemovePawn);
     }
 }

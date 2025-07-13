@@ -34,9 +34,9 @@ public class JobDriver_TakeIceCrystalOutOfCollector : JobDriver
         toil.initAction = delegate
         {
             Thing thing = Collector.TakeOutBioferrite();
-            GenPlace.TryPlaceThing(thing, pawn.Position, base.Map, ThingPlaceMode.Near);
+            GenPlace.TryPlaceThing(thing, pawn.Position, Map, ThingPlaceMode.Near);
             StoragePriority currentPriority = StoreUtility.CurrentStoragePriorityOf(thing);
-            if (StoreUtility.TryFindBestBetterStoreCellFor(thing, pawn, base.Map, currentPriority, pawn.Faction, out var foundCell))
+            if (StoreUtility.TryFindBestBetterStoreCellFor(thing, pawn, Map, currentPriority, pawn.Faction, out IntVec3 foundCell))
             {
                 job.SetTarget(StorageCellInd, foundCell);
                 job.SetTarget(IceCrystalToHaulInd, thing);

@@ -11,18 +11,12 @@ public class QuestNode_SnowstormRaid : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> inSignal;
-
     public SlateRef<IntVec3?> walkInSpot;
-
     public SlateRef<bool?> canTimeoutOrFlee;
-
     [NoTranslate]
     public SlateRef<string> inSignalLeave;
-
     [NoTranslate]
     public SlateRef<string> tag;
-
-    private const string RootSymbol = "root";
 
     protected override bool TestRunInt(Slate slate)
     {

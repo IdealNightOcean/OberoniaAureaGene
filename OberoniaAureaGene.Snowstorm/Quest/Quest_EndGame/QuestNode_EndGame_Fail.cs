@@ -27,7 +27,7 @@ public class QuestNode_EndGame_Fail : QuestNode
         {
             inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
             hometown = hometown,
-            snowstormEndDelay = this.snowstormEndDelay.GetValue(slate)
+            snowstormEndDelay = snowstormEndDelay.GetValue(slate)
         };
         QuestGen.quest.AddPart(questPart_EndGame_Fail);
     }

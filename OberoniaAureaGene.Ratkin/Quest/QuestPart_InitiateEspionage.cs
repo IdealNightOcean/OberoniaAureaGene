@@ -13,7 +13,6 @@ public class QuestPart_InitiateEspionage : QuestPart
     public Site site;
     public string customLabel;
 
-
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
     {
         get

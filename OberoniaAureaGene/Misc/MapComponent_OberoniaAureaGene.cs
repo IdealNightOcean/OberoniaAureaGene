@@ -16,14 +16,12 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     protected int raidCheckTicks;
 
-
     [Unsaved] MapComponent_SpecialBuildingManager specialBuildingManager;
     public MapComponent_SpecialBuildingManager SpecialBuildingManager => specialBuildingManager ??= OAFrame_MapUtility.GetSpecialBuildingManager(map);
 
     private bool HasHegemonicFlag => SpecialBuildingManager?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false;
 
-    public MapComponent_OberoniaAureaGene(Map map) : base(map)
-    { }
+    public MapComponent_OberoniaAureaGene(Map map) : base(map) { }
 
     public override void MapComponentTick()
     {
@@ -66,8 +64,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     //霸权旗的周期袭击
     protected void RaidCheckTick()
     {
-        raidCheckTicks--;
-        if (raidCheckTicks <= 0)
+        if (raidCheckTicks-- <= 0)
         {
             TryExcuteRaid();
             raidCheckTicks = 300000;
@@ -97,7 +94,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             }
         }
     }
-
 
     public override void ExposeData()
     {
