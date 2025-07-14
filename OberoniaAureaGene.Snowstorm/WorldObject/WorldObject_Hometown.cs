@@ -11,13 +11,13 @@ public class WorldObject_Hometown : MapParent
     public override void SpawnSetup()
     {
         base.SpawnSetup();
-        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownSpawned(this, this.Tile);
+        Snowstorm_StoryUtility.StoryGameComp.Notify_HometownSpawned(this, Tile);
     }
     public override void PostMapGenerate()
     {
         base.PostMapGenerate();
         mapGenerated = true;
-        Snowstorm_StoryUtility.StoryGameComp.hometownMap = this.Map;
+        Snowstorm_StoryUtility.StoryGameComp.hometownMap = Map;
     }
 
     public override void Notify_MyMapRemoved(Map map)
@@ -70,7 +70,7 @@ public class WorldObject_Hometown : MapParent
         {
             yield return item;
         }
-        if (base.Faction == Faction.OfPlayer)
+        if (Faction == Faction.OfPlayer)
         {
             yield return IncidentTargetTagDefOf.Map_PlayerHome;
         }
@@ -81,7 +81,7 @@ public class WorldObject_Hometown : MapParent
     }
     public override void Destroy()
     {
-        int tile = this.Tile;
+        int tile = Tile;
         base.Destroy();
         Snowstorm_StoryUtility.StoryGameComp.Notify_HometownDestory();
         WorldObject hometown_sealed = WorldObjectMaker.MakeWorldObject(Snowstorm_MiscDefOf.OAGene_Hometown_Sealed);
@@ -101,8 +101,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
     private WorldObject_Hometown hometown;
     public override string Label => "OAGene_VisitHometown".Translate(hometown.Label);
     public override string ReportString => "CaravanVisiting".Translate(hometown.Label);
-    public CaravanArrivalAction_VisitSnowstormHometown()
-    { }
+    public CaravanArrivalAction_VisitSnowstormHometown() { }
 
     public CaravanArrivalAction_VisitSnowstormHometown(WorldObject_Hometown hometown)
     {
@@ -110,7 +109,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
     }
     public override void Arrived(Caravan caravan)
     {
-        if (hometown == null)
+        if (hometown is null)
         {
             return;
         }
@@ -138,6 +137,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
             Messages.Message("OAGene_Message_NoProtagonist".Translate(), hometown, MessageTypeDefOf.RejectInput, historical: false);
         }
     }
+
     public override FloatMenuAcceptanceReport StillValid(Caravan caravan, int destinationTile)
     {
         FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(caravan, destinationTile);
@@ -145,7 +145,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
         {
             return floatMenuAcceptanceReport;
         }
-        if (hometown == null || hometown.Tile != destinationTile)
+        if (hometown is null || hometown.Tile != destinationTile)
         {
             return false;
         }
@@ -160,7 +160,7 @@ public class CaravanArrivalAction_VisitSnowstormHometown : CaravanArrivalAction
 
     public static FloatMenuAcceptanceReport CanVisit(WorldObject_Hometown hometown)
     {
-        if (hometown == null || !hometown.Spawned)
+        if (hometown is null || !hometown.Spawned)
         {
             return false;
         }

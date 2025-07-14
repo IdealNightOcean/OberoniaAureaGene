@@ -11,7 +11,7 @@ public class QuestNode_EndGame_SpawnHometown : QuestNode_SpawnWorldObjects
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        if (worldObjects.GetValue(slate) == null)
+        if (worldObjects.GetValue(slate) is null)
         {
             return;
         }
@@ -19,7 +19,7 @@ public class QuestNode_EndGame_SpawnHometown : QuestNode_SpawnWorldObjects
         for (int i = 0; i < sealedHometowns.Count; i++)
         {
             WorldObject sh = sealedHometowns[i];
-            if (sh != null && !sh.Destroyed)
+            if (sh is not null && !sh.Destroyed)
             {
                 sh.Destroy();
             }

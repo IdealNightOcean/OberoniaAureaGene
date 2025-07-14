@@ -20,7 +20,7 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
         if (ticksRemaining <= 0)
         {
             Map map = hometown.Map;
-            if (map != null)
+            if (map is not null)
             {
                 int curHour = GenLocalDate.HourOfDay(map);
                 if (curHour >= 9 && curHour <= 15)

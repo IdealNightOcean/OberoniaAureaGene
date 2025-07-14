@@ -22,7 +22,7 @@ public static class OAGeneUtility
     }
     public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
     {
-        if (map == null || map.weatherManager.curWeather == null)
+        if (map is null || map.weatherManager.curWeather is null)
         {
             return false;
         }
@@ -37,7 +37,7 @@ public static class OAGeneUtility
             {
                 continue;
             }
-            if (pawn.needs.mood?.thoughts.memories != null)
+            if (pawn.needs.mood?.thoughts.memories is not null)
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(OAGene_MiscDefOf.OAGene_Thought_SnowstormEnd);
             }
@@ -48,12 +48,12 @@ public static class OAGeneUtility
     public static void TryBreakPowerPlantWind(Map map, int duration)
     {
         BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
-        if (breakdownManager == null)
+        if (breakdownManager is null)
         {
             return;
         }
         List<CompBreakdownable> breakdownableComps = OAFrame_ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
-        if (breakdownableComps == null)
+        if (breakdownableComps is null)
         {
             return;
         }
@@ -77,9 +77,9 @@ public static class OAGeneUtility
                 if (c2.InBounds(map) && c2.InHorDistOf(c, range))
                 {
                     Building edifice = c2.GetEdifice(map);
-                    if (edifice != null && edifice.def.holdsRoof)
+                    if (edifice is not null && edifice.def.holdsRoof)
                     {
-                        if (edifice.def.building == null || !edifice.def.building.supportsWallAttachments)
+                        if (edifice.def.building is null || !edifice.def.building.supportsWallAttachments)
                         {
                             connected = true;
                             return connected;

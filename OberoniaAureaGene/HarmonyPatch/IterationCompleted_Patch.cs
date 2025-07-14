@@ -11,7 +11,7 @@ public static class IterationCompleted_Patch
     [HarmonyPostfix]
     public static void Postfix(ref Bill_Production __instance, Pawn billDoer)
     {
-        if (billDoer == null || billDoer.genes == null)
+        if (billDoer is null || billDoer.genes is null)
         {
             return;
         }

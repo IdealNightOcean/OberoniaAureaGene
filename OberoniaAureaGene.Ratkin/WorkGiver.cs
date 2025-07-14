@@ -32,7 +32,7 @@ public class WorkGiver_HaulToGeneDiscriminat : WorkGiver_Scanner
         {
             return false;
         }
-        return building_GeneDiscriminator.targetGenepack != null;
+        return building_GeneDiscriminator.targetGenepack is not null;
     }
 
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
@@ -42,7 +42,7 @@ public class WorkGiver_HaulToGeneDiscriminat : WorkGiver_Scanner
             return null;
         }
         Thing geneBank = building_GeneDiscriminator.GetTargetGeneBank();
-        if (geneBank != null)
+        if (geneBank is not null)
         {
             Job job = JobMaker.MakeJob(OAGene_RatkinDefOf.OAGene_HaulToDiscriminator, geneBank, building_GeneDiscriminator, building_GeneDiscriminator.targetGenepack);
             job.count = 1;

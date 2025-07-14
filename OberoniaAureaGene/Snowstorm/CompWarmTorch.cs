@@ -22,7 +22,7 @@ public class CompWarmTorch : ThingComp
 
     public void CheckTorch()
     {
-        if (holder == null)
+        if (holder is null)
         {
             return;
         }
@@ -46,7 +46,7 @@ public class CompWarmTorch : ThingComp
     public override void Notify_Unequipped(Pawn pawn)
     {
         Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(Props.warmTorchHediff);
-        if (hediff != null)
+        if (hediff is not null)
         {
             pawn.health.RemoveHediff(hediff);
         }

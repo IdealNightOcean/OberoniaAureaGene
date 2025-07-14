@@ -11,7 +11,7 @@ public class QuestNode_EndGame_SnowstoryMapGenerated : QuestNode
     protected override bool TestRunInt(Slate slate)
     {
         GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-        if (storyGameComp == null || storyGameComp.storyInProgress || storyGameComp.storyFinished)
+        if (storyGameComp is null || storyGameComp.storyInProgress || storyGameComp.storyFinished)
         {
             return false;
         }
@@ -21,7 +21,7 @@ public class QuestNode_EndGame_SnowstoryMapGenerated : QuestNode
     protected override void RunInt()
     {
         Slate slate = QuestGen.slate;
-        if (slate.Get<WorldObject>("hometown") == null)
+        if (slate.Get<WorldObject>("hometown") is null)
         {
             return;
         }

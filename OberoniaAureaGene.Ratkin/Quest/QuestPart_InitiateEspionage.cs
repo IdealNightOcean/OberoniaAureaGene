@@ -13,7 +13,6 @@ public class QuestPart_InitiateEspionage : QuestPart
     public Site site;
     public string customLabel;
 
-
     public override IEnumerable<GlobalTargetInfo> QuestLookTargets
     {
         get
@@ -22,7 +21,7 @@ public class QuestPart_InitiateEspionage : QuestPart
             {
                 yield return questLookTarget;
             }
-            if (site != null)
+            if (site is not null)
             {
                 yield return site;
             }
@@ -37,7 +36,7 @@ public class QuestPart_InitiateEspionage : QuestPart
             {
                 yield return involvedFaction;
             }
-            if (site.Faction != null)
+            if (site.Faction is not null)
             {
                 yield return site.Faction;
             }
@@ -50,7 +49,7 @@ public class QuestPart_InitiateEspionage : QuestPart
         if (signal.tag == inSignal)
         {
             EspionageSiteComp component = site.GetComponent<EspionageSiteComp>();
-            if (component != null)
+            if (component is not null)
             {
                 if (component.activeEspionage)
                 {

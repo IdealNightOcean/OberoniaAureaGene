@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Scenario - Snowstorm Orphan\1.5\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hediff\Hediff_ProtagonistHomecoming.cs" />
     <Compile Include="LordJob_SnowstormCultistTradeWithColony.cs" />
     <Compile Include="Hediff\HediffComp_ColdPreparation.cs" />
     <Compile Include="RaidStrategyWorker_SnowstormAttackBreaching.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="GameCondition\GameCondition_IceRain.cs" />
     <Compile Include="GameCondition\GameCondition_Icestorm.cs" />
     <Compile Include="HarmonyPatch\CommsConsole_FailurePatch.cs" />
-    <Compile Include="Hediff\HediffComp_ProtagonistHomecoming.cs" />
     <Compile Include="Hediff\HediffComp_SnowstormCultistConvert.cs" />
     <Compile Include="Incident\IncidentWorker_HuskyMigration.cs" />
     <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />
@@ -161,7 +161,6 @@
     <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedEmptyRoom.cs" />
     <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_LeafDecorated_RandomInnerRect.cs" />
     <Compile Include="WorldObject\WorldObject_Hometown.cs" />
-    <Compile Include="WorldObject\FixedCaravan_IceCrystalFlowerSea.cs" />
     <Compile Include="WorldObject\WorldObject_FlowerSea.cs" />
     <Compile Include="WorldObject\GenStep_SnowstormCampPawns.cs" />
     <Compile Include="WorldObject\SitePartWorker_SnowstormCamp.cs" />

@@ -31,7 +31,7 @@ public class HediffComp_SnowstormAngry : HediffComp
                 return;
             }
             Building bed = pawn.ownership.OwnedBed;
-            if (bed == null || bed.GetRoom()?.Role != RoomRoleDefOf.Barracks)
+            if (bed is null || bed.GetRoom()?.Role != RoomRoleDefOf.Barracks)
             {
                 return;
             }

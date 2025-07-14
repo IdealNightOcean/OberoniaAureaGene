@@ -11,9 +11,9 @@ public static class CompBiosculpterPod_Patch
     [HarmonyPostfix]
     public static void CannotUseNowPawnReason_Postfix(ref string __result, Pawn p)
     {
-        if (__result == null)
+        if (__result is null)
         {
-            if (p.genes != null && p.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_AbnormalBodyStructure))
+            if (p.genes is not null && p.genes.HasActiveGene(OAGene_GeneDefOf.OAGene_AbnormalBodyStructure))
             {
                 __result = "OAGene_AbnormalBodyStructure".Translate();
                 return;

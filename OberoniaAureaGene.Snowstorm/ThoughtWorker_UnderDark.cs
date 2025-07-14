@@ -10,6 +10,6 @@ public class ThoughtWorker_UnderDark : ThoughtWorker
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
         Need_SnowstormGlow need_SnowstormGlow = p.needs?.TryGetNeed<Need_SnowstormGlow>();
-        return need_SnowstormGlow != null && need_SnowstormGlow.CurLevel <= MinLevelForThought;
+        return need_SnowstormGlow is not null && need_SnowstormGlow.CurLevel <= MinLevelForThought;
     }
 }

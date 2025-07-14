@@ -8,7 +8,7 @@ public class ThoughtWorker_BloodLoss : ThoughtWorker
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
         Hediff hediff = p.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.BloodLoss);
-        if (hediff == null)
+        if (hediff is null)
         {
             return ThoughtState.Inactive;
         }

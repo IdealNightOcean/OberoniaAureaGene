@@ -41,7 +41,7 @@ public class Gene_BillInspiration : Gene
         }
         float chance = 0.01f;
         Need_Mood pawnMood = pawn.needs.mood;
-        if (pawnMood != null)
+        if (pawnMood is not null)
         {
             float validPercentage = (pawnMood.CurInstantLevelPercentage - 0.5f) * 0.1f;
             chance += validPercentage > 0f ? validPercentage : 0f;

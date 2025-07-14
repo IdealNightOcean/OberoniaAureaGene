@@ -15,7 +15,7 @@ public class QuestPart_EndGame_SignalProtagonistFail : QuestPartActivable
     {
         if (signal.tag == protagonistLeftMapSignal)
         {
-            if (protagonist.Map == null || protagonist.Map != hometown.Map)
+            if (protagonist.Map is null || protagonist.Map != hometown.Map)
             {
                 Complete();
                 Find.SignalManager.SendSignal(new Signal(outSignalFail));

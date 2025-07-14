@@ -18,12 +18,12 @@ public class QuestNode_EndGame_Success : QuestNode
     {
         Slate slate = QuestGen.slate;
         Pawn protagonist = slate.Get<Pawn>("protagonist");
-        if (protagonist == null)
+        if (protagonist is null)
         {
             return;
         }
         MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
-        if (hometown == null)
+        if (hometown is null)
         {
             return;
         }

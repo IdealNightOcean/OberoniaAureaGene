@@ -36,7 +36,7 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
     protected bool SetVars(Slate slate)
     {
         Faction faction = this.faction.GetValue(slate);
-        if (faction == null)
+        if (faction is null)
         {
             return false;
         }
@@ -48,7 +48,7 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
         }
         if (VaildSettlementPair(slate, originTile, faction, out Pair<Settlement, Settlement> validSettlePair))
         {
-            if (validSettlePair.First == null || validSettlePair.Second == null)
+            if (validSettlePair.First is null || validSettlePair.Second is null)
             {
                 return false;
             }

@@ -9,7 +9,7 @@ public class ThoughtWorker_MonarchyBased : ThoughtWorker
     {
         if (ModsConfig.RoyaltyActive)
         {
-            if (p.royalty != null && p.royalty.AllTitlesForReading.Any())
+            if (p.royalty is not null && p.royalty.AllTitlesForReading.Any())
             {
                 return ThoughtState.Inactive;
             }
@@ -17,7 +17,7 @@ public class ThoughtWorker_MonarchyBased : ThoughtWorker
         if (ModsConfig.IdeologyActive)
         {
             Precept_Role precept_Role = p.Ideo?.GetRole(p);
-            if (precept_Role != null)
+            if (precept_Role is not null)
             {
                 return ThoughtState.Inactive;
             }

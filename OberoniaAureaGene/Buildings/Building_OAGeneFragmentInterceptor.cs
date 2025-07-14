@@ -15,9 +15,9 @@ public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
     }
     protected override void FinishWork()
     {
-        Map map = base.Map;
+        Map map = Map;
         Pawn containedPawn = ContainedPawn;
-        if (containedPawn != null)
+        if (containedPawn is not null)
         {
             int num = ExtractedGeneorCountRange.RandomInRange;
             targetGenes.AddRange(containedPawn.genes.GenesListForReading.Where(g => g.def.biostatArc <= 0).Select(ng => ng.def).InRandomOrder().Take(num));
@@ -26,7 +26,7 @@ public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
             GenPlace.TryPlaceThing(genepack, placePos, map, ThingPlaceMode.Near);
             GeneUtility.ExtractXenogerm(containedPawn, Mathf.RoundToInt(60000f * GeneExtractorRegrowingDurationDaysRange.RandomInRange));
             HediffComp_Disappears disappearsComp = containedPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.XenogermLossShock)?.TryGetComp<HediffComp_Disappears>();
-            if (disappearsComp != null)
+            if (disappearsComp is not null)
             {
                 disappearsComp.ticksToDisappear = 30000;
             }

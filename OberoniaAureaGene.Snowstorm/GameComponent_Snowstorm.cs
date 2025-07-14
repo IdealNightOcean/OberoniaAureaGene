@@ -21,7 +21,7 @@ public class GameComponent_Snowstorm : GameComponent
 
     protected int totalSnowstormCount;
 
-    public GameComponent_Snowstorm(Game game) 
+    public GameComponent_Snowstorm(Game game)
     {
         Snowstorm_MiscUtility.SnowstormGameComp = this;
     }

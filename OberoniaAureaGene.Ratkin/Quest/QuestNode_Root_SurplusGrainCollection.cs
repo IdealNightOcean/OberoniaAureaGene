@@ -17,36 +17,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         public SitePartDef sitePart;
     }
 
-    private const int SpawnRange = 9;
-
-    private const int MinSpawnDist = 3;
-
-    private const float MinPointsForSurpriseReinforcements = 400f;
-
-    private const float SurpriseReinforcementChance = 0.35f;
-
-    private static readonly SimpleCurve ExistingCampsAppearanceFrequencyMultiplier =
-    [
-        new CurvePoint(0f, 1f),
-        new CurvePoint(2f, 1f),
-        new CurvePoint(3f, 0.3f),
-        new CurvePoint(4f, 0.1f)
-    ];
-
-    private const float MinPoints = 40f;
-
-    private const string SitePartTag = "WorkSite";
-
     private static readonly FloatRange RewardValue = new(9000f, 12000f);
-
-    private static bool AnySpawnCandidate(int aroundTile)
-    {
-        if (Find.WorldGrid[GetCandidates(aroundTile).tile].biome.campSelectionWeight > 0f)
-        {
-            return true;
-        }
-        return false;
-    }
 
     private static Faction GetQuestFaction()
     {
@@ -140,12 +111,12 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     protected override void RunInt()
     {
         Faction questFaction = GetQuestFaction();
-        if (questFaction == null)
+        if (questFaction is null)
         {
             return;
         }
         Faction originalFation = GetOriginalFaction(questFaction);
-        if (originalFation == null)
+        if (originalFation is null)
         {
             return;
         }
@@ -234,6 +205,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             return false;
         }
         Map map = QuestGen_Get.GetMap();
-        return map != null;
+        return map is not null;
     }
 }

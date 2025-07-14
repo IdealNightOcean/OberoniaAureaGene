@@ -18,7 +18,7 @@ public class HediffGiver_SnowExtremePlayerHidden : HediffGiver
         {
             return false;
         }
-        if (p.Faction == null || !p.Faction.IsPlayer)
+        if (p.Faction is null || !p.Faction.IsPlayer)
         {
             if (!p.IsPrisoner)
             {

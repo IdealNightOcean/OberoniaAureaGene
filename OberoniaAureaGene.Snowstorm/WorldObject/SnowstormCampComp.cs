@@ -118,7 +118,7 @@ public class SnowstormCampComp : WorldObjectComp
     {
         if (active)
         {
-            if (parent.Faction != null && parent.Faction.PlayerRelationKind != FactionRelationKind.Hostile)
+            if (parent.Faction is not null && parent.Faction.PlayerRelationKind != FactionRelationKind.Hostile)
             {
                 parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
                 parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
@@ -127,12 +127,12 @@ public class SnowstormCampComp : WorldObjectComp
     }
     protected void TradeWithCamp(Caravan caravan)
     {
-        if (innerTrader == null)
+        if (innerTrader is null)
         {
             return;
         }
         Pawn pawn = BestCaravanPawnUtility.FindBestNegotiator(caravan);
-        if (pawn == null)
+        if (pawn is null)
         {
             Messages.Message("OAFrame_MessageNoTrader".Translate(), caravan, MessageTypeDefOf.NegativeEvent, historical: false);
             return;
@@ -202,7 +202,7 @@ public class CaravanArrivalAction_VisitSnowstormCamp : CaravanArrivalAction
         {
             return floatMenuAcceptanceReport;
         }
-        if (site == null || site.Tile != destinationTile)
+        if (site is null || site.Tile != destinationTile)
         {
             return false;
         }
@@ -217,7 +217,7 @@ public class CaravanArrivalAction_VisitSnowstormCamp : CaravanArrivalAction
 
     public static FloatMenuAcceptanceReport CanVisit(WorldObject site)
     {
-        if (site == null || !site.Spawned)
+        if (site is null || !site.Spawned)
         {
             return false;
         }

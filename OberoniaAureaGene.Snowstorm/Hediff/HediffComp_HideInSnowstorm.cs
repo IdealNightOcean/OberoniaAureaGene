@@ -91,7 +91,7 @@ public class HediffComp_HideInSnowstorm : HediffComp
     protected static float GetPawnSightRadius(Pawn pawn, Map map, IntVec3 parentPos)
     {
         float factor = 14f;
-        if (pawn.genes == null || pawn.genes.AffectedByDarkness)
+        if (pawn.genes is null || pawn.genes.AffectedByDarkness)
         {
             float t = map.glowGrid.GroundGlowAt(parentPos);
             factor *= Mathf.Lerp(0.33f, 1f, t);

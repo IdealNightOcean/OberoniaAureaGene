@@ -26,11 +26,11 @@ public class IceCrystalFlower : Plant
 
     public void Notify_FirstSpawn(IceCrystalFlower parentFlower = null)
     {
-        this.growthInt = 1f;
+        growthInt = 1f;
 
-        Map map = base.Map;
-        IntVec3 pos = base.Position;
-        if (parentFlower != null)
+        Map map = Map;
+        IntVec3 pos = Position;
+        if (parentFlower is not null)
         {
             this.parentFlower = parentFlower;
             this.parentFlower.childFlowerCount++;
@@ -49,9 +49,9 @@ public class IceCrystalFlower : Plant
     }
     public void Notify_Despawn()
     {
-        Map map = base.Map;
-        IntVec3 pos = base.Position;
-        if (parentFlower != null)
+        Map map = Map;
+        IntVec3 pos = Position;
+        if (parentFlower is not null)
         {
             parentFlower.childFlowerCount = Mathf.Max(childFlowerCount - 1, 0);
         }
@@ -77,7 +77,7 @@ public class IceCrystalFlower : Plant
     public override void TickLong()
     {
         base.TickLong();
-        if (!base.Spawned)
+        if (!Spawned)
         {
             return;
         }
@@ -89,8 +89,8 @@ public class IceCrystalFlower : Plant
             ticksToSpread = SpreadInterval;
         }
 
-        Room room = base.Position.GetRoom(base.Map);
-        if (room == null || room.UsesOutdoorTemperature)
+        Room room = Position.GetRoom(Map);
+        if (room is null || room.UsesOutdoorTemperature)
         {
             ticksToDieOutdoor -= 1000;
             if (ticksToDieOutdoor <= 0)
@@ -105,14 +105,14 @@ public class IceCrystalFlower : Plant
             ticksToDieOutdoor = 60000;
         }
 
-        if (base.AmbientTemperature > -21f)
+        if (AmbientTemperature > -21f)
         {
-            GenTemperature.PushHeat(base.Position, base.Map, HeatPerLong);
+            GenTemperature.PushHeat(Position, Map, HeatPerLong);
         }
     }
     protected void TrySpawnNewFlower()
     {
-        if (!SnowstormUtility.IsSnowExtremeWeather(base.Map))
+        if (!SnowstormUtility.IsSnowExtremeWeather(Map))
         {
             return;
         }
@@ -120,9 +120,9 @@ public class IceCrystalFlower : Plant
         {
             return;
         }
-        if (TryFindNewFlowerCell(base.Map, base.Position, out IntVec3 targetCell))
+        if (TryFindNewFlowerCell(Map, Position, out IntVec3 targetCell))
         {
-            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstorm_ThingDefOf.OAGene_Plant_IceCrystalFlower, targetCell, base.Map);
+            IceCrystalFlower flower = (IceCrystalFlower)GenSpawn.Spawn(Snowstorm_ThingDefOf.OAGene_Plant_IceCrystalFlower, targetCell, Map);
             flower?.Notify_FirstSpawn(this);
         }
     }
@@ -170,7 +170,7 @@ public class IceCrystalFlower : Plant
                 return false;
             }
             Room room = c.GetRoom(map);
-            if (room == null || room.UsesOutdoorTemperature)
+            if (room is null || room.UsesOutdoorTemperature)
             {
                 return false;
             }

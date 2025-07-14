@@ -12,10 +12,10 @@ public static class CommsConsole_FailurePatch
     [HarmonyPostfix]
     public static void Postfix(ref FloatMenuOption __result, Pawn myPawn)
     {
-        if (__result == null)
+        if (__result is null)
         {
             GameCondition_ExtremeSnowstorm snowstorm = SnowstormUtility.SnowstormCondition;
-            if (snowstorm != null && snowstorm.blockCommsconsole)
+            if (snowstorm is not null && snowstorm.blockCommsconsole)
             {
                 __result = new FloatMenuOption("CannotUseReason".Translate("OAGene_CommunicationTowerCollapse".Translate()), null);
             }

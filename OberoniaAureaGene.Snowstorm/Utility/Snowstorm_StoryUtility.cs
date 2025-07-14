@@ -21,12 +21,12 @@ public static class Snowstorm_StoryUtility
     public static bool TryGetStoryProtagonist(out Pawn protagonist)
     {
         protagonist = StoryGameComp.Protagonist;
-        return protagonist != null;
+        return protagonist is not null;
     }
 
     public static bool IsStoryProtagonist(Pawn pawn)
     {
-        if (pawn == null)
+        if (pawn is null)
         {
             return false;
         }
@@ -36,11 +36,11 @@ public static class Snowstorm_StoryUtility
     public static Map GetHometownMap()
     {
         Map hometownMap = StoryGameComp.hometownMap;
-        if (hometownMap == null)
+        if (hometownMap is null)
         {
             MapParent hometown = StoryGameComp.hometown;
             hometown ??= Find.WorldObjects.AllWorldObjects.Where(o => o.def == Snowstorm_MiscDefOf.OAGene_Hometown).FirstOrFallback() as MapParent;
-            if (hometown != null && hometown.HasMap)
+            if (hometown is not null && hometown.HasMap)
             {
                 hometownMap = hometown.Map;
             }
@@ -53,7 +53,7 @@ public static class Snowstorm_StoryUtility
         {
             return false;
         }
-        if (StoryGameComp == null || !StoryGameComp.StoryActive)
+        if (StoryGameComp is null || !StoryGameComp.StoryActive)
         {
             TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
@@ -68,7 +68,7 @@ public static class Snowstorm_StoryUtility
             TryLogFailMessage("Try fire snowstorm end-game quest but end-game quest has been accomplished.");
             return false;
         }
-        if (StoryGameComp.Protagonist == null || StoryGameComp.Protagonist.Dead)
+        if (StoryGameComp.Protagonist is null || StoryGameComp.Protagonist.Dead)
         {
             TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
@@ -89,7 +89,7 @@ public static class Snowstorm_StoryUtility
     public static void EndGame(Pawn protagonist)
     {
         string victoryText;
-        if (OnlyProtagonist || OtherPawn == null)
+        if (OnlyProtagonist || OtherPawn is null)
         {
             victoryText = "OAGene_ReturnHome_Single".Translate(protagonist.Named("PAWN"));
         }

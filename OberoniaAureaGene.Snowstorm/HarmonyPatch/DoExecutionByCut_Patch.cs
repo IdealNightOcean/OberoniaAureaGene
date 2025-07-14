@@ -29,7 +29,7 @@ public static class DoExecutionByCut_Patch
     private static bool ThrumboManhunter(Pawn victim)
     {
         Hediff hediff = victim.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
-        if (hediff != null)
+        if (hediff is not null)
         {
             hediff.Severity = 2f;
         }

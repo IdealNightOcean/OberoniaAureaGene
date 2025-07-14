@@ -28,7 +28,7 @@ public class GameCondition_SnowyCrystalTreeCooler : GameCondition
 
     public override float TemperatureOffset()
     {
-        if (!base.Permanent)
+        if (!Permanent)
         {
             return Mathf.Lerp(0f, tempOffset, Mathf.Min(1f, TicksLeft / (float)TransitionTicks));
         }
@@ -40,7 +40,7 @@ public class GameCondition_SnowyCrystalTreeCooler : GameCondition
         tempOffset += Mathf.Sign(TargetTempOffset - tempOffset) * TempChangePerTick;
         if (SnowyCrystalTreeCount <= 0)
         {
-            base.Permanent = false;
+            Permanent = false;
         }
     }
 

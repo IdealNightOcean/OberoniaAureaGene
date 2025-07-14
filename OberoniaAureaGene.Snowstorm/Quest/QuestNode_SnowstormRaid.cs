@@ -11,18 +11,12 @@ public class QuestNode_SnowstormRaid : QuestNode
 {
     [NoTranslate]
     public SlateRef<string> inSignal;
-
     public SlateRef<IntVec3?> walkInSpot;
-
     public SlateRef<bool?> canTimeoutOrFlee;
-
     [NoTranslate]
     public SlateRef<string> inSignalLeave;
-
     [NoTranslate]
     public SlateRef<string> tag;
-
-    private const string RootSymbol = "root";
 
     protected override bool TestRunInt(Slate slate)
     {
@@ -60,7 +54,11 @@ public class QuestNode_SnowstormRaid : QuestNode
         {
             incidentParms = GenerateIncidentParms(map, points, faction, slate, questPart_Incident);
             defaultPawnGroupMakerParms = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms, ensureCanGenerateAtLeastOnePawn: true);
-            defaultPawnGroupMakerParms.points = IncidentWorker_Raid.AdjustedRaidPoints(defaultPawnGroupMakerParms.points, incidentParms.raidArrivalMode, incidentParms.raidStrategy, defaultPawnGroupMakerParms.faction, PawnGroupKindDefOf.Combat);
+            defaultPawnGroupMakerParms.points = IncidentWorker_Raid.AdjustedRaidPoints(points: defaultPawnGroupMakerParms.points,
+                                                                                       raidArrivalMode: incidentParms.raidArrivalMode,
+                                                                                       raidStrategy: incidentParms.raidStrategy,
+                                                                                       faction: defaultPawnGroupMakerParms.faction,
+                                                                                       groupKind: PawnGroupKindDefOf.Combat);
             enumerable = PawnGroupMakerUtility.GeneratePawnKindsExample(defaultPawnGroupMakerParms);
             num++;
         }

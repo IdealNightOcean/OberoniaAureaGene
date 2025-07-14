@@ -28,7 +28,7 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
         {
             Pawn pawn1 = pawns[i];
             Snowstorm_MiscUtility.SetColdPreparation(pawn1, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral);
-            if (pawn1.needs != null && pawn1.needs.food != null)
+            if (pawn1.needs is not null && pawn1.needs.food is not null)
             {
                 pawn1.needs.food.CurLevel = pawn1.needs.food.MaxLevel;
             }
@@ -37,14 +37,14 @@ public class IncidentWorker_AfterSnowstormTraderCaravanArrival : IncidentWorker_
         for (int j = 0; j < pawns.Count; j++)
         {
             Pawn pawn2 = pawns[j];
-            if (pawn2.TraderKind != null)
+            if (pawn2.TraderKind is not null)
             {
                 traderKind = pawn2.TraderKind;
                 break;
             }
         }
         SendLetter(parms, pawns, traderKind);
-        RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out var result, delegate (IntVec3 c)
+        RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out IntVec3 result, delegate (IntVec3 c)
         {
             for (int k = 0; k < pawns.Count; k++)
             {

@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
+﻿using OberoniaAurea_Frame;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
             return false;
         }
 
-        if (RCellFinder.TryFindRandomPawnEntryCell(out var _, map, CellFinder.EdgeRoadChance_Animal))
+        if (RCellFinder.TryFindRandomPawnEntryCell(out IntVec3 _, map, CellFinder.EdgeRoadChance_Animal))
         {
             return true;
         }
@@ -46,7 +46,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
         pawn.SetFaction(Faction.OfPlayer);
         pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);
         Pawn_TrainingTracker trainingTracker = pawn.training;
-        if (trainingTracker != null)
+        if (trainingTracker is not null)
         {
             IEnumerable<TrainableDef> trainableDefs = DefDatabase<TrainableDef>.AllDefsListForReading.Where(d => trainingTracker.CanAssignToTrain(d));
             foreach (TrainableDef trainableDef in trainableDefs)

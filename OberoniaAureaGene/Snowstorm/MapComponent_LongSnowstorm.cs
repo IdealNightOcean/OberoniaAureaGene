@@ -39,7 +39,7 @@ public class MapComponent_LongSnowstorm : MapComponent
             return;
         }
 
-        if (Find.TickManager.TicksGame - lastSnowTick > MaxSnowInterval && map.weatherDecider.ForcedWeather == null)
+        if (Find.TickManager.TicksGame - lastSnowTick > MaxSnowInterval && map.weatherDecider.ForcedWeather is null)
         {
             weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             int duration = ForeSnowDuration.RandomInRange;

@@ -21,7 +21,7 @@ public static class GetTicksPerMove_Patch
         if (Snowstorm_MiscUtility.SnowstormGameComp.SnowstormNow)
         {
             __result = (int)(__result * 5f);
-            if (explanation != null)
+            if (explanation is not null)
             {
                 explanation.AppendLine();
                 explanation.Append("  " + "OAGene_MultiplierForSnowstorm".Translate(0.2f.ToStringPercent()));

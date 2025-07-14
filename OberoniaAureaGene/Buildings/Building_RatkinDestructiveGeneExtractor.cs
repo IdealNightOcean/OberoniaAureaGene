@@ -19,7 +19,7 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
     }
     protected override void CancelWork()
     {
-        if (ContainedPawn != null)
+        if (ContainedPawn is not null)
         {
             Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("OAGene_ConfirmCancelRipGene".Translate(ContainedPawn.Named("PAWN")), delegate
             {
@@ -35,9 +35,9 @@ public class Building_RatkinDestructiveGeneExtractor : Building_GeneExtractorBas
 
     protected override void FinishWork()
     {
-        Map map = base.Map;
+        Map map = Map;
         Pawn containedPawn = ContainedPawn;
-        if (containedPawn != null)
+        if (containedPawn is not null)
         {
             List<GeneDef> tempGenes = containedPawn.genes.GenesListForReading.Select(g => g.def).ToList();
             int num = new IntRange(2 + tempGenes.Count / 5, 6).RandomInRange;

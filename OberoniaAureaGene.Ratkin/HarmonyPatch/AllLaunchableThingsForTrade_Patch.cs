@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
-namespace OberoniaAureaGene;
+namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(TradeUtility), "AllLaunchableThingsForTrade")]
@@ -23,11 +23,11 @@ public static class AllLaunchableThingsForTrade_Patch
         {
             foreach (IntVec3 tradeableCell in item.TradeableCells)
             {
-                IEnumerable<Thing> geneBanks = tradeableCell.GetThingList(map).Where(b => b.def == OAGene_MiscDefOf.OAGene_OAGeneBank);
+                IEnumerable<Thing> geneBanks = tradeableCell.GetThingList(map).Where(b => b.def == OAGene_RatkinDefOf.OAGene_OAGeneBank);
                 foreach (Thing bank in geneBanks)
                 {
                     CompGenepackContainer compGenepackContainer = bank.TryGetComp<CompGenepackContainer>();
-                    if (compGenepackContainer == null)
+                    if (compGenepackContainer is null)
                     {
                         continue;
                     }

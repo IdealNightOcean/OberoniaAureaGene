@@ -15,16 +15,13 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     public bool HasHostileSites => cachedHostileSitesCount > 0;
 
     protected int raidCheckTicks;
-    protected int cachedHegemonicFlagCount;
-    public int HegemonicFlagCount
-    {
-        get { return cachedHegemonicFlagCount; }
-        set { cachedHegemonicFlagCount = value > 0 ? value : 0; }
-    }
-    public bool HasHegemonicFlag => cachedHegemonicFlagCount > 0;
 
-    public MapComponent_OberoniaAureaGene(Map map) : base(map)
-    { }
+    [Unsaved] MapComponent_SpecialBuildingManager specialBuildingManager;
+    public MapComponent_SpecialBuildingManager SpecialBuildingManager => specialBuildingManager ??= OAFrame_MapUtility.GetSpecialBuildingManager(map);
+
+    private bool HasHegemonicFlag => SpecialBuildingManager?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false;
+
+    public MapComponent_OberoniaAureaGene(Map map) : base(map) { }
 
     public override void MapComponentTick()
     {
@@ -45,6 +42,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             enemyCheckTicks = cachedEnemiesCount > 0 ? 2500 : 15000;
         }
     }
+
     private void PeriodicEnemyCheck()
     {
         if (map.IsPlayerHome)
@@ -66,8 +64,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
     //霸权旗的周期袭击
     protected void RaidCheckTick()
     {
-        raidCheckTicks--;
-        if (raidCheckTicks <= 0)
+        if (raidCheckTicks-- <= 0)
         {
             TryExcuteRaid();
             raidCheckTicks = 300000;
@@ -97,11 +94,6 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             }
         }
     }
-    protected void RecacheHegemonicFlagCount()
-    {
-        cachedHegemonicFlagCount = map.listerBuildings.allBuildingsColonist.Where(b => b.def == OAGene_MiscDefOf.OAGene_HegemonicFlag).Count();
-    }
-
 
     public override void ExposeData()
     {
@@ -111,10 +103,9 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         Scribe_Values.Look(ref cachedHostileSitesCount, "cachedHostileSitesCount", 0);
 
         Scribe_Values.Look(ref raidCheckTicks, "raidCheckTicks", 0);
-        Scribe_Values.Look(ref cachedHegemonicFlagCount, "cachedHegemonicFlagCount", 0);
     }
 
-    public static int HostileSitesCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
+    private static int HostileSitesCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
     {
         if (tile <= 0)
         {

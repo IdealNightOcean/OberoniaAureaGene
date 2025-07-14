@@ -8,7 +8,7 @@ public class RaidStrategyWorker_SnowstormAttackBreaching : RaidStrategyWorker_Im
     public override bool CanUseWith(IncidentParms parms, PawnGroupKindDef groupKind)
     {
         GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-        if (storyGameComp == null || !storyGameComp.StoryActive)
+        if (storyGameComp is null || !storyGameComp.StoryActive)
         {
             return false;
         }

@@ -25,7 +25,7 @@ public class HediffGiver_SnowstormFog : HediffGiver
             return false;
         }
         Room room = p.Position.GetRoom(map);
-        if (room != null)
+        if (room is not null)
         {
             return room.UsesOutdoorTemperature;
         }

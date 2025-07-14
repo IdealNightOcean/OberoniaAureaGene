@@ -21,11 +21,11 @@ public class Gene_PartIncomingDamageFactor : Gene
     public override void PostAdd()
     {
         base.PostAdd();
-        pawn.GetComp<CompPawnGeneDamageModified>()?.ActivGene(this);
+        pawn.GetComp<CompPawnGeneDamageModified>()?.RegisterGene(this);
     }
     public override void PostRemove()
     {
         base.PostRemove();
-        pawn.GetComp<CompPawnGeneDamageModified>()?.InactivGene(this);
+        pawn.GetComp<CompPawnGeneDamageModified>()?.DeregisterGene(this);
     }
 }

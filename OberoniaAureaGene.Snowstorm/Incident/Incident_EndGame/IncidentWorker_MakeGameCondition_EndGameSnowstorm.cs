@@ -13,19 +13,19 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
         }
         Map hometownMap = parms.target as Map;
         hometownMap ??= Snowstorm_StoryUtility.GetHometownMap();
-        if (hometownMap == null)
+        if (hometownMap is null)
         {
             return false;
         }
         GameConditionManager gameConditionManager = Find.World.GameConditionManager;
-        if (gameConditionManager == null)
+        if (gameConditionManager is null)
         {
             Log.ErrorOnce($"Couldn't find condition manager for incident target {Find.World}", 70849667);
             return false;
         }
 
         GameConditionDef gameConditionDef = GetGameConditionDef(parms);
-        if (gameConditionDef == null)
+        if (gameConditionDef is null)
         {
             return false;
         }
@@ -45,7 +45,7 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
         }
         Map hometownMap = parms.target as Map;
         hometownMap ??= Snowstorm_StoryUtility.GetHometownMap();
-        if (hometownMap == null)
+        if (hometownMap is null)
         {
             return false;
         }
@@ -53,7 +53,7 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
         GameConditionDef gameConditionDef = GetGameConditionDef(parms);
         int duration = Mathf.RoundToInt(def.durationDays.RandomInRange * 60000f);
         GameCondition_EndGame_ExtremeSnowstorm gameCondition = GameConditionMaker.MakeCondition(gameConditionDef, duration) as GameCondition_EndGame_ExtremeSnowstorm;
-        if (gameCondition == null)
+        if (gameCondition is null)
         {
             return false;
         }

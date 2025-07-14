@@ -21,7 +21,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     protected override bool TryResolveRaidFaction(IncidentParms parms)
     {
-        if (parms.faction != null)
+        if (parms.faction is not null)
         {
             return true;
         }
@@ -32,7 +32,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             {
                 tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
-                if (tempFaction != null)
+                if (tempFaction is not null)
                 {
                     tempFaction.factionHostileOnHarmByPlayer = false;
                 }
@@ -47,7 +47,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Hostile);
                 tempFaction ??= Find.FactionManager.RandomEnemyFaction(allowNonHumanlike: false);
             }
-            if (tempFaction == null)
+            if (tempFaction is null)
             {
                 return false;
             }
@@ -78,7 +78,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
 
     protected override void PostProcessSpawnedPawns(IncidentParms parms, List<Pawn> pawns)
     {
-        if (pawns != null)
+        if (pawns is not null)
         {
             foreach (Pawn pawn in pawns)
             {

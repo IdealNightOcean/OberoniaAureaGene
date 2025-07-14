@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OberoniaAurea_Frame;
+using System.Collections.Generic;
 using System.Reflection;
 using Verse;
 
@@ -11,60 +12,54 @@ public class CompProperties_PawnGeneDamageModified : CompProperties
         compClass = typeof(CompPawnGeneDamageModified);
     }
 }
-public class CompPawnGeneDamageModified : ThingComp
+public class CompPawnGeneDamageModified : ThingComp, IPawnPreApplyDamage
 {
+    public int Priority => 10; // 优先级，数值越大优先级越高
+
     protected static readonly BindingFlags BindingAttr = BindingFlags.Instance | BindingFlags.NonPublic;
     protected bool actived = false;
-    protected Pawn pawn;
+    protected Pawn ParentPawn => parent as Pawn;
 
     private List<Gene_PartIncomingDamageFactor> activedGenes;
-    public override void PostSpawnSetup(bool respawningAfterLoad)
+
+    public void RegisterGene(Gene_PartIncomingDamageFactor gene)
     {
-        base.PostSpawnSetup(respawningAfterLoad);
-        pawn = parent as Pawn;
-    }
-    public void ActivGene(Gene_PartIncomingDamageFactor gene)
-    {
-        activedGenes ??= [];
-        if (!activedGenes.Contains(gene))
+        if (activedGenes is null)
+        {
+            activedGenes = [gene];
+            actived = true;
+            ParentPawn?.GetComp<CompPawnPreApplyDamageHandler>()?.RegisterDamageProcessor(this);
+        }
+        else if (!activedGenes.Contains(gene))
         {
             activedGenes.Add(gene);
         }
-        RecacheActivedGenes();
     }
-    public void InactivGene(Gene_PartIncomingDamageFactor gene)
+    public void DeregisterGene(Gene_PartIncomingDamageFactor gene)
     {
-        activedGenes?.Remove(gene);
-        RecacheActivedGenes();
-    }
-    private void RecacheActivedGenes()
-    {
-        activedGenes?.RemoveAll(g => g == null);
-        if (activedGenes.NullOrEmpty())
+        if (activedGenes is not null && activedGenes.Remove(gene))
         {
-            activedGenes = null;
-            actived = false;
-        }
-        else
-        {
-            actived = true;
+            if (activedGenes.Count == 0)
+            {
+                activedGenes = null;
+                actived = false;
+                ParentPawn?.GetComp<CompPawnPreApplyDamageHandler>()?.DeregisterDamageProcessor(this);
+            }
         }
     }
 
-    public override void PostPreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
+    public void PawnPreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
     {
+        Log.Message("基因");
         absorbed = false;
         if (!actived)
         {
             return;
         }
-        if (dinfo.Def.Worker is not DamageWorker_AddInjury addInjury)
+        if (dinfo.HitPart is null)
         {
-            return;
-        }
-        if (dinfo.HitPart == null)
-        {
-            BodyPartRecord bodyPart = ChooseHitPart(addInjury, dinfo, pawn);
+            BodyPartDepth bodyPartDepth = (dinfo.Depth == BodyPartDepth.Undefined) ? (Rand.Chance(0.75f) ? BodyPartDepth.Outside : BodyPartDepth.Inside) : dinfo.Depth;
+            BodyPartRecord bodyPart = ParentPawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, bodyPartDepth);
             dinfo.SetHitPart(bodyPart);
         }
         float damageFactor = 1f;
@@ -74,19 +69,25 @@ public class CompPawnGeneDamageModified : ThingComp
         }
         dinfo.SetAmount(dinfo.Amount * damageFactor);
     }
-    protected static BodyPartRecord ChooseHitPart(DamageWorker_AddInjury addInjury, DamageInfo dinfo, Pawn pawn)
-    {
-        object obj = addInjury.GetType().GetMethod("ChooseHitPart", BindingAttr).Invoke(addInjury, [dinfo, pawn]);
-        return obj as BodyPartRecord;
-    }
+
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Values.Look(ref actived, "actived", defaultValue: false);
+
         Scribe_Collections.Look(ref activedGenes, "activedGenes", LookMode.Reference);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
-            RecacheActivedGenes();
+            activedGenes?.RemoveAll(g => g is null);
+            if (activedGenes.NullOrEmpty())
+            {
+                actived = false;
+                activedGenes = null;
+            }
+            else
+            {
+                actived = true;
+                ParentPawn?.GetComp<CompPawnPreApplyDamageHandler>()?.RegisterDamageProcessor(this);
+            }
         }
     }
 }

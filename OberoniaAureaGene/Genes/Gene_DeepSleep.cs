@@ -14,7 +14,7 @@ public class Gene_DeepSleep : Gene
     }
     private static void CheckAlseep(Pawn pawn)
     {
-        if (pawn.CurJob == null || pawn.jobs.curDriver == null)
+        if (pawn.CurJob is null || pawn.jobs.curDriver is null)
         {
             return;
         }

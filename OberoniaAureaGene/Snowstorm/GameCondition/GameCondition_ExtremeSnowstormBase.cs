@@ -37,7 +37,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     {
         if (Rand.Chance(0.3f))
         {
-            GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, this.Duration);
+            GameCondition gameCondition = GameConditionMaker.MakeCondition(GameConditionDefOf.ColdSnap, Duration);
             gameConditionManager.RegisterCondition(gameCondition);
             Letter letter = LetterMaker.MakeLetter("OAGene_LetterLabel_ExtremeSnowstormCauseColdSnap".Translate(), "OAGene_Letter_ExtremeSnowstormCauseColdSnap".Translate(), LetterDefOf.NegativeEvent);
             Find.LetterStack.ReceiveLetter(letter, playSound: false);

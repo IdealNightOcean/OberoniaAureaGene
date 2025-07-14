@@ -11,7 +11,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Split : SymbolResolver_BaseP
     {
         bool @bool = Rand.Bool;
         bool flag;
-        if (TryFindSplitPoint(@bool, rp.rect, out var splitPoint, out var spaceBetween))
+        if (TryFindSplitPoint(@bool, rp.rect, out int splitPoint, out int spaceBetween))
         {
             flag = @bool;
         }

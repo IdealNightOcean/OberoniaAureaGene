@@ -28,13 +28,13 @@ public class StatPart_ExtremeSnowstorm : StatPart
 
     protected static bool ActiveFor(Thing t)
     {
-        if (t == null || !t.def.deteriorateFromEnvironmentalEffects)
+        if (t is null || !t.def.deteriorateFromEnvironmentalEffects)
         {
             return false;
         }
         Map map = t.MapHeld;
         IntVec3 cell = t.PositionHeld;
-        if (map == null || !cell.IsValid)
+        if (map is null || !cell.IsValid)
         {
             return false;
         }

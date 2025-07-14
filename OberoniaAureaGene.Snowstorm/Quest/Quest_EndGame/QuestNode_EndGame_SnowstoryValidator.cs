@@ -12,7 +12,7 @@ public class QuestNode_EndGame_SnowstoryValidator : QuestNode
     protected override void RunInt()
     {
         GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-        if (storyGameComp != null && storyGameComp.Protagonist != null)
+        if (storyGameComp is not null && storyGameComp.Protagonist is not null)
         {
             Slate slate = QuestGen.slate;
             slate.Set("protagonist", storyGameComp.Protagonist);

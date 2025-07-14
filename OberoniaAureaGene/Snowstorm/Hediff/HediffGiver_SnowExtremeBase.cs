@@ -56,7 +56,7 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
         if (ambientTemperature > 0)
         {
             Hediff firstHediffOfDef = pawn.health.hediffSet.GetFirstHediffOfDef(coldImmersionHediff);
-            if (firstHediffOfDef != null)
+            if (firstHediffOfDef is not null)
             {
                 float sevAdjuest = ImmersionAdjustmentCurve.Evaluate(ambientTemperature) * 0.001f;
                 firstHediffOfDef.Severity += sevAdjuest;

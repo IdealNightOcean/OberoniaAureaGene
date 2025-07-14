@@ -16,7 +16,7 @@ public class Gene_BloodCellsAutophagy : Gene
     public static void CheckFood(Pawn pawn)
     {
         Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
-        if (hediff != null && hediff.Severity > 0.05)
+        if (hediff is not null && hediff.Severity > 0.05)
         {
             OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_BloodCellsAutophagy, overrideDisappearTicks: 30000);
         }

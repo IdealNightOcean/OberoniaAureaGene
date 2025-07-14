@@ -17,7 +17,7 @@ public class Building_RatkinGeneDiscriminator : Building_GeneDiscriminatorBase
 
     protected override void FinishWork()
     {
-        Map map = base.Map;
+        Map map = Map;
         Genepack containedGenepack = ContainedGenepack;
         bool success = false;
         float faliChance = FailChanceCurve.Evaluate(containedGenepack.GeneSet.GenesListForReading.Count);

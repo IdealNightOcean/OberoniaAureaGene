@@ -12,12 +12,12 @@ public class QuestNode_GetSnowstormRaidFaction : QuestNode
     protected override bool TestRunInt(Slate slate)
     {
         Map map = slate.Get<Map>("map");
-        if (map == null)
+        if (map is null)
         {
             return false;
         }
         Faction faction = SnowstormUtility.RandomSnowstormMaliceRaidableFaction(map);
-        if (faction != null)
+        if (faction is not null)
         {
             slate.Set(storeAs.GetValue(slate), faction);
             return true;
@@ -28,12 +28,12 @@ public class QuestNode_GetSnowstormRaidFaction : QuestNode
     {
         Slate slate = QuestGen.slate;
         Map map = slate.Get<Map>("map");
-        if (map == null)
+        if (map is null)
         {
             return;
         }
         Faction faction = SnowstormUtility.RandomSnowstormMaliceRaidableFaction(map);
-        if (faction != null)
+        if (faction is not null)
         {
             slate.Set(storeAs.GetValue(slate), faction);
             QuestPart_InvolvedFactions questPart_InvolvedFactions = new();

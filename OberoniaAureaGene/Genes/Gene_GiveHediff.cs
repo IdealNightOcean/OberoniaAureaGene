@@ -15,7 +15,7 @@ public class Gene_GiveHediff : Gene
     {
         base.PostRemove();
         Hediff hediff = pawn.health.hediffSet.GetFirstHediffOfDef(LinkedHediffDef);
-        if (hediff != null)
+        if (hediff is not null)
         {
             pawn.health.RemoveHediff(hediff);
         }

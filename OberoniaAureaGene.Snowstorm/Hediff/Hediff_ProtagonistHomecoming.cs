@@ -1,35 +1,37 @@
 ﻿using RimWorld;
+using System.Text;
 using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class HediffCompProperties_ProtagonistHomecoming : HediffCompProperties
+public class Hediff_ProtagonistHomecoming : HediffWithComps
 {
-    public HediffCompProperties_ProtagonistHomecoming()
+    protected int diaryStage;
+    protected int DiaryStage
     {
-        compClass = typeof(HediffComp_ProtagonistHomecoming);
-    }
-}
-
-public class HediffComp_ProtagonistHomecoming : HediffComp
-{
-
-    protected int stage;
-    protected int Stage
-    {
-        get { return stage; }
-        set { stage = Mathf.Clamp(value, 0, 6); }
+        get { return diaryStage; }
+        set { diaryStage = Mathf.Clamp(value, 0, 6); }
     }
 
     protected int ticksRemaining = 600000;
 
     protected bool longCherishedTrigged;
 
-    public override string CompLabelInBracketsExtra => stage.ToString();
-
-    public override void CompPostTick(ref float severityAdjustment)
+    public override string LabelInBrackets
     {
+        get
+        {
+            StringBuilder stringBuilder = new(base.LabelInBrackets);
+            stringBuilder.Append(", ");
+            stringBuilder.Append(diaryStage);
+            return stringBuilder.ToString();
+        }
+    }
+
+    public override void Tick()
+    {
+        base.Tick();
         ticksRemaining--;
         if (ticksRemaining < 0)
         {
@@ -42,48 +44,48 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     {
         if (!Snowstorm_StoryUtility.StoryGameComp.LongingForHome)
         {
-            parent.pawn.health.RemoveHediff(parent);
+            pawn.health.RemoveHediff(this);
             return;
         }
-        Pawn protagonist = parent.pawn;
+        Pawn protagonist = pawn;
         int years = GenDate.YearsPassed;
-        switch (Stage)
+        switch (DiaryStage)
         {
             case 0:
                 if (years >= 2)
                 {
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 1:
                 if (years >= 4)
                 {
                     RecacheThought(0, 1200000);
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 2:
                 if (years >= 6)
                 {
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 3:
                 if (years >= 8)
                 {
                     RecacheThought(1, 3600000);
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 4:
                 if (years >= 10)
                 {
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 5:
@@ -91,8 +93,8 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
                 {
                     RecacheThought(2, -1, true);
                     longCherishedTrigged = true;
-                    Stage++;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage++;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             case 6:
@@ -100,8 +102,8 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
                 {
                     RecacheThought(2, -1, true);
                     longCherishedTrigged = true;
-                    Stage = 6;
-                    SendDiaryLetter(protagonist, Stage, slience);
+                    DiaryStage = 6;
+                    SendDiaryLetter(protagonist, DiaryStage, slience);
                 }
                 break;
             default: break;
@@ -121,16 +123,16 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
     }
     public void RecacheThought(int thoughtStage, int durationTicksOverride = -1, bool permanent = false)
     {
-        Pawn protagonist = parent.pawn;
+        Pawn protagonist = pawn;
         ThoughtDef homecoming = Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming;
         Thought_Memory memory = protagonist.needs.mood?.thoughts.memories.GetFirstMemoryOfDef(homecoming);
-        if (memory == null)
+        if (memory is null)
         {
             memory = ThoughtMaker.MakeThought(homecoming, thoughtStage);
             memory.permanent = permanent;
             protagonist.needs.mood?.thoughts.memories.TryGainMemory(memory);
         }
-        parent.Severity = thoughtStage;
+        Severity = thoughtStage;
 
         memory.SetForcedStage(thoughtStage);
         memory.permanent = permanent;
@@ -142,31 +144,41 @@ public class HediffComp_ProtagonistHomecoming : HediffComp
 
     public void RecacheDiaryAndThoughtNow(bool slience)
     {
-        int years = GenDate.YearsPassed;
-        Stage = years / 2;
+        DiaryStage = GenDate.YearsPassed / 2;
         RecacheDiaryAndThought(slience);
     }
-    public override void CompPostPostRemoved()
+
+    public override void PostRemoved()
     {
-        base.CompPostPostRemoved();
-        parent.pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
+        base.PostRemoved();
+        pawn.needs.mood?.thoughts.memories.RemoveMemoriesOfDef(Snowstorm_ThoughtDefOf.OAGene_Thought_ProtagonistHomecoming);
     }
 
-    public override void CompPostMerged(Hediff other)
+    public override bool TryMergeWith(Hediff other)
     {
-        base.CompPostMerged(other);
-        HediffComp_ProtagonistHomecoming otherHomecomingComp = other.TryGetComp<HediffComp_ProtagonistHomecoming>();
-        if (otherHomecomingComp != null)
+        if (other is null || other.def != def)
         {
-            stage = Mathf.Max(stage, otherHomecomingComp.stage);
-            longCherishedTrigged |= otherHomecomingComp.longCherishedTrigged;
+            return false;
         }
+        if (other is Hediff_ProtagonistHomecoming otherHomecoming)
+        {
+            diaryStage = Mathf.Max(diaryStage, otherHomecoming.diaryStage);
+            longCherishedTrigged = longCherishedTrigged || otherHomecoming.longCherishedTrigged;
+
+            for (int i = 0; i < comps.Count; i++)
+            {
+                comps[i].CompPostMerged(other);
+            }
+            return true;
+        }
+        return false;
     }
-    public override void CompExposeData()
+
+    public override void ExposeData()
     {
-        base.CompExposeData();
+        base.ExposeData();
         Scribe_Values.Look(ref ticksRemaining, "ticksRemaining", 0);
-        Scribe_Values.Look(ref stage, "stage", 0);
+        Scribe_Values.Look(ref diaryStage, "diaryStage", 0);
         Scribe_Values.Look(ref longCherishedTrigged, "longCherishedTrigged", defaultValue: false);
     }
 }

@@ -9,7 +9,7 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
     protected override void PostEnd()
     {
         Map mainMap = GetMainMap();
-        if (mainMap != null)
+        if (mainMap is not null)
         {
             IncidentParms parms = new()
             {

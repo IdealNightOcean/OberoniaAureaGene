@@ -24,7 +24,7 @@ public class IncidentWorker_CommunicationTowerCollapse : IncidentWorker
         }
         Map map = (Map)parms.target;
         GameCondition_ExtremeSnowstorm snowstorm = SnowstormUtility.SnowstormCondition;
-        if (snowstorm != null && !snowstorm.blockCommsconsole)
+        if (snowstorm is not null && !snowstorm.blockCommsconsole)
         {
             snowstorm.blockCommsconsole = true;
             SendStandardLetter(parms, null);

@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -35,7 +34,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormCultist);
             Snowstorm_MiscUtility.SetColdPreparation(pawn, Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral);
             HediffComp_Disappears hediffComp_Disappears = pawn.health.hediffSet.GetFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ColdPreparation_Neutral)?.TryGetComp<HediffComp_Disappears>();
-            if (hediffComp_Disappears != null)
+            if (hediffComp_Disappears is not null)
             {
                 hediffComp_Disappears.ticksToDisappear = 60000;
             }
@@ -62,7 +61,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         slate.Set("requestedThingCount", RequestedThingCount);
 
         Faction faction = TryResolveFaction();
-        if (faction == null)
+        if (faction is null)
         {
             return;
         }
@@ -79,7 +78,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         beggarCount = pawns.Count;
         foreach (Pawn pawn in pawns)
         {
-            if (pawn.inventory != null)
+            if (pawn.inventory is not null)
             {
                 for (int innerCount = pawn.inventory.innerContainer.Count - 1; innerCount >= 0; innerCount--)
                 {
@@ -193,7 +192,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             return false;
         }
         Map map = Snowstorm_StoryUtility.GetHometownMap();
-        if (map == null)
+        if (map is null)
         {
             return false;
         }

@@ -17,6 +17,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
         }
         return base.FactionCanBeGroupSource(f, map, desperate);
     }
+
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
         Map map = (Map)parms.target;
@@ -49,7 +50,6 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
         SendLetter(parms);
         return true;
     }
-
 
     protected void TraderCaravanArrival(Map map, Faction faction, int delayTicks)
     {

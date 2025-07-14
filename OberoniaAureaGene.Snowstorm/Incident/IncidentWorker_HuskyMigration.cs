@@ -47,7 +47,7 @@ public class IncidentWorker_HuskyMigration : IncidentWorker
         for (int i = 0; i < 8; i++)
         {
             IntVec3 startLocal = start;
-            if (!CellFinder.TryFindRandomEdgeCellWith((IntVec3 x) => map.reachability.CanReach(startLocal, x, PathEndMode.OnCell, TraverseParms.For(TraverseMode.NoPassClosedDoors).WithFenceblocked(forceFenceblocked: true)), map, CellFinder.EdgeRoadChance_Ignore, out var result))
+            if (!CellFinder.TryFindRandomEdgeCellWith((IntVec3 x) => map.reachability.CanReach(startLocal, x, PathEndMode.OnCell, TraverseParms.For(TraverseMode.NoPassClosedDoors).WithFenceblocked(forceFenceblocked: true)), map, CellFinder.EdgeRoadChance_Ignore, out IntVec3 result))
             {
                 break;
             }

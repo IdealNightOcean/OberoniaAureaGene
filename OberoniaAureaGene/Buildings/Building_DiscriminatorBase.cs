@@ -38,11 +38,11 @@ public abstract class Building_GeneDiscriminatorBase : Building
     {
         get
         {
-            if (Working || targetGenepack == null)
+            if (Working || targetGenepack is null)
             {
                 return true;
             }
-            if (ContainedGenepack == null)
+            if (ContainedGenepack is null)
             {
                 return false;
             }
@@ -57,12 +57,12 @@ public abstract class Building_GeneDiscriminatorBase : Building
     {
         tempGenepacks.Clear();
         List<Thing> connectedFacilities = ConnectedFacilities;
-        if (connectedFacilities != null)
+        if (connectedFacilities is not null)
         {
             foreach (Thing item in connectedFacilities)
             {
                 CompGenepackContainer compGenepackContainer = item.TryGetComp<CompGenepackContainer>();
-                if (compGenepackContainer != null)
+                if (compGenepackContainer is not null)
                 {
                     bool flag = item.TryGetComp<CompPowerTrader>()?.PowerOn ?? true;
                     if ((includePowered && flag) || (includeUnpowered && !flag))
@@ -77,17 +77,17 @@ public abstract class Building_GeneDiscriminatorBase : Building
 
     public Thing GetTargetGeneBank()
     {
-        if (targetGenepack == null)
+        if (targetGenepack is null)
         {
             return null;
         }
         List<Thing> connectedFacilities = ConnectedFacilities;
-        if (connectedFacilities != null)
+        if (connectedFacilities is not null)
         {
             foreach (Thing item in connectedFacilities)
             {
                 CompGenepackContainer compGenepackContainer = item.TryGetComp<CompGenepackContainer>();
-                if (compGenepackContainer != null)
+                if (compGenepackContainer is not null)
                 {
                     if (compGenepackContainer.ContainedGenepacks.Contains(targetGenepack))
                     {
@@ -102,12 +102,12 @@ public abstract class Building_GeneDiscriminatorBase : Building
     public CompGenepackContainer GetGeneBankHoldingPack(Genepack pack)
     {
         List<Thing> connectedFacilities = ConnectedFacilities;
-        if (connectedFacilities != null)
+        if (connectedFacilities is not null)
         {
             foreach (Thing item in connectedFacilities)
             {
                 CompGenepackContainer compGenepackContainer = item.TryGetComp<CompGenepackContainer>();
-                if (compGenepackContainer == null)
+                if (compGenepackContainer is null)
                 {
                     continue;
                 }
@@ -128,7 +128,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         base.SpawnSetup(map, respawningAfterLoad);
         compPower = this.TryGetComp<CompPowerTrader>();
         compGeneDiscriminat = this.TryGetComp<CompGeneDiscriminat>();
-        placePos = base.def.hasInteractionCell ? InteractionCell : base.Position;
+        placePos = def.hasInteractionCell ? InteractionCell : Position;
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
@@ -141,7 +141,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         base.Tick();
         if (this.IsHashIntervalTick(250))
         {
-            compPower.PowerOutput = (Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
+            compPower.PowerOutput = (Working ? (0f - PowerComp.Props.PowerConsumption) : (0f - PowerComp.Props.idlePowerDraw));
         }
         if (Working)
         {
@@ -161,7 +161,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 if (powerCutTicks >= 60000)
                 {
                     Genepack containedGenepack = ContainedGenepack;
-                    if (containedGenepack != null)
+                    if (containedGenepack is not null)
                     {
                         Messages.Message("OAGene_MessageGeneDiscriminatNoPowerEjected".Translate(), containedGenepack, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
@@ -173,7 +173,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
     }
     protected void EffectsTick()
     {
-        if (sustainerWorking == null || sustainerWorking.Ended)
+        if (sustainerWorking is null || sustainerWorking.Ended)
         {
             sustainerWorking = SoundDefOf.GeneExtractor_Working.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
         }
@@ -182,12 +182,12 @@ public abstract class Building_GeneDiscriminatorBase : Building
             sustainerWorking.Maintain();
         }
         progressBar ??= EffecterDefOf.ProgressBarAlwaysVisible.Spawn();
-        progressBar.EffectTick(new TargetInfo(base.Position + IntVec3.North.RotatedBy(base.Rotation), base.Map), TargetInfo.Invalid);
+        progressBar.EffectTick(new TargetInfo(Position + IntVec3.North.RotatedBy(Rotation), Map), TargetInfo.Invalid);
         MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBar.children[0]).mote;
-        if (mote != null)
+        if (mote is not null)
         {
             mote.progress = 1f - Mathf.Clamp01((float)ticksRemaining / TicksToDiscriminat);
-            mote.offsetZ = ((base.Rotation == Rot4.North) ? 0.5f : (-0.5f));
+            mote.offsetZ = ((Rotation == Rot4.North) ? 0.5f : (-0.5f));
         }
     }
     protected virtual void ClearEffects() //清理特效
@@ -201,7 +201,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
     }
     public virtual void TryStartWork(Genepack genepack, GeneDef geneDef)
     {
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         ticksRemaining = TicksToDiscriminat;
         targetGenepack = genepack;
         targetGeneDef = geneDef;
@@ -235,15 +235,15 @@ public abstract class Building_GeneDiscriminatorBase : Building
         }
         targetGenepack = null;
         targetGeneDef = null;
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         compGeneDiscriminat.autoLoad = false;
     }
 
     protected virtual void FinishWork()
     {
-        compGeneDiscriminat.EjectContents(base.Map);
+        compGeneDiscriminat.EjectContents(Map);
         compGeneDiscriminat.autoLoad = false;
-        if (targetGenepack != null)
+        if (targetGenepack is not null)
         {
             targetGenepack.targetContainer = null;
         }
@@ -288,7 +288,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
         }
         else
         {
-            if (targetGenepack == null)
+            if (targetGenepack is null)
             {
                 Command_Action command_Action3 = new()
                 {
@@ -328,11 +328,11 @@ public abstract class Building_GeneDiscriminatorBase : Building
     protected virtual string PostGetInspectString()
     {
         StringBuilder text = new();
-        if (targetGenepack != null && !compGeneDiscriminat.Full)
+        if (targetGenepack is not null && !compGeneDiscriminat.Full)
         {
             text.AppendInNewLine("OAGene_WaitingForGenePack".Translate().Resolve());
         }
-        else if (Working && ContainedGenepack != null)
+        else if (Working && ContainedGenepack is not null)
         {
             if (PowerOn)
             {

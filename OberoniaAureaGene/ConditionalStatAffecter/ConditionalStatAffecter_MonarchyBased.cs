@@ -15,7 +15,7 @@ public class ConditionalStatAffecter_MonarchyBased : ConditionalStatAffecterBase
         }
         if (ModsConfig.RoyaltyActive)
         {
-            if (p.royalty != null && p.royalty.AllTitlesForReading.Any())
+            if (p.royalty is not null && p.royalty.AllTitlesForReading.Any())
             {
                 return true;
             }
@@ -23,7 +23,7 @@ public class ConditionalStatAffecter_MonarchyBased : ConditionalStatAffecterBase
         if (ModsConfig.IdeologyActive)
         {
             Precept_Role precept_Role = p.Ideo?.GetRole(p);
-            if (precept_Role != null)
+            if (precept_Role is not null)
             {
                 return true;
             }

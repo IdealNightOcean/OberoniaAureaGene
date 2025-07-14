@@ -20,14 +20,14 @@ public class QuestNode_EndGame_EndEndGameSnowstorm : QuestNode
     {
         Slate slate = QuestGen.slate;
         MapParent hometown = slate.Get<WorldObject>("hometown") as MapParent;
-        if (hometown == null)
+        if (hometown is null)
         {
             return;
         }
         QuestPart_EndGame_EndEndGameSnowstorm questPart_EndGame_EndEndGameSnowstorm = new()
         {
             inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? slate.Get<string>("inSignal"),
-            snowstormEndDelay = this.snowstormEndDelay.GetValue(slate),
+            snowstormEndDelay = snowstormEndDelay.GetValue(slate),
         };
         QuestGen.quest.AddPart(questPart_EndGame_EndEndGameSnowstorm);
     }

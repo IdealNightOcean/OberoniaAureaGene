@@ -32,7 +32,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public bool satisfySnowstormCultist;
 
 
-    public GameComponent_SnowstormStory(Game game) 
+    public GameComponent_SnowstormStory(Game game)
     {
         Snowstorm_StoryUtility.StoryGameComp = this;
     }
@@ -51,6 +51,7 @@ public class GameComponent_SnowstormStory : GameComponent
         hometown = mapParent;
         hometownTile = tile;
     }
+
     public void Notify_HometownDestory(bool clearTile = false)
     {
         hometownSpawned = false;
@@ -60,27 +61,29 @@ public class GameComponent_SnowstormStory : GameComponent
             hometownTile = Tile.Invalid;
         }
     }
+
     public void Notify_StoryInProgress()
     {
         storyInProgress = true;
         satisfySnowstormCultist = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
         }
     }
+
     public void Notify_StroyFail()
     {
         storyInProgress = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
-            Hediff homecoming = protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
-            homecoming?.TryGetComp<HediffComp_ProtagonistHomecoming>()?.RecacheDiaryAndThoughtNow(slience: true);
+            Hediff_ProtagonistHomecoming homecoming = (Hediff_ProtagonistHomecoming)protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            homecoming?.RecacheDiaryAndThoughtNow(slience: true);
         }
-
     }
+
     public void Notify_StroySuccess()
     {
         OAGene_SnowstormSettings.StoryFinishedOnce = true;
@@ -94,7 +97,7 @@ public class GameComponent_SnowstormStory : GameComponent
         }
         storyFinished = true;
         storyInProgress = false;
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
             OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
@@ -122,6 +125,7 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         GameStart();
     }
+
     public override void LoadedGame()
     {
         GameStart();
@@ -141,7 +145,7 @@ public class GameComponent_SnowstormStory : GameComponent
 
     private void ProtagonistValidator()
     {
-        if (protagonist != null)
+        if (protagonist is not null)
         {
             if (LongingForHome)
             {
@@ -170,13 +174,13 @@ public class GameComponent_SnowstormStory : GameComponent
             {
                 bool forceReset = false;
                 protagonist = Find.GameInitData?.startingAndOptionalPawns.Where(p => p.IsColonist)?.Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
-                if (protagonist == null)
+                if (protagonist is null)
                 {
                     forceReset = true;
                     protagonist = Find.AnyPlayerHomeMap?.mapPawns.FreeColonistsSpawned.RandomElementWithFallback(null);
                 }
                 Dialog_NodeTree outcomeTree;
-                if (protagonist == null)
+                if (protagonist is null)
                 {
                     outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
                 }

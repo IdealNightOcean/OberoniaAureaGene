@@ -27,9 +27,9 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
 
     public IEnumerable<FiringIncident> MakeIntervalIncidents()
     {
-        if (mapParent != null && mapParent.HasMap)
+        if (mapParent is not null && mapParent.HasMap)
         {
-            return MakeIntervalIncidents(parms, mapParent.Map, base.EnableTick + threatStartTicks);
+            return MakeIntervalIncidents(parms, mapParent.Map, EnableTick + threatStartTicks);
         }
 
         return [];
@@ -41,7 +41,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
         for (int i = 0; i < incCount; i++)
         {
             FiringIncident firingIncident = MakeThreat(parms, target);
-            if (firingIncident != null)
+            if (firingIncident is not null)
             {
                 yield return firingIncident;
             }
@@ -86,7 +86,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
 
     public override void DoDebugWindowContents(Rect innerRect, ref float curY)
     {
-        if (base.State == QuestPartState.Enabled)
+        if (State == QuestPartState.Enabled)
         {
             Rect rect = new(innerRect.x, curY, 500f, 25f);
             if (Widgets.ButtonText(rect, "Log future incidents from " + GetType().Name))
