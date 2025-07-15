@@ -11,11 +11,9 @@ namespace OberoniaAureaGene.Snowstorm;
 public static class Snowstorm_StoryUtility
 {
     private const float SongStartDelay = 2.5f;
+    private static GameComponent_SnowstormStory StoryGameComp => GameComponent_SnowstormStory.Instance;
 
-    public static GameComponent_SnowstormStory StoryGameComp;
-    public static bool StoryActive => StoryGameComp.StoryActive;
-
-    public static bool OnlyProtagonist = false;
+    public static bool OnlyProtagonist = true;
     public static Pawn OtherPawn = null;
 
     public static bool TryGetStoryProtagonist(out Pawn protagonist)
@@ -47,6 +45,7 @@ public static class Snowstorm_StoryUtility
         }
         return hometownMap;
     }
+
     public static bool CanFireSnowstormEndGameNow(bool logFailMessage = true)
     {
         if (GenDate.DaysPassed < 10)
@@ -98,8 +97,12 @@ public static class Snowstorm_StoryUtility
             victoryText = "OAGene_ReturnHome_Muti".Translate(protagonist.Named("PAWN"), OtherPawn.Named("OTHER"));
         }
 
-
         GameVictoryUtility.ShowCredits(victoryText, null, exitToMainMenu: false, SongStartDelay);
+    }
 
+    public static void ClearStaticCache()
+    {
+        OnlyProtagonist = true;
+        OtherPawn = null;
     }
 }

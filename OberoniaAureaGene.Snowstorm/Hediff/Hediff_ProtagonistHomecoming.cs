@@ -42,7 +42,7 @@ public class Hediff_ProtagonistHomecoming : HediffWithComps
 
     protected void RecacheDiaryAndThought(bool slience = false)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.LongingForHome)
+        if (!GameComponent_SnowstormStory.Instance.LongingForHome)
         {
             pawn.health.RemoveHediff(this);
             return;

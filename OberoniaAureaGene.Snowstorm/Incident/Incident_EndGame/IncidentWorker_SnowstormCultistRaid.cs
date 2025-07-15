@@ -10,7 +10,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
 {
     protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
+        if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
         {
             return !f.HostileTo(Faction.OfPlayer);
         }
@@ -28,7 +28,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
         else
         {
             Faction tempFaction = null;
-            if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
+            if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
             {
                 tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
@@ -59,7 +59,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     protected override bool CanFireNowSub(IncidentParms parms)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }
@@ -92,7 +92,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     protected override string GetLetterLabel(IncidentParms parms)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
+        if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
         {
             return "OAGene_LetterLabel_SnowstormCultistRaidFriendly".Translate();
         }
@@ -104,7 +104,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
     }
     protected override string GetLetterText(IncidentParms parms, List<Pawn> pawns)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist)
+        if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
         {
             return "OAGene_Letter_SnowstormCultistRaidFriendly".Translate();
         }
@@ -116,7 +116,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
 
     protected override LetterDef GetLetterDef()
     {
-        return Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist ? LetterDefOf.PositiveEvent : LetterDefOf.ThreatBig;
+        return GameComponent_SnowstormStory.Instance.satisfySnowstormCultist ? LetterDefOf.PositiveEvent : LetterDefOf.ThreatBig;
     }
 
     protected static void AdjuestFactionRelation(Faction faction)

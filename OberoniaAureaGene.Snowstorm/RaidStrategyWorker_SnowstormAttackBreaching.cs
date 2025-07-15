@@ -7,12 +7,11 @@ public class RaidStrategyWorker_SnowstormAttackBreaching : RaidStrategyWorker_Im
 {
     public override bool CanUseWith(IncidentParms parms, PawnGroupKindDef groupKind)
     {
-        GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-        if (storyGameComp is null || !storyGameComp.StoryActive)
+        if (GameComponent_SnowstormStory.Instance is null || !GameComponent_SnowstormStory.Instance.StoryActive)
         {
             return false;
         }
-        ;
+
         return base.CanUseWith(parms, groupKind);
     }
 

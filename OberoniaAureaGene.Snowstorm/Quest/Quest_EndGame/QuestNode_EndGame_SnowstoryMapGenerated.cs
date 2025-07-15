@@ -10,7 +10,7 @@ public class QuestNode_EndGame_SnowstoryMapGenerated : QuestNode
     public SlateRef<string> inSignal;
     protected override bool TestRunInt(Slate slate)
     {
-        GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
+        GameComponent_SnowstormStory storyGameComp = GameComponent_SnowstormStory.Instance;
         if (storyGameComp is null || storyGameComp.storyInProgress || storyGameComp.storyFinished)
         {
             return false;

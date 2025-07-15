@@ -51,10 +51,11 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         pawn.inventory.innerContainer.TryAdd(food);
     }
 
-    protected override void SetPawnsLeaveComp(QuestParameter questParameter, List<Pawn> pawns, string inSignalEnable, string inSignalRemovePawn)
+    protected override void SetPawnsLeaveComp(string inSignalEnable, string inSignalRemovePawn)
     {
         Quest quest = questParameter.quest;
         Faction faction = questParameter.faction;
+        List<Pawn> pawns = questParameter.pawns;
         string outSignalNotSnowstorm = QuestGenUtility.HardcodedSignalWithQuestID("snowstormEnd");
 
         QuestPart_IsSnowExtremeWeather questPart_IsSnowExtremeWeather = new()
@@ -75,6 +76,6 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         }, inSignal: outSignalNotSnowstorm);
         quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
 
-        DefaultDelayLeaveComp(questParameter, pawns, inSignalEnable, outSignalNotSnowstorm, inSignalRemovePawn);
+        DefaultDelayLeaveComp(inSignalEnable, outSignalNotSnowstorm, inSignalRemovePawn);
     }
 }

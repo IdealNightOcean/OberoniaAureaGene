@@ -42,7 +42,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     {
         try
         {
-            Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
+            GameComponent_Snowstorm.Instance.Notify_SnowstormStart();
 
             int duration = Duration;
             SnowstormUtility.InitExtremeSnowstorm_World(duration);
@@ -65,7 +65,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
     }
     protected override void PreEnd()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        GameComponent_Snowstorm.Instance.Notify_SnowstormEnd();
         SnowstormUtility.EndExtremeSnowstorm_World();
         Map mainMap = MainMap;
         if (endSlience)

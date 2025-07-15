@@ -6,7 +6,7 @@ public class IncidentWorker_MakeGameCondition_Snowstorm : IncidentWorker_MakeGam
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }
@@ -14,7 +14,7 @@ public class IncidentWorker_MakeGameCondition_Snowstorm : IncidentWorker_MakeGam
     }
     protected override bool TryExecuteWorker(IncidentParms parms)
     {
-        if (Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }

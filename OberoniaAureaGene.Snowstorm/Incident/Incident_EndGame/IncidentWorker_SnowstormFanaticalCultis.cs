@@ -8,7 +8,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }
@@ -19,7 +19,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
 
     protected bool ResolveParms(IncidentParms parms)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }
@@ -38,8 +38,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
         {
             return false;
         }
-        IncidentCategoryDef raidCategory = Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist ? Snowstorm_RimWorldDefOf.AllyAssistance : IncidentCategoryDefOf.ThreatBig;
-
+        IncidentCategoryDef raidCategory = GameComponent_SnowstormStory.Instance.satisfySnowstormCultist ? Snowstorm_RimWorldDefOf.AllyAssistance : IncidentCategoryDefOf.ThreatBig;
 
         IncidentParms raidParms1 = StorytellerUtility.DefaultParmsNow(raidCategory, parms.target);
         raidParms1.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
@@ -53,5 +52,4 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
 
         return flag1 || flag2;
     }
-
 }

@@ -9,6 +9,8 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class GameComponent_SnowstormStory : GameComponent
 {
+    public static GameComponent_SnowstormStory Instance { get; private set; }
+
     private const float ScreenFadeSeconds = 15f;
 
     [Unsaved] protected float timeLeft = -1f;
@@ -21,20 +23,47 @@ public class GameComponent_SnowstormStory : GameComponent
 
     protected bool showNoProtagonistWarning = true;
 
-    public bool hometownSpawned;
     public bool storyInProgress;
     public bool storyFinished;
     public bool LongingForHome => !storyInProgress && !storyFinished;
 
+    public bool satisfySnowstormCultist;
+
+    public bool hometownSpawned;
     public MapParent hometown;
     public Map hometownMap;
     public int hometownTile = Tile.Invalid;
-    public bool satisfySnowstormCultist;
 
+    public GameComponent_SnowstormStory(Game game) => Instance = this;
+    public static void OpenDevWindow() => Find.WindowStack.Add(new DevWin_SnowstormStory());
 
-    public GameComponent_SnowstormStory(Game game)
+    public void DrawDevWindow(Listing_Standard listing_Rect)
     {
-        Snowstorm_StoryUtility.StoryGameComp = this;
+        Text.Font = GameFont.Medium;
+        listing_Rect.Label($"StoryActive: {storyActive}");
+        Text.Font = GameFont.Small;
+        listing_Rect.Gap(3f);
+        listing_Rect.Label($"StoryInProgress: {storyInProgress}");
+        listing_Rect.Label($"StoryFinished: {storyFinished}");
+        listing_Rect.Label($"ShowNoProtagonistWarning: {showNoProtagonistWarning}");
+        listing_Rect.Gap(3f);
+
+        if (protagonist is null) { listing_Rect.Label("Protagonist: None"); }
+        else { listing_Rect.Label($"Protagonist: {protagonist}"); }
+
+        listing_Rect.Label($"LongingForHome: {LongingForHome}");
+        listing_Rect.Gap(3f);
+        listing_Rect.Label($"SatisfySnowstormCultist: {satisfySnowstormCultist}");
+        listing_Rect.Gap(3f);
+
+        listing_Rect.Label($"HometownSpawned: {hometownSpawned}");
+        if (hometown is null) { listing_Rect.Label("Hometown: None"); }
+        else { listing_Rect.Label($"Hometown: {hometown}"); }
+
+        if (hometownMap is null) { listing_Rect.Label("HometownMap: None"); }
+        else { listing_Rect.Label($"HometownMap: {hometownMap}"); }
+
+        listing_Rect.Label($"HometownTile: {hometownTile}");
     }
 
     public void Notify_StoryActive()

@@ -37,12 +37,11 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
     protected bool GetHometownTile(out int hometownTile)
     {
         hometownTile = Tile.Invalid;
-        GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
-        if (storyGameComp is null)
+        if (GameComponent_SnowstormStory.Instance is null)
         {
             return false;
         }
-        hometownTile = storyGameComp.hometownTile;
+        hometownTile = GameComponent_SnowstormStory.Instance.hometownTile;
         if (hometownTile == Tile.Invalid)
         {
             WorldObject hometown_Sealed = Find.WorldObjects.AllWorldObjects.Where(w => w.def == Snowstorm_MiscDefOf.OAGene_Hometown_Sealed).FirstOrFallback(null);

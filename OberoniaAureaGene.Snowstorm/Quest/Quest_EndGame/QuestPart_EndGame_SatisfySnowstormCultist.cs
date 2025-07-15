@@ -11,7 +11,7 @@ public class QuestPart_EndGame_SatisfySnowstormCultist : QuestPart
     {
         if (signal.tag == inSignal)
         {
-            Snowstorm_StoryUtility.StoryGameComp.satisfySnowstormCultist = true;
+            GameComponent_SnowstormStory.Instance.satisfySnowstormCultist = true;
         }
     }
 }

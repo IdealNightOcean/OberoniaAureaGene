@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HarmonyPatch\Game_ClearCaches_Patch.cs" />
     <Compile Include="Hediff\Hediff_ProtagonistHomecoming.cs" />
     <Compile Include="LordJob_SnowstormCultistTradeWithColony.cs" />
     <Compile Include="Hediff\HediffComp_ColdPreparation.cs" />
@@ -145,6 +146,9 @@
     <Compile Include="Thing\IceCrystalFlower.cs" />
     <Compile Include="Thing\CompPowerPlant_ToxifierSnowstorm.cs" />
     <Compile Include="Thought_LostInMemory.cs" />
+    <Compile Include="Utility\DevWin_Snowstorm.cs" />
+    <Compile Include="Utility\DevWin_SnowstormStory.cs" />
+    <Compile Include="Utility\DebugTools.cs" />
     <Compile Include="Utility\Snowstorm_MiscUtility.cs" />
     <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
     <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />

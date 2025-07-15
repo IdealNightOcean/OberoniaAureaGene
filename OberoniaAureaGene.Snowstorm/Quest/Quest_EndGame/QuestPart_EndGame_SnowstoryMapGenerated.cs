@@ -15,7 +15,7 @@ public class QuestPart_EndGame_SnowstoryMapGenerated : QuestPart
             EndGameConditions();
             Find.Storyteller.incidentQueue.Clear();
 
-            Snowstorm_StoryUtility.StoryGameComp?.Notify_StoryInProgress();
+            GameComponent_SnowstormStory.Instance?.Notify_StoryInProgress();
         }
     }
 

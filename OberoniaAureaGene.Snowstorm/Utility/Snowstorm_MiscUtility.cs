@@ -7,8 +7,6 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public static class Snowstorm_MiscUtility
 {
-    public static GameComponent_Snowstorm SnowstormGameComp;
-
     public static MapComponent_Snowstorm SnowstormMapComp(this Map map)
     {
         return map?.GetComponent<MapComponent_Snowstorm>();
@@ -22,5 +20,4 @@ public static class Snowstorm_MiscUtility
             OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffDefOf.AlcoholHigh, Rand.Range(0.1f, 0.5f));
         }
     }
-
 }

@@ -11,7 +11,7 @@ public class ScenPart_SnowstormStory : ScenPart
     public override void PostGameStart()
     {
         base.PostGameStart();
-        Snowstorm_StoryUtility.StoryGameComp.Notify_StoryActive();
+        GameComponent_SnowstormStory.Instance.Notify_StoryActive();
     }
     public override string Summary(Scenario scen)
     {

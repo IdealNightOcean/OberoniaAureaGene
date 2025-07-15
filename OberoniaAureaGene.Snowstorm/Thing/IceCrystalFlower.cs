@@ -49,11 +49,16 @@ public class IceCrystalFlower : Plant
     }
     public void Notify_Despawn()
     {
-        Map map = Map;
         IntVec3 pos = Position;
         if (parentFlower is not null)
         {
             parentFlower.childFlowerCount = Mathf.Max(childFlowerCount - 1, 0);
+        }
+
+        Map map = Map;
+        if (map is null)
+        {
+            return;
         }
         foreach (IntVec3 c in GenAdjFast.AdjacentCells8Way(pos))
         {

@@ -6,7 +6,7 @@ public class QuestNode_IsSnowstoryScenario : QuestNode
 {
     protected override bool TestRunInt(Slate slate)
     {
-        return Snowstorm_StoryUtility.StoryActive;
+        return GameComponent_SnowstormStory.Instance.StoryActive;
     }
     protected override void RunInt() { }
 }

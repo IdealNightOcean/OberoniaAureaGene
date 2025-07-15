@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefOf.cs" />
+    <Compile Include="Gene_RockRatkinEar.cs" />
     <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
     <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
     <Compile Include="HarmonyPatch\GetInheritedGeneSet_Patch.cs" />

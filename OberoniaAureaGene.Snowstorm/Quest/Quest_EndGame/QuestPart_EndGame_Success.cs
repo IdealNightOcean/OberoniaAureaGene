@@ -18,7 +18,7 @@ public class QuestPart_EndGame_Success : QuestPart
         {
             Map map = hometown.Map;
             CheckIfOnlyProtagonist(protagonist, map);
-            Snowstorm_StoryUtility.StoryGameComp?.Notify_StroySuccess();
+            GameComponent_SnowstormStory.Instance?.Notify_StroySuccess();
         }
     }
     protected static void CheckIfOnlyProtagonist(Pawn protagonist, Map map)

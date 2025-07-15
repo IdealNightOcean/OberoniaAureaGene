@@ -187,7 +187,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
     }
     protected override bool TestRunInt(Slate slate)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }
