@@ -32,7 +32,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
         Permanent = true;
         try
         {
-            Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormStart();
+            GameComponent_Snowstorm.Instance.Notify_SnowstormStart();
 
             Map mainMap = MainMap;
             if (mainMap is not null)
@@ -57,7 +57,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
 
     protected override void PreEnd()
     {
-        Snowstorm_MiscUtility.SnowstormGameComp.Notify_SnowstormEnd();
+        GameComponent_Snowstorm.Instance.Notify_SnowstormEnd();
         SnowstormUtility.EndExtremeSnowstorm_World();
         EndExtremeSnowstorm_MainMap(MainMap);
         for (int i = 0; i < AffectedMaps.Count; i++)

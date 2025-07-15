@@ -28,26 +28,26 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     {
         return Find.FactionManager.AllFactionsListForReading.Where(f => !f.defeated && !f.temporary && f != questFaction && f.IsRatkinKindomFaction()).RandomElementWithFallback();
     }
-    private static SiteSpawnCandidate GetCandidates(PlanetTile aroundTile)
+    private static IEnumerable<SiteSpawnCandidate> GetCandidates(PlanetTile aroundTile)
     {
-        SitePartDef sitePart = OAGene_RimWorldDefOf.WorkSite_Farming;
-        SitePartWorker_WorkSite worker = (SitePartWorker_WorkSite)sitePart.Worker;
+        IEnumerable<SitePartDef> source = DefDatabase<SitePartDef>.AllDefs.Where(def => def.tags != null && def.tags.Contains("WorkSite") && typeof(SitePartWorker_WorkSite).IsAssignableFrom(def.workerClass));
         List<PlanetTile> potentialTiles = PotentialSiteTiles(aroundTile);
-        SiteSpawnCandidate candidate = new()
+        return source.SelectMany(delegate (SitePartDef sitePart)
         {
-            sitePart = sitePart,
-            tile = potentialTiles.Where(worker.CanSpawnOn).RandomElementWithFallback(PlanetTile.Invalid)
-        };
-        if (!candidate.tile.Valid)
-        {
-            candidate.tile = potentialTiles.RandomElement();
-        }
-        return candidate;
+            SitePartWorker_WorkSite worker = (SitePartWorker_WorkSite)sitePart.Worker;
+            return from t in potentialTiles
+                   where worker.CanSpawnOn(t)
+                   select new SiteSpawnCandidate
+                   {
+                       tile = t,
+                       sitePart = sitePart
+                   };
+        });
     }
 
     public static Site GenerateSite(float points, int aroundTile, FactionDef originalFactionDef)
     {
-        SiteSpawnCandidate spawnCandidate = GetCandidates(aroundTile);
+        SiteSpawnCandidate spawnCandidate = GetCandidates(aroundTile).RandomElement();
         SitePartWorker_WorkSite sitePartWorker = (SitePartWorker_WorkSite)spawnCandidate.sitePart.Worker;
         QuestPart_Hyperlinks questPart_Hyperlinks = new();
         QuestGen.quest.AddPart(questPart_Hyperlinks);

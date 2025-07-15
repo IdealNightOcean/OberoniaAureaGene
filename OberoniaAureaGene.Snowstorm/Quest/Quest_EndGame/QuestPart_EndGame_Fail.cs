@@ -15,7 +15,7 @@ public class QuestPart_EndGame_Fail : QuestPart
         if (signal.tag == inSignal)
         {
             End_EndGameSnowstorm(snowstormEndDelay);
-            Snowstorm_StoryUtility.StoryGameComp.Notify_StroyFail();
+            GameComponent_SnowstormStory.Instance.Notify_StroyFail();
         }
     }
     protected static void End_EndGameSnowstorm(int snowstormEndDelay)

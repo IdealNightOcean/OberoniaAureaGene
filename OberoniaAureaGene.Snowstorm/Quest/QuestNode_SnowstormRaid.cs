@@ -59,8 +59,8 @@ public class QuestNode_SnowstormRaid : QuestNode
                                                                                        raidStrategy: incidentParms.raidStrategy,
                                                                                        faction: defaultPawnGroupMakerParms.faction,
                                                                                        groupKind: PawnGroupKindDefOf.Combat,
-                                                                                       target: map
-                                                                                       );
+                                                                                       target: map);
+
             enumerable = PawnGroupMakerUtility.GeneratePawnKindsExample(defaultPawnGroupMakerParms);
             num++;
         }

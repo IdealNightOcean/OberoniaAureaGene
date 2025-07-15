@@ -11,10 +11,6 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
 
     protected const int ConvertInterval = 1200;
 
-    [Unsaved]
-    GameComponent_Snowstorm snowstormGameComp;
-    GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
-
     protected override void PostSpeechAction()
     {
         Pawn preacher = parent.pawn;
@@ -23,7 +19,8 @@ public class HediffComp_SnowstormCultistConvert : HediffComp_SnowstormSpeech
             preacher.health.RemoveHediff(parent);
             return;
         }
-        GameComponent_Snowstorm snowstormGameComp = SnowstormGameComp;
+
+        GameComponent_Snowstorm snowstormGameComp = GameComponent_Snowstorm.Instance;
         if (snowstormGameComp is null)
         {
             preacher.health.RemoveHediff(parent);

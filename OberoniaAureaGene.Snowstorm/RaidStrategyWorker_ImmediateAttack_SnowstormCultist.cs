@@ -8,7 +8,7 @@ public class RaidStrategyWorker_ImmediateAttack_SnowstormCultist : RaidStrategyW
 {
     public override bool CanUseWith(IncidentParms parms, PawnGroupKindDef groupKind)
     {
-        GameComponent_SnowstormStory storyGameComp = Snowstorm_StoryUtility.StoryGameComp;
+        GameComponent_SnowstormStory storyGameComp = GameComponent_SnowstormStory.Instance;
         if (storyGameComp is null || !storyGameComp.StoryActive || !storyGameComp.storyInProgress)
         {
             return false;

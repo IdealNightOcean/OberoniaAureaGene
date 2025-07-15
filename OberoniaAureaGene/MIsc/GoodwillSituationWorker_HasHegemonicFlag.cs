@@ -33,7 +33,7 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
         return false;
     }
 
-    public static void ResetStaticCache()
+    public static void ClearStaticCache()
     {
         ValueCache.Reset();
     }

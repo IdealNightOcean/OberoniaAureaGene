@@ -132,7 +132,15 @@ public abstract class Building_GeneDiscriminatorBase : Building
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
-        CancelWork();
+        if (BeingTransportedOnGravship)
+        {
+            ClearEffects();
+        }
+        else
+        {
+            CancelWork();
+        }
+
         base.DeSpawn(mode);
     }
 
@@ -192,6 +200,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
     }
     protected virtual void ClearEffects() //清理特效
     {
+        sustainerWorking = null;
         progressBar?.Cleanup();
         progressBar = null;
     }
@@ -226,7 +235,6 @@ public abstract class Building_GeneDiscriminatorBase : Building
     protected virtual void CancelWork()
     {
         startTick = -1;
-        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         if (targetGenepack is not null && targetGenepack.targetContainer == this)
@@ -249,7 +257,6 @@ public abstract class Building_GeneDiscriminatorBase : Building
         }
         targetGenepack = null;
         targetGeneDef = null;
-        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         startTick = -1;

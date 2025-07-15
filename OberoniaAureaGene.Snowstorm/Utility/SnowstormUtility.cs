@@ -43,7 +43,7 @@ public static class SnowstormUtility
 
     public static bool TryStarryNight()
     {
-        if (Snowstorm_MiscUtility.SnowstormGameComp.starryNightTriggered)
+        if (GameComponent_Snowstorm.Instance.starryNightTriggered)
         {
             return false;
         }

@@ -26,7 +26,7 @@ public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
         return OAFrame_MapUtility.GetSpecialBuildingManager(map)?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false;
     }
 
-    public static void ResetStaticCache()
+    public static void ClearStaticCache()
     {
         MapCache.Reset();
     }

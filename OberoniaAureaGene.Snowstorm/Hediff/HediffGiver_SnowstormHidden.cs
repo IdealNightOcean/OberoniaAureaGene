@@ -9,11 +9,6 @@ public class HediffGiver_SnowstormHidden : HediffGiver
     public List<HediffDef> hediffs;
     public float mtbDays;
 
-    [Unsaved]
-    protected GameComponent_Snowstorm snowstormGameComp;
-
-    protected GameComponent_Snowstorm SnowstormGameComp => snowstormGameComp ??= Snowstorm_MiscUtility.SnowstormGameComp;
-
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         if (Rand.Value < 1f / (mtbDays * 2500f))
@@ -22,7 +17,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
             {
                 return;
             }
-            if (!SnowstormGameComp.CanGetSnowstormMentalNow)
+            if (!GameComponent_Snowstorm.Instance.CanGetSnowstormMentalNow)
             {
                 return;
             }
@@ -33,7 +28,7 @@ public class HediffGiver_SnowstormHidden : HediffGiver
                 {
                     int ticksGame = Find.TickManager.TicksGame;
                     causeSnow.nextGetHediffTick = ticksGame + 180000;
-                    SnowstormGameComp.nextSnowstormMentalTick = ticksGame + 60000;
+                    GameComponent_Snowstorm.Instance.nextSnowstormMentalTick = ticksGame + 60000;
                 }
             }
         }

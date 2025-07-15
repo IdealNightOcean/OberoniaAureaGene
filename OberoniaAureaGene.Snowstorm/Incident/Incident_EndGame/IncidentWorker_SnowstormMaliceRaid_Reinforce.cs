@@ -8,7 +8,7 @@ public class IncidentWorker_SnowstormMaliceRaid_Reinforce : IncidentWorker_Snows
 {
     protected override bool CanFireNowSub(IncidentParms parms)
     {
-        if (!Snowstorm_StoryUtility.StoryGameComp.storyInProgress)
+        if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
             return false;
         }

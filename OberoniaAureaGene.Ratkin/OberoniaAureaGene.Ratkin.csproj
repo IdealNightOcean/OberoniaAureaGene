@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gene_RockRatkinEar.cs" />
     <Compile Include="HarmonyPatch\AllLaunchableThingsForTrade_Patch.cs" />
     <Compile Include="Buildings\Building_DiscriminatorBase.cs" />
     <Compile Include="Buildings\Building_EnterableBase.cs" />

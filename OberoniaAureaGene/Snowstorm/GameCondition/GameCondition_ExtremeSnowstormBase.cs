@@ -62,8 +62,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
     }
     public override void GameConditionTick()
     {
-        coldGlowSpawnTicks--;
-        if (coldGlowSpawnTicks < 0)
+        if (--coldGlowSpawnTicks < 0)
         {
             coldGlowSpawn = !coldGlowSpawn;
             coldGlowSpawnTicks = coldGlowSpawn ? ColdGlowSpawnRange.RandomInRange : ColdGlowIntervalRange.RandomInRange;
@@ -84,6 +83,30 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
             dataStatic.velocitySpeed = 0.08f;
             map.flecks.CreateFleck(dataStatic);
         }
+    }
+
+    public override float MinWindSpeed()
+    {
+        return 1f;
+    }
+
+    public override float SkyGazeChanceFactor(Map map)
+    {
+        return 0f;
+    }
+
+    public override bool AllowEnjoyableOutsideNow(Map map)
+    {
+        return false;
+    }
+
+    public override float AnimalDensityFactor(Map map)
+    {
+        return 0.25f;
+    }
+    public override float PlantDensityFactor(Map map)
+    {
+        return 0.1f;
     }
 
     public override void ExposeData()

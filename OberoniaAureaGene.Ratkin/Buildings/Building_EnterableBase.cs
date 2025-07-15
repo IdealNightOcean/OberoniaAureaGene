@@ -49,7 +49,15 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     }
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
-        CancelWork();
+        if (BeingTransportedOnGravship)
+        {
+            ClearEffects();
+        }
+        else
+        {
+            CancelWork();
+        }
+
         base.DeSpawn(mode);
     }
 
@@ -119,6 +127,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     }
     protected virtual void ClearEffects() //清理特效
     {
+        sustainerWorking = null;
         progressBar?.Cleanup();
         progressBar = null;
     }
@@ -156,7 +165,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         startTick = -1;
         selectedPawn = null;
-        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         innerContainer.TryDropAll(def.hasInteractionCell ? InteractionCell : Position, Map, ThingPlaceMode.Near);
@@ -166,7 +174,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         innerContainer.TryDropAll(placePos, Map, ThingPlaceMode.Near);
         selectedPawn = null;
-        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         startTick = -1;
