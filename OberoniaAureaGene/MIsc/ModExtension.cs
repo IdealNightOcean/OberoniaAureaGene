@@ -12,3 +12,11 @@ public class GeneExtension : DefModExtension
     public float damageFactory = 1f;
     public float illnessFactor = 1f;
 }
+
+public class ObeyOrderGeneExtension : DefModExtension
+{
+    public HediffDef hediffToWholeBody;
+
+    public HediffDef hediffWorking;
+    public HediffDef hediffNonDraft;
+}

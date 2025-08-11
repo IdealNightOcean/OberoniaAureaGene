@@ -37,4 +37,3 @@ public class Gene_AgriculturalEnthusiasm : Gene
         Scribe_Values.Look(ref noAgriculturalTicks, "noAgriculturalTicks", 0);
     }
 }
-

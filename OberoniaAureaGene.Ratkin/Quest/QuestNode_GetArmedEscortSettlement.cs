@@ -16,7 +16,7 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
     public SlateRef<string> storeDestSettleAs;
 
 
-    public SlateRef<int> originTile = -1;
+    public SlateRef<PlanetTile> originTile = PlanetTile.Invalid;
     public SlateRef<float> maxTileDistance;
     public SlateRef<bool> preferCloser = true;
     public SlateRef<Faction> faction;
@@ -67,10 +67,11 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
         validSettlePair = new Pair<Settlement, Settlement>(null, null);
         List<Settlement> settlementList = Find.WorldObjects.SettlementBases;
         List<Pair<Settlement, float>> potentialSettle = [];
+        float maxDistance = maxTileDistance.GetValue(slate);
         for (int i = 0; i < settlementList.Count; i++)
         {
             Settlement settle = settlementList[i];
-            if (IsGoodSettlement(settle, faction, originTile, slate, out float distance))
+            if (IsGoodSettlement(settle, faction, originTile, maxDistance, out float distance))
             {
                 potentialSettle.Add(new Pair<Settlement, float>(settle, distance));
             }
@@ -115,15 +116,15 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
         return true;
     }
 
-    protected bool IsGoodSettlement(Settlement settlement, Faction faction, int originTile, Slate slate, out float distance)
+    protected bool IsGoodSettlement(Settlement settlement, Faction faction, PlanetTile originTile, float maxDistance, out float distance)
     {
         distance = 999999f;
-        if (!settlement.Visitable || settlement.Faction != faction)
+        if (settlement.Faction != faction || settlement.Tile.Layer != originTile.Layer || !settlement.Visitable)
         {
             return false;
         }
         distance = Find.WorldGrid.ApproxDistanceInTiles(originTile, settlement.Tile);
-        if (distance > maxTileDistance.GetValue(slate))
+        if (distance > maxDistance)
         {
             return false;
         }

@@ -30,7 +30,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     }
     private static IEnumerable<SiteSpawnCandidate> GetCandidates(PlanetTile aroundTile)
     {
-        IEnumerable<SitePartDef> source = DefDatabase<SitePartDef>.AllDefs.Where(def => def.tags != null && def.tags.Contains("WorkSite") && typeof(SitePartWorker_WorkSite).IsAssignableFrom(def.workerClass));
+        IEnumerable<SitePartDef> source = DefDatabase<SitePartDef>.AllDefs.Where(def => def.tags is not null && def.tags.Contains("WorkSite") && typeof(SitePartWorker_WorkSite_Farming).IsAssignableFrom(def.workerClass));
         List<PlanetTile> potentialTiles = PotentialSiteTiles(aroundTile);
         return source.SelectMany(delegate (SitePartDef sitePart)
         {
@@ -196,6 +196,10 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     protected override bool TestRunInt(Slate slate)
     {
+        if (!ModsConfig.IdeologyActive)
+        {
+            return false;
+        }
         if (!Find.Storyteller.difficulty.allowViolentQuests)
         {
             return false;

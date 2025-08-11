@@ -65,8 +65,7 @@ public class QuestPart_InitiateEspionage : QuestPart
     public override void Cleanup()
     {
         base.Cleanup();
-        EspionageSiteComp component = site.GetComponent<EspionageSiteComp>();
-        component?.Disable();
+        site?.GetComponent<EspionageSiteComp>()?.Disable();
         site = null;
     }
 

@@ -3,6 +3,7 @@ using OberoniaAureaGene.Ratkin;
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -13,10 +14,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
 {
     protected const int TimeoutTicks = 60000;
 
-    public const float RelationWithColonistWeight = 20f;
-
     protected string signalAccept;
-
     protected string signalReject;
 
     public override Pawn GeneratePawn()
@@ -44,7 +42,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         return pawn;
     }
 
-    public override void SendLetter(Quest quest, Pawn pawn)
+    public override void SendLetter_NewTemp(Quest quest, Pawn pawn, Map map)
     {
         TaggedString title = "OAGene_LetterLabel_SnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
         TaggedString letterText = "OAGene_Letter_SnowstormSurvivorJoins".Translate(pawn.Named("PAWN")).AdjustedFor(pawn);
@@ -58,6 +56,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         ChoiceLetter_AcceptJoiner choiceLetter_AcceptJoiner = (ChoiceLetter_AcceptJoiner)LetterMaker.MakeLetter(title, letterText, LetterDefOf.AcceptJoiner);
         choiceLetter_AcceptJoiner.signalAccept = signalAccept;
         choiceLetter_AcceptJoiner.signalReject = signalReject;
+        choiceLetter_AcceptJoiner.overrideMap = map;
         choiceLetter_AcceptJoiner.quest = quest;
         choiceLetter_AcceptJoiner.StartTimeout(TimeoutTicks);
         Find.LetterStack.ReceiveLetter(choiceLetter_AcceptJoiner);
@@ -69,8 +68,8 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         signalReject = QuestGenUtility.HardcodedSignalWithQuestID("Reject");
         quest.Signal(signalAccept, delegate
         {
-            quest.SetFaction(Gen.YieldSingle(pawn), Faction.OfPlayer);
-            quest.PawnsArrive(Gen.YieldSingle(pawn), null, map.Parent);
+            quest.SetFaction([pawn], Faction.OfPlayer);
+            quest.PawnsArrive([pawn], null, map.Parent);
             QuestGen_End.End(quest, QuestEndOutcome.Success);
         });
         quest.Signal(signalReject, delegate
@@ -79,6 +78,9 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
             QuestGen_End.End(quest, QuestEndOutcome.Fail);
         });
     }
+
+    [Obsolete]
+    public override void SendLetter(Quest quest, Pawn pawn) { }
 
     public static void AppendCharityInfoToLetter(TaggedString charityInfo, ref TaggedString letterText)
     {

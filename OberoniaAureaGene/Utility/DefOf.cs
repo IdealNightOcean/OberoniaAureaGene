@@ -11,6 +11,7 @@ public static class OAGene_HediffDefOf
     public static HediffDef OAGene_DeepSleep;
     public static HediffDef OAGene_SurvivalInstinct;
     public static HediffDef OAGene_XenogermRepairing;
+    public static HediffDef OAGene_ObeyOrderForceJob;
 
     static OAGene_HediffDefOf()
     {
@@ -55,6 +56,7 @@ public static class OAGene_MiscDefOf
     public static ThingDef OAGene_HegemonicFlag; //霸权旗
 
     public static ThoughtDef OAGene_Thought_SnowstormEnd; //暴风雪结束心情
+    public static ThoughtDef OAGene_Thought_ObeyOrderNonDraft; //暴风雪结束心情
 
     [MayRequire("Solaris.RatkinRaceMod")]
     public static TraitDef Faith; //信念坚定

@@ -89,6 +89,7 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
         }
 
         Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
+        associatedFixedCaravan = null;
         TryGetOutCome(caravan);
     }
 
