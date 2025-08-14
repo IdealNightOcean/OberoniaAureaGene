@@ -1,7 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using RimWorld.QuestGen;
-using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -22,9 +21,9 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         }
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false) is not null;
     }
-    protected override QuestParameter InitQuestParameter(Faction faction)
+    protected override void InitQuestParameter()
     {
-        return new QuestParameter(faction, QuestGen_Get.GetMap())
+        questParameter = new QuestParameter()
         {
             allowAssaultColony = false,
             allowLeave = false,
@@ -51,31 +50,29 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         pawn.inventory.innerContainer.TryAdd(food);
     }
 
-    protected override void SetPawnsLeaveComp(string inSignalEnable, string inSignalRemovePawn)
+    protected override void SetPawnsLeaveComp(string lodgerArrivalSignal, string inSignalRemovePawn)
     {
-        Quest quest = questParameter.quest;
-        Faction faction = questParameter.faction;
-        List<Pawn> pawns = questParameter.pawns;
+        Quest quest = QuestGen.quest;
         string outSignalNotSnowstorm = QuestGenUtility.HardcodedSignalWithQuestID("snowstormEnd");
 
         QuestPart_IsSnowExtremeWeather questPart_IsSnowExtremeWeather = new()
         {
-            inSignalEnable = questParameter.slate.Get<string>("inSignal"),
+            inSignalEnable = QuestGen.slate.Get<string>("inSignal"),
             outSignalNotSnowstorm = outSignalNotSnowstorm,
             snowstormOutSignal = false,
             notSnowstormOutSignal = true,
             checkInterval = 2500,
             map = questParameter.map,
         };
-        questParameter.quest.AddPart(questPart_IsSnowExtremeWeather);
+        quest.AddPart(questPart_IsSnowExtremeWeather);
 
         //暴风雪结束时离开
-        quest.SignalPassWithFaction(faction, null, delegate
+        quest.SignalPassWithFaction(questParameter.faction, null, delegate
         {
             quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersLeavingLetterText]", null, "[lodgersLeavingLetterLabel]");
         }, inSignal: outSignalNotSnowstorm);
-        quest.Leave(pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
+        quest.Leave(questParameter.pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
 
-        DefaultDelayLeaveComp(inSignalEnable, outSignalNotSnowstorm, inSignalRemovePawn);
+        DefaultDelayLeaveComp(lodgerArrivalSignal, outSignalNotSnowstorm, inSignalRemovePawn);
     }
 }

@@ -196,6 +196,10 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     protected override bool TestRunInt(Slate slate)
     {
+        if (!ModsConfig.IdeologyActive)
+        {
+            return false;
+        }
         if (!Find.Storyteller.difficulty.allowViolentQuests)
         {
             return false;

@@ -65,7 +65,7 @@ public class EspionageSiteComp : WorldObjectComp
         if (destory)
         {
             Disable();
-            if (!Site.HasMap)
+            if (!parent.Destroyed && !Site.HasMap)
             {
                 parent.Destroy();
             }

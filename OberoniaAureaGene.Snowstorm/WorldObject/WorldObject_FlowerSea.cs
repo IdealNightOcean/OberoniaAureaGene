@@ -6,7 +6,7 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractWithFixedCarvanBase
+public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractWithFixedCaravanBase
 {
     public override int TicksNeeded => 30000;
     protected override string VisitLabel => "OAGene_Visit_IceCrystalFlowerSea".Translate();
