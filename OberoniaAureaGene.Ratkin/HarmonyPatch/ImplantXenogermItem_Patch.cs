@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(GeneUtility), "ImplantXenogermItem")]
+[HarmonyPatch(typeof(GeneUtility), nameof(GeneUtility.ImplantXenogermItem))]
 
 public static class ImplantXenogermItem_Patch
 {

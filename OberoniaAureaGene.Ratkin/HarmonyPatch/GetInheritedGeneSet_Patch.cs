@@ -6,7 +6,7 @@ namespace OberoniaAureaGene.Ratkin;
 
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(PregnancyUtility), "GetInheritedGeneSet",
+[HarmonyPatch(typeof(PregnancyUtility), nameof(PregnancyUtility.GetInheritedGeneSet),
     [typeof(Pawn), typeof(Pawn), typeof(bool)],
     [ArgumentType.Normal, ArgumentType.Normal, ArgumentType.Out])]
 

@@ -7,7 +7,7 @@ using Verse;
 namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(TradeUtility), "AllLaunchableThingsForTrade")]
+[HarmonyPatch(typeof(TradeUtility), nameof(TradeUtility.AllLaunchableThingsForTrade))]
 public static class AllLaunchableThingsForTrade_Patch
 {
     private static readonly HashSet<Thing> YieldedThings = [];

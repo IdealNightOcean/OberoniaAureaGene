@@ -6,8 +6,8 @@ namespace OberoniaAureaGene;
 
 public class Gene_ObeyOrderBase : Gene
 {
-    [Unsaved] protected int lastDraftTick;
-    protected int tickToNextCheck;
+    protected int lastDraftTick;
+    [Unsaved] protected int tickToNextCheck = 500;
 
     protected virtual int NonDraftStartDay => 2;
 
@@ -18,8 +18,8 @@ public class Gene_ObeyOrderBase : Gene
     {
         base.ExposeData();
         Scribe_Values.Look(ref lastDraftTick, "lastDraftTick");
-        Scribe_Values.Look(ref tickToNextCheck, "tickToNextCheck");
     }
+
     public override void PostAdd()
     {
         base.PostAdd();
@@ -53,11 +53,18 @@ public class Gene_ObeyOrderBase : Gene
         {
             OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffWorking, overrideDisappearTicks: 600);
         }
-
-        int nonDraftDay = (int)((Find.TickManager.TicksGame - lastDraftTick) / 60000f) - NonDraftStartDay;
-        if (nonDraftDay >= 0)
+        if (pawn.Drafted)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffNonDraft, severity: nonDraftDay, overrideDisappearTicks: 600);
+            lastDraftTick = Find.TickManager.TicksGame;
+        }
+        else
+        {
+            int nonDraftDay = (int)((Find.TickManager.TicksGame - lastDraftTick) / 60000f) - NonDraftStartDay;
+            if (nonDraftDay >= 0)
+            {
+                OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffNonDraft, severity: nonDraftDay, overrideDisappearTicks: 600);
+            }
+
         }
     }
 }
@@ -69,17 +76,10 @@ public class Gene_ObeyOrder : Gene_ObeyOrderBase
 
     protected override void HediffCheck()
     {
-        bool ordered = false;
-        if (pawn.Drafted)
-        {
-            ordered = true;
-            lastDraftTick = Find.TickManager.TicksGame;
-        }
-        ordered = ordered || (pawn.CurJob?.playerForced ?? false);
-        if (ordered)
+        base.HediffCheck();
+        if (pawn.Drafted || (pawn.CurJob?.playerForced ?? false))
         {
             OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_ObeyOrderForceJob, overrideDisappearTicks: 600);
         }
-        base.HediffCheck();
     }
 }

@@ -8,7 +8,7 @@ using Verse.AI;
 namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(Pawn_TraderTracker), "ColonyThingsWillingToBuy")]
+[HarmonyPatch(typeof(Pawn_TraderTracker), nameof(Pawn_TraderTracker.ColonyThingsWillingToBuy))]
 public static class ColonyThingsWillingToBuy_Patch
 {
     [HarmonyPrefix]
