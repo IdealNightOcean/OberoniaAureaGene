@@ -25,7 +25,7 @@ public class Gene_ObeyOrderBase : Gene
         base.PostAdd();
         if (HediffRecord.hediffToWholeBody is not null)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffToWholeBody);
+            pawn.AdjustOrAddHediff(HediffRecord.hediffToWholeBody);
         }
     }
     public override void PostRemove()
@@ -33,7 +33,7 @@ public class Gene_ObeyOrderBase : Gene
         base.PostRemove();
         if (HediffRecord.hediffToWholeBody is not null)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(pawn, HediffRecord.hediffToWholeBody);
+            pawn.RemoveFirstHediffOfDef(HediffRecord.hediffToWholeBody);
         }
     }
 
@@ -51,7 +51,7 @@ public class Gene_ObeyOrderBase : Gene
     {
         if (pawn.timetable?.CurrentAssignment == TimeAssignmentDefOf.Work)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffWorking, overrideDisappearTicks: 600);
+            pawn.AdjustOrAddHediff(HediffRecord.hediffWorking, overrideDisappearTicks: 600);
         }
         if (pawn.Drafted)
         {
@@ -62,7 +62,7 @@ public class Gene_ObeyOrderBase : Gene
             int nonDraftDay = (int)((Find.TickManager.TicksGame - lastDraftTick) / 60000f) - NonDraftStartDay;
             if (nonDraftDay >= 0)
             {
-                OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffRecord.hediffNonDraft, severity: nonDraftDay, overrideDisappearTicks: 600);
+                pawn.AdjustOrAddHediff(HediffRecord.hediffNonDraft, severity: nonDraftDay, overrideDisappearTicks: 600);
             }
 
         }
@@ -79,7 +79,7 @@ public class Gene_ObeyOrder : Gene_ObeyOrderBase
         base.HediffCheck();
         if (pawn.Drafted || (pawn.CurJob?.playerForced ?? false))
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_ObeyOrderForceJob, overrideDisappearTicks: 600);
+            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_ObeyOrderForceJob, overrideDisappearTicks: 600);
         }
     }
 }

@@ -45,20 +45,31 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else if (curType == SnowstormCampType.Firendly)
         {
-            Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_SnowstormCamp_Firendly".Translate(), "OAGene_SnowstormCamp_Trade".Translate(), delegate
-            {
-                TradeWithCamp(caravan);
-            }, "GoBack".Translate(), null);
+            Dialog_NodeTreeWithFactionInfo nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+                text: "OAGene_SnowstormCamp_Firendly".Translate(),
+                faction: parent.Faction,
+                acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
+                acceptAction: delegate
+                {
+                    TradeWithCamp(caravan);
+                }, rejectText: "GoBack".Translate(),
+                rejectAction: null);
             Find.WindowStack.Add(nodeTree);
         }
         else if (curType == SnowstormCampType.Hostile)
         {
-            Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_SnowstormCamp_Hostile".Translate(), "Attack".Translate(), delegate
-            {
-                parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
-                parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
-                new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
-            }, "GoBack".Translate(), null);
+            Dialog_NodeTreeWithFactionInfo nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+                text: "OAGene_SnowstormCamp_Hostile".Translate(),
+                faction: parent.Faction,
+                acceptText: "Attack".Translate(),
+                acceptAction: delegate
+                {
+                    parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+                    parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+                    new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
+                },
+                rejectText: "GoBack".Translate(),
+                rejectAction: null);
             Find.WindowStack.Add(nodeTree);
         }
     }
@@ -66,7 +77,7 @@ public class SnowstormCampComp : WorldObjectComp
     protected void TryInitType(Caravan caravan)
     {
         TaggedString text;
-        Dialog_NodeTree nodeTree;
+        Dialog_NodeTreeWithFactionInfo nodeTree;
 
         float randFlag = Rand.Value;
         if (randFlag < 0.05f)
@@ -74,34 +85,49 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyAndGift".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
-            {
-                GiveGifts(caravan);
-                TradeWithCamp(caravan);
-            }, "GoBack".Translate(), null);
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+                text: text,
+                faction: parent.Faction,
+                acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
+                acceptAction: delegate
+                {
+                    GiveGifts(caravan);
+                    TradeWithCamp(caravan);
+                }, rejectText: "GoBack".Translate(), rejectAction: null);
         }
         else if (randFlag < 0.4f)
         {
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyFirst".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "OAGene_SnowstormCamp_Trade".Translate(), delegate
-            {
-                TradeWithCamp(caravan);
-            }, "GoBack".Translate(), null);
-
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+                text: text,
+                faction: parent.Faction,
+                acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
+                acceptAction: delegate
+                {
+                    TradeWithCamp(caravan);
+                },
+                rejectText: "GoBack".Translate(),
+                rejectAction: null);
         }
         else
         {
             curType = SnowstormCampType.Hostile;
             innerTrader = null;
             text = "OAGene_SnowstormCamp_HostileFirst".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree(text, "Attack".Translate(), delegate
-            {
-                parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
-                parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
-                new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
-            }, "GoBack".Translate(), null);
+            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+                text: text,
+                faction: parent.Faction,
+                acceptText: "Attack".Translate(),
+                acceptAction: delegate
+                {
+                    parent.Faction.TryAffectGoodwillWith(Faction.OfPlayer, -200, false, true);
+                    parent.Faction.SetRelationDirect(Faction.OfPlayer, FactionRelationKind.Hostile, false);
+                    new CaravanArrivalAction_VisitSite(ParentSite).Arrived(caravan);
+                },
+                rejectText: "GoBack".Translate(),
+                rejectAction: null);
         }
         Find.WindowStack.Add(nodeTree);
     }

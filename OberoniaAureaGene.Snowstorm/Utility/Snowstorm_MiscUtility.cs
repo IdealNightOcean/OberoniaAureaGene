@@ -17,7 +17,7 @@ public static class Snowstorm_MiscUtility
         pawn.health.AddHediff(coldPreparation);
         if (Rand.Chance(0.15f))
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, HediffDefOf.AlcoholHigh, Rand.Range(0.1f, 0.5f));
+            pawn.AdjustOrAddHediff(HediffDefOf.AlcoholHigh, Rand.Range(0.1f, 0.5f));
         }
     }
 }

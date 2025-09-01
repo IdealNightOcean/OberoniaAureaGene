@@ -25,7 +25,7 @@ public class QuestPart_EndGame_CheckThreat : QuestPartActivable
                 int curHour = GenLocalDate.HourOfDay(map);
                 if (curHour >= 9 && curHour <= 15)
                 {
-                    if (OAFrame_MapUtility.ThreatsCountOfPlayerOnMap(map) <= 0)
+                    if (map.ThreatsCountOfPlayer() <= 0)
                     {
                         Complete();
                         Find.SignalManager.SendSignal(new Signal(outSignalNoThreat));

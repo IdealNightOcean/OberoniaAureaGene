@@ -36,7 +36,7 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
     protected virtual void TryActiveHediff(Pawn pawn, float ambientTemperature)
     {
         Pawn_HealthTracker pawnHealth = pawn.health;
-        OAFrame_PawnUtility.AdjustOrAddHediff(pawn, snowExtremeHediff, -1, 250);
+        pawn.AdjustOrAddHediff(snowExtremeHediff, -1, 250);
         //伤口冻结
         if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
         {

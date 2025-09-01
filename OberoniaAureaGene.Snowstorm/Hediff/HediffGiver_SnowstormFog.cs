@@ -10,7 +10,7 @@ public class HediffGiver_SnowstormFog : HediffGiver
     {
         if (ActiveHediff(pawn))
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, hediff, -1, 250);
+            pawn.AdjustOrAddHediff(hediff, -1, 250);
         }
     }
     public static bool ActiveHediff(Pawn p)

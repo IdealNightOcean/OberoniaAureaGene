@@ -20,7 +20,7 @@ public class Gene_DeepSleep : Gene
         }
         if (pawn.jobs.curDriver.asleep)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
+            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_DeepSleep, overrideDisappearTicks: 750);
         }
     }
 }
