@@ -134,7 +134,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 {
                     continue;
                 }
-                float num2 = 34f + GeneSize.x + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
+                float num2 = 34f + GeneSize.x + 4f * (genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;
@@ -190,7 +190,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
                 {
                     continue;
                 }
-                float num2 = 34f + GeneSize.x * (float)genepack.GeneSet.GenesListForReading.Count + 4f * (float)(genepack.GeneSet.GenesListForReading.Count + 2);
+                float num2 = 34f + GeneSize.x * genepack.GeneSet.GenesListForReading.Count + 4f * (genepack.GeneSet.GenesListForReading.Count + 2);
                 if (curX + num2 > rect.width - 16f)
                 {
                     curX = 4f;

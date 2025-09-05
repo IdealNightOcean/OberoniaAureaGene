@@ -37,7 +37,7 @@ public class QuestPart_EndGame_SnowstroemThreatsGenerator : QuestPartActivable, 
     public static IEnumerable<FiringIncident> MakeIntervalIncidents(ThreatsGeneratorParams parms, IIncidentTarget target, int startTick)
     {
         float threatScale = ThreatScaleToCountFactorCurve.Evaluate(Find.Storyteller.difficulty.threatScale);
-        int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, parms.randSeed, (float)GenDate.TickGameToSettled(startTick) / 60000f, parms.onDays, parms.offDays, parms.minSpacingDays, parms.numIncidentsRange.min * threatScale, parms.numIncidentsRange.max * threatScale);
+        int incCount = IncidentCycleUtility.IncidentCountThisInterval(target, parms.randSeed, GenDate.TickGameToSettled(startTick) / 60000f, parms.onDays, parms.offDays, parms.minSpacingDays, parms.numIncidentsRange.min * threatScale, parms.numIncidentsRange.max * threatScale);
         for (int i = 0; i < incCount; i++)
         {
             FiringIncident firingIncident = MakeThreat(parms, target);
