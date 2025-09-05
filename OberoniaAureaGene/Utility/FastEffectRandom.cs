@@ -50,8 +50,8 @@ public static class FastEffectRandom
         int num2 = upperBound - lowerBound;
         if (num2 < 0)
         {
-            return lowerBound + (int)(REAL_UNIT_UINT * (double)(w = w ^ (w >> 19) ^ (num ^ (num >> 8))) * (double)((long)upperBound - (long)lowerBound));
+            return lowerBound + (int)(REAL_UNIT_UINT * (w = w ^ (w >> 19) ^ (num ^ (num >> 8))) * (upperBound - (long)lowerBound));
         }
-        return lowerBound + (int)(REAL_UNIT_INT * (double)(int)(0x7FFFFFFF & (w = w ^ (w >> 19) ^ (num ^ (num >> 8)))) * (double)num2);
+        return lowerBound + (int)(REAL_UNIT_INT * (int)(0x7FFFFFFF & (w = w ^ (w >> 19) ^ (num ^ (num >> 8)))) * num2);
     }
 }
