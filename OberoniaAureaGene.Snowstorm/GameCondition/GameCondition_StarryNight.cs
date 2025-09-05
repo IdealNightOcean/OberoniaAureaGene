@@ -43,7 +43,7 @@ public class GameCondition_StarryNight : GameCondition
         }
         if (Snowstorm_StoryUtility.TryGetStoryProtagonist(out Pawn protagonist))
         {
-            if (OAFrame_PawnUtility.PawnSleepNow(protagonist))
+            if (protagonist.SleepNow())
             {
                 protagonist.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_StarryNightP);
             }

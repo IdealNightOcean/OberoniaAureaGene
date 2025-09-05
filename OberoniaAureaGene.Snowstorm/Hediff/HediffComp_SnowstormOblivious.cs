@@ -22,7 +22,7 @@ public class HediffComp_SnowstormOblivious : HediffComp
         Pawn_HealthTracker healthTracker = parent.pawn.health;
         foreach (HediffDef hediffDef in Props.removeHediffs)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(parent.pawn, hediffDef);
+            parent.pawn.RemoveFirstHediffOfDef(hediffDef);
         }
     }
 }

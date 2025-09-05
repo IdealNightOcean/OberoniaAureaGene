@@ -96,7 +96,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         };
         Pawn pawn = PawnGenerator.GeneratePawn(generationRequest);
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
-        OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_RimWorldDefOf.Hypothermia, 0.5f);
+        pawn.AdjustOrAddHediff(OAGene_RimWorldDefOf.Hypothermia, 0.5f);
 
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(parms.spawnCenter, map, 5);
         GenSpawn.Spawn(pawn, loc, map);

@@ -97,7 +97,7 @@ public class GameComponent_SnowstormStory : GameComponent
         satisfySnowstormCultist = false;
         if (protagonist is not null)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            protagonist.RemoveFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             protagonist.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
         }
     }
@@ -107,7 +107,7 @@ public class GameComponent_SnowstormStory : GameComponent
         storyInProgress = false;
         if (protagonist is not null)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
+            protagonist.RemoveFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
             Hediff_ProtagonistHomecoming homecoming = (Hediff_ProtagonistHomecoming)protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             homecoming?.RecacheDiaryAndThoughtNow(slience: true);
         }
@@ -128,8 +128,8 @@ public class GameComponent_SnowstormStory : GameComponent
         storyInProgress = false;
         if (protagonist is not null)
         {
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
-            OAFrame_PawnUtility.RemoveFirstHediffOfDef(protagonist, Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            protagonist.RemoveFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
+            protagonist.RemoveFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
         }
         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
         Find.TickManager.slower.SignalForceNormalSpeed();

@@ -25,11 +25,11 @@ public class Gene_SurivalInstic : Gene
         float minDistance = TryGetValidTarget(pawn);
         if (minDistance <= 10f)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_SurvivalInstinct, 2.0f, 500);
+            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_SurvivalInstinct, 2.0f, 500);
         }
         else if (minDistance <= 20f)
         {
-            OAFrame_PawnUtility.AdjustOrAddHediff(pawn, OAGene_HediffDefOf.OAGene_SurvivalInstinct, 1.0f, 500);
+            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_SurvivalInstinct, 1.0f, 500);
         }
     }
 

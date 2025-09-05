@@ -104,7 +104,7 @@ public class HediffComp_ProtagonistHomecomed : HediffComp
             return false;
         }
         ;
-        if (OAFrame_MapUtility.ThreatsCountOfPlayerOnMap(pawn.Map) > 0)
+        if (pawn.Map.ThreatsCountOfPlayer() > 0)
         {
             return false;
         }
