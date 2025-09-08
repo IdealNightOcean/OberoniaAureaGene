@@ -23,7 +23,7 @@ public class ThoughtWorker_Precept_HasHegemonicFlag : ThoughtWorker_Precept
 
     private static bool HasHegemonicFlag(Map map)
     {
-        return OAFrame_MapUtility.GetSpecialBuildingManager(map)?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false;
+        return map.listerThings.AnyThingWithDef(OAGene_MiscDefOf.OAGene_HegemonicFlag);
     }
 
     public static void ClearStaticCache()

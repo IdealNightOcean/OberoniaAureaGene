@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using Verse;
 using Verse.AI;
 
@@ -7,7 +8,7 @@ namespace OberoniaAureaGene.Ratkin;
 public class WorkGiver_CarryToBuildingEnterable : WorkGiver_CarryToBuilding
 {
     private ThingDef potentialThingDef;
-    private ThingDef PotentialThingDef => potentialThingDef ??= def.GetModExtension<WorkGiverHaulToExtension>().thingDef;
+    private ThingDef PotentialThingDef => potentialThingDef ??= def.GetModExtension<WorkGiver_ThingDefRequestExtension>().thingDef;
     public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(PotentialThingDef);
 
 }
@@ -15,7 +16,7 @@ public class WorkGiver_CarryToBuildingEnterable : WorkGiver_CarryToBuilding
 public class WorkGiver_HaulToGeneDiscriminat : WorkGiver_Scanner
 {
     private ThingDef potentialThingDef;
-    private ThingDef PotentialThingDef => potentialThingDef ??= def.GetModExtension<WorkGiverHaulToExtension>().thingDef;
+    private ThingDef PotentialThingDef => potentialThingDef ??= def.GetModExtension<WorkGiver_ThingDefRequestExtension>().thingDef;
     public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(PotentialThingDef);
 
     public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)

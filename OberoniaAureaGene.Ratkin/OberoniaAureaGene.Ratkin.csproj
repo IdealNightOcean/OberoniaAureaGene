@@ -92,7 +92,6 @@
     <Compile Include="WorldObject\EspionageHandler.cs" />
     <Compile Include="WorldObject\EspionageSiteComp.cs" />
     <Compile Include="HarmonyPatch\ImplantXenogermItem_Patch.cs" />
-    <Compile Include="ModExtension.cs" />
     <Compile Include="Gene_Ratkin.cs" />
     <Compile Include="Gene_RatkinTail.cs" />
     <Compile Include="ModHarmonyPatch.cs" />

@@ -24,7 +24,7 @@ public class GoodwillSituationWorker_HasHegemonicFlag : GoodwillSituationWorker
         IEnumerable<Map> playerHomes = Find.Maps.Where(m => m.IsPlayerHome);
         foreach (Map map in playerHomes)
         {
-            if (OAFrame_MapUtility.GetSpecialBuildingManager(map)?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false)
+            if (map.listerThings.AnyThingWithDef(OAGene_MiscDefOf.OAGene_HegemonicFlag))
             {
                 return true;
             }

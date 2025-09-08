@@ -109,11 +109,11 @@ public class MapComponent_Snowstorm : MapComponent
         IEnumerable<Building_IceCrystalCollector> mapCollectors = crystalCollectors.Where(mapCollector);
         if (despawn)
         {
+            checker.nearCollectorCount = 0;
             foreach (Building_IceCrystalCollector collector in mapCollectors)
             {
                 collector.nearCollectorCount = Math.Max(0, collector.nearCollectorCount - 1);
             }
-            checker.nearCollectorCount = 0;
         }
         else
         {

@@ -34,10 +34,14 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
             goodwillSuccess = 25,
             goodwillFailure = -25
         };
+
+        QuestGen.slate.Set(UniqueQuestDescSlate, true);
+        QuestGen.slate.Set(UniqueLeavingLetterSlate, true);
     }
 
     protected override Faction GetOrGenerateFaction()
     {
+        QuestGen.slate.Set(IsMainFactionSlate, true);
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false);
     }
 
@@ -69,7 +73,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         //暴风雪结束时离开
         quest.SignalPassWithFaction(questParameter.faction, null, delegate
         {
-            quest.Letter(LetterDefOf.PositiveEvent, null, null, null, null, useColonistsFromCaravanArg: false, QuestPart.SignalListenMode.OngoingOnly, null, filterDeadPawnsFromLookTargets: false, "[lodgersLeavingLetterText]", null, "[lodgersLeavingLetterLabel]");
+            quest.Letter(letterDef: LetterDefOf.PositiveEvent, text: "[lodgersLeavingLetterText]", label: "[lodgersLeavingLetterLabel]");
         }, inSignal: outSignalNotSnowstorm);
         quest.Leave(questParameter.pawns, outSignalNotSnowstorm, sendStandardLetter: false, leaveOnCleanup: false, inSignalRemovePawn, wakeUp: true);
 
