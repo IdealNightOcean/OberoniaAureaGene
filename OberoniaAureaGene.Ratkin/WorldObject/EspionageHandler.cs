@@ -98,6 +98,8 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
         EndWork(interrupt: true, convertToCaravan: false);
     }
 
+    public void PostConvertToCaravan(Caravan caravan) { }
+
     public void CancelWork()
     {
         if (isWorking)

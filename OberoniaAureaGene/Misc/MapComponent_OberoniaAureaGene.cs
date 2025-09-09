@@ -16,10 +16,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
 
     protected int raidCheckTicks;
 
-    [Unsaved] MapComponent_SpecialBuildingManager specialBuildingManager;
-    public MapComponent_SpecialBuildingManager SpecialBuildingManager => specialBuildingManager ??= OAFrame_MapUtility.GetSpecialBuildingManager(map);
-
-    private bool HasHegemonicFlag => SpecialBuildingManager?.HasBuilding(OAGene_MiscDefOf.OAGene_HegemonicFlag) ?? false;
+    private bool HasHegemonicFlag => map.listerThings.AnyThingWithDef(OAGene_MiscDefOf.OAGene_HegemonicFlag);
 
     public MapComponent_OberoniaAureaGene(Map map) : base(map) { }
 
