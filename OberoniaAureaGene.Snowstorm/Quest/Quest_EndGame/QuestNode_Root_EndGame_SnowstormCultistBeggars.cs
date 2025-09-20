@@ -2,7 +2,6 @@
 using RimWorld;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -15,7 +14,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
     protected Faction TryResolveFaction()
     {
         Faction faction = null;
-        faction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+        faction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
         faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         faction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
         return faction;

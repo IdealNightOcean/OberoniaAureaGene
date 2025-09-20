@@ -42,7 +42,6 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     protected virtual string CommandInsertPersonStr => "OAGene_InsertPerson".Translate();
     protected virtual string CommandInsertPersonDescStr => "OAGene_InsertPersonDesc".Translate();
 
-
     public override void PostPostMake()
     {
         if (!ModLister.CheckBiotech("gene extractor"))
@@ -54,12 +53,14 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             base.PostPostMake();
         }
     }
+
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);
         compPower = this.TryGetComp<CompPowerTrader>();
         placePos = def.hasInteractionCell ? InteractionCell : Position;
     }
+
     public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
     {
         sustainerWorking = null;
@@ -74,7 +75,6 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
     protected override void Tick()
     {
         base.Tick();
-        innerContainer.DoTick();
         if (this.IsHashIntervalTick(250))
         {
             compPower.PowerOutput = (Working ? (0f - PowerComp.Props.PowerConsumption) : (0f - PowerComp.Props.idlePowerDraw));
@@ -86,6 +86,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 CancelWork();
                 return;
             }
+
             if (PowerOn)
             {
                 TickEffects();
@@ -94,7 +95,6 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 {
                     FinishWork();
                 }
-                return;
             }
             else
             {
@@ -137,8 +137,11 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
 
     protected void ClearEffects()
     {
-        progressBar?.Cleanup();
-        progressBar = null;
+        if (progressBar is not null)
+        {
+            progressBar.Cleanup();
+            progressBar = null;
+        }
     }
 
     public override AcceptanceReport CanAcceptPawn(Pawn pawn)
@@ -163,11 +166,11 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         {
             return "Occupied".Translate();
         }
-        if (pawn.genes is null || !pawn.genes.GenesListForReading.Any((Gene x) => x.def.passOnDirectly))
+        if (pawn.genes is null || !pawn.genes.GenesListForReading.Any(x => x.def.passOnDirectly))
         {
             return "PawnHasNoGenes".Translate(pawn.Named("PAWN"));
         }
-        if (!pawn.genes.GenesListForReading.Any((Gene x) => x.def.biostatArc == 0))
+        if (!pawn.genes.GenesListForReading.Any(x => x.def.biostatArc == 0))
         {
             return "PawnHasNoNonArchiteGenes".Translate(pawn.Named("PAWN"));
         }

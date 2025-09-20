@@ -161,7 +161,6 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 {
                     FinishWork();
                 }
-                return;
             }
             else
             {
@@ -174,7 +173,6 @@ public abstract class Building_GeneDiscriminatorBase : Building
                         Messages.Message("OAGene_MessageGeneDiscriminatNoPowerEjected".Translate(), containedGenepack, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
                     CancelWork();
-                    return;
                 }
             }
         }

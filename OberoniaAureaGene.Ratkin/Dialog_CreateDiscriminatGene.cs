@@ -252,20 +252,20 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             }
             else
                 _ = 0;
-            bool overridden = leftChosenGroups.Any((GeneLeftChosenGroup x) => x.overriddenGenes.Contains(gene));
+            bool overridden = leftChosenGroups.Any(x => x.overriddenGenes.Contains(gene));
             Rect geneRect = new(curX, curY + 4f, GeneSize.x, GeneSize.y);
             string extraTooltip = null;
-            if (leftChosenGroups.Any((GeneLeftChosenGroup x) => x.leftChosen == gene))
+            if (leftChosenGroups.Any(x => x.leftChosen == gene))
             {
-                extraTooltip = GroupInfo(leftChosenGroups.FirstOrDefault((GeneLeftChosenGroup x) => x.leftChosen == gene));
+                extraTooltip = GroupInfo(leftChosenGroups.FirstOrDefault(x => x.leftChosen == gene));
             }
             else if (cachedOverriddenGenes.Contains(gene))
             {
-                extraTooltip = GroupInfo(leftChosenGroups.FirstOrDefault((GeneLeftChosenGroup x) => x.overriddenGenes.Contains(gene)));
+                extraTooltip = GroupInfo(leftChosenGroups.FirstOrDefault(x => x.overriddenGenes.Contains(gene)));
             }
             else if (randomChosenGroups.ContainsKey(gene))
             {
-                extraTooltip = ("GeneWillBeRandomChosen".Translate() + ":\n" + randomChosenGroups[gene].Select((GeneDef x) => x.label).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
+                extraTooltip = ("GeneWillBeRandomChosen".Translate() + ":\n" + randomChosenGroups[gene].Select(x => x.label).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
             }
             GeneUIUtility.DrawGeneDef(genesListForReading[i], geneRect, GeneType.Xenogene, () => extraTooltip, doBackground: false, clickable: false, overridden);
             curX += GeneSize.x + 4f;
@@ -321,7 +321,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             {
                 return null;
             }
-            return ("GeneOneActive".Translate() + ":\n  - " + group.leftChosen.LabelCap + " (" + "Active".Translate() + ")" + "\n" + group.overriddenGenes.Select((GeneDef x) => (x.label + " (" + "Suppressed".Translate() + ")").Colorize(ColorLibrary.RedReadable)).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
+            return ("GeneOneActive".Translate() + ":\n  - " + group.leftChosen.LabelCap + " (" + "Active".Translate() + ")" + "\n" + group.overriddenGenes.Select(x => (x.label + " (" + "Suppressed".Translate() + ")").Colorize(ColorLibrary.RedReadable)).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
         }
     }
     protected bool DrawSelectedGene(GeneDef gene, ref float curX, float curY, float packWidth, Rect containingRect)

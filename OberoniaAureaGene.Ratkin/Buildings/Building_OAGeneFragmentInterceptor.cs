@@ -30,7 +30,7 @@ public class Building_OAGeneFragmentInterceptor : Building_GeneExtractorBase
             {
                 disappearsComp.ticksToDisappear = 30000;
             }
-            Messages.Message("GeneExtractionComplete".Translate(containedPawn.Named("PAWN")) + ": " + targetGenes.Select((GeneDef x) => x.label).ToCommaList().CapitalizeFirst(), new LookTargets(containedPawn, genepack), MessageTypeDefOf.PositiveEvent);
+            Messages.Message("GeneExtractionComplete".Translate(containedPawn.Named("PAWN")) + ": " + targetGenes.Select(x => x.label).ToCommaList().CapitalizeFirst(), new LookTargets(containedPawn, genepack), MessageTypeDefOf.PositiveEvent);
         }
         base.FinishWork();
     }

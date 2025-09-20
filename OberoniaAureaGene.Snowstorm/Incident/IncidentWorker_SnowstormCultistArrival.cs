@@ -2,7 +2,6 @@
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -15,7 +14,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
 
     protected override bool TryResolveFaction(IncidentParms parms)
     {
-        parms.faction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+        parms.faction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
         parms.faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         if (parms.faction is not null)
         {

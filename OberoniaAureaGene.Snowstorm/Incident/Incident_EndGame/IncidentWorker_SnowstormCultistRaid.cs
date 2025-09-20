@@ -1,7 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -30,7 +29,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             Faction tempFaction = null;
             if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
             {
-                tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+                tempFaction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
                 if (tempFaction is not null)
                 {
@@ -43,7 +42,7 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             }
             else
             {
-                tempFaction ??= OAFrame_FactionUtility.ValidTempFactionsOfDef(FactionDefOf.OutlanderCivil).Where(f => f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback(null);
+                tempFaction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.HostileNormalFaction);
                 tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Hostile);
                 tempFaction ??= Find.FactionManager.RandomEnemyFaction(allowNonHumanlike: false);
             }

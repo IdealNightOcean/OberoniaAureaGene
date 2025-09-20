@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using OberoniaAurea_Frame;
+using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -19,15 +20,6 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     private static readonly FloatRange RewardValue = new(9000f, 12000f);
 
-    private static Faction GetQuestFaction()
-    {
-        return Find.FactionManager.AllFactionsListForReading.Where(f => !f.defeated && !f.temporary && (f.def == OAGene_RatkinDefOf.Rakinia_RockRatkin || f.def == OAGene_RatkinDefOf.Rakinia_SnowRatkin)).RandomElementWithFallback();
-    }
-
-    private static Faction GetOriginalFaction(Faction questFaction)
-    {
-        return Find.FactionManager.AllFactionsListForReading.Where(f => !f.defeated && !f.temporary && f != questFaction && f.IsRatkinKindomFaction()).RandomElementWithFallback();
-    }
     private static IEnumerable<SiteSpawnCandidate> GetCandidates(PlanetTile aroundTile)
     {
         IEnumerable<SitePartDef> source = DefDatabase<SitePartDef>.AllDefs.Where(def => def.tags is not null && def.tags.Contains("WorkSite") && typeof(SitePartWorker_WorkSite_Farming).IsAssignableFrom(def.workerClass));
@@ -98,7 +90,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     public static List<PlanetTile> PotentialSiteTiles(PlanetTile root)
     {
         List<PlanetTile> tiles = [];
-        root.Layer.Filler.FloodFill(root, (PlanetTile p) => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, root) <= 9f, delegate (PlanetTile p)
+        root.Layer.Filler.FloodFill(root, p => !Find.World.Impassable(p) && Find.WorldGrid.ApproxDistanceInTiles(p, root) <= 9f, delegate (PlanetTile p)
         {
             if (Find.WorldGrid.ApproxDistanceInTiles(p, root) >= 3f)
             {
@@ -110,18 +102,22 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
 
     protected override void RunInt()
     {
-        Faction questFaction = GetQuestFaction();
-        if (questFaction is null)
-        {
-            return;
-        }
-        Faction originalFation = GetOriginalFaction(questFaction);
-        if (originalFation is null)
-        {
-            return;
-        }
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
+
+        Faction questFaction = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction());
+        if (questFaction is null)
+        {
+            quest.End(QuestEndOutcome.Unknown, inSignal: null);
+            return;
+        }
+        Faction originalFation = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f != questFaction && f.IsRatkinKindomFaction());
+        if (originalFation is null)
+        {
+            quest.End(QuestEndOutcome.Unknown, inSignal: null);
+            return;
+        }
+
         QuestGenUtility.RunAdjustPointsForDistantFight();
         float num = slate.Get("points", 0f);
         if (num < 40f)

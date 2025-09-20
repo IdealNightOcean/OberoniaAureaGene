@@ -11,9 +11,8 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     public static readonly Texture2D CommandContinueWorkTrue = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectTrue");
     public static readonly Texture2D CommandContinueWorkFalse = ContentFinder<Texture2D>.Get("UI/Icons/OAGene_CommandAutoSelectFalse");
     protected override int AllTicks => 10000;
-    protected int searchTicksRemaining;
     protected bool autoSelect;
-    protected static readonly int SearchTicks = 1000;
+
     public override AcceptanceReport CanAcceptPawn(Pawn pawn)
     {
         AcceptanceReport baseReport = base.CanAcceptPawn(pawn);
@@ -34,11 +33,9 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     protected override void Tick()
     {
         base.Tick();
-        searchTicksRemaining--;
-        if (searchTicksRemaining < 0)
+        if (this.IsHashIntervalTick(1000))
         {
             TryAutoStartNewWork();
-            searchTicksRemaining = SearchTicks;
         }
     }
     protected void TryAutoStartNewWork()
@@ -101,7 +98,6 @@ public class Building_OAGeneRepairInstrument : Building_EnterableBase
     {
         base.ExposeData();
         Scribe_Values.Look(ref autoSelect, "autoSelect", defaultValue: false);
-        Scribe_Values.Look(ref searchTicksRemaining, "searchTicksRemaining", 0);
     }
 
 }

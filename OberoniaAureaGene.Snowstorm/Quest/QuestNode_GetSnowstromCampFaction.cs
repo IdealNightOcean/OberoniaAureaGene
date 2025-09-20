@@ -1,7 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using RimWorld.QuestGen;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -49,7 +48,7 @@ public class QuestNode_GetSnowstormCampFaction : QuestNode
     protected Faction GetFaction(Slate slate)
     {
         FactionDef factionDef = this.factionDef.GetValue(slate);
-        Faction faction = OAFrame_FactionUtility.ValidTempFactionsOfDef(factionDef).Where(f => !f.HostileTo(Faction.OfPlayer)).RandomElementWithFallback();
+        Faction faction = OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(factionDef, FactionValidationParams.NonHostileNormalFaction);
         faction ??= OAFrame_FactionUtility.GenerateTempFaction(factionDef);
         return faction;
     }

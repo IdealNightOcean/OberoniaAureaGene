@@ -51,6 +51,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         if (BeingTransportedOnGravship)
         {
+            sustainerWorking = null;
             ClearEffects();
         }
         else
@@ -64,7 +65,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     protected override void Tick()
     {
         base.Tick();
-        innerContainer.DoTick();
         if (this.IsHashIntervalTick(250))
         {
             compPower.PowerOutput = (Working ? (0f - PowerComp.Props.PowerConsumption) : (0f - PowerComp.Props.idlePowerDraw));
@@ -84,7 +84,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                 {
                     FinishWork();
                 }
-                return;
             }
             else
             {
@@ -97,7 +96,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                         Messages.Message("GeneExtractorNoPowerEjectedMessage".Translate(containedPawn.Named("PAWN")), containedPawn, MessageTypeDefOf.NegativeEvent, historical: false);
                     }
                     CancelWork();
-                    return;
                 }
             }
         }
@@ -127,7 +125,6 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     }
     protected virtual void ClearEffects() //清理特效
     {
-        sustainerWorking = null;
         progressBar?.Cleanup();
         progressBar = null;
     }
@@ -165,6 +162,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         startTick = -1;
         selectedPawn = null;
+        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         innerContainer.TryDropAll(def.hasInteractionCell ? InteractionCell : Position, Map, ThingPlaceMode.Near);
@@ -174,6 +172,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
     {
         innerContainer.TryDropAll(placePos, Map, ThingPlaceMode.Near);
         selectedPawn = null;
+        sustainerWorking = null;
         ClearEffects();
         powerCutTicks = 0;
         startTick = -1;

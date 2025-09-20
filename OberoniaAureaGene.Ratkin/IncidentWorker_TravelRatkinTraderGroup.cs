@@ -37,7 +37,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
             faction = faction,
             forced = true
         };
-        faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, faction), out subParms.traderKind);
+        faction.def.caravanTraderKinds.TryRandomElementByWeight(traderDef => TraderKindCommonality(traderDef, map, faction), out subParms.traderKind);
         OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.TraderCaravanArrival, subParms);
         int traderCount = TraderCount.RandomInRange;
         int delayTicks = 0;
@@ -54,7 +54,7 @@ public class IncidentWorker_TravelRatkinTraderGroup : IncidentWorker_TraderCarav
 
     protected void TraderCaravanArrival(Map map, Faction faction, int delayTicks)
     {
-        faction.def.caravanTraderKinds.TryRandomElementByWeight((TraderKindDef traderDef) => TraderKindCommonality(traderDef, map, faction), out TraderKindDef traderKind);
+        faction.def.caravanTraderKinds.TryRandomElementByWeight(traderDef => TraderKindCommonality(traderDef, map, faction), out TraderKindDef traderKind);
         IncidentParms parms = new()
         {
             target = map,

@@ -209,7 +209,11 @@ public static class SnowstormUtility
     {
         FactionManager factionManager = Find.FactionManager;
         Faction playerFaction = Faction.OfPlayer;
-        Faction faction = OAFrame_FactionUtility.RandomFactionOfDef(FactionDefOf.Pirate, allowDefeated: false, allowTemporary: true);
+        FactionValidationParams validationParams = new()
+        {
+            AllTemporary = true
+        };
+        Faction faction = OAFrame_FactionUtility.RandomAvailableFactionOfDef(FactionDefOf.Pirate, validationParams);
         if (faction is not null)
         {
             return faction;
