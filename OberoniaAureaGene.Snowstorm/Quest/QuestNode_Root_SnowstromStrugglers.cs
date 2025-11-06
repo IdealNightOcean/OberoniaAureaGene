@@ -34,6 +34,9 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
             goodwillSuccess = 25,
             goodwillFailure = -25
         };
+
+        QuestGen.slate.Set(UniqueQuestDescSlate, true);
+        QuestGen.slate.Set(UniqueLeavingLetterSlate, true);
     }
 
     protected override Faction GetOrGenerateFaction()
