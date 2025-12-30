@@ -6,6 +6,7 @@ using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class SymbolResolver_RuinedEmptyRoom : SymbolResolver
 {
     public string interior;

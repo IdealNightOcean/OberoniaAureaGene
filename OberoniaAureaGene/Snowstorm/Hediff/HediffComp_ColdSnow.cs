@@ -18,7 +18,7 @@ public class HediffComp_ColdSnow : HediffComp
 {
     public int ticksRemainings = 250;
 
-    HediffCompProperties_ColdSnow Props => props as HediffCompProperties_ColdSnow;
+    private HediffCompProperties_ColdSnow Props => props as HediffCompProperties_ColdSnow;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         base.CompPostPostAdd(dinfo);

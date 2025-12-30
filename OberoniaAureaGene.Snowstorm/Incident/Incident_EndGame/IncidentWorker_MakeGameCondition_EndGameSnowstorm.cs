@@ -3,6 +3,7 @@ using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_MakeGameCondition
 {
     protected override bool CanFireNowSub(IncidentParms parms)

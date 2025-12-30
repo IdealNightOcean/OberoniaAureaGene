@@ -4,6 +4,7 @@ using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene;
+
 public class CompProperties_GeneDiscriminat : CompProperties_GenepackContainer
 {
     public CompProperties_GeneDiscriminat()

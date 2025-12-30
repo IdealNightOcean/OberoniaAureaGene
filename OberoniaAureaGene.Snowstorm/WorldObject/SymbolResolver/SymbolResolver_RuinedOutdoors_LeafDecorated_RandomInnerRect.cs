@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class SymbolResolver_RuinedOutdoors_LeafDecorated_RandomInnerRect : SymbolResolver
 {
     private const int MinLength = 5;

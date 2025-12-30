@@ -14,7 +14,7 @@ public class HediffCompProperties_UnderDark : HediffCompProperties
 
 public class HediffComp_UnderDark : HediffComp
 {
-    HediffCompProperties_UnderDark Props => props as HediffCompProperties_UnderDark;
+    private HediffCompProperties_UnderDark Props => props as HediffCompProperties_UnderDark;
     public override void CompPostTick(ref float severityAdjustment)
     {
         Pawn parentPawn = parent.pawn;

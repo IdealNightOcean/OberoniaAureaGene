@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class HediffCompProperties_LetterOnAdd : HediffCompProperties
 {
     public LetterDef letterDef;

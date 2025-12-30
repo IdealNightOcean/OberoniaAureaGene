@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class SymbolResolver_RuinedOutdoors : SymbolResolver
 {
     public override void Resolve(ResolveParams rp)

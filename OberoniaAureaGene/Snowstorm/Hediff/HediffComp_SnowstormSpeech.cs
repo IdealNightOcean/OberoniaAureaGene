@@ -25,7 +25,7 @@ public class HediffComp_SnowstormSpeech : HediffComp
     [Unsaved]
     public MoteAttached_Text tempMote;
 
-    HediffCompProperties_SnowstormSpeech Props => props as HediffCompProperties_SnowstormSpeech;
+    private HediffCompProperties_SnowstormSpeech Props => props as HediffCompProperties_SnowstormSpeech;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         humanlike = parent.pawn.RaceProps.Humanlike && !parent.pawn.IsMutant;

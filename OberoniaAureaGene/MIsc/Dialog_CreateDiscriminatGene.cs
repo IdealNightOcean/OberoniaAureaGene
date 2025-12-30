@@ -6,6 +6,7 @@ using Verse;
 using Verse.Sound;
 
 namespace OberoniaAureaGene;
+
 public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
 {
     private readonly Building_GeneDiscriminatorBase geneDiscriminator;

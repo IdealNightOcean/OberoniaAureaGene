@@ -3,6 +3,7 @@ using RimWorld.Planet;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class QuestPart_EndGame_Fail : QuestPart
 {
     public string inSignal;

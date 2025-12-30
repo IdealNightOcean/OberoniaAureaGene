@@ -3,6 +3,7 @@ using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(ExecutionUtility), "DoExecutionByCut")]
 public static class DoExecutionByCut_Patch

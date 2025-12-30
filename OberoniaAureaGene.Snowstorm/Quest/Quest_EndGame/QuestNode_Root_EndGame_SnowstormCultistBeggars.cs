@@ -63,6 +63,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         Faction faction = TryResolveFaction();
         if (faction is null)
         {
+            QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
             return;
         }
         slate.Set("faction", faction);
@@ -75,6 +76,12 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
             Pawn pawn = GeneratePawn(quest, faction);
             pawns.Add(pawn);
         }
+        if (pawns.NullOrEmpty())
+        {
+            QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
+            return;
+        }
+
         beggarCount = pawns.Count;
         foreach (Pawn pawn in pawns)
         {
@@ -175,7 +182,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         },
         [itemsReceivedSignal, leftMapSignal]);
 
-        quest.End(QuestEndOutcome.Fail, 0, null, QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
+        quest.End(QuestEndOutcome.Fail, inSignal: QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
 
         quest.AllPawnsDespawned(pawns,
             delegate

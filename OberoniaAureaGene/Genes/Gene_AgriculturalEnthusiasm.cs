@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene;
+
 public class Gene_AgriculturalEnthusiasm : Gene
 {
     public bool activeThought;

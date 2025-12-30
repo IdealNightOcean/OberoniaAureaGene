@@ -17,7 +17,7 @@ public class HediffCompPropertiesp_ColdImmersion : HediffCompProperties
 public class HediffComp_ColdImmersion : HediffComp
 {
     protected HediffDef hediffDef;
-    HediffCompPropertiesp_ColdImmersion Props => props as HediffCompPropertiesp_ColdImmersion;
+    private HediffCompPropertiesp_ColdImmersion Props => props as HediffCompPropertiesp_ColdImmersion;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         hediffDef = (parent.pawn.RaceProps.FleshType == FleshTypeDefOf.Insectoid) ? Props.hediffInsectoid : Props.hediffHuman;
