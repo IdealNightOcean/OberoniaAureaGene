@@ -2,6 +2,7 @@
 using Verse.AI;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class MentalStateWorker_LostInMemory : MentalStateWorker
 {
     public override bool StateCanOccur(Pawn pawn)

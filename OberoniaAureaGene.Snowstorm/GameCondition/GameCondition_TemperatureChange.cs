@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class GameCondition_TemperatureChange : GameCondition
 {
     public override int TransitionTicks => 6000;

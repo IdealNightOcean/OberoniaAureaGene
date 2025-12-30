@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
+
 public class WorldObjectCompProperties_EspionageSite : WorldObjectCompProperties
 {
     public WorldObjectCompProperties_EspionageSite()

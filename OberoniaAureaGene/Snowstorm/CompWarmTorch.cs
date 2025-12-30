@@ -18,7 +18,7 @@ public class CompWarmTorch : ThingComp
 {
     protected Pawn holder;
     public Pawn Holder => holder;
-    CompProperties_WarmTorch Props => props as CompProperties_WarmTorch;
+    private CompProperties_WarmTorch Props => props as CompProperties_WarmTorch;
 
     public void CheckTorch()
     {

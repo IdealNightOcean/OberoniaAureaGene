@@ -16,7 +16,7 @@ public class HediffCompProperties_IceStorm : HediffCompProperties
 }
 public class HediffComp_IceStorm : HediffComp
 {
-    HediffCompProperties_IceStorm Props => props as HediffCompProperties_IceStorm;
+    private HediffCompProperties_IceStorm Props => props as HediffCompProperties_IceStorm;
 
     protected int ticksRemaining;
 

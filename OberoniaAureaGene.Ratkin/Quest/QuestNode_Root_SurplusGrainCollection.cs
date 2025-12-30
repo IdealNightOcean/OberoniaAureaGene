@@ -108,13 +108,13 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         Faction questFaction = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction());
         if (questFaction is null)
         {
-            quest.End(QuestEndOutcome.Unknown, inSignal: null);
+            QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
             return;
         }
         Faction originalFation = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f != questFaction && f.IsRatkinKindomFaction());
         if (originalFation is null)
         {
-            quest.End(QuestEndOutcome.Unknown, inSignal: null);
+            QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
             return;
         }
 
@@ -183,7 +183,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             giverFaction = questFaction
         }, inSignalSuccess, addCampLootReward: true, asker: asker);
 
-        quest.End(QuestEndOutcome.Success, 0, null, inSignalEnd);
+        quest.End(QuestEndOutcome.Success, inSignal: inSignalEnd);
         QuestGen.AddQuestDescriptionRules(
         [
             new Rule_String("siteLabel", site.Label)

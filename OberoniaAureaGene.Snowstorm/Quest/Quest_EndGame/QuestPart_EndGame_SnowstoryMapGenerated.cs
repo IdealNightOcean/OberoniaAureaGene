@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class QuestPart_EndGame_SnowstoryMapGenerated : QuestPart
 {
     public string inSignal;

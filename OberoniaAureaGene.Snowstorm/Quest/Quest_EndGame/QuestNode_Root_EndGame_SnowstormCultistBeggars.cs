@@ -174,7 +174,7 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
         },
         [itemsReceivedSignal, leftMapSignal]);
 
-        quest.End(QuestEndOutcome.Fail, 0, null, QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
+        quest.End(QuestEndOutcome.Fail, inSignal: QuestGenUtility.HardcodedSignalWithQuestID("faction.BecameHostileToPlayer"));
 
         quest.AllPawnsDespawned(pawns,
             delegate

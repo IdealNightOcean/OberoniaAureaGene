@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class SymbolResolver_RuinedIndoors : SymbolResolver
 {
     private const int MinLengthAfterSplit = 7;

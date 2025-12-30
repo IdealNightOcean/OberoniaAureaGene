@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class HediffCompProperties_SnowstormFog : HediffCompProperties
 {
     public ThoughtDef thought;

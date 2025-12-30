@@ -22,8 +22,6 @@ public class IceCrystalFlower : Plant
     protected int ticksToSpread = SpreadInterval;
     protected int ticksToDieOutdoor = 60000;
 
-
-
     public void Notify_FirstSpawn(IceCrystalFlower parentFlower = null)
     {
         growthInt = 1f;
@@ -193,5 +191,4 @@ public class IceCrystalFlower : Plant
         Scribe_Values.Look(ref ticksToSpread, "ticksToSpread", 0);
         Scribe_Values.Look(ref ticksToDieOutdoor, "ticksToDieOutdoor", 0);
     }
-
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class IncidentWorker_SnowstormMaliceRaid_Hard : IncidentWorker_SnowstormMaliceRaid_Reinforce
 {
     protected override bool TryExecuteWorker(IncidentParms parms)

@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene;
+
 public class ThoughtWorker_SnowExtremeSurvivor : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)

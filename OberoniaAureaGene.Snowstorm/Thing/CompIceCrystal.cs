@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class CompProperties_IceCrystal : CompProperties
 {
     public float disappearHours;

@@ -2,6 +2,7 @@
 using Verse;
 
 namespace OberoniaAureaGene;
+
 [StaticConstructorOnStartup]
 public class WeatherOverlay_SnowExtreme : WeatherOverlayDualPanner
 {

@@ -19,7 +19,7 @@ public class HediffComp_AdjustHypothermia : HediffComp
 {
     protected HediffDef hediffDef;
     protected int ticksRemainings;
-    HediffCompPropertiesp_AdjustHypothermia Props => props as HediffCompPropertiesp_AdjustHypothermia;
+    private HediffCompPropertiesp_AdjustHypothermia Props => props as HediffCompPropertiesp_AdjustHypothermia;
     public override void CompPostPostAdd(DamageInfo? dinfo)
     {
         ticksRemainings = Props.severityChangeInterval;

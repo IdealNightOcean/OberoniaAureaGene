@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
+
 public class HediffCompProperties_SnowstormOblivious : HediffCompProperties
 {
     public List<HediffDef> removeHediffs;

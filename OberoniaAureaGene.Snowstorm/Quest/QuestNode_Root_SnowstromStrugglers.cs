@@ -21,7 +21,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         }
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false) is not null;
     }
-    protected override void InitQuestParameter()
+    protected override bool InitQuestParameter()
     {
         questParameter = new QuestParameter()
         {
@@ -37,6 +37,8 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
 
         QuestGen.slate.Set(UniqueQuestDescSlate, true);
         QuestGen.slate.Set(UniqueLeavingLetterSlate, true);
+
+        return true;
     }
 
     protected override Faction GetOrGenerateFaction()
@@ -45,8 +47,9 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         return Find.FactionManager.RandomAlliedFaction(allowNonHumanlike: false);
     }
 
-    protected override void PostPawnGenerated(Pawn pawn)
+    protected override void PostPawnGenerated(Pawn pawn, string lodgerRecruitedSignal)
     {
+        base.PostPawnGenerated(pawn, lodgerRecruitedSignal);
         pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_HopeForSurvival);
         pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SnowstormStrugglers);
         Thing food = ThingMaker.MakeThing(ThingDefOf.MealSimple);
