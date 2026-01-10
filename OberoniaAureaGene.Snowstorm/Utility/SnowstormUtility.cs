@@ -301,7 +301,7 @@ public static class SnowstormUtility
     {
         if (targetMap is null)
         {
-            Log.Error("Try add a map incident, but targetMap is NULL");
+            Log.Error("[OAGene] Try add a map incident, but targetMap is NULL");
             return;
         }
         IncidentParms parms = new()

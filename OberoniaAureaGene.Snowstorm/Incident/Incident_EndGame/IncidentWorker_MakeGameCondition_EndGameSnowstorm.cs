@@ -21,7 +21,7 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
         GameConditionManager gameConditionManager = Find.World.GameConditionManager;
         if (gameConditionManager is null)
         {
-            Log.ErrorOnce($"Couldn't find condition manager for incident target {Find.World}", 70849667);
+            Log.ErrorOnce($"[OAGene] Couldn't find condition manager for incident target {Find.World}", 70849667);
             return false;
         }
 

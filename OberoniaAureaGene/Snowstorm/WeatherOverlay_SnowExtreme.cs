@@ -45,7 +45,7 @@ public class WeatherOverlay_SnowExtreme : SkyOverlay
     {
         if (worldOverlayMat is null)
         {
-            Log.Message("Creating new worldOverlayMat");
+            Log.Message("[OAGene] Creating new worldOverlayMat");
             Texture2D mainTex = MainTex.Texture;
             worldOverlayMat = new(MaterialPool.MatFrom(mainTex));
             worldOverlayMat.CopyPropertiesFromMaterial(SnowOverlayWorld);

@@ -37,7 +37,7 @@ public class SymbolResolver_RuinedIndoors_Division_Split : SymbolResolver_BasePa
         int rectSize = ResolveMinWidthOrHeight(length);
         if (rp.rect.Width < rectSize && rp.rect.Height < rectSize)
         {
-            Log.Warning("Too small rect. params=" + rp);
+            Log.Warning("[OAGene] Too small rect. params=" + rp);
         }
         else if ((Rand.Bool && rp.rect.Height >= rectSize) || rp.rect.Width < rectSize)
         {

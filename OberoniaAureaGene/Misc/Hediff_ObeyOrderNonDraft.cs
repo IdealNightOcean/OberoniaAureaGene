@@ -41,7 +41,6 @@ public class Hediff_ObeyOrderNonDraft : HediffWithComps
     public override void PostRemoved()
     {
         base.PostRemoved();
-        Log.Message("removed?");
         pawn.needs?.mood.thoughts.memories.RemoveMemoriesOfDef(OAGene_MiscDefOf.OAGene_Thought_ObeyOrderNonDraft);
     }
 }

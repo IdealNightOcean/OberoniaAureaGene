@@ -50,7 +50,6 @@ public class CompPawnGeneDamageModified : ThingComp, IPawnPreApplyDamage
 
     public void PawnPreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
     {
-        Log.Message("基因");
         absorbed = false;
         if (!actived)
         {

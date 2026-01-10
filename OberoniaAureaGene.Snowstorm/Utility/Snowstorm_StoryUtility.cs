@@ -54,26 +54,26 @@ public static class Snowstorm_StoryUtility
         }
         if (StoryGameComp is null || !StoryGameComp.StoryActive)
         {
-            TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
+            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
         }
         if (StoryGameComp.hometownSpawned || StoryGameComp.storyInProgress)
         {
-            TryLogFailMessage("Try fire snowstorm end-game quest but end-game quest is already ongoing.");
+            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but end-game quest is already ongoing.");
             return false;
         }
         if (StoryGameComp.storyFinished)
         {
-            TryLogFailMessage("Try fire snowstorm end-game quest but end-game quest has been accomplished.");
+            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but end-game quest has been accomplished.");
             return false;
         }
         if (StoryGameComp.Protagonist is null || StoryGameComp.Protagonist.Dead)
         {
-            TryLogFailMessage("Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
+            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
             return false;
         }
 
-        Log.Message("The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.green));
+        Log.Message("[OAGene] The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.green));
         return true;
 
         void TryLogFailMessage(string failMessage)

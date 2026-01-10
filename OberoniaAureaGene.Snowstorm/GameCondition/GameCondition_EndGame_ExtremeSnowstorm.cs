@@ -51,7 +51,7 @@ public class GameCondition_EndGame_ExtremeSnowstorm : GameCondition_ExtremeSnows
         }
         catch
         {
-            Log.Error("Attempt to initialize end-game extreme snowstorm failed.");
+            Log.Error("[OAGene] Attempt to initialize end-game extreme snowstorm failed.");
         }
     }
 

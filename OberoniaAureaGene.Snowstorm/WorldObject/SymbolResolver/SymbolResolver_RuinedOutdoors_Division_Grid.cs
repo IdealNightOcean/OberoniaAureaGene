@@ -54,7 +54,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Grid : SymbolResolver
         FillOptions(rp.rect);
         if ((Rand.Chance(AllowNonSquareRoomsInTheFirstStepChance) || (!TryResolveRandomOption(0, 0, rp) && !TryResolveRandomOption(0, 1, rp))) && !TryResolveRandomOption(1, 0, rp) && !TryResolveRandomOption(2, 0, rp) && !TryResolveRandomOption(2, 1, rp) && !TryResolveRandomOption(999999, 999999, rp))
         {
-            Log.Warning("Grid resolver could not resolve any grid size. params=" + rp);
+            Log.Warning("[OAGene] Grid resolver could not resolve any grid size. params=" + rp);
         }
     }
 

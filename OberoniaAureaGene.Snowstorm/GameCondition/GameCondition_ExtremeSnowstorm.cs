@@ -60,7 +60,7 @@ public class GameCondition_ExtremeSnowstorm : GameCondition_ExtremeSnowstormBase
         }
         catch
         {
-            Log.Error("Attempt to initialize extreme snowstorm failed.");
+            Log.Error("[OAGene] Attempt to initialize extreme snowstorm failed.");
         }
     }
     protected override void PreEnd()

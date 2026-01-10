@@ -29,17 +29,17 @@ public class GameComponent_Snowstorm : GameComponent
 
     public void DrawDevWindow(Listing_Standard listing_Rect)
     {
-        listing_Rect.Label($"CurSnowstormCount: {snowstormCount}");
-        listing_Rect.Label($"TotalSnowstormCount: {totalSnowstormCount}");
-        listing_Rect.Label($"LastSnowstormStartTick: {lastSnowstormStartTick}");
-        listing_Rect.Label($"LastSnowstormEndTick: {lastSnowstormEndTick}");
+        listing_Rect.Label($"当前存在的极端风雪数: {snowstormCount}");
+        listing_Rect.Label($"总共经历过的极端风雪数: {totalSnowstormCount}");
+        listing_Rect.Label($"上次极端风雪开始Tick: {lastSnowstormStartTick}");
+        listing_Rect.Label($"上次极端风雪结束Tick: {lastSnowstormEndTick}");
         listing_Rect.Gap(3f);
-        listing_Rect.Label($"NextSnowstormMentalTick: {nextSnowstormMentalTick}");
-        listing_Rect.Label($"CanGetSnowstormMentalNow: {CanGetSnowstormMentalNow}");
-        listing_Rect.Label($"NextCultistConvertTick: {nextCultistConvertTick}");
-        listing_Rect.Label($"CanCultistConvertNow: {CanCultistConvertNow}");
+        listing_Rect.Label($"下一次极端风雪特殊精神状态判定Tick: {nextSnowstormMentalTick}");
+        listing_Rect.Label($"当前是否可以判定极端风雪特殊精神状态: {CanGetSnowstormMentalNow}");
+        listing_Rect.Label($"下一次风雪教徒可传教Tick: {nextCultistConvertTick}");
+        listing_Rect.Label($"当前风雪教徒是否可传教: {CanCultistConvertNow}");
         listing_Rect.Gap(3f);
-        listing_Rect.Label($"StarryNightTriggered: {starryNightTriggered}");
+        listing_Rect.Label($"星月夜是否已触发: {starryNightTriggered}");
     }
 
     public override void LoadedGame()
@@ -74,7 +74,7 @@ public class GameComponent_Snowstorm : GameComponent
         }
         catch (Exception ex)
         {
-            Log.Error("Failed to fix the null parms.target for QueuedIncident.firingInc: " + ex);
+            Log.Error("[OAGene] Failed to fix the null parms.target for QueuedIncident.firingInc: " + ex);
         }
     }
 

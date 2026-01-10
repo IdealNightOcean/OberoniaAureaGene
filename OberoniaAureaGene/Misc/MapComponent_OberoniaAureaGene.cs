@@ -87,7 +87,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             }
             catch
             {
-                Log.Error("Attempt to trigger hegemonic flag raid failed.");
+                Log.Error("[OAGene] Attempt to trigger hegemonic flag raid failed.");
             }
         }
     }

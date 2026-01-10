@@ -21,7 +21,7 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
             }
             catch
             {
-                Log.Error("Attempt to trigger end-game extreme snowstorm failed.");
+                Log.Error("[OAGene] Attempt to trigger end-game extreme snowstorm failed.");
             }
         }
     }
