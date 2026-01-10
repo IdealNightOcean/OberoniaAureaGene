@@ -14,3 +14,14 @@ public static class Game_ClearCaches_Patch
         Snowstorm_StoryUtility.ClearStaticCache();
     }
 }
+
+[StaticConstructorOnStartup]
+[HarmonyPatch(typeof(Game), nameof(Game.InitNewGame))]
+public static class Game_InitNewGame_Patch
+{
+    [HarmonyPrefix]
+    public static void Prefix()
+    {
+        Snowstorm_StoryUtility.ClearStaticCache();
+    }
+}
