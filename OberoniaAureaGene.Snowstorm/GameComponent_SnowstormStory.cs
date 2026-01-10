@@ -47,7 +47,7 @@ public class GameComponent_SnowstormStory : GameComponent
         listing_Rect.Label($"是否显式无遗孤主角警告: {showNoProtagonistWarning}");
         listing_Rect.Gap(3f);
 
-        if (protagonist is null) { listing_Rect.Label("Protagonist: None"); }
+        if (protagonist is null) { listing_Rect.Label("遗孤主角: None"); }
         else { listing_Rect.Label($"遗孤主角: {protagonist}"); }
 
         listing_Rect.Label($"主角当前是否渴望归乡: {LongingForHome}");
@@ -68,7 +68,7 @@ public class GameComponent_SnowstormStory : GameComponent
     public void Notify_StoryActive()
     {
         storyActive = true;
-        Log.Message("[OAGene] OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
         protagonist = Find.GameInitData.startingAndOptionalPawns.Where(p => p.IsColonist).Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
         ProtagonistValidator();
     }
@@ -163,11 +163,11 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         if (!storyActive)
         {
-            Log.Message("[OAGene] OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
+            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
             return;
         }
 
-        Log.Message("[OAGene] OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
         ProtagonistValidator();
     }
 
@@ -179,11 +179,11 @@ public class GameComponent_SnowstormStory : GameComponent
             {
                 protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             }
-            Log.Message("[OAGene] OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
+            Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
         }
         else
         {
-            Log.Message("[OAGene] OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
+            Log.Message("OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
             if (showNoProtagonistWarning)
             {
                 Log.Error("[OAGene] Snowstorm Story is active but lacks a definitive protagonist.");
