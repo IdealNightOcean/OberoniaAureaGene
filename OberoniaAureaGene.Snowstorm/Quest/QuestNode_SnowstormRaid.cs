@@ -65,7 +65,7 @@ public class QuestNode_SnowstormRaid : QuestNode
         while (!enumerable.Any() && num < 50);
         if (!enumerable.Any())
         {
-            Log.Error(string.Concat("No pawnkinds example for ", QuestGen.quest.root.defName, " parms=", defaultPawnGroupMakerParms, " iterations=", num));
+            Log.Error(string.Concat("[OAGene] No pawnkinds example for ", QuestGen.quest.root.defName, " parms=", defaultPawnGroupMakerParms, " iterations=", num));
         }
         questPart_Incident.SetIncidentParmsAndRemoveTarget(incidentParms);
         questPart_Incident.inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal");

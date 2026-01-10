@@ -28,7 +28,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             }
             catch
             {
-                Log.Error("Attempt to initialize snowstorm precursor failed.");
+                Log.Error("[OAGene] Attempt to initialize snowstorm precursor failed.");
             }
         }
     }
@@ -55,7 +55,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
         }
         catch
         {
-            Log.Error("Attempt to trigger extreme snowstorm failed.");
+            Log.Error("[OAGene] Attempt to trigger extreme snowstorm failed.");
         }
 
     }

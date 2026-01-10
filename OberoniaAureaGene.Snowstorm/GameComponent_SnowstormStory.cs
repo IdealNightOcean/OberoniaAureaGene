@@ -6,7 +6,6 @@ using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
 
-[StaticConstructorOnStartup]
 public class GameComponent_SnowstormStory : GameComponent
 {
     public static GameComponent_SnowstormStory Instance { get; private set; }
@@ -40,36 +39,36 @@ public class GameComponent_SnowstormStory : GameComponent
     public void DrawDevWindow(Listing_Standard listing_Rect)
     {
         Text.Font = GameFont.Medium;
-        listing_Rect.Label($"StoryActive: {storyActive}");
+        listing_Rect.Label($"风雪遗孤故事是否开启: {storyActive}");
         Text.Font = GameFont.Small;
         listing_Rect.Gap(3f);
-        listing_Rect.Label($"StoryInProgress: {storyInProgress}");
-        listing_Rect.Label($"StoryFinished: {storyFinished}");
-        listing_Rect.Label($"ShowNoProtagonistWarning: {showNoProtagonistWarning}");
+        listing_Rect.Label($"归乡任务是否进行中: {storyInProgress}");
+        listing_Rect.Label($"归乡任务是否已完成: {storyFinished}");
+        listing_Rect.Label($"是否显式无遗孤主角警告: {showNoProtagonistWarning}");
         listing_Rect.Gap(3f);
 
         if (protagonist is null) { listing_Rect.Label("Protagonist: None"); }
-        else { listing_Rect.Label($"Protagonist: {protagonist}"); }
+        else { listing_Rect.Label($"遗孤主角: {protagonist}"); }
 
-        listing_Rect.Label($"LongingForHome: {LongingForHome}");
+        listing_Rect.Label($"主角当前是否渴望归乡: {LongingForHome}");
         listing_Rect.Gap(3f);
-        listing_Rect.Label($"SatisfySnowstormCultist: {satisfySnowstormCultist}");
+        listing_Rect.Label($"是否满足了归乡任务的风雪教徒: {satisfySnowstormCultist}");
         listing_Rect.Gap(3f);
 
-        listing_Rect.Label($"HometownSpawned: {hometownSpawned}");
-        if (hometown is null) { listing_Rect.Label("Hometown: None"); }
-        else { listing_Rect.Label($"Hometown: {hometown}"); }
+        listing_Rect.Label($"家乡是否已生成: {hometownSpawned}");
+        if (hometown is null) { listing_Rect.Label("家乡: 无"); }
+        else { listing_Rect.Label($"家乡: {hometown}"); }
 
-        if (hometownMap is null) { listing_Rect.Label("HometownMap: None"); }
-        else { listing_Rect.Label($"HometownMap: {hometownMap}"); }
+        if (hometownMap is null) { listing_Rect.Label("家乡地图: 无"); }
+        else { listing_Rect.Label($"家乡地图: {hometownMap}"); }
 
-        listing_Rect.Label($"HometownTile: {hometownTile}");
+        listing_Rect.Label($"家乡Tile: {hometownTile}");
     }
 
     public void Notify_StoryActive()
     {
         storyActive = true;
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("[OAGene] OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
         protagonist = Find.GameInitData.startingAndOptionalPawns.Where(p => p.IsColonist).Take(Find.GameInitData.startingPawnCount).RandomElementWithFallback(null);
         ProtagonistValidator();
     }
@@ -122,7 +121,7 @@ public class GameComponent_SnowstormStory : GameComponent
         }
         catch
         {
-            Log.Error("OAGene_SnowstormMod write setting failed.");
+            Log.Error("[OAGene] OAGene_SnowstormMod write setting failed.");
         }
         storyFinished = true;
         storyInProgress = false;
@@ -164,11 +163,11 @@ public class GameComponent_SnowstormStory : GameComponent
     {
         if (!storyActive)
         {
-            Log.Message("OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
+            Log.Message("[OAGene] OAGene_Log_SnowstormStoryNotActive".Translate().Colorize(Color.gray));
             return;
         }
 
-        Log.Message("OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
+        Log.Message("[OAGene] OAGene_Log_SnowstormStoryActive".Translate().Colorize(Color.green));
         ProtagonistValidator();
     }
 
@@ -180,14 +179,14 @@ public class GameComponent_SnowstormStory : GameComponent
             {
                 protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
             }
-            Log.Message("OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
+            Log.Message("[OAGene] OAGene_Log_StoryProtagonist".Translate(protagonist.Named("PAWN")).Colorize(Color.green));
         }
         else
         {
-            Log.Message("OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
+            Log.Message("[OAGene] OAGene_Log_NoStoryProtagonist".Translate().Colorize(Color.red));
             if (showNoProtagonistWarning)
             {
-                Log.Error("Snowstorm Story is active but lacks a definitive protagonist.");
+                Log.Error("[OAGene] Snowstorm Story is active but lacks a definitive protagonist.");
                 DiaResetProtagonist();
             }
         }

@@ -53,7 +53,7 @@ public class QuestPart_InitiateEspionage : QuestPart
             {
                 if (component.activeEspionage)
                 {
-                    Log.Error("Site " + site.Label + " already has an active espionage.");
+                    Log.Error("[OAGene] Site " + site.Label + " already has an active espionage.");
                     return;
                 }
                 site.customLabel = customLabel;

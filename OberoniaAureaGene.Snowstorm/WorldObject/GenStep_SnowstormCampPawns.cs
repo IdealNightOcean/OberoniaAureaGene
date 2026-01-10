@@ -14,7 +14,7 @@ public class GenStep_SnowstormCampPawns : GenStep
         if (!MapGenerator.TryGetVar<CellRect>("RectOfInterest", out CellRect interestRect))
         {
             baseCenter = interestRect.CenterCell;
-            Log.Error("No rect of interest set when running GenStep_SnowstormCampPawns!");
+            Log.Error("[OAGene] No rect of interest set when running GenStep_SnowstormCampPawns!");
         }
         else
         {

@@ -19,7 +19,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Split : SymbolResolver_BaseP
         {
             if (!TryFindSplitPoint(!@bool, rp.rect, out splitPoint, out spaceBetween))
             {
-                Log.Warning("Could not find split point.");
+                Log.Warning("[OAGene] Could not find split point.");
                 return;
             }
             flag = !@bool;

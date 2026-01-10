@@ -7,7 +7,7 @@ namespace OberoniaAureaGene.Snowstorm;
 public static class DebugTools
 {
     [DebugAction(category: "OberoniaAurea",
-                 name: "DevWin-Snowstorm",
+                 name: "极端暴风雪调试",
                  requiresRoyalty: false,
                  requiresIdeology: false,
                  requiresBiotech: false,
@@ -27,7 +27,7 @@ public static class DebugTools
     }
 
     [DebugAction(category: "OberoniaAurea",
-             name: "DevWin-SnowstormStory",
+             name: "风雪遗孤调试",
              requiresRoyalty: false,
              requiresIdeology: false,
              requiresBiotech: false,
