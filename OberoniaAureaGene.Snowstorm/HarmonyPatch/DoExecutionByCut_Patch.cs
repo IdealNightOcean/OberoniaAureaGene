@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(ExecutionUtility), "DoExecutionByCut")]
+[HarmonyPatch(typeof(ExecutionUtility), nameof(ExecutionUtility.DoExecutionByCut))]
 public static class DoExecutionByCut_Patch
 {
     [HarmonyPrefix]

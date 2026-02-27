@@ -7,7 +7,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(IncidentWorker), "TryExecute")]
+[HarmonyPatch(typeof(IncidentWorker), nameof(IncidentWorker.TryExecute))]
 
 public static class TryExecute_Patch
 {

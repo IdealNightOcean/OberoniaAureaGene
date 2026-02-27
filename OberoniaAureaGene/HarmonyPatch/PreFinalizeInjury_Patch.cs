@@ -8,7 +8,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(HediffComp_GetsPermanent), "PreFinalizeInjury")]
+[HarmonyPatch(typeof(HediffComp_GetsPermanent), nameof(HediffComp_GetsPermanent.PreFinalizeInjury))]
 public static class PreFinalizeInjury_Patch
 {
     [HarmonyTranspiler]

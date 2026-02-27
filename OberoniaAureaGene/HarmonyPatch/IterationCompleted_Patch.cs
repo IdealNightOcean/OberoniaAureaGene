@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(Bill_Production), "Notify_IterationCompleted")]
+[HarmonyPatch(typeof(Bill_Production), nameof(Bill_Production.Notify_IterationCompleted))]
 public static class IterationCompleted_Patch
 {
     [HarmonyPostfix]

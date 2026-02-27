@@ -1,12 +1,11 @@
-﻿using Verse;
+﻿using System.Runtime.CompilerServices;
+using Verse;
 
 namespace OberoniaAureaGene.Ratkin;
 
 [StaticConstructorOnStartup]
 public static class OAGene_RatkinUtility
 {
-    public static bool IsRatkin(this Pawn pawn)
-    {
-        return pawn.def == OAGene_RatkinDefOf.Ratkin || pawn.def == OAGene_RatkinDefOf.Ratkin_Su;
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool IsRatkin(this Pawn pawn) => pawn.def == OAGene_RatkinDefOf.Ratkin;
 }

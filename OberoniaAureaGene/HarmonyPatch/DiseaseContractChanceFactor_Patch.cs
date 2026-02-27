@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(ImmunityHandler), "DiseaseContractChanceFactor",
+[HarmonyPatch(typeof(ImmunityHandler), nameof(ImmunityHandler.DiseaseContractChanceFactor),
     [typeof(HediffDef), typeof(HediffDef), typeof(BodyPartRecord)],
     [ArgumentType.Normal, ArgumentType.Out, ArgumentType.Normal])]
 public static class DiseaseContractChanceFactor_Patch
