@@ -1,6 +1,8 @@
 ﻿
+using OberoniaAurea_Frame;
 using RimWorld;
 using RimWorld.Planet;
+using RimWorld.QuestGen;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -46,43 +48,74 @@ public static class Snowstorm_StoryUtility
         return hometownMap;
     }
 
-    public static bool CanFireSnowstormEndGameNow(bool logFailMessage = true)
+    public static bool CanFireSnowstormEndGameNow(bool logMessage)
     {
-        if (GenDate.DaysPassed < 10)
-        {
-            return false;
-        }
         if (StoryGameComp is null || !StoryGameComp.StoryActive)
         {
-            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
+            TryLogMessage($"[OAGene] 尝试触发长路归乡任务，但 {nameof(StoryGameComp)} 为 NULL 或未激活。");
             return false;
         }
         if (StoryGameComp.hometownSpawned || StoryGameComp.storyInProgress)
         {
-            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but end-game quest is already ongoing.");
+            TryLogMessage("[OAGene] 尝试触发长路归乡任务，但长路归乡任务已在进行中。");
             return false;
         }
         if (StoryGameComp.storyFinished)
         {
-            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but end-game quest has been accomplished.");
+            TryLogMessage("[OAGene] 尝试触发长路归乡任务，但长路归乡任务已完成。");
             return false;
         }
         if (StoryGameComp.Protagonist is null || StoryGameComp.Protagonist.Dead)
         {
-            TryLogFailMessage("[OAGene] Try fire snowstorm end-game quest but StoryGameComp is NULL or inactive.");
+            TryLogMessage("[OAGene] 尝试触发长路归乡任务，但 遗孤主角 为 NULL 或已死亡。");
+            return false;
+        }
+        if (GenDate.DaysPassed < 10)
+        {
+            TryLogMessage("[OAGene] 尝试触发长路归乡任务，距游戏开始不足10日。");
             return false;
         }
 
-        Log.Message("[OAGene] The end-game quest triggering passed the StoryGameComp validity test.".Colorize(Color.green));
+        if (logMessage)
+            Log.Message($"[OAGene] 结局任务触发已通过 {nameof(StoryGameComp)} 有效性测试。".Colorize(Color.green));
+
         return true;
 
-        void TryLogFailMessage(string failMessage)
+        void TryLogMessage(string message)
         {
-            if (logFailMessage)
+            if (logMessage) Log.Message(message.Colorize(Color.cyan));
+        }
+    }
+
+    public static bool TryTriggerSnowstormEndGame(bool logMessage)
+    {
+        if (!CanFireSnowstormEndGameNow(logMessage: logMessage))
+        {
+            if (logMessage)
             {
-                Log.Message(failMessage.Colorize(Color.cyan));
+                Log.Message($"[OARO] 长路归乡任务触发失败：未能通过 {nameof(StoryGameComp)} 有效性测试".Colorize(ColorLibrary.RedReadable));
+            }
+            return false;
+        }
+
+        bool result = OAFrame_QuestUtility.TryGenerateQuestAndMakeAvailable(
+               quest: out Quest quest,
+               scriptDef: Snowstorm_MiscDefOf.OAGene_EndGame_Homecoming,
+               slate: new Slate());
+
+        if (logMessage)
+        {
+            if (result)
+            {
+                Log.Message("[OARO] 长路归乡任务触发成功".Colorize(Color.green));
+            }
+            else
+            {
+                Log.Message("[OARO] 长路归乡任务触发失败".Colorize(ColorLibrary.RedReadable));
             }
         }
+
+        return result;
     }
 
     public static void EndGame(Pawn protagonist)
