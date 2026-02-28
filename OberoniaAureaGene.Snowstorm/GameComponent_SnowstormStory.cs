@@ -1,10 +1,10 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAureaGene.Snowstorm;
+using RimWorld;
 using RimWorld.Planet;
 using System.Linq;
 using UnityEngine;
 using Verse;
-
-namespace OberoniaAureaGene.Snowstorm;
 
 public class GameComponent_SnowstormStory : GameComponent
 {
@@ -47,11 +47,16 @@ public class GameComponent_SnowstormStory : GameComponent
         listing_Rect.Label($"风雪遗孤故事是否开启: {storyActive}");
         Text.Font = GameFont.Small;
         listing_Rect.Gap(3f);
-        listing_Rect.Label($"归乡任务是否进行中: {storyInProgress}");
+        listing_Rect.Label($"归乡任务是否进行中: {hometownSpawned}");
+        listing_Rect.Label($"归乡地图是否已开启: {storyInProgress}");
         listing_Rect.Label($"归乡任务是否已完成: {storyFinished}");
-        if (listing_Rect.ButtonText("尝试触发结局任务", widthPct: 0.6f))
+        if (listing_Rect.ButtonText("尝试触发归乡任务", widthPct: 0.6f))
         {
             Snowstorm_StoryUtility.TryTriggerSnowstormEndGame(logMessage: true);
+        }
+        if (listing_Rect.ButtonText("强行重置归乡任务".Colorize(ColorLibrary.RedReadable), widthPct: 0.6f))
+        {
+            ForceResetSnowstormEndGameQuest();
         }
         listing_Rect.Gap(6f);
 
@@ -70,6 +75,23 @@ public class GameComponent_SnowstormStory : GameComponent
         else { listing_Rect.Label($"家乡地图: {hometownMap}"); }
 
         listing_Rect.Label($"家乡Tile: {hometownTile}");
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false, forceSave: true);
+        Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
+        Scribe_Values.Look(ref showNoProtagonistWarning, "showNoProtagonistWarning", defaultValue: true);
+
+        Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false, forceSave: true);
+        Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false, forceSave: true);
+        Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false, forceSave: true);
+
+        Scribe_References.Look(ref hometown, "hometown");
+        Scribe_References.Look(ref hometownMap, "hometownMap");
+        Scribe_Values.Look(ref hometownTile, "hometownTile", Tile.Invalid);
+        Scribe_Values.Look(ref satisfySnowstormCultist, "satisfySnowstormCultist", defaultValue: false);
     }
 
     public override void GameComponentUpdate()
@@ -257,20 +279,53 @@ public class GameComponent_SnowstormStory : GameComponent
         Find.WindowStack.Add(failNodeTree);
     }
 
-    public override void ExposeData()
+    private void ForceResetSnowstormEndGameQuest()
     {
-        base.ExposeData();
-        Scribe_Values.Look(ref storyActive, "storyActive", defaultValue: false, forceSave: true);
-        Scribe_References.Look(ref protagonist, "protagonist", saveDestroyedThings: true);
-        Scribe_Values.Look(ref showNoProtagonistWarning, "showNoProtagonistWarning", defaultValue: true);
+        if (!storyActive)
+            return;
 
-        Scribe_Values.Look(ref hometownSpawned, "hometownSpawned", defaultValue: false, forceSave: true);
-        Scribe_Values.Look(ref storyInProgress, "storyInProgress", defaultValue: false, forceSave: true);
-        Scribe_Values.Look(ref storyFinished, "storyFinished", defaultValue: false, forceSave: true);
+        foreach (Quest quest in Find.QuestManager.QuestsListForReading)
+        {
+            if (quest.root == Snowstorm_MiscDefOf.OAGene_EndGame_Homecoming && quest.State <= QuestState.Ongoing)
+            {
+                quest.End(QuestEndOutcome.Unknown);
+            }
+        }
 
-        Scribe_References.Look(ref hometown, "hometown");
-        Scribe_References.Look(ref hometownMap, "hometownMap");
-        Scribe_Values.Look(ref hometownTile, "hometownTile", Tile.Invalid);
-        Scribe_Values.Look(ref satisfySnowstormCultist, "satisfySnowstormCultist", defaultValue: false);
+        foreach (WorldObject worldObject in Find.WorldObjects.AllWorldObjects)
+        {
+            if (worldObject.def == Snowstorm_MiscDefOf.OAGene_Hometown)
+            {
+                if (worldObject is MapParent mapParent && mapParent.HasMap)
+                {
+                    mapParent.forceRemoveWorldObjectWhenMapRemoved = true;
+                }
+                else
+                {
+                    worldObject.Destroy();
+                }
+            }
+            else if (worldObject.def == Snowstorm_MiscDefOf.OAGene_Hometown_Sealed)
+            {
+                worldObject.Destroy();
+            }
+        }
+
+        storyInProgress = false;
+        storyFinished = false;
+
+        satisfySnowstormCultist = false;
+
+        hometownSpawned = false;
+        hometown = null;
+        hometownMap = null;
+        hometownTile = Tile.Invalid;
+
+        if (protagonist is not null)
+        {
+            protagonist.RemoveFirstHediffOfDef(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecomed);
+            Hediff_ProtagonistHomecoming homecoming = (Hediff_ProtagonistHomecoming)protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);
+            homecoming?.RecacheDiaryAndThoughtNow(slience: true);
+        }
     }
 }
