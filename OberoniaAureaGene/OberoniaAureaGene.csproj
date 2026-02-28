@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Genes\Gene_ObeyOrder.cs" />
+    <Compile Include="Genes\IGeneIncomingDamageProcessor.cs" />
     <Compile Include="HarmonyPatch\Game_ClearCaches_Patch.cs" />
     <Compile Include="Misc\Hediff_ObeyOrderNonDraft.cs" />
     <Compile Include="Snowstorm\MapComponent_LongSnowstorm.cs" />

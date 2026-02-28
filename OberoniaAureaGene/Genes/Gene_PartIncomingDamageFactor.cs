@@ -3,21 +3,25 @@ using Verse;
 
 namespace OberoniaAureaGene;
 
-public class Gene_PartIncomingDamageFactor : Gene
+
+
+
+public class Gene_PartIncomingDamageFactor : Gene, IGeneIncomingDamageProcessor
 {
     public GeneExtension geneExtension;
     public GeneExtension GeneExtension => geneExtension ??= def.GetModExtension<GeneExtension>();
 
     protected List<BodyPartDef> BodyPartDefs => GeneExtension.bodyPartDefs;
     protected float DamageFactor => GeneExtension.damageFactory;
-    public float ApplyDamageFactor(BodyPartDef bodyPartDef)
+
+    public void PreApplyDamage(ref DamageInfo dinfo)
     {
-        if (Active && BodyPartDefs.Contains(bodyPartDef))
+        if (Active && BodyPartDefs.Contains(dinfo.HitPart.def))
         {
-            return DamageFactor;
+            dinfo.SetAmount(dinfo.Amount * DamageFactor);
         }
-        return 1f;
     }
+
     public override void PostAdd()
     {
         base.PostAdd();
