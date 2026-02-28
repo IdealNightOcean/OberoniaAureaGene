@@ -80,7 +80,6 @@
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_EndEndGameSnowstorm.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_EndEndGameSnowstorm.cs" />
     <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SatisfySnowstormCultist.cs" />
-    <Compile Include="StorytellerComp_RefiringSnowstormEndGame.cs" />
     <Compile Include="Hediff\HediffComp_HideInSnowstorm.cs" />
     <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameCondition.cs" />
     <Compile Include="MentalBreakWorker_LostInMemory.cs" />

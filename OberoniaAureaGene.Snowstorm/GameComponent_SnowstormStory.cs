@@ -12,6 +12,7 @@ public class GameComponent_SnowstormStory : GameComponent
 
     private const float ScreenFadeSeconds = 15f;
 
+    [Unsaved] private readonly int tickHashOffset;
     [Unsaved] protected float timeLeft = -1f;
 
     protected bool storyActive;
@@ -33,7 +34,12 @@ public class GameComponent_SnowstormStory : GameComponent
     public Map hometownMap;
     public PlanetTile hometownTile = PlanetTile.Invalid;
 
-    public GameComponent_SnowstormStory(Game game) => Instance = this;
+    public GameComponent_SnowstormStory(Game game)
+    {
+        tickHashOffset = Rand.Range(0, int.MaxValue).HashOffset();
+        Instance = this;
+    }
+
     public static void OpenDevWindow() => Find.WindowStack.Add(new DevWin_SnowstormStory());
 
     public void DrawDevWindow(Listing_Standard listing_Rect)
@@ -44,16 +50,18 @@ public class GameComponent_SnowstormStory : GameComponent
         listing_Rect.Gap(3f);
         listing_Rect.Label($"归乡任务是否进行中: {storyInProgress}");
         listing_Rect.Label($"归乡任务是否已完成: {storyFinished}");
-        listing_Rect.Label($"是否显式无遗孤主角警告: {showNoProtagonistWarning}");
-        listing_Rect.Gap(3f);
+        if (listing_Rect.ButtonText("尝试触发结局任务", widthPct: 0.6f))
+        {
+            Snowstorm_StoryUtility.TryTriggerSnowstormEndGame(logMessage: true);
+        }
+        listing_Rect.Gap(6f);
 
-        if (protagonist is null) { listing_Rect.Label("遗孤主角: None"); }
+        if (protagonist is null) { listing_Rect.Label("遗孤主角: 无"); }
         else { listing_Rect.Label($"遗孤主角: {protagonist}"); }
-
+        listing_Rect.CheckboxLabeled("显示无遗孤主角警告", ref showNoProtagonistWarning);
         listing_Rect.Label($"主角当前是否渴望归乡: {LongingForHome}");
-        listing_Rect.Gap(3f);
         listing_Rect.Label($"是否满足了归乡任务的风雪教徒: {satisfySnowstormCultist}");
-        listing_Rect.Gap(3f);
+        listing_Rect.Gap(6f);
 
         listing_Rect.Label($"家乡是否已生成: {hometownSpawned}");
         if (hometown is null) { listing_Rect.Label("家乡: 无"); }
@@ -63,6 +71,29 @@ public class GameComponent_SnowstormStory : GameComponent
         else { listing_Rect.Label($"家乡地图: {hometownMap}"); }
 
         listing_Rect.Label($"家乡Tile: {hometownTile}");
+    }
+
+    public override void GameComponentUpdate()
+    {
+        if (timeLeft > 0f)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft <= 0f)
+            {
+                Snowstorm_StoryUtility.EndGame(protagonist);
+            }
+        }
+    }
+
+    public override void GameComponentTick()
+    {
+        if (!storyActive)
+            return;
+
+        if ((Find.TickManager.TicksGame + tickHashOffset) % 15000 == 0)
+        {
+            Snowstorm_StoryUtility.TryTriggerSnowstormEndGame(logMessage: false);
+        }
     }
 
     public void Notify_StoryActive()
@@ -137,27 +168,9 @@ public class GameComponent_SnowstormStory : GameComponent
         timeLeft = ScreenFadeSeconds;
     }
 
-    public override void GameComponentUpdate()
-    {
-        if (timeLeft > 0f)
-        {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft <= 0f)
-            {
-                Snowstorm_StoryUtility.EndGame(protagonist);
-            }
-        }
-    }
+    public override void StartedNewGame() => GameStart();
 
-    public override void StartedNewGame()
-    {
-        GameStart();
-    }
-
-    public override void LoadedGame()
-    {
-        GameStart();
-    }
+    public override void LoadedGame() => GameStart();
 
     private void GameStart()
     {
