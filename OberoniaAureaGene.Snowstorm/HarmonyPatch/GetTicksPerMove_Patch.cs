@@ -7,7 +7,7 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(CaravanTicksPerMoveUtility), "GetTicksPerMove",
+[HarmonyPatch(typeof(CaravanTicksPerMoveUtility), nameof(CaravanTicksPerMoveUtility.GetTicksPerMove),
     [typeof(List<Pawn>), typeof(float), typeof(float), typeof(bool), typeof(StringBuilder)])]
 public static class GetTicksPerMove_Patch
 {

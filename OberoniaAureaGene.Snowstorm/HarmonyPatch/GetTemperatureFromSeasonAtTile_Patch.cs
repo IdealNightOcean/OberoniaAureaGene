@@ -4,7 +4,7 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(GenTemperature), "GetTemperatureFromSeasonAtTile")]
+[HarmonyPatch(typeof(GenTemperature), nameof(GenTemperature.GetTemperatureFromSeasonAtTile))]
 public static class GetTemperatureFromSeasonAtTile_Patch
 {
     [HarmonyPostfix]

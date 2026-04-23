@@ -6,7 +6,7 @@ namespace OberoniaAureaGene;
 
 //特异血原相关
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(CompAbilityEffect_BloodfeederBite), "Valid")]
+[HarmonyPatch(typeof(CompAbilityEffect_BloodfeederBite), nameof(CompAbilityEffect_BloodfeederBite.Valid))]
 public static class BloodfeederBite_Patch
 {
     [HarmonyPostfix]

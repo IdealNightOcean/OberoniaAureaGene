@@ -1,8 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using RimWorld.Planet;
-using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -45,7 +43,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         if (map.IsPlayerHome)
         {
             cachedEnemiesCount = map.ThreatsCountOfPlayer();
-            cachedHostileSitesCount = HostileSitesCountOfFactionOnWorld(map.Tile, Faction.OfPlayer, 6f);
+            cachedHostileSitesCount = HostileSitesCountOfPlayer(map.Tile, 6f);
         }
         else
         {
@@ -102,14 +100,29 @@ public class MapComponent_OberoniaAureaGene : MapComponent
         Scribe_Values.Look(ref raidCheckTicks, "raidCheckTicks", 0);
     }
 
-    private static int HostileSitesCountOfFactionOnWorld(int tile, Faction faction, float maxTileDistance)
+    private static int HostileSitesCountOfPlayer(PlanetTile tile, float maxTileDistance)
     {
-        if (tile <= 0)
+        if (!tile.Valid)
         {
             return 0;
         }
+        PlanetLayer layer = tile.Layer;
         WorldGrid worldGrid = Find.WorldGrid;
-        IEnumerable<WorldObject> potentiallyDangerous = Find.WorldObjects.AllWorldObjects.Where(w => w.Tile > 0 && faction.HostileTo(w.Faction) && worldGrid.ApproxDistanceInTiles(tile, w.Tile) < maxTileDistance);
-        return potentiallyDangerous.Count();
+        Faction ofPlayer = Faction.OfPlayer;
+
+        int sitesCount = 0;
+        foreach (WorldObject w in Find.WorldObjects.AllWorldObjects)
+        {
+            if (!w.Tile.Valid || w.Tile.Layer != layer || worldGrid.ApproxDistanceInTiles(tile, w.Tile) > maxTileDistance)
+            {
+                continue;
+            }
+            if (ofPlayer.HostileTo(w.Faction))
+            {
+                sitesCount++;
+            }
+        }
+
+        return sitesCount;
     }
 }

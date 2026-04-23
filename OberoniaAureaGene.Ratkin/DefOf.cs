@@ -21,7 +21,6 @@ public static class OAGene_RatkinDefOf
     public static PawnKindDef RatkinVagabond; //鼠族漂泊者
 
     public static ThingDef Ratkin;
-    public static ThingDef Ratkin_Su;
 
     [MayRequire("OARK.RatkinFaction.OberoniaAurea")]
     public static ThingDef OAGene_OAGeneBank; //金鸢尾兰基因储存箱
@@ -33,17 +32,5 @@ public static class OAGene_RatkinDefOf
     static OAGene_RatkinDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_RatkinDefOf));
-    }
-}
-
-[DefOf]
-public static class OAGene_RatkinGeneDefOf
-{
-    public static GeneDef OAGene_RatkinEar; //鼠耳基因
-    public static GeneDef OAGene_RatkinTail; //鼠尾基因
-
-    static OAGene_RatkinGeneDefOf()
-    {
-        DefOfHelper.EnsureInitializedInCtor(typeof(OAGene_RatkinGeneDefOf));
     }
 }

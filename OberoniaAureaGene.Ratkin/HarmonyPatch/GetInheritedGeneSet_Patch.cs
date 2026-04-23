@@ -1,10 +1,7 @@
-﻿using HarmonyLib;
-using RimWorld;
-using Verse;
-
-namespace OberoniaAureaGene.Ratkin;
+﻿namespace OberoniaAureaGene.Ratkin;
 
 
+/*
 [StaticConstructorOnStartup]
 [HarmonyPatch(typeof(PregnancyUtility), nameof(PregnancyUtility.GetInheritedGeneSet),
     [typeof(Pawn), typeof(Pawn), typeof(bool)],
@@ -22,3 +19,4 @@ public static class GetInheritedGeneSet_Patch
         }
     }
 }
+*/

@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(CompBiosculpterPod), "CannotUseNowPawnReason")]
+[HarmonyPatch(typeof(CompBiosculpterPod), nameof(CompBiosculpterPod.CannotUseNowPawnReason))]
 public static class CompBiosculpterPod_Patch
 {
     [HarmonyPostfix]

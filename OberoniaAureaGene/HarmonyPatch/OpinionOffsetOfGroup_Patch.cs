@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(ThoughtHandler), "OpinionOffsetOfGroup")]
+[HarmonyPatch(typeof(ThoughtHandler), nameof(ThoughtHandler.OpinionOffsetOfGroup))]
 public static class OpinionOffsetOfGroup_Patch
 {
     [HarmonyPostfix]

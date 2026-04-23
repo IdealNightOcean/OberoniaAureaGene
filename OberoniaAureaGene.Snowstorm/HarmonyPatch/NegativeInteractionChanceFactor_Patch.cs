@@ -5,7 +5,7 @@ using Verse;
 namespace OberoniaAureaGene.Snowstorm;
 
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(NegativeInteractionUtility), "NegativeInteractionChanceFactor")]
+[HarmonyPatch(typeof(NegativeInteractionUtility), nameof(NegativeInteractionUtility.NegativeInteractionChanceFactor))]
 public static class NegativeInteractionChanceFactor_Patch
 {
     [HarmonyPostfix]

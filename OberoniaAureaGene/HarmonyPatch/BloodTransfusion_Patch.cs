@@ -6,7 +6,7 @@ namespace OberoniaAureaGene;
 
 //特异血原输血
 [StaticConstructorOnStartup]
-[HarmonyPatch(typeof(Recipe_BloodTransfusion), "AvailableOnNow")]
+[HarmonyPatch(typeof(Recipe_BloodTransfusion), nameof(Recipe_BloodTransfusion.AvailableOnNow))]
 public static class BloodTransfusion_Patch
 {
     [HarmonyPostfix]
