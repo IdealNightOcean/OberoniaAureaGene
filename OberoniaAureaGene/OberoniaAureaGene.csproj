@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameComponent_FrameCheck.cs" />
     <Compile Include="Genes\Gene_ObeyOrder.cs" />
     <Compile Include="Genes\IGeneIncomingDamageProcessor.cs" />
     <Compile Include="HarmonyPatch\Game_ClearCaches_Patch.cs" />
