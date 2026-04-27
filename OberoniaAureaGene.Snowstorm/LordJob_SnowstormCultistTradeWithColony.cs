@@ -6,6 +6,7 @@ namespace OberoniaAureaGene.Snowstorm;
 
 public class LordJob_SnowstormCultistTradeWithColony : LordJob_TradeWithColony
 {
+    public LordJob_SnowstormCultistTradeWithColony() : base() { }
     public LordJob_SnowstormCultistTradeWithColony(Faction faction, IntVec3 chillSpot) : base(faction, chillSpot) { }
     public override void Notify_PawnLost(Pawn p, PawnLostCondition condition)
     {
