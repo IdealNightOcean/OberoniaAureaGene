@@ -10,6 +10,9 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class MapComponent_Snowstorm : MapComponent
 {
+    protected static IntRange GeothermalGeneratorInterval { get; } = new(8750, 11250);
+    protected static IntRange ToxifierInterval { get; } = new(8750, 11250);
+
     protected bool snowstormNow;
     protected bool snowstormFogNow;
     public bool SnowstormFogNow => snowstormFogNow;
@@ -21,22 +24,25 @@ public class MapComponent_Snowstorm : MapComponent
 
     public List<ThingWithComps> geothermalGenerators = [];
     public bool geothermalGeneratorWarned;
-    protected static readonly IntRange GeothermalGeneratorInterval = new(8750, 11250);
-    protected int geothermalGeneratorTicks = GeothermalGeneratorInterval.RandomInRange;
+    protected int geothermalGeneratorTicks;
 
     public List<CompPowerPlant_ToxifierSnowstorm> toxifiers = [];
     public bool toxifierWarned;
-    protected static readonly IntRange ToxifierInterval = new(8750, 11250);
-    protected int toxifierTicks = ToxifierInterval.RandomInRange;
+    protected int toxifierTicks;
 
-    public MapComponent_Snowstorm(Map map) : base(map) { }
+    public MapComponent_Snowstorm(Map map) : base(map)
+    {
+        Rand.PushState(8547327);
+        geothermalGeneratorTicks = GeothermalGeneratorInterval.RandomInRange;
+        toxifierTicks = ToxifierInterval.RandomInRange;
+        Rand.PopState();
+    }
 
     public void Notify_SnowstormStart(int duration)
     {
         if (snowstormNow)
-        {
             return;
-        }
+
         snowstormNow = true;
         map.weatherManager.TransitionTo(OAGene_MiscDefOf.OAGene_SnowExtreme);
         OAGeneUtility.TryBreakPowerPlantWind(map, duration);

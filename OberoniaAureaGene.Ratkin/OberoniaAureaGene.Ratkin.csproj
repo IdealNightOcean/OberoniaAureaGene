@@ -41,7 +41,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="OberoniaAurea_Frame">
-      <HintPath>..\..\OberoniaAurea_Frame\Release\OberoniaAurea_Frame.dll</HintPath>
+      <HintPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Oberonia Aurea Framework\1.6\Assemblies\OberoniaAurea_Frame.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,8 +81,6 @@
     <Compile Include="Dialog_CreateDiscriminatGene.cs" />
     <Compile Include="Dialog_CreateExtractGenes.cs" />
     <Compile Include="HarmonyPatch\ColonyThingsWillingToBuy_Patch.cs" />
-    <Compile Include="HarmonyPatch\GetInheritedGeneSet_Patch.cs" />
-    <Compile Include="HarmonyPatch\InitFakePawn_HookForMods_Patch.cs" />
     <Compile Include="IncidentWorker_TravelRatkinTraderGroup.cs" />
     <Compile Include="Quest\QuestNode_InitiateEspionage.cs" />
     <Compile Include="Quest\QuestNode_Root_SurplusGrainCollection.cs" />
