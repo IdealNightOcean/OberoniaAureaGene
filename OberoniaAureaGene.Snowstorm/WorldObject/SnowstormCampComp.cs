@@ -186,13 +186,13 @@ public class SnowstormCampComp : WorldObjectComp
     {
         active = false;
         curType = SnowstormCampType.None;
-        innerTrader?.Destory();
+        innerTrader?.Destroy();
         innerTrader = null;
     }
 
     public override void PostDestroy()
     {
-        innerTrader?.Destory();
+        innerTrader?.Destroy();
         base.PostDestroy();
     }
 
