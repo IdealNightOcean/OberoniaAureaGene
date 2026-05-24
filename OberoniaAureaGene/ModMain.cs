@@ -6,23 +6,16 @@ namespace OberoniaAureaGene;
 [StaticConstructorOnStartup]
 public class OberoniaAureaGene_Mod : Mod
 {
-    public static OberoniaAureaGene_Settings _settings;
+    public static OberoniaAureaGene_Settings Settings;
 
     public OberoniaAureaGene_Mod(ModContentPack content) : base(content)
     {
-        _settings = GetSettings<OberoniaAureaGene_Settings>();
+        Settings = GetSettings<OberoniaAureaGene_Settings>();
     }
 
-    public override void DoSettingsWindowContents(Rect inRect)
-    {
-        _settings.DoSettingsWindowContents(inRect);
-        base.DoSettingsWindowContents(inRect);
-    }
+    public override void DoSettingsWindowContents(Rect inRect) => Settings.DoSettingsWindowContents(inRect);
 
-    public override string SettingsCategory()
-    {
-        return "OberoniaAureaGene".Translate();
-    }
+    public override string SettingsCategory() => "OberoniaAureaGene".Translate();
 }
 
 [StaticConstructorOnStartup]
@@ -36,6 +29,7 @@ public class OberoniaAureaGene_Settings : ModSettings
     public static float ColumnProtectRadiusInt = 4.0f;
 
     public static bool DodgeChancePatch = true;
+
     public void DoSettingsWindowContents(Rect inRect)
     {
         Rect viewRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
@@ -66,7 +60,7 @@ public class OberoniaAureaGene_Settings : ModSettings
         listing_Rect.Gap(6f);
         listing_Rect.CheckboxLabeled("OAGene_DodgeChancePatch".Translate(), ref DodgeChancePatch, "OAGene_DodgeChancePatchTooltip".Translate());
 
-        listing_Rect.Gap(12f);
+        listing_Rect.GapLine(12f);
         if (listing_Rect.ButtonText("OAGene_ForMountaintopCave".Translate()))
         {
             SnowstormForMountaintopCave();
@@ -108,12 +102,12 @@ public class OberoniaAureaGene_Settings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Values.Look(ref SnowstormBreakRoof, "SnowstormBreakRoof", defaultValue: true);
-        Scribe_Values.Look(ref SnowstormBreakNaturalRoof, "SnowstormBreakNaturalRoof", defaultValue: false);
-        Scribe_Values.Look(ref SnowstormBreakThickRoof, "SnowstormBreakThickRoof", defaultValue: false);
-        Scribe_Values.Look(ref ColumnProtectRadiusInt, "ColumnProtectRadiusInt", 4.0f);
-        Scribe_Values.Look(ref ColumnProtectRadius, "ColumnProtectRadius", 3.9f);
+        Scribe_Values.Look(ref SnowstormBreakRoof, nameof(SnowstormBreakRoof), defaultValue: true);
+        Scribe_Values.Look(ref SnowstormBreakNaturalRoof, nameof(SnowstormBreakNaturalRoof), defaultValue: false);
+        Scribe_Values.Look(ref SnowstormBreakThickRoof, nameof(SnowstormBreakThickRoof), defaultValue: false);
+        Scribe_Values.Look(ref ColumnProtectRadiusInt, nameof(ColumnProtectRadiusInt), 4.0f);
+        Scribe_Values.Look(ref ColumnProtectRadius, nameof(ColumnProtectRadius), 3.9f);
 
-        Scribe_Values.Look(ref DodgeChancePatch, "DodgeChancePatch", defaultValue: true);
+        Scribe_Values.Look(ref DodgeChancePatch, nameof(DodgeChancePatch), defaultValue: true);
     }
 }

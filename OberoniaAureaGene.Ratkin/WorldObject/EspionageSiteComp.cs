@@ -8,10 +8,7 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class WorldObjectCompProperties_EspionageSite : WorldObjectCompProperties
 {
-    public WorldObjectCompProperties_EspionageSite()
-    {
-        compClass = typeof(EspionageSiteComp);
-    }
+    public WorldObjectCompProperties_EspionageSite() => compClass = typeof(EspionageSiteComp);
 }
 
 public class EspionageSiteComp : WorldObjectComp
