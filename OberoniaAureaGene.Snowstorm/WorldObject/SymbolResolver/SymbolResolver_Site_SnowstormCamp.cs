@@ -55,7 +55,7 @@ public class SymbolResolver_Site_SnowstormCamp : SymbolResolver
             int exceededStack = t.stackCount - t.def.stackLimit;
             t.stackCount = t.def.stackLimit;
             outThings.Add(t);
-            outThings.AddRange(OAFrame_MiscUtility.TryGenerateThing(t.def, exceededStack));
+            outThings.AddRange(OAFrame_ThingUtility.GenerateThingsSplitByStack(t.def, exceededStack));
         }
     }
 }

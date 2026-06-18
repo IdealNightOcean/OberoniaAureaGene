@@ -27,7 +27,7 @@ public class QuestNode_Root_SnowstormStrugglers : QuestNode_Root_RefugeeBase
         {
             allowAssaultColony = false,
             allowLeave = false,
-            allowBadThought = false,
+            allowBadThought = true,
             LodgerCount = Rand.RangeInclusive(2, 4),
             ChildCount = 0,
             questDurationTicks = Rand.RangeInclusive(5, 10) * 60000,

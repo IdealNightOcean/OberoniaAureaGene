@@ -14,7 +14,7 @@ public class ConditionalStatAffecter_OurTerritory : ConditionalStatAffecter
     {
         if (req.HasThing && req.Thing is Pawn pawn)
         {
-            return pawn.Map?.IsPlayerHome ?? false;
+            return pawn.MapHeld?.IsPlayerHome ?? false;
         }
         return false;
     }

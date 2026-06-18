@@ -28,7 +28,7 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractWithFixedCara
 
     protected override void FinishWork()
     {
-        List<Thing> rewards = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, Rand.RangeInclusive(550, 650));
+        IEnumerable<Thing> rewards = OAFrame_ThingUtility.GenerateThingsSplitByStack(Snowstorm_ThingDefOf.OAGene_IceCrystal, Rand.RangeInclusive(550, 650));
         OAFrame_FixedCaravanUtility.GiveThings(associatedFixedCaravan, rewards);
 
         foreach (Pawn pawn in associatedFixedCaravan.PawnsListForReading)

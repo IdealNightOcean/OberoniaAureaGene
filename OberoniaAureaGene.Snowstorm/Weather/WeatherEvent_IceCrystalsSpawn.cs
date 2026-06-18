@@ -1,6 +1,5 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -27,10 +26,9 @@ public class WeatherEvent_IceCrystalsSpawn : WeatherEvent
         {
             return;
         }
-        List<Thing> spawnThings = OAFrame_MiscUtility.TryGenerateThing(Snowstorm_ThingDefOf.OAGene_IceCrystal, CrystalsCountRange.RandomInRange);
-        for (int i = 0; i < spawnThings.Count; i++)
+
+        foreach (Thing t in OAFrame_ThingUtility.GenerateThingListSplitByStack(Snowstorm_ThingDefOf.OAGene_IceCrystal, CrystalsCountRange.RandomInRange))
         {
-            Thing t = spawnThings[i];
             CompForbiddable forbiddable = t.TryGetComp<CompForbiddable>();
             if (forbiddable is not null)
             {
