@@ -11,6 +11,8 @@ namespace OberoniaAureaGene.Ratkin;
 
 public class QuestNode_Root_SurplusGrainCollection : QuestNode
 {
+    private const int WorldObjectTimeoutTick = 30 * 60000;
+
     private struct SiteSpawnCandidate
     {
         public PlanetTile tile;
@@ -104,6 +106,11 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     {
         Quest quest = QuestGen.quest;
         Slate slate = QuestGen.slate;
+        quest.Delay(WorldObjectTimeoutTick + 60, delegate
+        {
+            QuestGen_End.End(quest, QuestEndOutcome.Fail);
+        },
+        debugLabel: "[OAGene]强制失败（用于清理错误任务）");
 
         Faction questFaction = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction());
         if (questFaction is null)
@@ -135,12 +142,8 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         questPart_InvolvedFactions.factions.Add(questFaction);
         questPart_InvolvedFactions.factions.Add(originalFation);
         quest.AddPart(questPart_InvolvedFactions);
-        int timeout = 1800000;
-        quest.WorldObjectTimeout(site, timeout);
-        quest.Delay(timeout, delegate
-        {
-            QuestGen_End.End(quest, QuestEndOutcome.Fail);
-        });
+        quest.WorldObjectTimeout(site, WorldObjectTimeoutTick);
+
         quest.Message("MessageCampDetected".Translate(site.Named("CAMP"), site.Faction.Named("FACTION")), MessageTypeDefOf.NeutralEvent, getLookTargetsFromSignal: false, null, new LookTargets(site));
         SitePart sitePart = site.parts[0];
         if (!sitePart.things.NullOrEmpty())
@@ -163,7 +166,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         slate.Set("questFaction", questFaction);
         slate.Set("originalFation", originalFation);
         slate.Set("faction", site.Faction);
-        slate.Set("timeout", timeout);
+        slate.Set("timeout", WorldObjectTimeoutTick);
         string inSignalSuccess = QuestGenUtility.HardcodedSignalWithQuestID("campSite.AllEnemiesDefeated");
         string inSignalEnabled = QuestGenUtility.HardcodedSignalWithQuestID("campSite.MapGenerated");
         string inSignalEnd = QuestGenUtility.HardcodedSignalWithQuestID("campSite.MapRemoved");
@@ -173,9 +176,12 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
             quest.SurpriseReinforcements(inSignalEnabled, site, site.Faction, 0.35f);
         }
         quest.Notify_PlayerRaidedSomeone(null, site, inSignalSuccess);
-        quest.FactionGoodwillChange(originalFation, -60, inSignal: inSignalEnabled, historyEvent: HistoryEventDefOf.AttackedSettlement);
-        //任务奖励
+        quest.FactionGoodwillChange(faction: originalFation,
+                                    change: -60,
+                                    inSignal: inSignalEnabled,
+                                    historyEvent: HistoryEventDefOf.AttackedSettlement);
 
+        //任务奖励
         quest.GiveRewards(new RewardsGeneratorParams
         {
             rewardValue = RewardValue.RandomInRange,
@@ -193,18 +199,19 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
     protected override bool TestRunInt(Slate slate)
     {
         if (!ModsConfig.IdeologyActive)
-        {
             return false;
-        }
+
         if (!Find.Storyteller.difficulty.allowViolentQuests)
-        {
             return false;
-        }
+
         if (WealthUtility.PlayerWealth < 80000f)
-        {
             return false;
-        }
-        Map map = QuestGen_Get.GetMap();
-        return map is not null;
+
+        if (QuestGen_Get.GetMap() is null)
+            return false;
+
+        return OAFrame_FactionUtility.GetAvailableFactionsOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction())
+                                     .Skip(1)
+                                     .Any();
     }
 }

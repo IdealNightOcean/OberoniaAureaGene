@@ -11,7 +11,9 @@ public static class GetDodgeChance_Patch
     {
         if (OberoniaAureaGene_Settings.DodgeChancePatch)
         {
-            ModHarmonyPatch.HarmonyInstance.Patch(AccessTools.Method(typeof(Verb_MeleeAttack), "GetDodgeChance"), null, new HarmonyMethod(typeof(GetDodgeChance_Patch), "GetDodgeChance_Postfix"));
+            ModHarmonyPatch.HarmonyInstance.Patch(original: AccessTools.Method(typeof(Verb_MeleeAttack), "GetDodgeChance"),
+                                                  prefix: null,
+                                                  postfix: new HarmonyMethod(typeof(GetDodgeChance_Patch), nameof(GetDodgeChance_Postfix)));
         }
     }
 

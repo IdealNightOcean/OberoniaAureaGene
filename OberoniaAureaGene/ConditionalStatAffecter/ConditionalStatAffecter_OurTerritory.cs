@@ -12,9 +12,9 @@ public class ConditionalStatAffecter_OurTerritory : ConditionalStatAffecter
 
     public override bool Applies(StatRequest req)
     {
-        if (req.HasThing && req.Thing is Pawn pawn)
+        if (req.HasThing && req.Thing.Spawned && req.Thing is Pawn pawn)
         {
-            return pawn.MapHeld?.IsPlayerHome ?? false;
+            return pawn.Map.IsPlayerHome;
         }
         return false;
     }
