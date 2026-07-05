@@ -1,5 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -230,7 +231,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
                 TryStartWork(selPawn);
             }), selPawn, this);
         }
-        else if (!acceptanceReport.Reason.NullOrEmpty())
+        else if (!String.IsNullOrEmpty(acceptanceReport.Reason))
         {
             return new FloatMenuOption("CannotEnterBuilding".Translate(this) + ": " + acceptanceReport.Reason.CapitalizeFirst(), null);
         }
@@ -309,7 +310,7 @@ public abstract class Building_EnterableBase : Building_Enterable, IThingHolderW
             AcceptanceReport acceptanceReport = CanAcceptPawn(pawn);
             if (!acceptanceReport.Accepted)
             {
-                if (!acceptanceReport.Reason.NullOrEmpty())
+                if (!String.IsNullOrEmpty(acceptanceReport.Reason))
                 {
                     list.Add(new FloatMenuOption(pawn.LabelShortCap + ": " + acceptanceReport.Reason, null, pawn, Color.white));
                 }

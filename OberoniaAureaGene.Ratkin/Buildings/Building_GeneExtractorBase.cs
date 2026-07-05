@@ -1,5 +1,6 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -282,7 +283,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 TryStartWork(selPawn);
             }), selPawn, this);
         }
-        else if (!acceptanceReport.Reason.NullOrEmpty())
+        else if (!String.IsNullOrEmpty(acceptanceReport.Reason))
         {
             return new FloatMenuOption("CannotEnterBuilding".Translate(this) + ": " + acceptanceReport.Reason.CapitalizeFirst(), null);
         }
@@ -361,7 +362,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
                 string text = pawn.LabelShortCap + ", " + pawn.genes.XenotypeLabelCap;
                 if (!acceptanceReport.Accepted)
                 {
-                    if (!acceptanceReport.Reason.NullOrEmpty())
+                    if (!String.IsNullOrEmpty(acceptanceReport.Reason))
                     {
                         list.Add(new FloatMenuOption(text + ": " + acceptanceReport.Reason, null, pawn, Color.white));
                     }
@@ -402,7 +403,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         string text = base.GetInspectString();
         if (selectedPawn is not null && innerContainer.Count == 0)
         {
-            if (!text.NullOrEmpty())
+            if (!String.IsNullOrEmpty(text))
             {
                 text += "\n";
             }
@@ -410,7 +411,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         }
         else if (Working && ContainedPawn is not null)
         {
-            if (!text.NullOrEmpty())
+            if (!String.IsNullOrEmpty(text))
             {
                 text += "\n";
             }

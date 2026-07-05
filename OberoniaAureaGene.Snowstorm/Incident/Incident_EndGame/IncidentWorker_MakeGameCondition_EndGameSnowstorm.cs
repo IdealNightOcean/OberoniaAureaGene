@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using UnityEngine;
 using Verse;
 
@@ -60,7 +61,7 @@ public class IncidentWorker_MakeGameCondition_EndGameSnowstorm : IncidentWorker_
         }
         gameCondition.SetMainMap(hometownMap);
         gameConditionManager.RegisterCondition(gameCondition);
-        if (!def.letterLabel.NullOrEmpty() && !gameCondition.def.letterText.NullOrEmpty())
+        if (!String.IsNullOrEmpty(def.letterLabel) && !String.IsNullOrEmpty(gameCondition.def.letterText))
         {
             parms.letterHyperlinkThingDefs = gameCondition.def.letterHyperlinks;
             SendStandardLetter(def.letterLabel, gameCondition.LetterText, def.letterDef, parms, LookTargets.Invalid);

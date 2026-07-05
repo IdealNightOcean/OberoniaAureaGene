@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -33,7 +34,7 @@ public class IncidentWorker_MakeGameCondition_SnowstormFog : IncidentWorker_Make
         int duration = snowstorm.Permanent ? GameCondition_EndGame_ExtremeSnowstorm.DurationTick : snowstorm.TicksLeft;
         GameCondition gameCondition = GameConditionMaker.MakeCondition(gameConditionDef, duration);
         gameConditionManager.RegisterCondition(gameCondition);
-        if (!def.letterLabel.NullOrEmpty() && !gameCondition.def.letterText.NullOrEmpty() && !gameCondition.HiddenByOtherCondition(map))
+        if (!String.IsNullOrEmpty(def.letterLabel) && !String.IsNullOrEmpty(gameCondition.def.letterText) && !gameCondition.HiddenByOtherCondition(map))
         {
             parms.letterHyperlinkThingDefs = gameCondition.def.letterHyperlinks;
             SendStandardLetter(def.letterLabel, gameCondition.LetterText, def.letterDef, parms, LookTargets.Invalid);
