@@ -21,6 +21,7 @@ public class OberoniaAureaGene_Mod : Mod
 [StaticConstructorOnStartup]
 public class OberoniaAureaGene_Settings : ModSettings
 {
+    public static bool SnowstormFogEffect = true;
     public static bool SnowstormBreakRoof = true;
     public static bool SnowstormBreakNaturalRoof;
     public static bool SnowstormBreakThickRoof;
@@ -39,7 +40,7 @@ public class OberoniaAureaGene_Settings : ModSettings
             ColumnWidth = viewRect.width
         };
         listing_Rect.Begin(viewRect);
-
+        listing_Rect.CheckboxLabeled("OAGene_SnowstormFogEffect".Translate(), ref SnowstormFogEffect);
         listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakRoof".Translate(), ref SnowstormBreakRoof);
         if (SnowstormBreakRoof)
         {
@@ -78,6 +79,7 @@ public class OberoniaAureaGene_Settings : ModSettings
 
     public static void SnowstormForMountaintopCave()
     {
+        SnowstormFogEffect = true;
         SnowstormBreakRoof = true;
         SnowstormBreakNaturalRoof = true;
         SnowstormBreakThickRoof = true;
@@ -91,6 +93,7 @@ public class OberoniaAureaGene_Settings : ModSettings
 
     public static void SnowstormReset()
     {
+        SnowstormFogEffect = true;
         SnowstormBreakRoof = true;
         SnowstormBreakNaturalRoof = false;
         SnowstormBreakThickRoof = false;
@@ -102,6 +105,7 @@ public class OberoniaAureaGene_Settings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref SnowstormFogEffect, nameof(SnowstormFogEffect), defaultValue: true);
         Scribe_Values.Look(ref SnowstormBreakRoof, nameof(SnowstormBreakRoof), defaultValue: true);
         Scribe_Values.Look(ref SnowstormBreakNaturalRoof, nameof(SnowstormBreakNaturalRoof), defaultValue: false);
         Scribe_Values.Look(ref SnowstormBreakThickRoof, nameof(SnowstormBreakThickRoof), defaultValue: false);

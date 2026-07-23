@@ -1,6 +1,7 @@
 ﻿using OberoniaAurea_Frame;
 using RimWorld;
 using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -16,11 +17,21 @@ public static class OAGeneUtility
     {
         return map?.GetComponent<MapComponent_LongSnowstorm>();
     }
-    public static float ComfyTemperatureMin(Pawn pawn) //Pawn的最低舒适温度
+
+
+    /// <summary>
+    /// <see cref="Pawn"> 的最低舒适温度
+    /// </summary>
+    public static float ComfyTemperatureMin(Pawn pawn)
     {
         return pawn.GetStatValue(StatDefOf.ComfyTemperatureMin, applyPostProcess: true);
     }
-    public static bool IsSnowExtremeWeather(Map map) //是否为极端暴风雪（包括冰晶暴风雪）天气
+
+
+    /// <summary>
+    /// 是否为极端暴风雪（包括冰晶暴风雪）天气
+    /// </summary>
+    public static bool IsSnowExtremeWeather(Map map)
     {
         if (map is null || map.weatherManager.curWeather is null)
         {
@@ -28,6 +39,7 @@ public static class OAGeneUtility
         }
         return map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_SnowExtreme || map.weatherManager.curWeather == OAGene_MiscDefOf.OAGene_IceSnowExtreme;
     }
+
     public static void TryGiveEndSnowstormThought(Map map)
     {
         List<Pawn> pawns = map.mapPawns.AllHumanlikeSpawned;
@@ -44,7 +56,9 @@ public static class OAGeneUtility
         }
     }
 
-    //破坏风力发电机 (allMaps)
+    /// <summary>
+    /// 破坏风力发电机 (allMaps)
+    /// </summary>
     public static void TryBreakPowerPlantWind(Map map, int duration)
     {
         BreakdownManager breakdownManager = map.GetComponent<BreakdownManager>();
@@ -65,7 +79,9 @@ public static class OAGeneUtility
         }
     }
 
-    //范围内是否有支撑柱
+    /// <summary>
+    /// 范围内是否有支撑柱
+    /// </summary>
     public static bool WithinRangeOfRoofHolder(IntVec3 c, Map map, float range)
     {
         bool connected = false;
@@ -90,5 +106,18 @@ public static class OAGeneUtility
             return false;
         }, maxCellsToProcess: 500);
         return connected;
+    }
+
+    public static void SpawnColdGlowFleck(Map map, IntVec3 position, float spawnChance, float bigGlowSpawnChance)
+    {
+        if (!OberoniaAureaGene_Settings.SnowstormFogEffect || !Rand.Chance(spawnChance))
+            return;
+
+        FleckDef fleckDef = Rand.Chance(bigGlowSpawnChance) ? OAGene_MiscDefOf.OAGene_BigColdGlow : OAGene_MiscDefOf.OAGene_ColdGlow;
+        Vector3 fleckLoc = new(position.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, position.z + FastEffectRandom.Next(1, 50) / 100f);
+        FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, fleckDef, FastEffectRandom.Next(200, 300) / 100f);
+        dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
+        dataStatic.velocitySpeed = 0.08f;
+        map.flecks.CreateFleck(dataStatic);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -51,6 +50,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
         PreEnd();
         base.End();
     }
+
     protected virtual void PreEnd()
     {
         for (int i = 0; i < AffectedMaps.Count; i++)
@@ -60,6 +60,7 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
             OAGeneUtility.TryGiveEndSnowstormThought(map);
         }
     }
+
     public override void GameConditionTick()
     {
         if (--coldGlowSpawnTicks < 0)
@@ -68,46 +69,23 @@ public class GameCondition_ExtremeSnowstormBase : GameCondition_SnowstormBase
             coldGlowSpawnTicks = coldGlowSpawn ? ColdGlowSpawnRange.RandomInRange : ColdGlowIntervalRange.RandomInRange;
         }
     }
+
     public override void DoCellSteadyEffects(IntVec3 c, Map map)
     {
-        if (!coldGlowSpawn)
+        if (coldGlowSpawn)
         {
-            return;
-        }
-        if (Random.value < 0.025f)
-        {
-            FleckDef fleckDef = Rand.Chance(0.95f) ? OAGene_MiscDefOf.OAGene_ColdGlow : OAGene_MiscDefOf.OAGene_BigColdGlow;
-            Vector3 fleckLoc = new(c.x + FastEffectRandom.Next(1, 50) / 100f, 10.54054f, c.z + FastEffectRandom.Next(1, 50) / 100f);
-            FleckCreationData dataStatic = FleckMaker.GetDataStatic(fleckLoc, map, fleckDef, FastEffectRandom.Next(200, 300) / 100f);
-            dataStatic.velocityAngle = FastEffectRandom.Next(0, 360);
-            dataStatic.velocitySpeed = 0.08f;
-            map.flecks.CreateFleck(dataStatic);
+            OAGeneUtility.SpawnColdGlowFleck(map: map, position: c, spawnChance: 0.025f, bigGlowSpawnChance: 0.05f);
         }
     }
 
-    public override float MinWindSpeed()
-    {
-        return 1f;
-    }
+    public override float MinWindSpeed() => 1f;
 
-    public override float SkyGazeChanceFactor(Map map)
-    {
-        return 0f;
-    }
+    public override float SkyGazeChanceFactor(Map map) => 0f;
 
-    public override bool AllowEnjoyableOutsideNow(Map map)
-    {
-        return false;
-    }
+    public override bool AllowEnjoyableOutsideNow(Map map) => false;
 
-    public override float AnimalDensityFactor(Map map)
-    {
-        return 0.25f;
-    }
-    public override float PlantDensityFactor(Map map)
-    {
-        return 0.1f;
-    }
+    public override float AnimalDensityFactor(Map map) => 0.25f;
+    public override float PlantDensityFactor(Map map) => 0.1f;
 
     public override void ExposeData()
     {
