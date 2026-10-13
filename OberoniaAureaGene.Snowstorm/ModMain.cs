@@ -67,6 +67,7 @@ public class OAGene_SnowstormSettings : ModSettings
         };
         listing_Rect.Begin(viewRect);
 
+        listing_Rect.CheckboxLabeled("OAGene_SnowstormFogEffect".Translate(), ref OberoniaAureaGene_Settings.SnowstormFogEffect);
         listing_Rect.CheckboxLabeled("OAGene_SnowstormBreakRoof".Translate(), ref OberoniaAureaGene_Settings.SnowstormBreakRoof);
         if (OberoniaAureaGene_Settings.SnowstormBreakRoof)
         {
@@ -140,6 +141,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowDifficultEnemy = true;
     }
+
     protected static void Reset()
     {
         OberoniaAureaGene_Settings.SnowstormReset();
@@ -159,6 +161,7 @@ public class OAGene_SnowstormSettings : ModSettings
 
         AllowDifficultEnemy = true;
     }
+
     public override void ExposeData()
     {
         base.ExposeData();
