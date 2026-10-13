@@ -33,8 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>E:\ProgramFiles\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>E:\ProgramFiles\Steam\steamapps\workshop\content\294100\2009463077\1.6\Assemblies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\RimWorldReference\1.6\Assembly-CSharp.dll</HintPath>
