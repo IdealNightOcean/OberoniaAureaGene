@@ -1,235 +1,72 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08129D72-2AA5-473D-A2AC-A0AF7CDB6F3D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>OberoniaAureaGene.Snowstorm</RootNamespace>
     <AssemblyName>OberoniaAureaGene.Snowstorm</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <LangVersion>12.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+	  <Deterministic>true</Deterministic>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Scenario - Snowstorm Orphan\1.6\Assemblies\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Scenario - Snowstorm Orphan\1.6\Assemblies\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>E:\ProgramFiles\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\RimWorldReference\1.6\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OberoniaAurea_Frame">
-      <HintPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Oberonia Aurea Framework\1.6\Assemblies\OberoniaAurea_Frame.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\RimWorldReference\1.6\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\RimWorldReference\1.6\UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\RimWorldReference\1.6\UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Utility\DevWin_Snowstorm.cs" />
-    <Compile Include="Utility\DevWin_SnowstormStory.cs" />
-    <Compile Include="HarmonyPatch\Game_ClearCaches_Patch.cs" />
-    <Compile Include="LordJob_SnowstormCultistTradeWithColony.cs" />
-    <Compile Include="Hediff\HediffComp_ColdPreparation.cs" />
-    <Compile Include="RaidStrategyWorker_SnowstormAttackBreaching.cs" />
-    <Compile Include="RaidStrategyWorker_ImmediateAttack_SnowstormCultist.cs" />
-    <Compile Include="Incident\IncidentWorker_MakeGameCondition_ForceWorld.cs" />
-    <Compile Include="PlaceWorker_RoofProtectRadius.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_CheckCampfire.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_CheckCampfire.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_EndEndGameSnowstorm.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_EndEndGameSnowstorm.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SatisfySnowstormCultist.cs" />
-    <Compile Include="Hediff\HediffComp_HideInSnowstorm.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameCondition.cs" />
-    <Compile Include="MentalBreakWorker_LostInMemory.cs" />
-    <Compile Include="MentalStateWorker_LostInMemory.cs" />
-    <Compile Include="GameCondition\GameCondition_SnowstormFog.cs" />
-    <Compile Include="GameCondition\GameCondition_EndGame_SnowstormPrecursor.cs" />
-    <Compile Include="HarmonyPatch\DoExecutionByCut_Patch.cs" />
-    <Compile Include="HarmonyPatch\NeutralGroup_CanFirePatch.cs" />
-    <Compile Include="HarmonyPatch\HerdMigration_CanFirePatch.cs" />
-    <Compile Include="HarmonyPatch\GetTemperatureFromSeasonAtTile_Patch.cs" />
-    <Compile Include="Hediff\HediffComp_ProtagonistHomecomed.cs" />
-    <Compile Include="Hediff\HediffComp_SnowstormFog.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowstormFog.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormMaliceRaid_Reinforce.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormCultistRaid.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormFanaticalCultis.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_SnowstormMaliceRaid_Hard.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormMaliceRaid.cs" />
-    <Compile Include="Incident\Incident_EndGame\IncidentWorker_MakeGameCondition_EndGameSnowstorm.cs" />
-    <Compile Include="Incident\IncidentWorker_MakeGameCondition_SnowstromFog.cs" />
-    <Compile Include="Incident\IncidentWorker_MakeGameCondition_Snowstorm.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_Root_EndGame_SnowstormCultistBeggars.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Success.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Success.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_Fail.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SnowstoryMapGenerated.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SignalProtagonistFail.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SpawnHometown.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_CheckThreat.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_CheckThreat.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_GetHometownTile.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_Fail.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryMapGenerated.cs" />
-    <Compile Include="GameCondition\GameCondition_EndGame_ExtremeSnowstorm.cs" />
-    <Compile Include="GameCondition\GameCondition_SnowyCrystalTreeCooler.cs" />
-    <Compile Include="HarmonyPatch\ModHarmonyPatch.cs" />
-    <Compile Include="HarmonyPatch\NegativeInteractionChanceFactor_Patch.cs" />
-    <Compile Include="Hediff\HediffComp_SnowstormOblivious.cs" />
-    <Compile Include="Hediff\Hediff_SnowExtremePlayerHidden.cs" />
-    <Compile Include="JobDriver_RecallHometown.cs" />
-    <Compile Include="GameCondition\GameCondition_IceRain.cs" />
-    <Compile Include="GameCondition\GameCondition_Icestorm.cs" />
-    <Compile Include="HarmonyPatch\CommsConsole_FailurePatch.cs" />
-    <Compile Include="Hediff\Hediff_ProtagonistHomecoming.cs" />
-    <Compile Include="Hediff\HediffComp_SnowstormCultistConvert.cs" />
-    <Compile Include="Incident\IncidentWorker_HuskyMigration.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormPrecursor_AnimalFlee.cs" />
-    <Compile Include="Incident\IncidentWorker_CommunicationTowerCollapse.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormCultistArrival.cs" />
-    <Compile Include="MapComponent_Snowstorm.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_FixedMechBreachingRaids.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_FixedSnowstormBreachingRaids.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_RandomSnowstormRaids.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SnowstroemThreatsGenerator.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestNode_EndGame_SnowstoryValidator.cs" />
-    <Compile Include="Quest\QuestNode_IsSnowstoryScenario.cs" />
-    <Compile Include="Quest\QuestNode_GetSnowstromCampFaction.cs" />
-    <Compile Include="Quest\Quest_EndGame\QuestPart_EndGame_SignalProtagonistFail.cs" />
-    <Compile Include="RecipeWorker_RequireFinishStory.cs" />
-    <Compile Include="JoyGiver_RecallHometown.cs" />
-    <Compile Include="Hediff\HediffComp_AdjustHypothermia.cs" />
-    <Compile Include="Thing\Comp_SnowyCrystalTree.cs" />
-    <Compile Include="Thing\CompSnowstormGeothermalGenerator.cs" />
-    <Compile Include="Thing\CompSpecialCampfire.cs" />
-    <Compile Include="Thing\IceCrystalFlower.cs" />
-    <Compile Include="Thing\CompPowerPlant_ToxifierSnowstorm.cs" />
-    <Compile Include="Thought_LostInMemory.cs" />
-    <Compile Include="Utility\DebugTools.cs" />
-    <Compile Include="Utility\Snowstorm_MiscUtility.cs" />
-    <Compile Include="Weather\WeatherEvent_IceCrystalFlowerSpawn.cs" />
-    <Compile Include="WorkGiver_TakeIceCrystalOutOfCollector.cs" />
-    <Compile Include="JobDriver_TakeIceCrystalOutOfCollector.cs" />
-    <Compile Include="WorldObject\GenStep_Hometown.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Division_Grid.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Division_Split.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_Hometown.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_LeafPossiblyDecorated.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_Leaf_Building.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedIndoors.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedIndoors_Division_Split.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedEmptyRoom.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_RuinedOutdoors_LeafDecorated_RandomInnerRect.cs" />
-    <Compile Include="WorldObject\WorldObject_Hometown.cs" />
-    <Compile Include="WorldObject\WorldObject_FlowerSea.cs" />
-    <Compile Include="WorldObject\GenStep_SnowstormCampPawns.cs" />
-    <Compile Include="WorldObject\SitePartWorker_SnowstormCamp.cs" />
-    <Compile Include="WorldObject\SymbolResolver\SymbolResolver_Site_SnowstormCamp.cs" />
-    <Compile Include="WorldObject\SnowstormCampComp.cs" />
-    <Compile Include="Thing\CompIceCrystal.cs" />
-    <Compile Include="Thing\Building_IceCrystalCollector.cs" />
-    <Compile Include="Weather\WeatherEvent_SnowStormBreakDoor.cs" />
-    <Compile Include="Utility\DefOf.cs" />
-    <Compile Include="Thing\CompSnowstormCampfire.cs" />
-    <Compile Include="GameComponent_SnowstormStory.cs" />
-    <Compile Include="ScenPart_SnowstormStory.cs" />
-    <Compile Include="GameCondition\GameCondition_SnowstormPrecursor.cs" />
-    <Compile Include="GameCondition\GameCondition_StarryNight.cs" />
-    <Compile Include="Hediff\HediffComp_SnowstormAngry.cs" />
-    <Compile Include="Hediff\Hediff_SnowstormInsomnia.cs" />
-    <Compile Include="Hediff\HediffComp_DisappearAfterSnowstorm.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtremeMechanoid.cs" />
-    <Compile Include="Incident\IncidentWorker_MakeGameCondition_IcaRain.cs" />
-    <Compile Include="GameCondition\GameCondition_ForceWithTempChange.cs" />
-    <Compile Include="GameCondition\GameCondition_SuperColdSnap.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtreme.cs" />
-    <Compile Include="Hediff\HediffGiver_IceRain.cs" />
-    <Compile Include="Incident\IncidentWorker_SnowstormThrumboWanderIn.cs" />
-    <Compile Include="ModMain.cs" />
-    <Compile Include="Hediff\HediffComp_UnderDark.cs" />
-    <Compile Include="ThoughtWorker_UnderDark.cs" />
-    <Compile Include="Need_SnowstormGlow.cs" />
-    <Compile Include="Quest\QuestNode_SnowstormRaid.cs" />
-    <Compile Include="Quest\QuestNode_GetSnowstromRaidFaction.cs" />
-    <Compile Include="GameComponent_Snowstorm.cs" />
-    <Compile Include="HarmonyPatch\GetTicksPerMove_Patch.cs" />
-    <Compile Include="Utility\Snowstorm_StoryUtility.cs" />
-    <Compile Include="Weather\WeatherEvent_IceCrystalsSpawn.cs" />
-    <Compile Include="Hediff\HediffComp_LetterOnAdd.cs" />
-    <Compile Include="WorldObject\SitePartWorker_ConditionCauser_ClimateAdjusterCold.cs" />
-    <Compile Include="WorldObject\SitePartWorker_SnowstormRaidSource.cs" />
-    <Compile Include="Quest\QuestNode_Root_SnowstormSurvivorJoin_WalkIn.cs" />
-    <Compile Include="Incident\IncidentWorker_AffectedMerchant.cs" />
-    <Compile Include="Quest\QuestPart_IsSnowExtremeWeather.cs" />
-    <Compile Include="GameCondition\GameCondition_ExtremeSnowstorm.cs" />
-    <Compile Include="GameCondition\GameCondition_TemperatureChange.cs" />
-    <Compile Include="Hediff\HediffComp_IceStorm.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowExtremePlayerHidden.cs" />
-    <Compile Include="Hediff\HediffGiver_SnowstormHidden.cs" />
-    <Compile Include="Hediff\HediffComp_ExperienceSnowstorm.cs" />
-    <Compile Include="Incident\IncidentWorker_AfterSnowstormTraderCaravanArrival.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quest\QuestNode_Root_SnowstromStrugglers.cs" />
-    <Compile Include="Utility\SnowstormUtility.cs" />
-    <Compile Include="Weather\WeatherEvent_IceStormBreakRoof.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
+
+	<!-- 定义Mod输出根路径，带[]特殊字符，单独放属性 -->
+	<PropertyGroup>
+		<RimWorldModAssemblyDir>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Ratkin Scenario - Snowstorm Orphan\1.7\Assemblies</RimWorldModAssemblyDir>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<DocumentationFile>bin\Release\OberoniaAureaGene.Snowstorm.xml</DocumentationFile>
+		<!-- 使用Path.GetFullPath求值，避免MSBuild直接解析[]为通配符 -->
+		<OutputPath>$([System.IO.Path]::GetFullPath($(RimWorldModAssemblyDir)))</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>E:\ProgramFiles\Steam\steamapps\workshop\content\294100\2009463077\1.7\Assemblies\0Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AlienRace">
+			<HintPath>E:\ProgramFiles\Steam\steamapps\workshop\content\294100\839005762\1.6\Assemblies\AlienRace.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Assembly-CSharp.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityStubs">
+			<HintPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\UnityStubs.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="OberoniaAurea_Frame">
+			<HintPath>E:\ProgramFiles\Steam\steamapps\common\RimWorld\Mods\[OA]Oberonia Aurea Framework\1.7\Assemblies\OberoniaAurea_Frame.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\OberoniaAureaGene.Ratkin\OberoniaAureaGene.Ratkin.csproj">
-      <Project>{d3667693-c5da-45fc-aa77-972c7d04b105}</Project>
-      <Name>OberoniaAureaGene.Ratkin</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\OberoniaAureaGene\OberoniaAureaGene.csproj">
-      <Project>{c8107c0d-4859-44fe-bb15-acac9174c294}</Project>
-      <Name>OberoniaAureaGene</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

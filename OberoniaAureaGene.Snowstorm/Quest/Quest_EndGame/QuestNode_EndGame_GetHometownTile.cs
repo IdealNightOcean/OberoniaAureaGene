@@ -34,7 +34,7 @@ public class QuestNode_EndGame_GetHometownTile : QuestNode
         }
     }
 
-    protected bool GetHometownTile(out PlanetTile hometownTile)
+    protected static bool GetHometownTile(out PlanetTile hometownTile)
     {
         hometownTile = PlanetTile.Invalid;
         if (GameComponent_SnowstormStory.Instance is null)

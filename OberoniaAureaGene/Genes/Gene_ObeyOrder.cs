@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using Verse;
 
@@ -25,7 +26,7 @@ public class Gene_ObeyOrderBase : Gene
         base.PostAdd();
         if (HediffRecord.hediffToWholeBody is not null)
         {
-            pawn.AdjustOrAddHediff(HediffRecord.hediffToWholeBody);
+            pawn.health?.GetOrAddHediff(HediffRecord.hediffToWholeBody);
         }
     }
     public override void PostRemove()
@@ -51,7 +52,12 @@ public class Gene_ObeyOrderBase : Gene
     {
         if (pawn.timetable?.CurrentAssignment == TimeAssignmentDefOf.Work)
         {
-            pawn.AdjustOrAddHediff(HediffRecord.hediffWorking, overrideDisappearTicks: 600);
+            HediffGiveParams hediffGiveParams = new()
+            {
+                HediffToGive = HediffRecord.hediffWorking,
+                OverrideDisappearTicks = 600
+            };
+            pawn.GetOrAddHediff(hediffGiveParams);
         }
         if (pawn.Drafted)
         {
@@ -62,7 +68,12 @@ public class Gene_ObeyOrderBase : Gene
             int nonDraftDay = (int)((Find.TickManager.TicksGame - lastDraftTick) / 60000f) - NonDraftStartDay;
             if (nonDraftDay >= 0)
             {
-                pawn.AdjustOrAddHediff(HediffRecord.hediffNonDraft, severity: nonDraftDay, overrideDisappearTicks: 600);
+                HediffGiveParams hediffGiveParams = new()
+                {
+                    HediffToGive = HediffRecord.hediffNonDraft,
+                    OverrideDisappearTicks = 600
+                };
+                pawn.GetOrAddHediff(hediffGiveParams);
             }
 
         }
@@ -79,7 +90,12 @@ public class Gene_ObeyOrder : Gene_ObeyOrderBase
         base.HediffCheck();
         if (pawn.Drafted || (pawn.CurJob?.playerForced ?? false))
         {
-            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_ObeyOrderForceJob, overrideDisappearTicks: 600);
+            HediffGiveParams hediffGiveParams = new()
+            {
+                HediffToGive = OAGene_HediffDefOf.OAGene_ObeyOrderForceJob,
+                OverrideDisappearTicks = 600
+            };
+            pawn.GetOrAddHediff(hediffGiveParams);
         }
     }
 }

@@ -36,7 +36,7 @@ public class IncidentWorker_HuskyMigration : IncidentWorker
         SendStandardLetter(parms, animals[0]);
         return true;
     }
-    private bool TryFindStartAndEndCells(Map map, out IntVec3 start, out IntVec3 end)
+    private static bool TryFindStartAndEndCells(Map map, out IntVec3 start, out IntVec3 end)
     {
         if (!RCellFinder.TryFindRandomPawnEntryCell(out start, map, CellFinder.EdgeRoadChance_Animal))
         {
@@ -59,7 +59,7 @@ public class IncidentWorker_HuskyMigration : IncidentWorker
         return end.IsValid;
     }
 
-    private List<Pawn> GenerateAnimals(PawnKindDef animalKind, int tile)
+    private static List<Pawn> GenerateAnimals(PawnKindDef animalKind, int tile)
     {
         int randomInRange = AnimalsCount.RandomInRange;
         randomInRange = Mathf.Max(randomInRange, Mathf.CeilToInt(4f / animalKind.RaceProps.baseBodySize));

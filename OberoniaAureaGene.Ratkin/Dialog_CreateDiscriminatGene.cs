@@ -324,7 +324,7 @@ public class Dialog_CreateDiscriminatGene : GeneCreationDialogBase
             return ("GeneOneActive".Translate() + ":\n  - " + group.leftChosen.LabelCap + " (" + "Active".Translate() + ")" + "\n" + group.overriddenGenes.Select(x => (x.label + " (" + "Suppressed".Translate() + ")").Colorize(ColorLibrary.RedReadable)).ToLineList("  - ", capitalizeItems: true)).Colorize(ColoredText.TipSectionTitleColor);
         }
     }
-    protected bool DrawSelectedGene(GeneDef gene, ref float curX, float curY, float packWidth, Rect containingRect)
+    protected static bool DrawSelectedGene(GeneDef gene, ref float curX, float curY, float packWidth, Rect containingRect)
     {
         bool result = false;
         if (gene is null)

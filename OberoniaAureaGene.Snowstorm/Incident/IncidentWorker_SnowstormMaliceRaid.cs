@@ -22,7 +22,7 @@ public class IncidentWorker_SnowstormMaliceRaid : IncidentWorker_RaidEnemy
         }
         return base.CanFireNowSub(parms);
     }
-    public bool TryResolveParms(IncidentParms parms)
+    public static bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
         if (!SnowstormUtility.IsSnowExtremeWeather(map))

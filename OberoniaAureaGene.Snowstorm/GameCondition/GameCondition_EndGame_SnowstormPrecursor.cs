@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using Verse;
 
@@ -17,7 +17,7 @@ public class GameCondition_EndGame_SnowstormPrecursor : GameCondition_SnowstormP
             };
             try
             {
-                OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
+                OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_EndGame_ExtremeSnowstorm, parms);
             }
             catch
             {

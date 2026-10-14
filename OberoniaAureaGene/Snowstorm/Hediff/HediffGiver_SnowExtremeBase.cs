@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -10,6 +11,11 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
     public HediffDef coldSnowHediff;
     public HediffDef coldImmersionHediff;
     public HediffDef frozenWoundHediff;
+
+    private readonly HediffGiveParams snowExtremeHediffGiveParams = new()
+    {
+        OverrideDisappearTicks = 250
+    };
 
     protected static readonly SimpleCurve ImmersionAdjustmentCurve =
     [
@@ -36,7 +42,8 @@ public class HediffGiver_SnowExtremeBase : HediffGiver
     protected virtual void TryActiveHediff(Pawn pawn, float ambientTemperature)
     {
         Pawn_HealthTracker pawnHealth = pawn.health;
-        pawn.AdjustOrAddHediff(snowExtremeHediff, -1, 250);
+        snowExtremeHediffGiveParams.HediffToGive = snowExtremeHediff;
+        pawn.GetOrAddHediff(snowExtremeHediffGiveParams);
         //伤口冻结
         if (pawnHealth.hediffSet.BleedRateTotal > 0.001f)
         {

@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
         SendStandardLetter(def.letterLabel, def.letterText, def.letterDef, parms, new TargetInfo(entryCell, map));
         return true;
     }
-    private void SpawnThrumbo(IntVec3 location, Map map)
+    private static void SpawnThrumbo(IntVec3 location, Map map)
     {
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(location, map, 12);
         Pawn pawn = PawnGenerator.GeneratePawn(OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Thrumbo));

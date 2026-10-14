@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -6,11 +7,17 @@ namespace OberoniaAureaGene.Snowstorm;
 [StaticConstructorOnStartup]
 public class HediffGiver_SnowstormFog : HediffGiver
 {
+    private readonly HediffGiveParams hediffGiveParams = new()
+    {
+        InitSeverity = 0.5f
+    };
+
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
         if (ActiveHediff(pawn))
         {
-            pawn.AdjustOrAddHediff(hediff, -1, 250);
+            hediffGiveParams.HediffToGive = this.hediff;
+            pawn.GetOrAddHediff(hediffGiveParams);
         }
     }
     public static bool ActiveHediff(Pawn p)

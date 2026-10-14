@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
             else
             {
                 int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
-                OAFrame_MiscUtility.AddNewQueuedIncident(def, delayTicks, parms);
+                OAFrame_IncidentUtility.AddNewQueuedIncident(def, delayTicks, parms);
                 return true;
             }
         }

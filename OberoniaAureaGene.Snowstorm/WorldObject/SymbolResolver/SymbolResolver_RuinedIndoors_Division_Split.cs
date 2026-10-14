@@ -7,12 +7,12 @@ public class SymbolResolver_RuinedIndoors_Division_Split : SymbolResolver_BasePa
 {
     private const int MinLengthAfterSplit = 5;
 
-    private int ResolveMinLengthAfterSplit(ResolveParams rp)
+    private static int ResolveMinLengthAfterSplit(ResolveParams rp)
     {
         return rp.minLengthAfterSplit ?? MinLengthAfterSplit;
     }
 
-    private int ResolveMinWidthOrHeight(int minLengthAfterSplit)
+    private static int ResolveMinWidthOrHeight(int minLengthAfterSplit)
     {
         return minLengthAfterSplit * 2 - 1;
     }

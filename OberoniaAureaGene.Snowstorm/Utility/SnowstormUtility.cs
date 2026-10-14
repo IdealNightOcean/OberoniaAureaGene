@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -294,7 +295,7 @@ public static class SnowstormUtility
             forced = true,
             target = Find.World
         };
-        OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
+        OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 
     public static void AddNewMapIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
@@ -309,6 +310,6 @@ public static class SnowstormUtility
             forced = true,
             target = targetMap
         };
-        OAFrame_MiscUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
+        OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 }

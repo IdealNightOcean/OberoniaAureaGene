@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +17,7 @@ public class IncidentWorker_SnowstormMaliceRaid_Hard : IncidentWorker_SnowstormM
             raidParms.points = Mathf.Min(points, 10000f);
             raidParms.faction = Faction.OfMechanoids;
             raidParms.raidStrategy = Snowstorm_RimWorldDefOf.ImmediateAttackBreaching;
-            return OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, raidParms);
+            return OAFrame_IncidentUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, raidParms);
         }
         else
         {

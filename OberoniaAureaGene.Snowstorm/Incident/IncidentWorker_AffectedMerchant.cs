@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Linq;
 using UnityEngine;
@@ -56,7 +57,7 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         parms.points = 1500;
     }
 
-    private bool TryConvertOnePawnToSmallTrader(Pawn pawn, Faction faction, Map map)
+    private static bool TryConvertOnePawnToSmallTrader(Pawn pawn, Faction faction, Map map)
     {
         if (!pawn.DevelopmentalStage.Adult())
         {
@@ -78,7 +79,8 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         }
         return true;
     }
-    protected Pawn SpawnPawn(IncidentParms parms)
+
+    protected static Pawn SpawnPawn(IncidentParms parms)
     {
         Map map = (Map)parms.target;
         PawnGroupMaker pawnGroupMaker = parms.faction.def.pawnGroupMakers.Where(p => p.kindDef == PawnGroupKindDefOf.Trader).RandomElementWithFallback(null);
@@ -96,7 +98,12 @@ public class IncidentWorker_AffectedMerchant : IncidentWorker_NeutralGroup
         };
         Pawn pawn = PawnGenerator.GeneratePawn(generationRequest);
         PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn, actAsIfSpawned: true);
-        pawn.AdjustOrAddHediff(OAGene_RimWorldDefOf.Hypothermia, 0.5f);
+        HediffGiveParams hediffGiveParams = new()
+        {
+            HediffToGive = OAGene_RimWorldDefOf.Hypothermia,
+            InitSeverity = 0.5f
+        };
+        pawn.GetOrAddHediff(hediffGiveParams);
 
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(parms.spawnCenter, map, 5);
         GenSpawn.Spawn(pawn, loc, map);

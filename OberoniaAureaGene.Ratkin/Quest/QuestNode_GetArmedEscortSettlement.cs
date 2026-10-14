@@ -116,7 +116,7 @@ public class QuestNode_GetArmedEscortSettlement : QuestNode
         return true;
     }
 
-    protected bool IsGoodSettlement(Settlement settlement, Faction faction, PlanetTile originTile, float maxDistance, out float distance)
+    protected static bool IsGoodSettlement(Settlement settlement, Faction faction, PlanetTile originTile, float maxDistance, out float distance)
     {
         distance = 999999f;
         if (settlement.Faction != faction || settlement.Tile.Layer != originTile.Layer || !settlement.Visitable)

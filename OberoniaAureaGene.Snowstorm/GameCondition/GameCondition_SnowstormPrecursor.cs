@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Linq;
 using Verse;
@@ -24,7 +24,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
             };
             try
             {
-                OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
+                OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormPrecursor_AnimalFlee, parms);
             }
             catch
             {
@@ -51,7 +51,7 @@ public class GameCondition_SnowstormPrecursor : GameCondition_TemperatureChange
         };
         try
         {
-            OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
+            OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_ExtremeSnowstorm, parms);
         }
         catch
         {

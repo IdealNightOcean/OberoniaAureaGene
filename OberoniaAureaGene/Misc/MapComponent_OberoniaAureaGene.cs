@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -81,7 +81,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             };
             try
             {
-                OAFrame_MiscUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
+                OAFrame_IncidentUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
             }
             catch
             {

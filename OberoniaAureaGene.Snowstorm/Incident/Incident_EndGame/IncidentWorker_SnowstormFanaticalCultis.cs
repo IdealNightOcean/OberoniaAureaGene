@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using Verse;
 
@@ -17,7 +17,7 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
         return map is not null;
     }
 
-    protected bool ResolveParms(IncidentParms parms)
+    protected static bool ResolveParms(IncidentParms parms)
     {
         if (!GameComponent_SnowstormStory.Instance.storyInProgress)
         {
@@ -47,8 +47,8 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
         IncidentParms raidParms2 = StorytellerUtility.DefaultParmsNow(raidCategory, parms.target);
         raidParms1.forced = true;
 
-        bool flag1 = OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms1);
-        bool flag2 = OAFrame_MiscUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms2);
+        bool flag1 = OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms1);
+        bool flag2 = OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms2);
 
         return flag1 || flag2;
     }

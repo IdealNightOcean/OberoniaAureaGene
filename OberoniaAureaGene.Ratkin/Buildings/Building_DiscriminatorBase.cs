@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.DataLibrary;
 using RimWorld;
 using System.Collections.Generic;
 using System.Text;
@@ -272,7 +272,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
             {
                 defaultLabel = "OAGene_CommandCancelWork".Translate(),
                 defaultDesc = "OAGene_CommandCancelWorkDesc".Translate(),
-                icon = OAFrame_IconUtility.CancelIcon,
+                icon = IconLibrary_OAFrame.CancelIcon,
                 action = CancelWork,
                 activateSound = SoundDefOf.Designate_Cancel
             };
@@ -299,7 +299,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 {
                     defaultLabel = "OAGene_CommandLoadDiscriminator".Translate(),
                     defaultDesc = "OAGene_CommandLoadDiscriminatorDesc".Translate(),
-                    icon = OAFrame_IconUtility.RecombineIcon,
+                    icon = IconLibrary_OAFrame.RecombineIcon,
                     activateSound = SoundDefOf.Designate_Cancel,
                     action = delegate
                     {
@@ -315,7 +315,7 @@ public abstract class Building_GeneDiscriminatorBase : Building
                 {
                     defaultLabel = "OAGene_CommandCancelLoad".Translate(),
                     defaultDesc = "OAGene_CommandCancelLoadDesc".Translate(),
-                    icon = OAFrame_IconUtility.CancelIcon,
+                    icon = IconLibrary_OAFrame.CancelIcon,
                     activateSound = SoundDefOf.Designate_Cancel,
                     action = CancelWork
                 };

@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using Verse;
 
@@ -12,12 +13,16 @@ public static class Snowstorm_MiscUtility
         return map?.GetComponent<MapComponent_Snowstorm>();
     }
 
+    private static readonly HediffGiveParams ColdPreparationHediffGiveParams = new();
+
     public static void SetColdPreparation(Pawn pawn, HediffDef coldPreparation)
     {
         pawn.health.AddHediff(coldPreparation);
         if (Rand.Chance(0.15f))
         {
-            pawn.AdjustOrAddHediff(HediffDefOf.AlcoholHigh, Rand.Range(0.1f, 0.5f));
+            ColdPreparationHediffGiveParams.HediffToGive = HediffDefOf.AlcoholHigh;
+            ColdPreparationHediffGiveParams.InitSeverity = Rand.Range(0.1f, 0.5f);
+            pawn.GetOrAddHediff(ColdPreparationHediffGiveParams);
         }
     }
 }

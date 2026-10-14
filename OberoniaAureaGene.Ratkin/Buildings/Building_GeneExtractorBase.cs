@@ -1,4 +1,4 @@
-﻿using OberoniaAurea_Frame;
+﻿using OberoniaAurea_Frame.DataLibrary;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -302,7 +302,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             {
                 defaultLabel = "CommandCancelExtraction".Translate(),
                 defaultDesc = "CommandCancelExtractionDesc".Translate(),
-                icon = OAFrame_IconUtility.CancelIcon,
+                icon = IconLibrary_OAFrame.CancelIcon,
                 action = CancelWork,
                 activateSound = SoundDefOf.Designate_Cancel
             };
@@ -324,7 +324,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
             {
                 defaultLabel = "CommandCancelLoad".Translate(),
                 defaultDesc = "CommandCancelLoadDesc".Translate(),
-                icon = OAFrame_IconUtility.CancelIcon,
+                icon = IconLibrary_OAFrame.CancelIcon,
                 activateSound = SoundDefOf.Designate_Cancel,
                 action = delegate
                 {
@@ -342,7 +342,7 @@ public abstract class Building_GeneExtractorBase : Building_Enterable, IThingHol
         {
             defaultLabel = CommandInsertPersonStr,
             defaultDesc = CommandInsertPersonDescStr,
-            icon = OAFrame_IconUtility.InsertPawnIcon,
+            icon = IconLibrary_OAFrame.InsertPawnIcon,
             action = FloatMenu_InsertPerson,
         };
         if (!PowerOn)

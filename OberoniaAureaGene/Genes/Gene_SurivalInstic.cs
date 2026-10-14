@@ -1,4 +1,5 @@
 ﻿using OberoniaAurea_Frame;
+using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -8,6 +9,11 @@ namespace OberoniaAureaGene;
 
 public class Gene_SurivalInstic : Gene
 {
+    private static readonly HediffGiveParams hediffGiveParams = new()
+    {
+        InitSeverity = 1.0f,
+        OverrideDisappearTicks = 500
+    };
     private static readonly List<IAttackTarget> TempTargets = [];
     public override void Tick()
     {
@@ -25,11 +31,15 @@ public class Gene_SurivalInstic : Gene
         float minDistance = TryGetValidTarget(pawn);
         if (minDistance <= 10f)
         {
-            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_SurvivalInstinct, 2.0f, 500);
+            hediffGiveParams.HediffToGive = OAGene_HediffDefOf.OAGene_SurvivalInstinct;
+            hediffGiveParams.InitSeverity = 2.0f;
+            pawn.GetOrAddHediff(hediffGiveParams);
         }
         else if (minDistance <= 20f)
         {
-            pawn.AdjustOrAddHediff(OAGene_HediffDefOf.OAGene_SurvivalInstinct, 1.0f, 500);
+            hediffGiveParams.HediffToGive = OAGene_HediffDefOf.OAGene_SurvivalInstinct;
+            hediffGiveParams.InitSeverity = 1.0f;
+            pawn.GetOrAddHediff(hediffGiveParams);
         }
     }
 

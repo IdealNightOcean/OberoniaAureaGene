@@ -11,7 +11,7 @@ public class IncidentWorker_CommunicationTowerCollapse : IncidentWorker
         return SnowstormUtility.IsSnowExtremeWeather(map);
     }
 
-    public bool TryResolveParms(IncidentParms parms)
+    public static bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
         return SnowstormUtility.IsSnowExtremeWeather(map);

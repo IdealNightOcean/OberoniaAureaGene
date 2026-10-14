@@ -13,7 +13,7 @@ public class OberoniaAureaGene_Mod : Mod
         Settings = GetSettings<OberoniaAureaGene_Settings>();
     }
 
-    public override void DoSettingsWindowContents(Rect inRect) => Settings.DoSettingsWindowContents(inRect);
+    public override void DoSettingsWindowContents(Rect inRect) => OberoniaAureaGene_Settings.DoSettingsWindowContents(inRect);
 
     public override string SettingsCategory() => "OberoniaAureaGene".Translate();
 }
@@ -31,7 +31,7 @@ public class OberoniaAureaGene_Settings : ModSettings
 
     public static bool DodgeChancePatch = true;
 
-    public void DoSettingsWindowContents(Rect inRect)
+    public static void DoSettingsWindowContents(Rect inRect)
     {
         Rect viewRect = new(inRect.x, inRect.y, inRect.width * 0.6f, inRect.height);
 

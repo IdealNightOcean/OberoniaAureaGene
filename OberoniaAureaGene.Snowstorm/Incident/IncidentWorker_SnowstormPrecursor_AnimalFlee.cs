@@ -14,7 +14,7 @@ internal class IncidentWorker_SnowstormPrecursor_AnimalFlee : IncidentWorker
         return map is not null;
     }
 
-    public bool TryResolveParms(IncidentParms parms)
+    public static bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
         return map is not null;

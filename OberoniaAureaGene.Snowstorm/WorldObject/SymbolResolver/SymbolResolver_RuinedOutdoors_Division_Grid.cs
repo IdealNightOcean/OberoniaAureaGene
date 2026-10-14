@@ -88,7 +88,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Grid : SymbolResolver
         }
     }
 
-    private int GetRoomSize(int roomsPerRow, int pathwayWidth, int totalLength)
+    private static int GetRoomSize(int roomsPerRow, int pathwayWidth, int totalLength)
     {
         int num = totalLength - (roomsPerRow - 1) * pathwayWidth;
         if (num % roomsPerRow != 0)

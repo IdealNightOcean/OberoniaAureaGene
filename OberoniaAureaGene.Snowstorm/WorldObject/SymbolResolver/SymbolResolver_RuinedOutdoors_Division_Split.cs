@@ -66,7 +66,7 @@ public class SymbolResolver_RuinedOutdoors_Division_Split : SymbolResolver_BaseP
             BaseGen.symbolStack.Push("oagene_RuinedOutdoors", resolveParams3);
         }
     }
-    private bool TryFindSplitPoint(bool horizontal, CellRect rect, out int splitPoint, out int spaceBetween)
+    private static bool TryFindSplitPoint(bool horizontal, CellRect rect, out int splitPoint, out int spaceBetween)
     {
         int num = horizontal ? rect.Height : rect.Width;
         spaceBetween = SpaceBetweenRange.RandomInRange;

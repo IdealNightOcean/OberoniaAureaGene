@@ -53,7 +53,7 @@ public class SymbolResolver_RuinedEmptyRoom : SymbolResolver
         }
     }
 
-    private Thing TrySpawnWall(IntVec3 c, ResolveParams rp)
+    private static Thing TrySpawnWall(IntVec3 c, ResolveParams rp)
     {
         Map map = BaseGen.globalSettings.map;
         List<Thing> thingList = c.GetThingList(map);

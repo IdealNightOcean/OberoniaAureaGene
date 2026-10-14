@@ -14,7 +14,7 @@ public class IncidentWorker_MakeGameCondition_IcaRain : IncidentWorker_MakeGameC
         }
         return base.CanFireNowSub(parms);
     }
-    public bool TryResolveParms(IncidentParms parms)
+    public static bool TryResolveParms(IncidentParms parms)
     {
         Map map = (Map)parms.target;
         return !SnowstormUtility.IsSnowExtremeWeather(map);

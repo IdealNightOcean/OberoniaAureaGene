@@ -52,7 +52,7 @@ public class SymbolResolver_Hometown : SymbolResolver
             BaseGen.symbolStack.Push("unpollute", resolveParams5);
         }
     }
-    private void SpawnSpecialThing(ResolveParams rp)
+    private static void SpawnSpecialThing(ResolveParams rp)
     {
         ResolveParams resolveParams1 = rp;
         resolveParams1.singleThingDef = Snowstorm_ThingDefOf.OAGene_Plant_SnowyCrystalTree_Seed;

@@ -60,7 +60,7 @@ public class GameComponent_Snowstorm : GameComponent
         lastSnowstormEndTick = Find.TickManager.TicksGame;
     }
 
-    private void TempNullParmsTargetFix()
+    private static void TempNullParmsTargetFix()
     {
         try
         {
