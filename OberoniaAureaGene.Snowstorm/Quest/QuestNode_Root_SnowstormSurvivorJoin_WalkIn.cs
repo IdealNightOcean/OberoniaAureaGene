@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using OberoniaAureaGene.Ratkin;
+﻿using OberoniaAureaGene.Ratkin;
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
@@ -22,7 +21,7 @@ public class QuestNode_Root_SnowstormSurvivorJoins_WalkIn : QuestNode_Root_Wande
         Slate slate = QuestGen.slate;
         if (!slate.TryGet("overridePawnGenParams", out PawnGenerationRequest request))
         {
-            request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(OAGene_RatkinDefOf.RatkinVagabond);
+            request = OberoniaAurea_Frame.Utility.OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(OAGene_RatkinDefOf.RatkinVagabond);
         }
         request.KindDef = OAGene_RatkinDefOf.RatkinVagabond;
         request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];

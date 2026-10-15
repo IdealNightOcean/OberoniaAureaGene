@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractWithFixedCara
 
     public override bool StartWork(Caravan caravan)
     {
-        Dialog_NodeTree nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree
+        Dialog_NodeTree nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTree
         (
             "OAGene_IceCrystalFlowerSea_Text".Translate(),
             "OAGene_IceCrystalFlowerSea_Confirm".Translate(TicksNeeded.ToStringTicksToPeriod(shortForm: true)),
@@ -29,15 +28,15 @@ public class WorldObject_IceCrystalFlowerSea : WorldObject_InteractWithFixedCara
 
     protected override void FinishWork()
     {
-        IEnumerable<Thing> rewards = OAFrame_ThingUtility.GenerateThingsSplitByStack(Snowstorm_ThingDefOf.OAGene_IceCrystal, Rand.RangeInclusive(550, 650));
-        OAFrame_FixedCaravanUtility.GiveThings(associatedFixedCaravan, rewards);
+        IEnumerable<Thing> rewards = OberoniaAurea_Frame.Utility.OAFrame_ThingUtility.GenerateThingsSplitByStack(Snowstorm_ThingDefOf.OAGene_IceCrystal, Rand.RangeInclusive(550, 650));
+        OberoniaAurea_Frame.Utility.OAFrame_FixedCaravanUtility.GiveThings(associatedFixedCaravan, rewards);
 
         foreach (Pawn pawn in associatedFixedCaravan.PawnsListForReading)
         {
             pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_IceCrystalFlowerSea);
             pawn.needs.mood?.thoughts.memories.TryGainMemory(Snowstorm_ThoughtDefOf.OAGene_Thought_IceCrystalFlowerSea);
         }
-        Dialog_NodeTree nodeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree("OAGene_IceCrystalFlowerSea_Finished".Translate());
+        Dialog_NodeTree nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.DefaultConfirmDiaNodeTree("OAGene_IceCrystalFlowerSea_Finished".Translate());
         Find.WindowStack.Add(nodeTree);
 
         Destroy();

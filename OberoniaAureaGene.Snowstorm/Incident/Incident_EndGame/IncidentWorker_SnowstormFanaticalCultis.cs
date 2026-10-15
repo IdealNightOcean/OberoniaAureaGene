@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene.Snowstorm;
@@ -47,8 +46,8 @@ public class IncidentWorker_SnowstormFanaticalCultis : IncidentWorker
         IncidentParms raidParms2 = StorytellerUtility.DefaultParmsNow(raidCategory, parms.target);
         raidParms1.forced = true;
 
-        bool flag1 = OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms1);
-        bool flag2 = OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms2);
+        bool flag1 = OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms1);
+        bool flag2 = OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormCultistRaid, raidParms2);
 
         return flag1 || flag2;
     }

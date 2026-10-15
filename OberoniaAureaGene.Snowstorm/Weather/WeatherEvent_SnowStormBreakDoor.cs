@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -40,12 +39,12 @@ public class WeatherEvent_SnowStormBreakDoor : WeatherEvent
         }
         List<Building_Door> targetDoors = potentialDoors.Take(Rand.Bool ? 1 : 2).ToList();
         LookTargetCells.Clear();
-        MethodInfo DoorOpenInfo = typeof(Building_Door).GetMethod("DoorOpen", OAFrame_ReflectionUtility.InstanceAttr);
+        MethodInfo DoorOpenInfo = typeof(Building_Door).GetMethod("DoorOpen", OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.InstanceAttr);
         foreach (Building_Door door in targetDoors)
         {
             LookTargetCells.Add(new TargetInfo(door.Position, map));
             DoorOpenInfo.Invoke(door, parameters: [110]);
-            OAFrame_ReflectionUtility.SetFieldValue(door, "holdOpenInt", true);
+            OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.SetFieldValue(door, "holdOpenInt", true);
             door.TakeDamage(new DamageInfo(DamageDefOf.Crush, 60f));
         }
         Messages.Message("OAGene_MessageSnowstormBreakDoor".Translate(), new LookTargets(LookTargetCells), MessageTypeDefOf.NegativeEvent);

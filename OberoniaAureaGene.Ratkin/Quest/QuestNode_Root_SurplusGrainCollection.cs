@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
@@ -113,13 +112,13 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         },
         debugLabel: "[OAGene]强制失败（用于清理错误任务）");
 
-        Faction questFaction = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction());
+        Faction questFaction = OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.IsRatkinKindomFaction(f));
         if (questFaction is null)
         {
             QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
             return;
         }
-        Faction originalFation = OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f != questFaction && f.IsRatkinKindomFaction());
+        Faction originalFation = OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableFactionOf(FactionValidationParams.DefaultFaction, (f) => f != questFaction && OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.IsRatkinKindomFaction(f));
         if (originalFation is null)
         {
             QuestGen_End.End(quest, QuestEndOutcome.Unknown, sendStandardLetter: false, playSound: false);
@@ -211,7 +210,7 @@ public class QuestNode_Root_SurplusGrainCollection : QuestNode
         if (QuestGen_Get.GetMap() is null)
             return false;
 
-        return OAFrame_FactionUtility.GetAvailableFactionsOf(FactionValidationParams.DefaultFaction, (f) => f.IsRatkinKindomFaction())
+        return OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GetAvailableFactionsOf(FactionValidationParams.DefaultFaction, (f) => OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.IsRatkinKindomFaction(f))
                                      .Skip(1)
                                      .Any();
     }

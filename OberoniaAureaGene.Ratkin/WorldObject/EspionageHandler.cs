@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using System;
@@ -44,7 +43,7 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
             return;
         }
 
-        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, AssociatedSite);
+        FixCaravan_EspionageSite fixedCaravan = (FixCaravan_EspionageSite)OberoniaAurea_Frame.Utility.OAFrame_FixedCaravanUtility.CreateFixedCaravan(caravan, OAGene_RatkinDefOf.OAGene_FixedCaravan_Espionage, AssociatedSite);
         if (fixedCaravan is null)
         {
             CancelWork();
@@ -77,7 +76,7 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
 
         if (convertToCaravan && associatedFixedCaravan is not null)
         {
-            OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
+            OberoniaAurea_Frame.Utility.OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
         }
         Reset();
     }
@@ -89,7 +88,7 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
             return;
         }
 
-        Caravan caravan = OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
+        Caravan caravan = OberoniaAurea_Frame.Utility.OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
         associatedFixedCaravan = null;
         TryGetOutCome(caravan);
     }
@@ -111,7 +110,7 @@ public class EspionageHandler(Site site) : IExposable, IFixedCaravanAssociate
         {
             if (associatedFixedCaravan is not null)
             {
-                OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
+                OberoniaAurea_Frame.Utility.OAFrame_FixedCaravanUtility.ConvertToCaravan(associatedFixedCaravan);
             }
             Reset();
         }

@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -41,7 +40,7 @@ public class IncidentWorker_SnowstormThrumboWanderIn : IncidentWorker
     private static void SpawnThrumbo(IntVec3 location, Map map)
     {
         IntVec3 loc = CellFinder.RandomClosewalkCellNear(location, map, 12);
-        Pawn pawn = PawnGenerator.GeneratePawn(OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Thrumbo));
+        Pawn pawn = PawnGenerator.GeneratePawn(OberoniaAurea_Frame.Utility.OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Thrumbo));
         GenSpawn.Spawn(pawn, loc, map, Rot4.Random);
         pawn.SetFaction(Faction.OfPlayer);
         pawn.health.AddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_SpecialThrumbo);

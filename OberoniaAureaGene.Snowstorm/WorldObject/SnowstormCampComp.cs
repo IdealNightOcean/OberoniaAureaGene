@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
@@ -46,7 +45,7 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else if (curType == SnowstormCampType.Firendly)
         {
-            Dialog_NodeTreeWithFactionInfo nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+            Dialog_NodeTreeWithFactionInfo nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
                 text: "OAGene_SnowstormCamp_Firendly".Translate(),
                 faction: parent.Faction,
                 acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
@@ -59,7 +58,7 @@ public class SnowstormCampComp : WorldObjectComp
         }
         else if (curType == SnowstormCampType.Hostile)
         {
-            Dialog_NodeTreeWithFactionInfo nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+            Dialog_NodeTreeWithFactionInfo nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
                 text: "OAGene_SnowstormCamp_Hostile".Translate(),
                 faction: parent.Faction,
                 acceptText: "Attack".Translate(),
@@ -86,7 +85,7 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyAndGift".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+            nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
                 text: text,
                 faction: parent.Faction,
                 acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
@@ -101,7 +100,7 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Firendly;
             InitInnerTrader();
             text = "OAGene_SnowstormCamp_FirendlyFirst".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+            nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
                 text: text,
                 faction: parent.Faction,
                 acceptText: "OAGene_SnowstormCamp_Trade".Translate(),
@@ -117,7 +116,7 @@ public class SnowstormCampComp : WorldObjectComp
             curType = SnowstormCampType.Hostile;
             innerTrader = null;
             text = "OAGene_SnowstormCamp_HostileFirst".Translate();
-            nodeTree = OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
+            nodeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTreeWithFactionInfo(
                 text: text,
                 faction: parent.Faction,
                 acceptText: "Attack".Translate(),

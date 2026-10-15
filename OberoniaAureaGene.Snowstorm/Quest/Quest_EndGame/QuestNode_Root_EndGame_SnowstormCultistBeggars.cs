@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -15,15 +14,15 @@ public class QuestNode_Root_EndGame_SnowstormCultistBeggars : QuestNode
     protected static Faction TryResolveFaction()
     {
         Faction faction = null;
-        faction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
-        faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
+        faction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
+        faction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         faction ??= Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false);
         return faction;
     }
 
     protected static Pawn GeneratePawn(Quest quest, Faction faction)
     {
-        PawnGenerationRequest request = OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Beggar, faction, forceNew: true);
+        PawnGenerationRequest request = OberoniaAurea_Frame.Utility.OAFrame_PawnGenerateUtility.CommonPawnGenerationRequest(PawnKindDefOf.Beggar, faction, forceNew: true);
         request.MustBeCapableOfViolence = true;
         request.ForceAddFreeWarmLayerIfNeeded = true;
         request.ForcedTraits = [OAGene_MiscDefOf.OAGene_ExtremeSnowSurvivor];

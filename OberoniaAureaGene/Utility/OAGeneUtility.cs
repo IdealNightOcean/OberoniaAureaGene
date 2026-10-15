@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -66,7 +65,7 @@ public static class OAGeneUtility
         {
             return;
         }
-        List<CompBreakdownable> breakdownableComps = OAFrame_ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
+        List<CompBreakdownable> breakdownableComps = OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.GetFieldValue<List<CompBreakdownable>>(breakdownManager, "comps", null);
         if (breakdownableComps is null)
         {
             return;

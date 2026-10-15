@@ -34,7 +34,7 @@ public class Gene_ObeyOrderBase : Gene
         base.PostRemove();
         if (HediffRecord.hediffToWholeBody is not null)
         {
-            pawn.RemoveFirstHediffOfDef(HediffRecord.hediffToWholeBody);
+            OberoniaAurea_Frame.Utility.OAFrame_PawnUtility.RemoveFirstHediffOfDef(pawn, HediffRecord.hediffToWholeBody);
         }
     }
 

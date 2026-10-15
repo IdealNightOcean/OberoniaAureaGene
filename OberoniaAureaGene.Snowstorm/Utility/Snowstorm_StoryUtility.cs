@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Linq;
@@ -97,7 +96,7 @@ public static class Snowstorm_StoryUtility
             return false;
         }
 
-        bool result = OAFrame_QuestUtility.TryGenerateQuestAndMakeAvailable(
+        bool result = OberoniaAurea_Frame.Utility.OAFrame_QuestUtility.TryGenerateQuestAndMakeAvailable(
                quest: out Quest quest,
                scriptDef: Snowstorm_MiscDefOf.OAGene_EndGame_Homecoming,
                slate: new Slate());

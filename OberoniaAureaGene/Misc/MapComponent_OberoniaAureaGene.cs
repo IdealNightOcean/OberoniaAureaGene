@@ -81,7 +81,7 @@ public class MapComponent_OberoniaAureaGene : MapComponent
             };
             try
             {
-                OAFrame_IncidentUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
+                OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.TryFireIncidentNow(IncidentDefOf.RaidEnemy, incidentParms);
             }
             catch
             {

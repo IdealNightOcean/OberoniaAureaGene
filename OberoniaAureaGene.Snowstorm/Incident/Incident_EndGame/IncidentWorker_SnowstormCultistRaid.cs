@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -30,8 +29,8 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             Faction tempFaction = null;
             if (GameComponent_SnowstormStory.Instance.satisfySnowstormCultist)
             {
-                tempFaction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
-                tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
+                tempFaction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
+                tempFaction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Ally);
                 if (tempFaction is not null)
                 {
                     tempFaction.factionHostileOnHarmByPlayer = false;
@@ -43,8 +42,8 @@ public class IncidentWorker_SnowstormCultistRaid : IncidentWorker_RaidEnemy
             }
             else
             {
-                tempFaction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.HostileNormalFaction);
-                tempFaction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Hostile);
+                tempFaction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.HostileNormalFaction);
+                tempFaction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil, FactionRelationKind.Hostile);
                 tempFaction ??= Find.FactionManager.RandomEnemyFaction(allowNonHumanlike: false);
             }
             if (tempFaction is null)

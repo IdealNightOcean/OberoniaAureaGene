@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
@@ -214,7 +213,7 @@ public static class SnowstormUtility
         {
             AllTemporary = true
         };
-        Faction faction = OAFrame_FactionUtility.RandomAvailableFactionOfDef(FactionDefOf.Pirate, validationParams);
+        Faction faction = OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableFactionOfDef(FactionDefOf.Pirate, validationParams);
         if (faction is not null)
         {
             return faction;
@@ -226,7 +225,7 @@ public static class SnowstormUtility
          select f).TryRandomElement(out faction);
 
         //如果没有，创建临时海盗派系
-        faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.Pirate, FactionRelationKind.Hostile);
+        faction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.Pirate, FactionRelationKind.Hostile);
 
         return faction;
 
@@ -295,7 +294,7 @@ public static class SnowstormUtility
             forced = true,
             target = Find.World
         };
-        OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
+        OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 
     public static void AddNewMapIncident(IncidentDef incidentDef, Map targetMap, int delayTicks)
@@ -310,6 +309,6 @@ public static class SnowstormUtility
             forced = true,
             target = targetMap
         };
-        OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
+        OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.AddNewQueuedIncident(incidentDef, delayTicks, parms);
     }
 }

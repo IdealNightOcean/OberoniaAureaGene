@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using RimWorld.Planet;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ public class SitePartWorker_SnowstormRaidSource : SitePartWorker_Outpost
         IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
         incidentParms.faction = sitePart.site.Faction;
         incidentParms.forced = true;
-        if (OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid, incidentParms))
+        if (OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.TryFireIncidentNow(Snowstorm_IncidentDefOf.OAGene_SnowstormMaliceRaid, incidentParms))
         {
             sitePart.lastRaidTick = Find.TickManager.TicksGame;
         }

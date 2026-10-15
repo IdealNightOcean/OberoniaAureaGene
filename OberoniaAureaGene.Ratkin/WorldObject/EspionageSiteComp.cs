@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
 using Verse;
@@ -84,7 +83,7 @@ public class EspionageSiteComp : WorldObjectComp
         if (activeEspionage && !espionageSuccess)
         {
             Site site = Site;
-            bool allEnemiesDefeated = OAFrame_ReflectionUtility.GetFieldValue(site, "allEnemiesDefeatedSignalSent", fallback: false);
+            bool allEnemiesDefeated = OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.GetFieldValue(site, "allEnemiesDefeatedSignalSent", fallback: false);
             if (allEnemiesDefeated)
             {
                 QuestUtility.SendQuestTargetSignals(site.questTags, "OAGene_EspionageSuccess", site.Named("SUBJECT"));

@@ -1,5 +1,4 @@
 ﻿using OberoniaAurea_Frame;
-using OberoniaAurea_Frame.Utility;
 using RimWorld;
 using RimWorld.Planet;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
 
     protected override bool TryResolveFaction(IncidentParms parms)
     {
-        parms.faction ??= OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
-        parms.faction ??= OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
+        parms.faction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.RandomAvailableTempFactionOfDef(FactionDefOf.OutlanderCivil, FactionValidationParams.NonHostileNormalFaction);
+        parms.faction ??= OberoniaAurea_Frame.Utility.OAFrame_FactionUtility.GenerateTempFaction(FactionDefOf.OutlanderCivil);
         if (parms.faction is not null)
         {
             parms.faction.factionHostileOnHarmByPlayer = true;
@@ -59,7 +58,7 @@ public class IncidentWorker_SnowstormCultistArrival : IncidentWorker_IsolatedTra
             else
             {
                 int delayTicks = snowstorm.TicksLeft + Rand.RangeInclusive(30000, 120000);
-                OAFrame_IncidentUtility.AddNewQueuedIncident(def, delayTicks, parms);
+                OberoniaAurea_Frame.Utility.OAFrame_IncidentUtility.AddNewQueuedIncident(def, delayTicks, parms);
                 return true;
             }
         }

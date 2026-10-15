@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
@@ -38,7 +37,7 @@ public class CompSpecialCampfire : ThingComp
         if (refuelable is not null)
         {
             refuelable.allowAutoRefuel = false;
-            OAFrame_ReflectionUtility.SetFieldValue(refuelable, "fuel", 0f);
+            OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.SetFieldValue(refuelable, "fuel", 0f);
         }
         specialCampfire = true;
         firstRefueled = true;

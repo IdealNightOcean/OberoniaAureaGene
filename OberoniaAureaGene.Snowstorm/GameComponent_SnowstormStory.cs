@@ -244,12 +244,12 @@ public class GameComponent_SnowstormStory : GameComponent
                 Dialog_NodeTree outcomeTree;
                 if (protagonist is null)
                 {
-                    outcomeTree = OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
+                    outcomeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.ConfirmDiaNodeTree("OAGene_ResetProtagonistFail".Translate(), "Confirm".Translate(), null, "OAFrame_DonotShowAgain".Translate(), delegate { showNoProtagonistWarning = false; });
                 }
                 else
                 {
                     string successText = forceReset ? "OAGene_ResetProtagonistSuccessForce" : "OAGene_ResetProtagonistSuccess";
-                    outcomeTree = OAFrame_DiaUtility.DefaultConfirmDiaNodeTree(successText.Translate(protagonist.Named("PAWN")));
+                    outcomeTree = OberoniaAurea_Frame.Utility.OAFrame_DiaUtility.DefaultConfirmDiaNodeTree(successText.Translate(protagonist.Named("PAWN")));
                     if (LongingForHome)
                     {
                         protagonist.health.GetOrAddHediff(Snowstorm_HediffDefOf.OAGene_Hediff_ProtagonistHomecoming);

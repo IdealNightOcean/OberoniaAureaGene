@@ -1,5 +1,4 @@
-﻿using OberoniaAurea_Frame.Utility;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace OberoniaAureaGene;
@@ -43,7 +42,7 @@ public class MapComponent_LongSnowstorm : MapComponent
         {
             weatherManager.TransitionTo(OAGene_RimWorldDefOf.SnowHard);
             int duration = ForeSnowDuration.RandomInRange;
-            OAFrame_ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", duration);
+            OberoniaAurea_Frame.Utility.OAFrame_ReflectionUtility.SetFieldValue(map.weatherDecider, "curWeatherDuration", duration);
             Notify_Snow(duration);
             return;
         }
